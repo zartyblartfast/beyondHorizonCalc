@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/observer.png
     - assets/svg_diagram.svg
+    - assets/source_file.svg
     - assets/slides/
   #   - images/a_dot_ham.jpeg
 

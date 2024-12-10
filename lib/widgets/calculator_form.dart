@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'earth_curve_diagram.dart';
 import '../models/line_of_sight_preset.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'long_line_info_dialog.dart';
 
 class CalculatorForm extends StatefulWidget {

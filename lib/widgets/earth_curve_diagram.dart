@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:typed_data';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_math/vector_math.dart' as vector_math;
 import 'package:vector_math/vector_math_64.dart' as vm64;
+// import 'dart:typed_data';
 
 class EarthCurveDiagram extends StatefulWidget {
   final double observerHeight;
@@ -35,10 +33,13 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
         final maxWidth = constraints.maxWidth * 0.8;
         final size = Size(maxWidth, maxWidth * (283.46457 / 566.92913));
         return Center(
-          child: SvgPicture.asset(
-            'assets/svg_diagram.svg',
+          child: SizedBox(
             width: size.width,
             height: size.height,
+            child: SvgPicture.asset(
+              'assets/source_file.svg',
+              fit: BoxFit.contain,
+            ),
           ),
         );
       },
@@ -52,7 +53,7 @@ class _DiagramColors {
   final Color lines;
   final Color ground;
 
-  _DiagramColors(BuildContext context) :
+  const _DiagramColors(BuildContext context) :
     earth = const Color.fromRGBO(30, 28, 193, 1),
     labels = const Color.fromRGBO(247, 47, 58, 1),
     lines = Colors.black,
@@ -68,7 +69,7 @@ class _EarthCurvePainter extends CustomPainter {
   final _DiagramColors colors;
   final ui.Image? observerImage;
 
-  _EarthCurvePainter({
+  const _EarthCurvePainter({
     required this.observerHeight,
     required this.distanceToHorizon,
     required this.totalDistance,
@@ -86,8 +87,9 @@ class _EarthCurvePainter extends CustomPainter {
     final scale = math.min(scaleX, scaleY);
     
     // Main circle constants from SVG
-    final circleRadius = 129.88826;
-    final circleTransform = vm64.Matrix4(
+    const circleRadius = 129.88826;
+    final vm64.Matrix4 circleTransform;
+    circleTransform = vm64.Matrix4(
       1.6819826443 * scaleX, 0, 0, 0,
       0, 1.6736017774 * scaleY, 0, 0,
       0, 0, 1, 0,
@@ -128,9 +130,8 @@ class _EarthCurvePainter extends CustomPainter {
     );
 
     // Calculate points relative to origin
-    final angleA = -5 * math.pi / 60;  // -15 degrees
-    final angleB = 0.0;  // Vertical line
-    final angleC = -math.pi / 4;  // -45 degrees
+    const angleA = -5 * math.pi / 60;  // -15 degrees
+    const angleC = -math.pi / 4;  // -45 degrees
     
     // Calculate points on circumference
     final pointA = Offset(
@@ -315,7 +316,12 @@ class _EarthCurvePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant _EarthCurvePainter oldDelegate) {
+    return oldDelegate.observerHeight != observerHeight ||
+           oldDelegate.distanceToHorizon != distanceToHorizon ||
+           oldDelegate.totalDistance != totalDistance ||
+           oldDelegate.hiddenHeight != hiddenHeight ||
+           oldDelegate.visibleDistance != visibleDistance ||
+           oldDelegate.observerImage != observerImage;
   }
 }
