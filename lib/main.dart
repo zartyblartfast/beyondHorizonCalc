@@ -90,28 +90,28 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Left side - Calculator
-              const Expanded(
-                flex: 1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Left side - Calculator
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Calculate the effects of Earth\'s curvature on visibility',
-                      style: TextStyle(fontSize: 16),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    SizedBox(height: 24),
-                    CalculatorForm(),
+                    const SizedBox(height: 24),
+                    const CalculatorForm(),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

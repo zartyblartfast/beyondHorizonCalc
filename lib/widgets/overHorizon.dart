@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class OverHorizon extends StatelessWidget {
   final Size size;
@@ -19,7 +18,7 @@ class OverHorizon extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: size,
-      painter: RPSCustomPainter(
+      painter: OverHorizonPainter(
         earthColor: earthColor,
         lineColor: lineColor,
         groundColor: groundColor,
@@ -28,12 +27,12 @@ class OverHorizon extends StatelessWidget {
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
+class OverHorizonPainter extends CustomPainter {
   final Color earthColor;
   final Color lineColor;
   final Color groundColor;
 
-  RPSCustomPainter({
+  OverHorizonPainter({
     required this.earthColor,
     required this.lineColor,
     required this.groundColor,
@@ -54,22 +53,20 @@ class RPSCustomPainter extends CustomPainter {
     path_0.cubicTo(-129.88826,-71.69832,-71.69832,-129.88826,0,-129.88826);
     path_0.close();
 
-    Paint paint_0_stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
+    final paintStroke1 = Paint()
       ..color = earthColor
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(path_0, paint_0_stroke);
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawPath(path_0, paintStroke1);
 
     Path path_1 = Path();
     path_1.moveTo(0,0);
 
-    Paint paint_1_stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
+    final paintStroke2 = Paint()
       ..color = lineColor
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(path_1, paint_1_stroke);
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawPath(path_1, paintStroke2);
 
     Path path_2 = Path();
     path_2.moveTo(-64.87743,108.94061);
@@ -77,23 +74,21 @@ class RPSCustomPainter extends CustomPainter {
     path_2.lineTo(154.09238,-108.94061999999998);
     path_2.close();
 
-    Paint paint_2_stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
+    final paintStroke3 = Paint()
       ..color = lineColor
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(path_2, paint_2_stroke);
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawPath(path_2, paintStroke3);
 
     Path path_4 = Path();
     path_4.moveTo(0,108.94061);
     path_4.lineTo(0,-108.94061999999998);
 
-    Paint paint_4_stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
+    final paintStroke4 = Paint()
       ..color = lineColor
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(path_4, paint_4_stroke);
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawPath(path_4, paintStroke4);
 
     Path path_5 = Path();
     path_5.moveTo(-150.2856,8.14071);
@@ -108,12 +103,11 @@ class RPSCustomPainter extends CustomPainter {
     path_5.lineTo(148.59785,4.326840000000001);
     path_5.lineTo(150.28561,8.14071);
 
-    Paint paint_5_stroke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
+    final paintStroke5 = Paint()
       ..color = groundColor
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPath(path_5, paint_5_stroke);
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawPath(path_5, paintStroke5);
   }
 
   @override
