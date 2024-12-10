@@ -49,9 +49,9 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('About Earth Curvature Calculator'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const [
+              children: [
                 Text('This calculator helps you understand how Earth\'s curvature affects visibility over distance.'),
                 SizedBox(height: 16),
                 Text('Features:'),
