@@ -29,12 +29,20 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
         final maxWidth = constraints.maxWidth * 0.8;
         final size = Size(maxWidth, maxWidth * (283.46457 / 566.92913));
         return Center(
-          child: SizedBox(
+          child: Container(
             width: size.width,
             height: size.height,
+            color: Colors.transparent,
             child: SvgPicture.asset(
-              'assets/source_file.svg',
+              'assets/svg_diagram.svg',
               fit: BoxFit.contain,
+              colorFilter: ColorFilter.mode(
+                Colors.transparent,
+                BlendMode.dst,
+              ),
+              placeholderBuilder: (BuildContext context) => Container(
+                color: Colors.transparent,
+              ),
             ),
           ),
         );
