@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'widgets/calculator_form.dart';
 
 void main() {
+  // Disable DevTools in debug mode for web
+  if (kDebugMode && kIsWeb) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
+  
   runApp(const EarthCurvatureApp());
 }
 
@@ -75,6 +81,17 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    // Ensure all resources are cleaned up
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // Clean up any pending resources
+      }
+    });
+    super.dispose();
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../core/calculations.dart';
+import '../utils/svg_helper.dart';
 import 'dart:math' as math;
 
 class EarthCurveDiagram extends StatefulWidget {
@@ -25,6 +25,12 @@ class EarthCurveDiagram extends StatefulWidget {
 
 class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
   @override
+  void dispose() {
+    // Clean up any resources
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -37,16 +43,8 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
                 width: size.width,
                 height: size.height,
                 color: Colors.transparent,
-                child: SvgPicture.asset(
+                child: SvgHelper.loadSvg(
                   'assets/svg_diagram.svg',
-                  fit: BoxFit.contain,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.transparent,
-                    BlendMode.dst,
-                  ),
-                  placeholderBuilder: (BuildContext context) => Container(
-                    color: Colors.transparent,
-                  ),
                 ),
               ),
               Positioned(
