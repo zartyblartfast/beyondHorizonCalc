@@ -1,4 +1,4 @@
-# earth_curve_calculator
+# BeyondHorizonCalc
 
 A new Flutter project.
 

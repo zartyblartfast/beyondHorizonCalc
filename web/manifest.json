@@ -1,6 +1,6 @@
 {
-    "name": "earth_curve_calculator",
-    "short_name": "earth_curve_calculator",
+    "name": "BeyondHorizonCalc",
+    "short_name": "BeyondHorizonCalc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

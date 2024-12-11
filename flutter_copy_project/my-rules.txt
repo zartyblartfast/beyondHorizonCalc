@@ -1,0 +1,11 @@
+# app name
+BeyondHorizonCalc -> BeyondHorizonCalc
+
+# package name (if you want to change it)
+com.example.BeyondHorizonCalc->com.example.BeyondHorizonCalc
+
+# package directory(windows)
+\com\example\BeyondHorizonCalc->\com\example\BeyondHorizonCalc
+
+# package directory(linux)
+/com/example/BeyondHorizonCalc->/com/example/BeyondHorizonCalc

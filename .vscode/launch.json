@@ -2,13 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "earth_curve_calculator (development)",
+            "name": "BeyondHorizonCalc (development)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug"
         },
         {
-            "name": "earth_curve_calculator (release)",
+            "name": "BeyondHorizonCalc (release)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
