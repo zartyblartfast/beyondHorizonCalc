@@ -35,6 +35,7 @@ dependencies:
   fl_chart: ^0.65.0     # For curve visualization
   flutter_svg: ^2.0.9   # For SVG rendering
   vector_math: ^2.1.4   # For vector and matrix operations
+  meta: ^1.11.0         # For additional annotations
 
 dev_dependencies:
   flutter_test:
