@@ -14,8 +14,21 @@ class EarthCurveCalculator {
   }
 
   /// Calculate geometric dip angle
-  static double calculateGeometricDip(double observerHeight) {
-    return math.acos(AppConstants.earthRadius / (AppConstants.earthRadius + observerHeight));
+  /// 
+  /// For an observer at height h above sea level, the geometric dip angle is:
+  /// dip = arccos(R / (R + h)) where R is Earth's radius
+  /// This can be approximated as: dip ≈ 0.0293 * sqrt(h) where h is in meters
+  /// 
+  /// @param heightMeters Observer's height above sea level in meters
+  /// @return The geometric dip angle in degrees
+  static double calculateGeometricDip(double heightMeters) {
+    // Convert Earth's radius to meters for the calculation
+    const double earthRadiusMeters = AppConstants.earthRadius * 1000;
+    
+    // Using the exact formula
+    double dip = math.acos(earthRadiusMeters / (earthRadiusMeters + heightMeters));
+    // Convert from radians to degrees
+    return dip * (180 / math.pi);
   }
 
   /// Convert kilometers to miles

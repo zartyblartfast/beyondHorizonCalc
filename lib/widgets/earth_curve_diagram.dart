@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../core/constants.dart';
+import '../core/calculations.dart';
 import 'dart:math' as math;
 
 class EarthCurveDiagram extends StatefulWidget {
@@ -62,7 +62,7 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'θ: ${AppConstants.calculateGeometricDip(widget.observerHeight).toStringAsFixed(2)}°',
+                        'θ: ${EarthCurveCalculator.calculateGeometricDip(widget.observerHeight).toStringAsFixed(2)}°',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
                         ),
                       ),
                       Text(
-                        'YX: ${(widget.hiddenHeight * math.sin(AppConstants.calculateGeometricDip(widget.observerHeight) * math.pi / 180)).toStringAsFixed(2)} km',
+                        'YX: ${(widget.hiddenHeight * math.sin(EarthCurveCalculator.calculateGeometricDip(widget.observerHeight) * math.pi / 180)).toStringAsFixed(2)} km',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
