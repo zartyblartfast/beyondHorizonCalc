@@ -10,7 +10,7 @@ class EarthCurveDiagram extends StatefulWidget {
   final double hiddenHeight;
   final double visibleDistance;
 
-  const EarthCurveDiagram({
+  EarthCurveDiagram({
     super.key,
     required this.observerHeight,
     required this.distanceToHorizon,
