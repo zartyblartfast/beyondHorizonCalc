@@ -40,7 +40,7 @@ class _EarthCurveDiagramState extends State<EarthCurveDiagram> {
                 child: SvgPicture.asset(
                   'assets/svg_diagram.svg',
                   fit: BoxFit.contain,
-                  colorFilter: ColorFilter.mode(
+                  colorFilter: const ColorFilter.mode(
                     Colors.transparent,
                     BlendMode.dst,
                   ),
