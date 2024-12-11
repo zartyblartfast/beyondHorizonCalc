@@ -337,10 +337,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
           // Right side - Diagram
           Expanded(
             child: Card(
+              key: UniqueKey(),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: EarthCurveDiagram(
-                  key: UniqueKey(),
                   observerHeight: observerHeight,
                   distanceToHorizon: results['horizonDistance']!,
                   totalDistance: results['totalDistance']!,
