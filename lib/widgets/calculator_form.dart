@@ -30,7 +30,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
     'hiddenHeight': 0,
     'totalDistance': 0,
     'visibleDistance': 0,
-    'visibleTargetHeight': 0, // New field for visible portion of target
+    'visibleTargetHeight': 0, // Actual visible height (CZ)
+    'apparentVisibleHeight': 0, // Apparent visible height (CD)
   };
 
   void _calculateCurvature() {
@@ -64,18 +65,40 @@ class _CalculatorFormState extends State<CalculatorForm> {
     
     // Calculate visible height of target if target height is provided
     double visibleTargetHeight = 0;
+    double hiddenHeight = 0;
+    double apparentVisibleHeight = 0;
     if (targetHeight != null && targetHeight! > 0) {
-      visibleTargetHeight = targetHeight! - (baseCenter / 1000); // Convert hidden height to km
-      visibleTargetHeight = visibleTargetHeight < 0 ? 0 : visibleTargetHeight; // Can't be negative
+      // All calculations in meters for consistency
+      double targetHeightMeters = targetHeight! * 1000; // Convert target height to meters
+      
+      // Calculate hidden height using earth curvature formula: h = d²/(2R)
+      // where d is the distance beyond horizon (baseCenter)
+      hiddenHeight = (baseCenter * baseCenter) / (2 * radius);
+      
+      // Actual visible height is target height minus hidden height
+      visibleTargetHeight = targetHeightMeters - hiddenHeight;
+      visibleTargetHeight = visibleTargetHeight < 0 ? 0 : visibleTargetHeight;
+
+      // Calculate apparent visible height (CD)
+      if (visibleTargetHeight > 0) {
+        // Calculate angle between horizon line (BC) and vertical at target (CZ)
+        // This is the same as the angle between OX and OB
+        double verticalAngle = math.atan2(baseCenter, radius);
+        
+        // CD = CZ * cos(angle)
+        // where CZ is visibleTargetHeight and angle is between BC and CZ
+        apparentVisibleHeight = visibleTargetHeight * math.cos(verticalAngle);
+      }
     }
 
     setState(() {
       results = {
         'horizonDistance': horizonDistance / 1000, // convert to km
-        'hiddenHeight': baseCenter / 1000, // convert to km
+        'hiddenHeight': hiddenHeight / 1000, // convert to km
         'totalDistance': totalDistance / 1000, // convert to km
         'visibleDistance': xCoordinate / 1000, // convert to km
-        'visibleTargetHeight': visibleTargetHeight, // already in km
+        'visibleTargetHeight': visibleTargetHeight / 1000, // convert to km
+        'apparentVisibleHeight': apparentVisibleHeight / 1000, // convert to km
       };
     });
   }
@@ -110,247 +133,244 @@ class _CalculatorFormState extends State<CalculatorForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Preset Selector
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: DropdownButtonFormField<LineOfSightPreset>(
-                                value: selectedPreset,
-                                decoration: InputDecoration(
-                                  labelText: 'Famous Line of Sight',
-                                  border: const OutlineInputBorder(),
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                ),
-                                items: [
-                                  ...LineOfSightPreset.presets.map(
-                                    (preset) => DropdownMenuItem(
-                                      value: preset,
-                                      child: Text(preset.name),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  // Preset Selector
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: DropdownButtonFormField<LineOfSightPreset>(
+                                  value: selectedPreset,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Famous Line of Sight',
+                                    border: OutlineInputBorder(),
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  ),
+                                  items: [
+                                    ...LineOfSightPreset.presets.map(
+                                      (preset) => DropdownMenuItem(
+                                        value: preset,
+                                        child: Text(preset.name),
+                                      ),
                                     ),
+                                    const DropdownMenuItem(
+                                      value: null,
+                                      child: Text('Custom Values'),
+                                    ),
+                                  ],
+                                  onChanged: (preset) {
+                                    setState(() {
+                                      selectedPreset = preset;
+                                      if (preset != null) {
+                                        observerHeight = preset.observerHeight;
+                                        distance = preset.distance;
+                                        refractionFactor = preset.refractionFactor;
+                                        targetHeight = preset.targetHeight;
+                                        _observerHeightController.text = observerHeight.toString();
+                                        _distanceController.text = distance.toString();
+                                        _targetHeightController.text = targetHeight?.toString() ?? '';
+                                        _calculateCurvature();
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              ElevatedButton.icon(
+                                onPressed: _showLongLineOfSightInfo,
+                                icon: const Icon(Icons.info_outline),
+                                label: const Text('Learn More'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Input Section
+                  Card(
+                    child: ExpansionTile(
+                      title: const Text('Calculator Inputs'),
+                      initiallyExpanded: true,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                selectedPreset != null 
+                                  ? 'Calculator Inputs - Using ${selectedPreset!.name}'
+                                  : 'Calculator Inputs - Custom Values (Edit as needed)',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 24),
+                              Focus(
+                                autofocus: false,
+                                child: TextFormField(
+                                  controller: _observerHeightController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Observer Height (meters)',
+                                    hintText: 'Enter height in meters',
                                   ),
-                                  const DropdownMenuItem(
-                                    value: null,
-                                    child: Text('Custom Values'),
-                                  ),
-                                ],
-                                onChanged: (preset) {
-                                  setState(() {
-                                    selectedPreset = preset;
-                                    if (preset != null) {
-                                      observerHeight = preset.observerHeight;
-                                      distance = preset.distance;
-                                      refractionFactor = preset.refractionFactor;
-                                      targetHeight = preset.targetHeight;
-                                      _observerHeightController.text = observerHeight.toString();
-                                      _distanceController.text = distance.toString();
-                                      _targetHeightController.text = targetHeight?.toString() ?? '';
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      observerHeight = double.tryParse(value) ?? observerHeight;
                                       _calculateCurvature();
-                                    }
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Focus(
+                                autofocus: false,
+                                child: TextFormField(
+                                  controller: _distanceController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Distance (kilometers)',
+                                    hintText: 'Enter distance in kilometers',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      distance = double.tryParse(value) ?? distance;
+                                      _calculateCurvature();
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Focus(
+                                autofocus: false,
+                                child: TextFormField(
+                                  controller: _targetHeightController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Target Height (meters)',
+                                    hintText: 'Enter target height in meters (optional)',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      targetHeight = value.isEmpty ? null : (double.tryParse(value) ?? targetHeight);
+                                      _calculateCurvature();
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              DropdownButtonFormField<double>(
+                                value: refractionFactor,
+                                decoration: const InputDecoration(
+                                  labelText: 'Atmospheric Refraction',
+                                  border: OutlineInputBorder(),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  hintText: 'Select refraction conditions',
+                                ),
+                                items: const [
+                                  DropdownMenuItem(value: 1.00, child: Text('No Refraction')),
+                                  DropdownMenuItem(value: 1.02, child: Text('Low Refraction')),
+                                  DropdownMenuItem(value: 1.04, child: Text('Below Average')),
+                                  DropdownMenuItem(value: 1.07, child: Text('Average Refraction')),
+                                  DropdownMenuItem(value: 1.10, child: Text('Above Average')),
+                                  DropdownMenuItem(value: 1.15, child: Text('High Refraction')),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    refractionFactor = value ?? refractionFactor;
+                                    _calculateCurvature();
                                   });
                                 },
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            ElevatedButton.icon(
-                              onPressed: _showLongLineOfSightInfo,
-                              icon: const Icon(Icons.info_outline),
-                              label: const Text('Learn More'),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                // Input Section
-                Card(
-                  child: ExpansionTile(
-                    title: const Text('Calculator Inputs'),
-                    initiallyExpanded: true,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              selectedPreset != null 
-                                ? 'Calculator Inputs - Using ${selectedPreset!.name}'
-                                : 'Calculator Inputs - Custom Values (Edit as needed)',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 24),
-                            TextFormField(
-                              controller: _observerHeightController,
-                              decoration: InputDecoration(
-                                labelText: 'Observer Height',
-                                suffixText: 'm',
-                                border: const OutlineInputBorder(),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                hintText: 'Height above sea level',
-                              ),
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                setState(() {
-                                  observerHeight = double.tryParse(value) ?? observerHeight;
-                                  _calculateCurvature();
-                                });
-                              },
-                            ),
-                            const SizedBox(height: 24),
-                            TextFormField(
-                              controller: _distanceController,
-                              decoration: InputDecoration(
-                                labelText: 'Distance',
-                                suffixText: 'km',
-                                border: const OutlineInputBorder(),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                hintText: 'Distance to object',
-                              ),
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                setState(() {
-                                  distance = double.tryParse(value) ?? distance;
-                                  _calculateCurvature();
-                                });
-                              },
-                            ),
-                            const SizedBox(height: 24),
-                            TextFormField(
-                              controller: _targetHeightController,
-                              decoration: InputDecoration(
-                                labelText: 'Target Height (Optional)',
-                                suffixText: 'm',
-                                border: const OutlineInputBorder(),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                hintText: 'Height of target object',
-                              ),
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                setState(() {
-                                  targetHeight = value.isEmpty ? null : (double.tryParse(value) ?? targetHeight);
-                                  _calculateCurvature();
-                                });
-                              },
-                            ),
-                            const SizedBox(height: 24),
-                            DropdownButtonFormField<double>(
-                              value: refractionFactor,
-                              decoration: InputDecoration(
-                                labelText: 'Atmospheric Refraction',
-                                border: const OutlineInputBorder(),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                hintText: 'Select refraction conditions',
-                              ),
-                              items: const [
-                                DropdownMenuItem(value: 1.00, child: Text('No Refraction')),
-                                DropdownMenuItem(value: 1.02, child: Text('Low Refraction')),
-                                DropdownMenuItem(value: 1.04, child: Text('Below Average')),
-                                DropdownMenuItem(value: 1.07, child: Text('Average Refraction')),
-                                DropdownMenuItem(value: 1.10, child: Text('Above Average')),
-                                DropdownMenuItem(value: 1.15, child: Text('High Refraction')),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  refractionFactor = value ?? refractionFactor;
-                                  _calculateCurvature();
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // Results Section
-                Card(
-                  child: ExpansionTile(
-                    title: const Text('Results'),
-                    initiallyExpanded: true,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            ResultCard(
-                              title: 'Distance to Horizon',
-                              value: results['horizonDistance']!,
-                              unit: 'km',
-                              description: 'Maximum visible distance',
-                            ),
-                            const SizedBox(height: 8),
-                            ResultCard(
-                              title: 'Hidden Height',
-                              value: results['hiddenHeight']!,
-                              unit: 'km',
-                              description: 'Hidden by curvature',
-                            ),
-                            const SizedBox(height: 8),
-                            if (targetHeight != null) ...[
+                  const SizedBox(height: 16),
+                  // Results Section
+                  Card(
+                    child: ExpansionTile(
+                      title: const Text('Results'),
+                      initiallyExpanded: true,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
                               ResultCard(
-                                title: 'Visible Height',
-                                value: results['visibleTargetHeight']!,
+                                title: 'Distance to Horizon',
+                                value: results['horizonDistance']!,
                                 unit: 'km',
-                                description: 'Visible portion of target',
+                                description: 'Maximum visible distance',
                               ),
                               const SizedBox(height: 8),
+                              ResultCard(
+                                title: 'Hidden Height',
+                                value: results['hiddenHeight']!,
+                                unit: 'm',
+                                description: 'Hidden by curvature',
+                              ),
+                              const SizedBox(height: 8),
+                              if (targetHeight != null) ...[
+                                ResultCard(
+                                  title: 'Actual Visible Height',
+                                  value: results['visibleTargetHeight']!,
+                                  unit: 'm',
+                                  description: 'True vertical height above horizon (CZ)',
+                                ),
+                                const SizedBox(height: 8),
+                                ResultCard(
+                                  title: 'Apparent Visible Height',
+                                  value: results['apparentVisibleHeight']!,
+                                  unit: 'm',
+                                  description: 'Height as seen by observer, adjusted for perspective (CD)',
+                                ),
+                                const SizedBox(height: 8),
+                              ],
+                              ResultCard(
+                                title: 'Total Distance',
+                                value: results['totalDistance']!,
+                                unit: 'km',
+                                description: 'To remote object',
+                              ),
                             ],
-                            ResultCard(
-                              title: 'Total Distance',
-                              value: results['totalDistance']!,
-                              unit: 'km',
-                              description: 'To remote object',
-                            ),
-                            const SizedBox(height: 8),
-                            ResultCard(
-                              title: 'Visible Distance',
-                              value: results['visibleDistance']!,
-                              unit: 'km',
-                              description: 'Beyond horizon',
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 32),
-          // Right side - Diagram
-          Expanded(
-            child: Card(
-              key: UniqueKey(),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: EarthCurveDiagram(
-                  observerHeight: observerHeight,
-                  distanceToHorizon: results['horizonDistance']!,
-                  totalDistance: results['totalDistance']!,
-                  hiddenHeight: results['hiddenHeight']! * 1000, // convert back to meters
-                  visibleDistance: results['visibleDistance']!,
-                ),
+                ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 32),
+            // Right side - Diagram
+            Expanded(
+              child: EarthCurveDiagram(
+                observerHeight: observerHeight,
+                distanceToHorizon: results['horizonDistance']!,
+                totalDistance: results['totalDistance']!,
+                hiddenHeight: results['hiddenHeight']!, 
+                visibleDistance: results['visibleDistance']!,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
