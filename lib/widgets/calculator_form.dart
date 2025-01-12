@@ -63,6 +63,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _distanceController.text = preset.distance.toString();
         _refractionFactorController.text = preset.refractionFactor.toString();
         _targetHeightController.text = preset.targetHeight?.toString() ?? '';
+        // Automatically calculate when preset changes
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _handleCalculate();
+        });
       }
     });
   }
@@ -75,16 +79,23 @@ class _CalculatorFormState extends State<CalculatorForm> {
       // Convert values if needed
       if (_observerHeightController.text.isNotEmpty) {
         final double value = double.parse(_observerHeightController.text);
-        _observerHeightController.text = (isMetric ? value * 0.3048 : value * 3.28084).toString();
+        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
+        _observerHeightController.text = converted.toStringAsFixed(1);
       }
       if (_distanceController.text.isNotEmpty) {
         final double value = double.parse(_distanceController.text);
-        _distanceController.text = (isMetric ? value * 1.60934 : value * 0.621371).toString();
+        final double converted = isMetric ? value * 1.60934 : value * 0.621371;
+        _distanceController.text = converted.toStringAsFixed(2);
       }
       if (_targetHeightController.text.isNotEmpty) {
         final double value = double.parse(_targetHeightController.text);
-        _targetHeightController.text = (isMetric ? value * 0.3048 : value * 3.28084).toString();
+        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
+        _targetHeightController.text = converted.toStringAsFixed(1);
       }
+      // Automatically calculate when units change
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _handleCalculate();
+      });
     });
   }
 
@@ -124,61 +135,124 @@ class _CalculatorFormState extends State<CalculatorForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Left side - Calculator inputs and results
-          Expanded(
-            child: Card(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PresetSelector(
-                      selectedPreset: _selectedPreset,
-                      onPresetChanged: _handlePresetChanged,
-                      onInfoPressed: _showInfoDialog,
-                    ),
-                    const SizedBox(height: 16),
-                    InputFields(
-                      observerHeightController: _observerHeightController,
-                      distanceController: _distanceController,
-                      refractionFactorController: _refractionFactorController,
-                      targetHeightController: _targetHeightController,
-                      isMetric: _isMetric,
-                      onMetricChanged: _handleMetricChanged,
-                      onCalculate: _handleCalculate,
-                    ),
-                    const SizedBox(height: 16),
-                    ResultsDisplay(
-                      result: _result,
-                      isMetric: _isMetric,
-                    ),
-                  ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isWide = constraints.maxWidth > 900; // Breakpoint for wide screens
+
+          Widget content = Column(
+            children: [
+              // Left side - Calculator inputs and results
+              Card(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      PresetSelector(
+                        selectedPreset: _selectedPreset,
+                        onPresetChanged: _handlePresetChanged,
+                        onInfoPressed: _showInfoDialog,
+                      ),
+                      const SizedBox(height: 16),
+                      InputFields(
+                        observerHeightController: _observerHeightController,
+                        distanceController: _distanceController,
+                        refractionFactorController: _refractionFactorController,
+                        targetHeightController: _targetHeightController,
+                        isMetric: _isMetric,
+                        onMetricChanged: _handleMetricChanged,
+                        onCalculate: _handleCalculate,
+                        showCalculateButton: _selectedPreset == null,
+                      ),
+                      const SizedBox(height: 16),
+                      ResultsDisplay(
+                        result: _result,
+                        isMetric: _isMetric,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(width: 32),
-          // Right side - Diagram
-          Expanded(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: EarthCurveDiagram(
-                  observerHeight: _isMetric 
-                      ? double.parse(_observerHeightController.text)
-                      : double.parse(_observerHeightController.text) * 0.3048,
-                  distanceToHorizon: _result?.horizonDistance ?? 0,
-                  totalDistance: _result?.totalDistance ?? 0,
-                  hiddenHeight: _result?.hiddenHeight ?? 0,
-                  visibleDistance: _result?.visibleDistance ?? 0,
+              if (!isWide) const SizedBox(height: 16),
+              // Right side - Diagram
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: EarthCurveDiagram(
+                    observerHeight: _isMetric 
+                        ? double.parse(_observerHeightController.text)
+                        : double.parse(_observerHeightController.text) * 0.3048,
+                    distanceToHorizon: _result?.horizonDistance ?? 0,
+                    totalDistance: _result?.totalDistance ?? 0,
+                    hiddenHeight: _result?.hiddenHeight ?? 0,
+                    visibleDistance: _result?.visibleDistance ?? 0,
+                  ),
                 ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+
+          if (isWide) {
+            // For wide screens, use a Row layout
+            content = Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Card(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          PresetSelector(
+                            selectedPreset: _selectedPreset,
+                            onPresetChanged: _handlePresetChanged,
+                            onInfoPressed: _showInfoDialog,
+                          ),
+                          const SizedBox(height: 16),
+                          InputFields(
+                            observerHeightController: _observerHeightController,
+                            distanceController: _distanceController,
+                            refractionFactorController: _refractionFactorController,
+                            targetHeightController: _targetHeightController,
+                            isMetric: _isMetric,
+                            onMetricChanged: _handleMetricChanged,
+                            onCalculate: _handleCalculate,
+                            showCalculateButton: _selectedPreset == null,
+                          ),
+                          const SizedBox(height: 16),
+                          ResultsDisplay(
+                            result: _result,
+                            isMetric: _isMetric,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 32),
+                Expanded(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: EarthCurveDiagram(
+                        observerHeight: _isMetric 
+                            ? double.parse(_observerHeightController.text)
+                            : double.parse(_observerHeightController.text) * 0.3048,
+                        distanceToHorizon: _result?.horizonDistance ?? 0,
+                        totalDistance: _result?.totalDistance ?? 0,
+                        hiddenHeight: _result?.hiddenHeight ?? 0,
+                        visibleDistance: _result?.visibleDistance ?? 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+
+          return content;
+        },
       ),
     );
   }
