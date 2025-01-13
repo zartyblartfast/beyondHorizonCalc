@@ -17,7 +17,7 @@ class EarthCurvatureApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Earth Curvature Calculator',
+      title: 'Beyond Horizon Calculator',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('About Earth Curvature Calculator'),
+          title: const Text('About Beyond Horizon Calculator'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: [
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Earth Curvature Calculator'),
+        title: const Text('Beyond Horizon Calculator'),
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline),
