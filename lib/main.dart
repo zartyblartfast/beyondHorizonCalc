@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           content: const SingleChildScrollView(
             child: ListBody(
               children: [
-                Text('This calculator helps you understand how Earth\'s curvature affects visibility over distance.'),
+                Text('A horizon visibility calculator to show how much of a distant object is hidden by Earth\'s curvature'),
                 SizedBox(height: 16),
                 Text('Features:'),
                 Text('• Real-time calculations'),
@@ -98,7 +98,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Beyond Horizon Calculator'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text('Beyond Horizon Calculator'),
+            Text(
+              'A horizon visibility calculator to show how much of a distant object is hidden by Earth\'s curvature',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline),
@@ -117,13 +126,8 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Calculate the effects of Earth\'s curvature on visibility',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 24),
-                    const CalculatorForm(),
+                  children: const [
+                    CalculatorForm(),
                   ],
                 ),
               ),
