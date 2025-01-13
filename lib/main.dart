@@ -97,40 +97,99 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Beyond Horizon Calculator'),
-            Text(
-              'A horizon visibility calculator to show how much of a distant object is hidden by Earth\'s curvature',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: _showAboutDialog,
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
           children: [
-            // Left side - Calculator
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    CalculatorForm(),
-                  ],
+            Stack(
+              children: [
+                // Image
+                SizedBox(
+                  height: 160, // Made slightly taller to accommodate text
+                  width: double.infinity,
+                  child: ClipRect(
+                    child: Align(
+                      alignment: Alignment.center,
+                      heightFactor: 0.3,
+                      child: Image.asset(
+                        'assets/images/Kangchenjunga_520_km.jpg',
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                // Title and description overlay
+                Container(
+                  height: 160,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.25),
+                      ],
+                    ),
+                  ),
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Beyond Horizon Calculator',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'A horizon visibility calculator to show how much of a distant object is hidden by Earth\'s curvature',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                // App bar actions (info button)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: SafeArea(
+                    child: IconButton(
+                      icon: const Icon(Icons.info_outline, color: Colors.white),
+                      onPressed: _showAboutDialog,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left side - Calculator
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        CalculatorForm(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
