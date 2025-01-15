@@ -66,6 +66,11 @@ flutter:
     - assets/svg_diagram.svg
     - assets/source_file.svg
     - assets/slides/
+    - assets/images/
+    - assets/images/BTH_1.png
+    - assets/images/BTH_2.png
+    - assets/images/BTH_3.png
+    - assets/images/BTH_4.png
     - assets/images/Kangchenjunga_520_km.jpg
   #   - images/a_dot_ham.jpeg
 

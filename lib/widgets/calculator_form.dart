@@ -5,8 +5,8 @@ import '../models/line_of_sight_preset.dart';
 import 'calculator/preset_selector.dart';
 import 'calculator/input_fields.dart';
 import 'calculator/results_display.dart';
+import 'calculator/diagram_display.dart';
 import 'long_line_info_dialog.dart';
-import 'earth_curve_diagram.dart';
 
 class CalculatorForm extends StatefulWidget {
   const CalculatorForm({super.key});
@@ -168,6 +168,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       ResultsDisplay(
                         result: _result,
                         isMetric: _isMetric,
+                        targetHeight: _targetHeightController.text.isEmpty
+                            ? null
+                            : double.parse(_targetHeightController.text),
                       ),
                     ],
                   ),
@@ -178,14 +181,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: EarthCurveDiagram(
-                    observerHeight: _isMetric 
-                        ? double.parse(_observerHeightController.text)
-                        : double.parse(_observerHeightController.text) * 0.3048,
-                    distanceToHorizon: _result?.horizonDistance ?? 0,
-                    totalDistance: _result?.totalDistance ?? 0,
-                    hiddenHeight: _result?.hiddenHeight ?? 0,
-                    visibleDistance: _result?.visibleDistance ?? 0,
+                  child: DiagramDisplay(
+                    result: _result,
+                    targetHeight: _targetHeightController.text.isEmpty
+                        ? null
+                        : double.parse(_targetHeightController.text),
                   ),
                 ),
               ),
@@ -224,6 +224,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
                           ResultsDisplay(
                             result: _result,
                             isMetric: _isMetric,
+                            targetHeight: _targetHeightController.text.isEmpty
+                                ? null
+                                : double.parse(_targetHeightController.text),
                           ),
                         ],
                       ),
@@ -235,14 +238,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: EarthCurveDiagram(
-                        observerHeight: _isMetric 
-                            ? double.parse(_observerHeightController.text)
-                            : double.parse(_observerHeightController.text) * 0.3048,
-                        distanceToHorizon: _result?.horizonDistance ?? 0,
-                        totalDistance: _result?.totalDistance ?? 0,
-                        hiddenHeight: _result?.hiddenHeight ?? 0,
-                        visibleDistance: _result?.visibleDistance ?? 0,
+                      child: DiagramDisplay(
+                        result: _result,
+                        targetHeight: _targetHeightController.text.isEmpty
+                            ? null
+                            : double.parse(_targetHeightController.text),
                       ),
                     ),
                   ),

@@ -57,7 +57,7 @@ class InputFields extends StatelessWidget {
                     const SizedBox(height: 16),
                     _buildInputField(
                       controller: targetHeightController,
-                      label: 'Target Height (Optional)',
+                      label: 'Target Height (optional)',
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateTargetHeight,
                     ),
@@ -92,7 +92,7 @@ class InputFields extends StatelessWidget {
                         Expanded(
                           child: _buildInputField(
                             controller: targetHeightController,
-                            label: 'Target Height (Optional)',
+                            label: 'Target Height (optional)',
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateTargetHeight,
                           ),
@@ -101,46 +101,28 @@ class InputFields extends StatelessWidget {
                     ),
                   ],
                   const SizedBox(height: 16),
+                  // Units toggle and Calculate buttons
                   Wrap(
                     spacing: 16,
                     runSpacing: 16,
                     alignment: WrapAlignment.spaceBetween,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Wrap(
-                        spacing: 8,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text('Units:'),
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 200),
-                            child: IntrinsicWidth(
-                              child: ToggleButtons(
-                                isSelected: [isMetric, !isMetric],
-                                onPressed: (index) => onMetricChanged(index == 0),
-                                constraints: const BoxConstraints(
-                                  minWidth: 60,
-                                  minHeight: 36,
-                                ),
-                                children: const [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8),
-                                    child: Text('Metric'),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8),
-                                    child: Text('Imperial'),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          const Text('Imperial'),
+                          Switch(
+                            value: isMetric,
+                            onChanged: onMetricChanged,
                           ),
+                          const Text('Metric'),
                         ],
                       ),
-                      if (showCalculateButton)
-                        ElevatedButton(
-                          onPressed: onCalculate,
-                          child: const Text('Calculate'),
-                        ),
+                      ElevatedButton(
+                        onPressed: onCalculate,
+                        child: const Text('Calculate'),
+                      ),
                     ],
                   ),
                 ],
@@ -199,54 +181,6 @@ class InputFields extends StatelessWidget {
     );
   }
 
-  String? _validateObserverHeight(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter observer height';
-    }
-    final height = double.tryParse(value);
-    if (height == null) {
-      return 'Please enter a valid number';
-    }
-    if (height < RangeLimits.minObserverHeight) {
-      return 'Height must be at least ${RangeLimits.minObserverHeight} ${isMetric ? 'm' : 'ft'}';
-    }
-    if (height > RangeLimits.maxObserverHeight) {
-      return 'Height cannot exceed ${RangeLimits.maxObserverHeight} ${isMetric ? 'm' : 'ft'}';
-    }
-    return null;
-  }
-
-  String? _validateDistance(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter distance';
-    }
-    final distance = double.tryParse(value);
-    if (distance == null) {
-      return 'Please enter a valid number';
-    }
-    if (distance < RangeLimits.minDistance) {
-      return 'Distance must be at least ${RangeLimits.minDistance} ${isMetric ? 'km' : 'mi'}';
-    }
-    if (distance > RangeLimits.maxDistance) {
-      return 'Distance cannot exceed ${RangeLimits.maxDistance} ${isMetric ? 'km' : 'mi'}';
-    }
-    return null;
-  }
-
-  String? _validateTargetHeight(String? value) {
-    if (value == null || value.isEmpty) {
-      return null; // Optional field
-    }
-    final height = double.tryParse(value);
-    if (height == null) {
-      return 'Please enter a valid number';
-    }
-    if (height > RangeLimits.maxTargetHeight) {
-      return 'Height cannot exceed ${RangeLimits.maxTargetHeight} ${isMetric ? 'm' : 'ft'}';
-    }
-    return null;
-  }
-
   String _getRefractionLabel(String value) {
     switch (value) {
       case '1.00':
@@ -283,5 +217,59 @@ class InputFields extends StatelessWidget {
       default:
         return '1.07';
     }
+  }
+
+  String? _validateObserverHeight(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter observer height';
+    }
+    final height = double.tryParse(value);
+    if (height == null) {
+      return 'Please enter a valid number';
+    }
+    if (height <= 0) {
+      return 'Height must be greater than 0';
+    }
+    final maxHeight = isMetric ? RangeLimits.maxObserverHeight : RangeLimits.maxObserverHeight * 3.28084;
+    if (height > maxHeight) {
+      return 'Height must be less than ${maxHeight.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
+    }
+    return null;
+  }
+
+  String? _validateDistance(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter distance';
+    }
+    final distance = double.tryParse(value);
+    if (distance == null) {
+      return 'Please enter a valid number';
+    }
+    if (distance <= 0) {
+      return 'Distance must be greater than 0';
+    }
+    final maxDist = isMetric ? RangeLimits.maxDistance : RangeLimits.maxDistance * 0.621371;
+    if (distance > maxDist) {
+      return 'Distance must be less than ${maxDist.toStringAsFixed(0)}${isMetric ? 'km' : 'mi'}';
+    }
+    return null;
+  }
+
+  String? _validateTargetHeight(String? value) {
+    if (value == null || value.isEmpty) {
+      return null; // Target height is optional
+    }
+    final height = double.tryParse(value);
+    if (height == null) {
+      return 'Please enter a valid number';
+    }
+    if (height < 0) {
+      return 'Height cannot be negative';
+    }
+    final maxHeight = isMetric ? RangeLimits.maxTargetHeight : RangeLimits.maxTargetHeight * 3.28084;
+    if (height > maxHeight) {
+      return 'Height must be less than ${maxHeight.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
+    }
+    return null;
   }
 }
