@@ -1,11 +1,11 @@
 {
-    "name": "BeyondHorizonCalc",
-    "short_name": "BeyondHorizonCalc",
+    "name": "Beyond Horizon Calculator",
+    "short_name": "Beyond Horizon",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A horizon visibility calculator to show how much of a distant object is hidden by Earth's curvature",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
