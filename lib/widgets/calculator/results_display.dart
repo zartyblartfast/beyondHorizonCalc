@@ -22,7 +22,7 @@ class ResultsDisplay extends StatelessWidget {
   String _formatHeight(double? value) {
     if (value == null) return 'N/A';
     final double displayValue = isMetric ? value : value * 3.28084; // m to ft
-    return '${displayValue.toStringAsFixed(2)} ${isMetric ? 'm' : 'ft'}';
+    return '${displayValue.toStringAsFixed(2)} ${isMetric ? 'km' : 'ft'}';
   }
 
   String _getDiagramAsset() {
@@ -74,29 +74,21 @@ class ResultsDisplay extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildResultRow(
-              'Distance to Horizon:',
+              'Distance to Horizon (D1)',
               _formatDistance(result!.horizonDistance),
             ),
             _buildResultRow(
-              'Hidden Height:',
+              'Hidden Height (h2, XC)',
               _formatHeight(result!.hiddenHeight),
             ),
-            _buildResultRow(
-              'Total Distance:',
-              _formatDistance(result!.totalDistance),
-            ),
-            _buildResultRow(
-              'Visible Distance:',
-              _formatDistance(result!.visibleDistance),
-            ),
-            if (result!.visibleTargetHeight != null) ...[
+            if (targetHeight != null) ...[
               _buildResultRow(
-                'Visible Target Height:',
-                _formatHeight(result!.visibleTargetHeight),
+                'Visible Height (h3)',
+                _formatHeight(result!.visibleTargetHeight!),
               ),
               _buildResultRow(
-                'Apparent Visible Height:',
-                _formatHeight(result!.apparentVisibleHeight),
+                'Apparent Visible Height (CD)',
+                _formatHeight(result!.apparentVisibleHeight!),
               ),
             ],
           ],

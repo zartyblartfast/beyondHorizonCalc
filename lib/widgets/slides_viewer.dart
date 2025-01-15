@@ -23,7 +23,7 @@ class _SlidesViewerState extends State<SlidesViewer> {
       'image': 'assets/slides/observer_height.png',
     },
     {
-      'title': 'Hidden Height',
+      'title': 'Hidden Height (h2, XC)',
       'description': 'Objects beyond the horizon are partially hidden. The amount hidden depends on their distance and the observer\'s height.',
       'image': 'assets/slides/hidden_height.png',
     },

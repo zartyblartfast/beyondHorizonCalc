@@ -41,14 +41,14 @@ class InputFields extends StatelessWidget {
                     // Vertical layout for narrow screens
                     _buildInputField(
                       controller: observerHeightController,
-                      label: 'Observer Height',
+                      label: 'Observer Height (h1)',
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateObserverHeight,
                     ),
                     const SizedBox(height: 16),
                     _buildInputField(
                       controller: distanceController,
-                      label: 'Distance',
+                      label: 'Distance (L0)',
                       suffix: isMetric ? 'km' : 'mi',
                       validator: _validateDistance,
                     ),
@@ -57,7 +57,7 @@ class InputFields extends StatelessWidget {
                     const SizedBox(height: 16),
                     _buildInputField(
                       controller: targetHeightController,
-                      label: 'Target Height (optional)',
+                      label: 'Target height - optional (XZ)',
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateTargetHeight,
                     ),
@@ -68,7 +68,7 @@ class InputFields extends StatelessWidget {
                         Expanded(
                           child: _buildInputField(
                             controller: observerHeightController,
-                            label: 'Observer Height',
+                            label: 'Observer Height (h1)',
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateObserverHeight,
                           ),
@@ -77,7 +77,7 @@ class InputFields extends StatelessWidget {
                         Expanded(
                           child: _buildInputField(
                             controller: distanceController,
-                            label: 'Distance',
+                            label: 'Distance (L0)',
                             suffix: isMetric ? 'km' : 'mi',
                             validator: _validateDistance,
                           ),
@@ -92,7 +92,7 @@ class InputFields extends StatelessWidget {
                         Expanded(
                           child: _buildInputField(
                             controller: targetHeightController,
-                            label: 'Target Height (optional)',
+                            label: 'Target height - optional (XZ)',
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateTargetHeight,
                           ),
