@@ -163,6 +163,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         onMetricChanged: _handleMetricChanged,
                         onCalculate: _handleCalculate,
                         showCalculateButton: _selectedPreset == null,
+                        isCustomPreset: _selectedPreset == null,
                       ),
                       const SizedBox(height: 16),
                       ResultsDisplay(
@@ -219,6 +220,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             onMetricChanged: _handleMetricChanged,
                             onCalculate: _handleCalculate,
                             showCalculateButton: _selectedPreset == null,
+                            isCustomPreset: _selectedPreset == null,
                           ),
                           const SizedBox(height: 16),
                           ResultsDisplay(

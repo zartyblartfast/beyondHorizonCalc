@@ -11,6 +11,7 @@ class InputFields extends StatelessWidget {
   final ValueChanged<bool> onMetricChanged;
   final VoidCallback onCalculate;
   final bool showCalculateButton;
+  final bool isCustomPreset;
 
   const InputFields({
     super.key,
@@ -22,6 +23,7 @@ class InputFields extends StatelessWidget {
     required this.onMetricChanged,
     required this.onCalculate,
     this.showCalculateButton = false,
+    this.isCustomPreset = true,
   });
 
   @override
@@ -44,6 +46,7 @@ class InputFields extends StatelessWidget {
                       label: 'Observer Height (h1)',
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateObserverHeight,
+                      enabled: isCustomPreset,
                     ),
                     const SizedBox(height: 16),
                     _buildInputField(
@@ -51,6 +54,7 @@ class InputFields extends StatelessWidget {
                       label: 'Distance (L0)',
                       suffix: isMetric ? 'km' : 'mi',
                       validator: _validateDistance,
+                      enabled: isCustomPreset,
                     ),
                     const SizedBox(height: 16),
                     _buildRefractionDropdown(),
@@ -60,6 +64,7 @@ class InputFields extends StatelessWidget {
                       label: 'Target height - optional (XZ)',
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateTargetHeight,
+                      enabled: isCustomPreset,
                     ),
                   ] else ...[
                     // Horizontal layout for wider screens
@@ -71,6 +76,7 @@ class InputFields extends StatelessWidget {
                             label: 'Observer Height (h1)',
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateObserverHeight,
+                            enabled: isCustomPreset,
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -80,6 +86,7 @@ class InputFields extends StatelessWidget {
                             label: 'Distance (L0)',
                             suffix: isMetric ? 'km' : 'mi',
                             validator: _validateDistance,
+                            enabled: isCustomPreset,
                           ),
                         ),
                       ],
@@ -95,6 +102,7 @@ class InputFields extends StatelessWidget {
                             label: 'Target height - optional (XZ)',
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateTargetHeight,
+                            enabled: isCustomPreset,
                           ),
                         ),
                       ],
@@ -139,6 +147,7 @@ class InputFields extends StatelessWidget {
     required String label,
     required String suffix,
     required String? Function(String?) validator,
+    bool enabled = true,
   }) {
     return TextFormField(
       controller: controller,
@@ -146,12 +155,17 @@ class InputFields extends StatelessWidget {
         labelText: label,
         border: const OutlineInputBorder(),
         suffixText: suffix,
+        enabled: enabled,
+        labelStyle: TextStyle(color: enabled ? null : Colors.black87),
+        suffixStyle: TextStyle(color: enabled ? null : Colors.black87),
       ),
+      style: TextStyle(color: enabled ? null : Colors.black87),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
       ],
       validator: validator,
+      enabled: enabled,
     );
   }
 
