@@ -207,6 +207,8 @@ class InputFields extends StatelessWidget {
               DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
               DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
               DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
+              DropdownMenuItem(value: 'very_high', child: Text('Very High (1.20)')),
+              DropdownMenuItem(value: 'extremely_high', child: Text('Extremely High (1.25)')),
             ],
             onChanged: (value) {
               if (value != null) {
@@ -240,13 +242,18 @@ class InputFields extends StatelessWidget {
         return 'above_average';
       case '1.15':
         return 'high';
+      case '1.20':
+        return 'very_high';
+      case '1.25':
+        return 'extremely_high';
       default:
         return 'average';
     }
   }
 
   String _getRefractionKey(String value) {
-    switch (value) {
+    final double refraction = double.tryParse(value) ?? 1.07;
+    switch (refraction.toStringAsFixed(2)) {
       case '1.00':
         return 'none';
       case '1.02':
@@ -259,8 +266,16 @@ class InputFields extends StatelessWidget {
         return 'above_average';
       case '1.15':
         return 'high';
+      case '1.20':
+        return 'very_high';
+      case '1.25':
+        return 'extremely_high';
       default:
-        return 'average';
+        // Find closest match
+        final List<double> values = [1.00, 1.02, 1.04, 1.07, 1.10, 1.15, 1.20, 1.25];
+        double closest = values.reduce((a, b) => 
+          (a - refraction).abs() < (b - refraction).abs() ? a : b);
+        return _getRefractionKey(closest.toString());
     }
   }
 
@@ -278,6 +293,10 @@ class InputFields extends StatelessWidget {
         return '1.10';
       case 'high':
         return '1.15';
+      case 'very_high':
+        return '1.20';
+      case 'extremely_high':
+        return '1.25';
       default:
         return '1.07';
     }

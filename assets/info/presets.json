@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-01-17",
+    "description": "Collection of famous long-distance visibility cases from around the world"
+  },
+  "presets": [
+    {
+      "name": "Mount Dankova to Hindu Tagh",
+      "description": "View from Mount Dankova to Hindu Tagh peak",
+      "observerHeight": 7015,
+      "distance": 539,
+      "refractionFactor": 1.07,
+      "targetHeight": 6070,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Mount Dankova",
+            "region": "Kunlun Mountains",
+            "country": "China"
+          },
+          "target": {
+            "name": "Hindu Tagh",
+            "region": "Kunlun Mountains",
+            "country": "China"
+          }
+        },
+        "notes": "A remarkable line of sight between two peaks in the Kunlun Mountains",
+        "bestViewingConditions": "Clear weather with average refraction",
+        "imageUrl": null
+      }
+    },
+    {
+      "name": "K2 to Broad Peak",
+      "description": "View from K2 to Broad Peak",
+      "observerHeight": 8611,
+      "distance": 458,
+      "refractionFactor": 1.07,
+      "targetHeight": 8051,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "K2",
+            "region": "Karakoram",
+            "country": "Pakistan/China border"
+          },
+          "target": {
+            "name": "Broad Peak",
+            "region": "Karakoram",
+            "country": "Pakistan/China border"
+          }
+        },
+        "notes": "Line of sight between the world's second-highest peak and Broad Peak",
+        "bestViewingConditions": "Clear weather with average refraction",
+        "imageUrl": null
+      }
+    },
+    {
+      "name": "Mount Everest to Kanchenjunga",
+      "description": "View from Mount Everest to Kanchenjunga",
+      "observerHeight": 8848,
+      "distance": 380,
+      "refractionFactor": 1.07,
+      "targetHeight": 8586,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Mount Everest",
+            "region": "Himalayas",
+            "country": "Nepal/China border"
+          },
+          "target": {
+            "name": "Kanchenjunga",
+            "region": "Himalayas",
+            "country": "Nepal/India border"
+          }
+        },
+        "notes": "Line of sight between the world's highest and third-highest peaks",
+        "bestViewingConditions": "Clear weather with average refraction",
+        "imageUrl": null
+      }
+    },
+    {
+      "name": "Burnaby to Mount Rainier",
+      "description": "View from Burnaby, BC to Mount Rainier, Washington",
+      "observerHeight": 190,
+      "distance": 280,
+      "refractionFactor": 1.07,
+      "targetHeight": 4392,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Burnaby",
+            "region": "British Columbia",
+            "country": "Canada"
+          },
+          "target": {
+            "name": "Mount Rainier",
+            "region": "Washington",
+            "country": "United States"
+          }
+        },
+        "notes": "Cross-border view from urban British Columbia to Washington's highest peak",
+        "bestViewingConditions": "Clear weather with average refraction",
+        "imageUrl": null
+      }
+    },
+    {
+      "name": "Pic de Finstrelles to Pic Gaspard",
+      "description": "View from Pic de Finstrelles, Spain to Pic Gaspard, France (best visibility at sunrise with very high refraction)",
+      "observerHeight": 2826,
+      "distance": 443,
+      "refractionFactor": 1.20,
+      "targetHeight": 3883,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Pic de Finstrelles",
+            "region": "Pyrenees",
+            "country": "Spain"
+          },
+          "target": {
+            "name": "Pic Gaspard",
+            "region": "Écrins",
+            "country": "France"
+          }
+        },
+        "notes": "Exceptional cross-country view between Spain and France, demonstrating extreme refraction effects",
+        "bestViewingConditions": "Sunrise conditions with very high refraction",
+        "imageUrl": null
+      }
+    }
+  ]
+}

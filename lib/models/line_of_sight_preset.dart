@@ -1,10 +1,13 @@
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+
 class LineOfSightPreset {
   final String name;
   final String description;
   final double observerHeight;
   final double distance;
   final double refractionFactor;
-  final double? targetHeight;  // Optional target height
+  final double? targetHeight;
 
   const LineOfSightPreset({
     required this.name,
@@ -12,33 +15,38 @@ class LineOfSightPreset {
     required this.observerHeight,
     required this.distance,
     required this.refractionFactor,
-    this.targetHeight,  // Optional parameter
+    this.targetHeight,
   });
 
-  static const List<LineOfSightPreset> presets = [
-    LineOfSightPreset(
-      name: 'Mount Dankova to Hindu Tagh',
-      description: 'View from Mount Dankova to Hindu Tagh peak',
-      observerHeight: 7015,  // meters
-      distance: 539,         // kilometers
-      refractionFactor: 1.07,
-      targetHeight: 6070,    // Hindu Tagh height in meters
-    ),
-    LineOfSightPreset(
-      name: 'K2 to Broad Peak',
-      description: 'View from K2 to Broad Peak',
-      observerHeight: 8611,  // meters
-      distance: 458,         // kilometers
-      refractionFactor: 1.07,
-      targetHeight: 8051,    // Broad Peak height in meters
-    ),
-    LineOfSightPreset(
-      name: 'Mount Everest to Kanchenjunga',
-      description: 'View from Mount Everest to Kanchenjunga',
-      observerHeight: 8848,  // meters
-      distance: 380,         // kilometers
-      refractionFactor: 1.07,
-      targetHeight: 8586,    // Kanchenjunga height in meters
-    ),
-  ];
+  factory LineOfSightPreset.fromJson(Map<String, dynamic> json) {
+    return LineOfSightPreset(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      observerHeight: json['observerHeight'].toDouble(),
+      distance: json['distance'].toDouble(),
+      refractionFactor: json['refractionFactor'].toDouble(),
+      targetHeight: json['targetHeight']?.toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'description': description,
+    'observerHeight': observerHeight,
+    'distance': distance,
+    'refractionFactor': refractionFactor,
+    if (targetHeight != null) 'targetHeight': targetHeight,
+  };
+
+  static Future<List<LineOfSightPreset>> loadPresets() async {
+    try {
+      final String jsonString = await rootBundle.loadString('assets/info/presets.json');
+      final Map<String, dynamic> jsonMap = json.decode(jsonString);
+      final List<dynamic> presetList = jsonMap['presets'];
+      return presetList.map((json) => LineOfSightPreset.fromJson(json)).toList();
+    } catch (e) {
+      print('Error loading presets: $e');
+      return const [];
+    }
+  }
 }

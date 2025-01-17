@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  url_launcher: ^6.2.2  # For opening GitHub links
+  url_launcher: ^6.2.2  # For opening links and handling email
   fl_chart: ^0.65.0     # For curve visualization
   flutter_svg: ^2.0.9   # For SVG rendering
   vector_math: ^2.1.4   # For vector and matrix operations
@@ -64,8 +64,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/observer.png
-    - assets/svg_diagram.svg
     - assets/source_file.svg
+    - assets/svg_diagram.svg
+    - assets/info/
+    - assets/icons/
     - assets/slides/
     - assets/images/
     - assets/images/BTH_1.png
@@ -73,4 +75,3 @@ flutter:
     - assets/images/BTH_3.png
     - assets/images/BTH_4.png
     - assets/images/Kangchenjunga_520_km.jpg
-    - assets/info/

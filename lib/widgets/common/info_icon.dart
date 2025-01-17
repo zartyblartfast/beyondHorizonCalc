@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import '../../models/info_content.dart';
 import '../../services/info_service.dart';
 
 class InfoIcon extends StatelessWidget {
@@ -25,11 +24,11 @@ class InfoIcon extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text(content.title),
+              title: Text(content['title'] as String),
               content: SingleChildScrollView(
-                child: content.contentType == 'html'
-                    ? Html(data: content.content)
-                    : Text(content.content),
+                child: content['content_type'] == 'html'
+                    ? Html(data: content['content'] as String)
+                    : Text(content['content'] as String),
               ),
               actions: [
                 TextButton(

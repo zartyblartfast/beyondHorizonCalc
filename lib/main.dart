@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'widgets/calculator_form.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'models/menu_item.dart';
 
 void main() {
-  // Disable DevTools in debug mode for web
-  if (kDebugMode && kIsWeb) {
-    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  }
-  
   runApp(const EarthCurvatureApp());
 }
 
@@ -49,6 +48,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<MenuItem> _menuItems = [];
   void _showAboutDialog() {
     showDialog(
       context: context,
@@ -81,6 +81,130 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void _showMissionDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Our Mission'),
+          content: const Text(
+            'To provide an easy and accurate way to calculate what visible vs hidden height of beyond the horizon objects/structures',
+            style: TextStyle(fontSize: 16),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showContactDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Contact Us'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () => launchUrl(Uri.parse('mailto:beyondhorizoncalc@gmail.com')),
+                child: const Row(
+                  children: [
+                    Icon(Icons.email),
+                    SizedBox(width: 8),
+                    Text('beyondhorizoncalc@gmail.com',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        )),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              InkWell(
+                onTap: () => launchUrl(Uri.parse('https://x.com/BeyondHorizon_1')),
+                child: const Row(
+                  children: [
+                    Icon(Icons.link),
+                    SizedBox(width: 8),
+                    Text('@BeyondHorizon_1 on X',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        )),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMenuItems();
+  }
+
+  Future<void> _loadMenuItems() async {
+    try {
+      final String jsonString = await rootBundle.loadString('assets/info/menu_items.json');
+      final Map<String, dynamic> jsonMap = json.decode(jsonString);
+      setState(() {
+        _menuItems = (jsonMap['menu_items'] as List)
+            .map((item) => MenuItem.fromJson(item))
+            .toList();
+      });
+    } catch (e) {
+      debugPrint('Error loading menu items: $e');
+    }
+  }
+
+  void _handleMenuSelection(MenuItem item) {
+    switch (item.id) {
+      case 'about':
+        _showAboutDialog();
+        break;
+      case 'mission':
+        _showMissionDialog();
+        break;
+      case 'contact':
+        _showContactDialog();
+        break;
+    }
+  }
+
+  IconData _getIconData(String icon) {
+    switch (icon) {
+      case 'flag':
+        return Icons.flag_outlined;
+      case 'email':
+        return Icons.email_outlined;
+      case 'share':
+        return Icons.share_outlined;
+      default:
+        return Icons.info_outline;
+    }
   }
 
   @override
@@ -162,14 +286,69 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                // App bar actions (info button)
+                // App bar actions (menu button)
                 Positioned(
                   top: 0,
                   right: 0,
                   child: SafeArea(
-                    child: IconButton(
-                      icon: const Icon(Icons.info_outline, color: Colors.white),
-                      onPressed: _showAboutDialog,
+                    child: PopupMenuButton<MenuItem>(
+                      icon: const Icon(Icons.menu, color: Colors.white),
+                      itemBuilder: (BuildContext context) {
+                        return _menuItems.map((MenuItem item) {
+                          return PopupMenuItem<MenuItem>(
+                            value: item,
+                            child: ListTile(
+                              leading: Icon(_getIconData(item.icon)),
+                              title: Text(item.title),
+                              subtitle: item.type == 'link'
+                                  ? SelectionArea(
+                                      child: MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            if (item.url != null) {
+                                              launchUrl(Uri.parse(item.url!));
+                                            }
+                                          },
+                                          child: Row(
+                                            children: [
+                                              if (item.id == 'social') ...[
+                                                SvgPicture.asset(
+                                                  'assets/icons/twitter_x.svg',
+                                                  width: 14,
+                                                  height: 14,
+                                                  colorFilter: const ColorFilter.mode(
+                                                    Colors.blue,
+                                                    BlendMode.srcIn,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 4),
+                                              ],
+                                              SelectableText(
+                                                item.description,
+                                                style: const TextStyle(
+                                                  color: Colors.blue,
+                                                  decoration: TextDecoration.underline,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Text(item.description),
+                            ),
+                          );
+                        }).toList();
+                      },
+                      onSelected: (MenuItem item) {
+                        if (item.type == 'link' && item.url != null) {
+                          launchUrl(Uri.parse(item.url!));
+                        } else {
+                          _showMissionDialog();
+                        }
+                      },
                     ),
                   ),
                 ),

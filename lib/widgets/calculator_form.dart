@@ -29,29 +29,36 @@ class _CalculatorFormState extends State<CalculatorForm> {
   @override
   void initState() {
     super.initState();
-    // Set default preset to the first one
-    _selectedPreset = LineOfSightPreset.presets.first;
-    // Initialize controllers with default preset values
-    final observerHeight = _isMetric
-        ? _selectedPreset!.observerHeight
-        : _selectedPreset!.observerHeight * 3.28084;
-    final distance = _isMetric
-        ? _selectedPreset!.distance
-        : _selectedPreset!.distance * 0.621371;
-    _observerHeightController.text = observerHeight.toStringAsFixed(1);
-    _distanceController.text = distance.toStringAsFixed(1);
-    _refractionFactorController.text =
-        _selectedPreset!.refractionFactor.toString();
-    _targetHeightController.text =
-        _selectedPreset!.targetHeight?.toString() ?? '';
+    _initializeForm();
+  }
 
+  Future<void> _initializeForm() async {
     // Initialize with empty result to avoid null errors
     _result = const CalculationResult();
 
-    // Calculate initial results after frame is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleCalculate();
-    });
+    // Load presets and set default values
+    final presets = await LineOfSightPreset.loadPresets();
+    if (presets.isNotEmpty) {
+      setState(() {
+        _selectedPreset = presets.first;
+        // Initialize controllers with default preset values
+        final observerHeight =
+            _isMetric ? _selectedPreset!.observerHeight : _selectedPreset!.observerHeight * 3.28084;
+        final distance =
+            _isMetric ? _selectedPreset!.distance : _selectedPreset!.distance * 0.621371;
+        _observerHeightController.text = observerHeight.toStringAsFixed(1);
+        _distanceController.text = distance.toStringAsFixed(1);
+        _refractionFactorController.text =
+            _selectedPreset!.refractionFactor.toStringAsFixed(2);
+        _targetHeightController.text =
+            _selectedPreset!.targetHeight?.toString() ?? '';
+
+        // Calculate initial results after setting values
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _handleCalculate();
+        });
+      });
+    }
   }
 
   @override
@@ -73,7 +80,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
             _isMetric ? preset.distance : preset.distance * 0.621371;
         _observerHeightController.text = observerHeight.toStringAsFixed(1);
         _distanceController.text = distance.toStringAsFixed(1);
-        _refractionFactorController.text = preset.refractionFactor.toString();
+        _refractionFactorController.text = preset.refractionFactor.toStringAsFixed(2);
         _targetHeightController.text = preset.targetHeight?.toString() ?? '';
         // Automatically calculate when preset changes
         WidgetsBinding.instance.addPostFrameCallback((_) {
