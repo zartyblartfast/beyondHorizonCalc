@@ -31,89 +31,77 @@ class _HelpPageState extends State<HelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Earth Curvature Calculator Help'),
-        centerTitle: true,
+        title: const Text('Help'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Understanding Earth Curvature',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SlidesViewer(),
+            const SizedBox(height: 32),
+            const Text(
+              'Famous Long Lines of Sight',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (_isLoading)
+              const Center(child: CircularProgressIndicator())
+            else
+              ..._presets.map((preset) => Card(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            preset.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(preset.description),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Distance: ${preset.distance.toStringAsFixed(1)} km',
+                            style: const TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+            const SizedBox(height: 16),
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'How to Use',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      '1. Enter the observer height in meters\n'
+                      '2. Enter the distance to target in kilometers\n'
+                      '3. Optionally enter target height in meters\n'
+                      '4. Click Calculate to see results',
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              const SlidesViewer(),
-              const SizedBox(height: 32),
-              const Text(
-                'Famous Long Lines of Sight',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 16),
-              if (_isLoading)
-                const Center(child: CircularProgressIndicator())
-              else
-                ...(_presets.map((preset) => Card(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              preset.name,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(preset.description),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Observer Height: ${preset.observerHeight.toStringAsFixed(0)} meters',
-                            ),
-                            Text(
-                              'Distance: ${preset.distance.toStringAsFixed(0)} kilometers',
-                            ),
-                          ],
-                        ),
-                      ),
-                    )).toList()),
-              const SizedBox(height: 16),
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'About Atmospheric Refraction',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Atmospheric refraction bends light rays slightly downward as they travel through the atmosphere. '
-                        'This effect allows us to see slightly beyond the geometric horizon. The standard refraction '
-                        'factor of 0.13 accounts for average atmospheric conditions.',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
