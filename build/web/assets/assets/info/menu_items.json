@@ -1,0 +1,34 @@
+{
+  "menu_items": [
+    {
+      "id": "mission",
+      "title": "Mission",
+      "description": "To provide an easy and accurate way to calculate the visible vs hidden height of beyond the horizon objects/structures",
+      "icon": "flag"
+    },
+    {
+      "id": "email",
+      "title": "Email Us",
+      "description": "beyondhorizoncalc@gmail.com",
+      "icon": "email",
+      "type": "link",
+      "url": "mailto:beyondhorizoncalc@gmail.com"
+    },
+    {
+      "id": "report",
+      "title": "Email Me Report",
+      "description": "Get a detailed report of long line of sight examples",
+      "icon": "list_alt",
+      "type": "action",
+      "action": "email_report"
+    },
+    {
+      "id": "social",
+      "title": "Follow Us",
+      "description": "@BeyondHorizon_1",
+      "icon": "share",
+      "type": "link",
+      "url": "https://x.com/BeyondHorizon_1"
+    }
+  ]
+}

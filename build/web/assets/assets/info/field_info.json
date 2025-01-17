@@ -1,0 +1,47 @@
+{
+  "observer_height": {
+    "title": "Observer Height (h1)",
+    "content": "<p>The eye level height of the observer above sea level.</p><ul><li>Must be between 2 and 9000 meters (6.6 to 29,527 feet)</li><li>Measured from mean sea level</li><li>Represents the vertical distance from sea level to the observer's eyes</li></ul>",
+    "content_type": "html"
+  },
+  "distance": {
+    "title": "Distance (L0)",
+    "content": "<p>The ground level distance between the observer and the object/structure.</p><ul><li>Must be between 5 and 600 kilometers (3.1 to 373 miles)</li><li>Represents the straight-line distance at ground level</li><li>Limited by Earth's curvature and atmospheric conditions</li></ul>",
+    "content_type": "html"
+  },
+  "refraction": {
+    "title": "Refraction Factor",
+    "content": "<p>Accounts for atmospheric refraction that varies with conditions:</p><ul><li>Greater refraction at sunrise/sunset</li><li>Temperature and humidity have significant effects</li><li>Higher refraction makes more of beyond-horizon objects visible</li></ul><p>Typical values:</p><ul><li>1.00: No refraction</li><li>1.02-1.04: Low refraction</li><li>1.07: Average conditions</li><li>1.10-1.15: High refraction (e.g., sunrise/sunset)</li></ul>",
+    "content_type": "html"
+  },
+  "target_height": {
+    "title": "Target Height (XZ)",
+    "content": "<p>The height of the object/structure being observed from top to bottom.</p><ul><li>Optional field</li><li>Must be between 0 and 9000 meters (0 to 29,527 feet)</li><li>Measured from base to top of the structure</li><li>Leave empty to only calculate horizon distance</li></ul>",
+    "content_type": "html"
+  },
+  "presets": {
+    "title": "Famous Lines of Sight",
+    "content": "<p>Pre-configured scenarios of notable long-distance visibility cases.</p><h4>Available Presets:</h4><ul><li><strong>Mount Dankova to Hindu Tagh:</strong> A remarkable line of sight between two peaks in the Kunlun Mountains</li><li><strong>K2 to Broad Peak:</strong> View between two of the world's highest peaks</li><li><strong>Mount Everest to Kanchenjunga:</strong> Line of sight between the world's highest and third-highest peaks</li></ul><p>Each preset includes accurate observer height, distance, and target height values based on real-world data.</p><p>Select 'Custom Values' to input your own measurements.</p>",
+    "content_type": "html"
+  },
+  "horizon_distance": {
+    "title": "Distance to Horizon (D1)",
+    "content": "<p>The ground level distance from the observer's location to the horizon.</p><p>This distance increases with observer height due to the Earth's spherical geometry. The calculation uses the formula:</p><pre>D1 = √(2 × h1 × R)</pre><p>Where:</p><ul><li>D1 is the distance to horizon</li><li>h1 is observer height above sea level</li><li>R is Earth's radius × refraction factor</li></ul><p>The higher the observer's position, the greater the distance to the visible horizon.</p>",
+    "content_type": "html"
+  },
+  "hidden_height": {
+    "title": "Hidden Height (h2, XC)",
+    "content": "<p>The portion of the target object/structure hidden by Earth's curvature. Calculated using spherical geometry:</p><pre>XC = (R/cos(BOX) - R) ÷ 1000</pre><p>Where:</p><ul><li>R is Earth's radius × refraction factor</li><li>BOX = 2π × (l2/C)</li><li>l2 = total distance - distance to horizon</li><li>C = Earth's circumference</li></ul><p>The target may be:</p><ul><li>Fully visible (h2 = 0)</li><li>Partially hidden (0 < h2 < target height)</li><li>Completely hidden (h2 ≥ target height)</li></ul>",
+    "content_type": "html"
+  },
+  "visible_height": {
+    "title": "Visible Height (h3)",
+    "content": "<p>The portion of the target that is visible above the horizon. Calculated as:</p><pre>h3 = Target Height - Hidden Height</pre><p>If h3 is:</p><ul><li>Equal to target height: Object fully visible</li><li>Between 0 and target height: Object partially visible</li><li>0 or negative: Object completely hidden</li></ul><p>The total height is always: Visible Height + Hidden Height = Target Height</p>",
+    "content_type": "html"
+  },
+  "apparent_height": {
+    "title": "Apparent Visible Height (CD)",
+    "content": "<p>The apparent height of the visible portion as seen by the observer. Due to Earth's curvature, distant objects appear to 'lean away', making their visible height appear shorter than actual. Calculated as:</p><pre>CD = h3 × cos(angle)</pre><p>Where:</p><ul><li>h3 is the actual visible height</li><li>angle = distance ÷ (Earth's radius × refraction)</li></ul><p>This effect becomes more pronounced with:</p><ul><li>Greater distances</li><li>Taller structures</li></ul>",
+    "content_type": "html"
+  }
+}
