@@ -38,6 +38,47 @@
     window.addEventListener('error', function(e) {
       console.error('Script loading error:', e);
     });
+
+    // Configure Flutter loader options
+    window.addEventListener('load', function() {
+      _flutter = {
+        loader: {
+          loadEntrypoint: function(options) {
+            // Increase service worker timeout to 8 seconds
+            setTimeout(() => {
+              if (!window.serviceWorkerActivated) {
+                console.log('Service worker not activated after timeout, continuing without it');
+                if (options.onEntrypointLoaded) {
+                  _flutter.initializeEngine().then(options.onEntrypointLoaded);
+                }
+              }
+            }, 8000);
+
+            const serviceWorkerActivated = new Promise((resolve, reject) => {
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('flutter_service_worker.js?v=' + serviceWorkerVersion)
+                  .then((registration) => {
+                    window.serviceWorkerActivated = true;
+                    resolve(registration);
+                  })
+                  .catch((error) => {
+                    console.warn('Failed to register service worker:', error);
+                    resolve(null); // Resolve with null to continue without service worker
+                  });
+              } else {
+                resolve(null);
+              }
+            });
+
+            return serviceWorkerActivated.then(() => {
+              if (options.onEntrypointLoaded) {
+                return _flutter.initializeEngine().then(options.onEntrypointLoaded);
+              }
+            });
+          }
+        }
+      };
+    });
   </script>
 </head>
 <body>
