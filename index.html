@@ -11,7 +11,14 @@
     For more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
-  <base href="/beyondHorizonCalc/">
+  <script>
+    // Dynamically set base href based on whether we're using a custom domain
+    var baseHref = '/';
+    if (window.location.hostname.includes('github.io')) {
+      baseHref = '/beyondHorizonCalc/';
+    }
+    document.write('<base href="' + baseHref + '" />');
+  </script>
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
