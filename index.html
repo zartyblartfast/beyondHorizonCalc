@@ -12,9 +12,9 @@
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
   <script>
-    // Dynamically set base href based on whether we're using a custom domain
+    // Dynamically set base href based on hostname
     var baseHref = '/';
-    if (window.location.hostname.includes('github.io')) {
+    if (window.location.hostname === 'zartyblartfast.github.io') {
       baseHref = '/beyondHorizonCalc/';
     }
     document.write('<base href="' + baseHref + '" />');
@@ -38,9 +38,18 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script>
+    // Log the current hostname and base href for debugging
+    console.log('Hostname:', window.location.hostname);
+    console.log('Base href:', document.querySelector('base').getAttribute('href'));
+  </script>
   <script src="flutter.js" defer></script>
   <script>
     window.addEventListener('load', function() {
+      if (!window._flutter) {
+        console.error('Flutter not loaded. Current base path:', document.querySelector('base').getAttribute('href'));
+        return;
+      }
       _flutter.loader.loadEntrypoint({
         onEntrypointLoaded: async function(engineInitializer) {
           const appRunner = await engineInitializer.initializeEngine();
