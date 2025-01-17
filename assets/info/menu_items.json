@@ -15,6 +15,14 @@
       "url": "mailto:beyondhorizoncalc@gmail.com"
     },
     {
+      "id": "report",
+      "title": "Email Me Report",
+      "description": "Get a detailed report of long line of sight examples",
+      "icon": "list_alt",
+      "type": "action",
+      "action": "email_report"
+    },
+    {
       "id": "social",
       "title": "Follow Us",
       "description": "@BeyondHorizon_1",

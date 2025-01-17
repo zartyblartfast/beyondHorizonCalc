@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'models/menu_item.dart';
+import 'widgets/dialogs/email_report_dialog.dart';
 
 void main() {
   runApp(const EarthCurvatureApp());
@@ -160,6 +161,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _showEmailReportDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => const EmailReportDialog(),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -191,6 +199,9 @@ class _HomePageState extends State<HomePage> {
       case 'contact':
         _showContactDialog();
         break;
+      case 'report':
+        _showEmailReportDialog();
+        break;
     }
   }
 
@@ -200,10 +211,14 @@ class _HomePageState extends State<HomePage> {
         return Icons.flag_outlined;
       case 'email':
         return Icons.email_outlined;
-      case 'share':
-        return Icons.share_outlined;
-      default:
+      case 'info':
         return Icons.info_outline;
+      case 'share':
+        return Icons.share;
+      case 'list_alt':
+        return Icons.list_alt;
+      default:
+        return Icons.error_outline;
     }
   }
 
@@ -346,7 +361,7 @@ class _HomePageState extends State<HomePage> {
                         if (item.type == 'link' && item.url != null) {
                           launchUrl(Uri.parse(item.url!));
                         } else {
-                          _showMissionDialog();
+                          _handleMenuSelection(item);
                         }
                       },
                     ),
