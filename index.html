@@ -29,121 +29,18 @@
 
   <title>Beyond Horizon Calculator</title>
   <link rel="manifest" href="manifest.json">
-
-  <script>
-    // The service worker version
-    var serviceWorkerVersion = null;
-    
-    // Add error handling for script loading
-    window.addEventListener('error', function(e) {
-      console.error('Script loading error:', e);
-    });
-
-    // Configure Flutter loader options
-    window.addEventListener('load', function() {
-      _flutter = {
-        loader: {
-          loadEntrypoint: function(options) {
-            // Increase service worker timeout to 8 seconds
-            setTimeout(() => {
-              if (!window.serviceWorkerActivated) {
-                console.log('Service worker not activated after timeout, continuing without it');
-                if (options.onEntrypointLoaded) {
-                  _flutter.initializeEngine().then(options.onEntrypointLoaded);
-                }
-              }
-            }, 8000);
-
-            const serviceWorkerActivated = new Promise((resolve, reject) => {
-              if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('flutter_service_worker.js?v=' + serviceWorkerVersion)
-                  .then((registration) => {
-                    window.serviceWorkerActivated = true;
-                    resolve(registration);
-                  })
-                  .catch((error) => {
-                    console.warn('Failed to register service worker:', error);
-                    resolve(null); // Resolve with null to continue without service worker
-                  });
-              } else {
-                resolve(null);
-              }
-            });
-
-            return serviceWorkerActivated.then(() => {
-              if (options.onEntrypointLoaded) {
-                return _flutter.initializeEngine().then(options.onEntrypointLoaded);
-              }
-            });
-          }
-        }
-      };
-    });
-  </script>
 </head>
 <body>
+  <script src="flutter.js" defer></script>
   <script>
-    // Check if files exist before loading
-    function checkResource(url) {
-      return fetch(url)
-        .then(response => {
-          if (!response.ok) throw new Error(`Failed to load ${url}`);
-          return true;
-        })
-        .catch(error => {
-          console.error(error);
-          return false;
-        });
-    }
-
-    async function initializeFlutter() {
-      try {
-        const flutterExists = await checkResource('flutter.js');
-        if (!flutterExists) {
-          throw new Error('Flutter.js not found');
+    window.addEventListener('load', function() {
+      _flutter.loader.loadEntrypoint({
+        onEntrypointLoaded: async function(engineInitializer) {
+          const appRunner = await engineInitializer.initializeEngine();
+          await appRunner.runApp();
         }
-
-        // Load flutter.js
-        const flutterScript = document.createElement('script');
-        flutterScript.src = 'flutter.js';
-        flutterScript.defer = true;
-        document.body.appendChild(flutterScript);
-
-        flutterScript.onload = function() {
-          // Now load flutter_bootstrap.js
-          const bootstrapScript = document.createElement('script');
-          bootstrapScript.src = 'flutter_bootstrap.js';
-          bootstrapScript.defer = true;
-          document.body.appendChild(bootstrapScript);
-
-          // Initialize Flutter
-          window.addEventListener('load', function() {
-            if (window._flutter) {
-              window._flutter.loader.loadEntrypoint({
-                serviceWorker: {
-                  serviceWorkerVersion: serviceWorkerVersion,
-                },
-                onEntrypointLoaded: async function(engineInitializer) {
-                  try {
-                    const appRunner = await engineInitializer.initializeEngine();
-                    await appRunner.runApp();
-                  } catch (error) {
-                    console.error('Error initializing Flutter app:', error);
-                  }
-                }
-              });
-            } else {
-              console.error('Flutter initialization failed: _flutter not defined');
-            }
-          });
-        };
-      } catch (error) {
-        console.error('Error during Flutter initialization:', error);
-      }
-    }
-
-    // Start initialization
-    initializeFlutter();
+      });
+    });
   </script>
 </body>
 </html>
