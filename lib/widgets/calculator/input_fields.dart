@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/range_limits.dart';
+import '../common/info_icon.dart';
 
 class InputFields extends StatelessWidget {
   final TextEditingController observerHeightController;
@@ -47,6 +48,7 @@ class InputFields extends StatelessWidget {
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateObserverHeight,
                       enabled: isCustomPreset,
+                      infoKey: 'observer_height',
                     ),
                     const SizedBox(height: 16),
                     _buildInputField(
@@ -55,6 +57,7 @@ class InputFields extends StatelessWidget {
                       suffix: isMetric ? 'km' : 'mi',
                       validator: _validateDistance,
                       enabled: isCustomPreset,
+                      infoKey: 'distance',
                     ),
                     const SizedBox(height: 16),
                     _buildRefractionDropdown(),
@@ -65,6 +68,7 @@ class InputFields extends StatelessWidget {
                       suffix: isMetric ? 'm' : 'ft',
                       validator: _validateTargetHeight,
                       enabled: isCustomPreset,
+                      infoKey: 'target_height',
                     ),
                   ] else ...[
                     // Horizontal layout for wider screens
@@ -77,6 +81,7 @@ class InputFields extends StatelessWidget {
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateObserverHeight,
                             enabled: isCustomPreset,
+                            infoKey: 'observer_height',
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -87,6 +92,7 @@ class InputFields extends StatelessWidget {
                             suffix: isMetric ? 'km' : 'mi',
                             validator: _validateDistance,
                             enabled: isCustomPreset,
+                            infoKey: 'distance',
                           ),
                         ),
                       ],
@@ -103,6 +109,7 @@ class InputFields extends StatelessWidget {
                             suffix: isMetric ? 'm' : 'ft',
                             validator: _validateTargetHeight,
                             enabled: isCustomPreset,
+                            infoKey: 'target_height',
                           ),
                         ),
                       ],
@@ -147,55 +154,98 @@ class InputFields extends StatelessWidget {
     required String label,
     required String suffix,
     required String? Function(String?) validator,
+    required String infoKey,
     bool enabled = true,
   }) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-        suffixText: suffix,
-        enabled: enabled,
-        labelStyle: TextStyle(color: enabled ? null : Colors.black87),
-        suffixStyle: TextStyle(color: enabled ? null : Colors.black87),
-      ),
-      style: TextStyle(color: enabled ? null : Colors.black87),
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: label,
+              border: const OutlineInputBorder(),
+              enabled: enabled,
+              labelStyle: TextStyle(color: enabled ? null : Colors.black87),
+              suffixText: suffix,
+              suffixStyle: TextStyle(color: enabled ? null : Colors.black87),
+            ),
+            style: TextStyle(color: enabled ? null : Colors.black87),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+            ],
+            validator: validator,
+            enabled: enabled,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: InfoIcon(
+            infoKey: infoKey,
+            size: 20,
+          ),
+        ),
       ],
-      validator: validator,
-      enabled: enabled,
     );
   }
 
   Widget _buildRefractionDropdown() {
-    return DropdownButtonFormField<String>(
-      value: _getRefractionLabel(refractionFactorController.text),
-      decoration: const InputDecoration(
-        labelText: 'Refraction',
-        border: OutlineInputBorder(),
-        isCollapsed: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-      ),
-      isDense: true,
-      items: const [
-        DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
-        DropdownMenuItem(value: 'low', child: Text('Low (1.02)')),
-        DropdownMenuItem(value: 'below_average', child: Text('Below Avg (1.04)')),
-        DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
-        DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
-        DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
+    return Row(
+      children: [
+        Expanded(
+          child: DropdownButtonFormField<String>(
+            value: _getRefractionKey(refractionFactorController.text),
+            decoration: const InputDecoration(
+              labelText: 'Refraction Factor',
+              border: OutlineInputBorder(),
+            ),
+            items: const [
+              DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
+              DropdownMenuItem(value: 'low', child: Text('Low (1.02)')),
+              DropdownMenuItem(value: 'below_average', child: Text('Below Avg (1.04)')),
+              DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
+              DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
+              DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
+            ],
+            onChanged: (value) {
+              if (value != null) {
+                refractionFactorController.text = _getRefractionValue(value);
+              }
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: InfoIcon(
+            infoKey: 'refraction',
+            size: 20,
+          ),
+        ),
       ],
-      onChanged: (value) {
-        if (value != null) {
-          refractionFactorController.text = _getRefractionValue(value);
-        }
-      },
     );
   }
 
   String _getRefractionLabel(String value) {
+    switch (value) {
+      case '1.00':
+        return 'none';
+      case '1.02':
+        return 'low';
+      case '1.04':
+        return 'below_average';
+      case '1.07':
+        return 'average';
+      case '1.10':
+        return 'above_average';
+      case '1.15':
+        return 'high';
+      default:
+        return 'average';
+    }
+  }
+
+  String _getRefractionKey(String value) {
     switch (value) {
       case '1.00':
         return 'none';
@@ -244,7 +294,9 @@ class InputFields extends StatelessWidget {
     if (height <= 0) {
       return 'Height must be greater than 0';
     }
-    final maxHeight = isMetric ? RangeLimits.maxObserverHeight : RangeLimits.maxObserverHeight * 3.28084;
+    final maxHeight = isMetric
+        ? RangeLimits.maxObserverHeight
+        : RangeLimits.maxObserverHeight * 3.28084;
     if (height > maxHeight) {
       return 'Height must be less than ${maxHeight.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
     }
@@ -262,7 +314,8 @@ class InputFields extends StatelessWidget {
     if (distance <= 0) {
       return 'Distance must be greater than 0';
     }
-    final maxDist = isMetric ? RangeLimits.maxDistance : RangeLimits.maxDistance * 0.621371;
+    final maxDist =
+        isMetric ? RangeLimits.maxDistance : RangeLimits.maxDistance * 0.621371;
     if (distance > maxDist) {
       return 'Distance must be less than ${maxDist.toStringAsFixed(0)}${isMetric ? 'km' : 'mi'}';
     }
@@ -280,12 +333,14 @@ class InputFields extends StatelessWidget {
     if (height < 0) {
       return 'Height cannot be negative';
     }
-    
+
     // Convert input to meters if in imperial
     final heightInMeters = isMetric ? height : height / 3.28084;
-    
+
     if (heightInMeters > RangeLimits.maxTargetHeight) {
-      final maxDisplay = isMetric ? RangeLimits.maxTargetHeight : RangeLimits.maxTargetHeight * 3.28084;
+      final maxDisplay = isMetric
+          ? RangeLimits.maxTargetHeight
+          : RangeLimits.maxTargetHeight * 3.28084;
       return 'Height must be less than ${maxDisplay.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
     }
     return null;

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../models/line_of_sight_preset.dart';
-import '../long_line_info_dialog.dart';
+import '../common/info_icon.dart';
 
 class PresetSelector extends StatelessWidget {
   final LineOfSightPreset? selectedPreset;
   final ValueChanged<LineOfSightPreset?> onPresetChanged;
-  final VoidCallback onInfoPressed;
 
   const PresetSelector({
     super.key,
     required this.selectedPreset,
     required this.onPresetChanged,
-    required this.onInfoPressed,
   });
 
   @override
@@ -51,15 +49,8 @@ class PresetSelector extends StatelessWidget {
                     onChanged: onPresetChanged,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton.icon(
-                    onPressed: onInfoPressed,
-                    icon: const Icon(Icons.info_outline),
-                    label: const Text('Learn More'),
-                  ),
-                ),
+                const SizedBox(width: 8),
+                const InfoIcon(infoKey: 'presets'),
               ],
             ),
           ],

@@ -32,16 +32,22 @@ class _CalculatorFormState extends State<CalculatorForm> {
     // Set default preset to the first one
     _selectedPreset = LineOfSightPreset.presets.first;
     // Initialize controllers with default preset values
-    final observerHeight = _isMetric ? _selectedPreset!.observerHeight : _selectedPreset!.observerHeight * 3.28084;
-    final distance = _isMetric ? _selectedPreset!.distance : _selectedPreset!.distance * 0.621371;
+    final observerHeight = _isMetric
+        ? _selectedPreset!.observerHeight
+        : _selectedPreset!.observerHeight * 3.28084;
+    final distance = _isMetric
+        ? _selectedPreset!.distance
+        : _selectedPreset!.distance * 0.621371;
     _observerHeightController.text = observerHeight.toStringAsFixed(1);
     _distanceController.text = distance.toStringAsFixed(1);
-    _refractionFactorController.text = _selectedPreset!.refractionFactor.toString();
-    _targetHeightController.text = _selectedPreset!.targetHeight?.toString() ?? '';
-    
+    _refractionFactorController.text =
+        _selectedPreset!.refractionFactor.toString();
+    _targetHeightController.text =
+        _selectedPreset!.targetHeight?.toString() ?? '';
+
     // Initialize with empty result to avoid null errors
     _result = const CalculationResult();
-    
+
     // Calculate initial results after frame is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _handleCalculate();
@@ -61,8 +67,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
-        final observerHeight = _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
-        final distance = _isMetric ? preset.distance : preset.distance * 0.621371;
+        final observerHeight =
+            _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
+        final distance =
+            _isMetric ? preset.distance : preset.distance * 0.621371;
         _observerHeightController.text = observerHeight.toStringAsFixed(1);
         _distanceController.text = distance.toStringAsFixed(1);
         _refractionFactorController.text = preset.refractionFactor.toString();
@@ -109,7 +117,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
     // Get values from controllers
     final double observerHeight = double.parse(_observerHeightController.text);
     final double distance = double.parse(_distanceController.text);
-    final double refractionFactor = double.parse(_refractionFactorController.text);
+    final double refractionFactor =
+        double.parse(_refractionFactorController.text);
     final double? targetHeight = _targetHeightController.text.isEmpty
         ? null
         : double.parse(_targetHeightController.text);
@@ -128,20 +137,14 @@ class _CalculatorFormState extends State<CalculatorForm> {
     });
   }
 
-  void _showInfoDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => const LongLineInfoDialog(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide = constraints.maxWidth > 900; // Breakpoint for wide screens
+          final isWide =
+              constraints.maxWidth > 900; // Breakpoint for wide screens
 
           Widget content = Column(
             children: [
@@ -155,7 +158,6 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       PresetSelector(
                         selectedPreset: _selectedPreset,
                         onPresetChanged: _handlePresetChanged,
-                        onInfoPressed: _showInfoDialog,
                       ),
                       const SizedBox(height: 16),
                       InputFields(
@@ -212,13 +214,13 @@ class _CalculatorFormState extends State<CalculatorForm> {
                           PresetSelector(
                             selectedPreset: _selectedPreset,
                             onPresetChanged: _handlePresetChanged,
-                            onInfoPressed: _showInfoDialog,
                           ),
                           const SizedBox(height: 16),
                           InputFields(
                             observerHeightController: _observerHeightController,
                             distanceController: _distanceController,
-                            refractionFactorController: _refractionFactorController,
+                            refractionFactorController:
+                                _refractionFactorController,
                             targetHeightController: _targetHeightController,
                             isMetric: _isMetric,
                             onMetricChanged: _handleMetricChanged,
