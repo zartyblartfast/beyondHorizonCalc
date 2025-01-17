@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/models/calculation_result.dart';
+import '../common/info_icon.dart';
 
 class ResultsDisplay extends StatelessWidget {
   final CalculationResult? result;
@@ -47,15 +48,28 @@ class ResultsDisplay extends StatelessWidget {
     }
   }
 
-  Widget _buildResultRow(String label, String value) {
+  Widget _buildResultRow(String label, String value, String infoKey) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          Expanded(
+            child: Row(
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: InfoIcon(
+                    infoKey: infoKey,
+                    size: 20,
+                  ),
+                ),
+              ],
+            ),
           ),
           Text(value),
         ],
@@ -76,19 +90,23 @@ class ResultsDisplay extends StatelessWidget {
             _buildResultRow(
               'Distance to Horizon (D1)',
               _formatDistance(result!.horizonDistance),
+              'horizon_distance',
             ),
             _buildResultRow(
               'Hidden Height (h2, XC)',
               _formatHeight(result!.hiddenHeight),
+              'hidden_height',
             ),
             if (targetHeight != null) ...[
               _buildResultRow(
                 'Visible Height (h3)',
                 _formatHeight(result!.visibleTargetHeight!),
+                'visible_height',
               ),
               _buildResultRow(
                 'Apparent Visible Height (CD)',
                 _formatHeight(result!.apparentVisibleHeight!),
+                'apparent_height',
               ),
             ],
           ],

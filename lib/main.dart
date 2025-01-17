@@ -124,12 +124,14 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
                       colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.25),
+                        Colors.black.withOpacity(0.65),  // Darker on left
+                        Colors.black.withOpacity(0.48),  // Current opacity in middle
+                        Colors.black.withOpacity(0.05),  // Almost transparent on right
                       ],
+                      stops: const [0.0, 0.5, 1.0],  // Even distribution
                     ),
                   ),
                   child: SafeArea(
