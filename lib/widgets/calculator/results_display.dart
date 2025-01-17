@@ -21,8 +21,8 @@ class ResultsDisplay extends StatelessWidget {
 
   String _formatHeight(double? value) {
     if (value == null) return 'N/A';
-    final double displayValue = isMetric ? value : value * 3.28084; // m to ft
-    return '${displayValue.toStringAsFixed(2)} ${isMetric ? 'km' : 'ft'}';
+    final double displayValue = isMetric ? value * 1000 : value * 3280.84; // km to m, or km to ft
+    return '${displayValue.toStringAsFixed(1)} ${isMetric ? 'm' : 'ft'}';
   }
 
   String _getDiagramAsset() {

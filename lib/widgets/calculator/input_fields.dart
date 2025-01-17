@@ -280,9 +280,13 @@ class InputFields extends StatelessWidget {
     if (height < 0) {
       return 'Height cannot be negative';
     }
-    final maxHeight = isMetric ? RangeLimits.maxTargetHeight : RangeLimits.maxTargetHeight * 3.28084;
-    if (height > maxHeight) {
-      return 'Height must be less than ${maxHeight.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
+    
+    // Convert input to meters if in imperial
+    final heightInMeters = isMetric ? height : height / 3.28084;
+    
+    if (heightInMeters > RangeLimits.maxTargetHeight) {
+      final maxDisplay = isMetric ? RangeLimits.maxTargetHeight : RangeLimits.maxTargetHeight * 3.28084;
+      return 'Height must be less than ${maxDisplay.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
     }
     return null;
   }

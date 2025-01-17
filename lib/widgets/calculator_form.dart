@@ -32,8 +32,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
     // Set default preset to the first one
     _selectedPreset = LineOfSightPreset.presets.first;
     // Initialize controllers with default preset values
-    _observerHeightController.text = _selectedPreset!.observerHeight.toString();
-    _distanceController.text = _selectedPreset!.distance.toString();
+    final observerHeight = _isMetric ? _selectedPreset!.observerHeight : _selectedPreset!.observerHeight * 3.28084;
+    final distance = _isMetric ? _selectedPreset!.distance : _selectedPreset!.distance * 0.621371;
+    _observerHeightController.text = observerHeight.toStringAsFixed(1);
+    _distanceController.text = distance.toStringAsFixed(1);
     _refractionFactorController.text = _selectedPreset!.refractionFactor.toString();
     _targetHeightController.text = _selectedPreset!.targetHeight?.toString() ?? '';
     
@@ -59,8 +61,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
-        _observerHeightController.text = preset.observerHeight.toString();
-        _distanceController.text = preset.distance.toString();
+        final observerHeight = _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
+        final distance = _isMetric ? preset.distance : preset.distance * 0.621371;
+        _observerHeightController.text = observerHeight.toStringAsFixed(1);
+        _distanceController.text = distance.toStringAsFixed(1);
         _refractionFactorController.text = preset.refractionFactor.toString();
         _targetHeightController.text = preset.targetHeight?.toString() ?? '';
         // Automatically calculate when preset changes
@@ -85,7 +89,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
       if (_distanceController.text.isNotEmpty) {
         final double value = double.parse(_distanceController.text);
         final double converted = isMetric ? value * 1.60934 : value * 0.621371;
-        _distanceController.text = converted.toStringAsFixed(2);
+        _distanceController.text = converted.toStringAsFixed(1);
       }
       if (_targetHeightController.text.isNotEmpty) {
         final double value = double.parse(_targetHeightController.text);
