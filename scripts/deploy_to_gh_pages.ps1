@@ -247,9 +247,11 @@ git checkout $DevBranch
 if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to switch back to $DevBranch" }
 
 Write-Success "Deployment completed successfully!"
-Write-Host "`n💡 Your site should be live in a few minutes at: https://zartyblartfast.github.io/$repoName/" -ForegroundColor Yellow
-Write-Host "`n🔍 If you encounter any issues, check:" -ForegroundColor Yellow
-Write-Host "   1. GitHub Pages settings in your repository" -ForegroundColor Yellow
-Write-Host "   2. Browser's developer console (F12) for errors" -ForegroundColor Yellow
-Write-Host "   3. That all files are present in the gh-pages branch" -ForegroundColor Yellow
-Write-Host "" # Add empty line at end
+
+$siteUrl = "https://zartyblartfast.github.io/$repoName/"
+Write-Host "`nYour site should be live in a few minutes at: $siteUrl" -ForegroundColor Yellow
+
+Write-Host "`nIf you encounter any issues, check:" -ForegroundColor Yellow
+Write-Host "1. GitHub Pages settings in your repository" -ForegroundColor Yellow
+Write-Host "2. Browser's developer console (F12) for errors" -ForegroundColor Yellow
+Write-Host "3. That all files are present in the gh-pages branch" -ForegroundColor Yellow
