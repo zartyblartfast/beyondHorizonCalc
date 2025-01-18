@@ -43,5 +43,10 @@
     "title": "Apparent Visible Height (CD)",
     "content": "<p>The apparent height of the visible portion as seen by the observer. Due to Earth's curvature, distant objects appear to 'lean away', making their visible height appear shorter than actual. Calculated as:</p><pre>CD = h3 × cos(angle)</pre><p>Where:</p><ul><li>h3 is the actual visible height</li><li>angle = distance ÷ (Earth's radius × refraction)</li></ul><p>This effect becomes more pronounced with:</p><ul><li>Greater distances</li><li>Taller structures</li></ul>",
     "content_type": "html"
+  },
+  "perspective_scaled_height": {
+    "title": "Perspective Scaled Apparent Visible Height",
+    "content": "<p>Shows how the Apparent Visible Height (CD) would appear to an observer's eye when accounting for perspective scaling with distance.</p><ul><li>Takes the Apparent Visible Height calculated above and applies perspective scaling</li><li>Based on the pinhole camera model of human vision where objects appear smaller with distance</li><li>Calculated using: Height = (Focal Length × Apparent Visible Height) / Distance</li><li>Uses a standard focal length to approximate typical human visual perception</li></ul>",
+    "content_type": "html"
   }
 }
