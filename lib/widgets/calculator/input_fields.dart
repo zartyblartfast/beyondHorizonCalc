@@ -103,7 +103,9 @@ class InputFields extends StatelessWidget {
                     SizedBox(height: isNarrow ? 8 : 16),
                     Row(
                       children: [
-                        Expanded(child: _buildRefractionDropdown()),
+                        Expanded(
+                          child: _buildRefractionDropdown(),
+                        ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: _buildInputField(
