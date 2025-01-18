@@ -47,6 +47,10 @@ git rm -rf .
 # IMPORTANT: Copy contents of temp_web_build directly to root, not to a subdirectory
 robocopy "..\temp_web_build" "." /E
 
+# Run verification script to check all files and settings
+./scripts/verify_gh_pages_deploy.ps1
+
+# Only proceed if verification passes
 # Clean up temp directory (optional)
 rd /s /q "..\temp_web_build"
 
