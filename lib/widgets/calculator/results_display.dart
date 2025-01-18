@@ -57,12 +57,12 @@ class ResultsDisplay extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: isMobile ? 2.0 : 4.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 flex: 3,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Flexible(
                       child: Text(
@@ -70,11 +70,13 @@ class ResultsDisplay extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: isMobile ? 2.0 : 4.0),
-                      child: InfoIcon(
-                        infoKey: infoKey,
-                        size: isMobile ? 16 : 20,
+                    SizedBox(
+                      width: 24,
+                      child: Center(
+                        child: InfoIcon(
+                          infoKey: infoKey,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],

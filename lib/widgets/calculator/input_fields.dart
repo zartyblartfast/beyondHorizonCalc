@@ -163,7 +163,7 @@ class InputFields extends StatelessWidget {
         final isMobile = constraints.maxWidth < 600;
         
         return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: TextFormField(
@@ -185,11 +185,14 @@ class InputFields extends StatelessWidget {
                 onFieldSubmitted: (_) => onCalculate(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: isMobile ? 2.0 : 4.0),
-              child: InfoIcon(
-                infoKey: infoKey,
-                size: isMobile ? 16 : 20,
+            SizedBox(
+              width: 24,
+              height: isMobile ? 40 : 48,
+              child: Center(
+                child: InfoIcon(
+                  infoKey: infoKey,
+                  size: 20,
+                ),
               ),
             ),
           ],
