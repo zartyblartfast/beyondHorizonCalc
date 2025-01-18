@@ -14,11 +14,9 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="/beyondHorizonCalc/">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A horizon visibility calculator to show how much of a distant object is hidden by Earth&apos;s curvature">
+  <meta name="description" content="A horizon visibility calculator to show how much of a distant object is hidden by Earth's curvature">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +28,46 @@
   <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>Beyond Horizon Calculator</title>
+
+  <!-- Dynamic base href handling -->
+  <script>
+    (function() {
+      var host = window.location.hostname.toLowerCase();
+      var basePath = "/";  // Default for custom domain (beyondhorizoncalc.com)
+      
+      // If on GitHub Pages domain, use the repository path
+      if (host === "zartyblartfast.github.io") {
+        basePath = "/beyondHorizonCalc/";
+      }
+
+      // Create and insert base tag
+      var baseTag = document.createElement('base');
+      baseTag.href = basePath;
+      document.head.appendChild(baseTag);
+
+      // Store the base path for any script that might need it
+      window.beyondHorizonBaseHref = basePath;
+    })();
+  </script>
+
   <link rel="manifest" href="manifest.json">
+
+  <!-- Initialize Flutter -->
+  <script>
+    // Ensure service worker uses the correct scope based on base href
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        var swScope = window.beyondHorizonBaseHref || '/';
+        navigator.serviceWorker.register('flutter_service_worker.js', { scope: swScope })
+          .then(function(reg) {
+            console.log('Service worker registered with scope:', reg.scope);
+          })
+          .catch(function(err) {
+            console.error('Service worker registration failed:', err);
+          });
+      }
+    });
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
