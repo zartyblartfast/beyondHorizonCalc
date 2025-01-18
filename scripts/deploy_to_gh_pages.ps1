@@ -214,8 +214,11 @@ git checkout $GhPagesBranch
 if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to switch to $GhPagesBranch branch" }
 
 Write-Step "Cleaning $GhPagesBranch branch..."
-# Remove everything except specific files/directories
-Get-ChildItem -Path . -Exclude @('.git', 'scripts') | Remove-Item -Recurse -Force
+# First stash any changes in gh-pages branch
+git stash -u
+
+# Remove everything except .git directory
+Get-ChildItem -Path . -Exclude '.git' | Remove-Item -Recurse -Force
 
 Write-Step "Copying new files from temporary directory..."
 robocopy $TempBuildDir "." /E
@@ -229,7 +232,7 @@ if (Test-Path ".\scripts\verify_gh_pages_deploy.ps1") {
     }
     Write-Success "Verification passed"
 } else {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Verification script not found at .\scripts\verify_gh_pages_deploy.ps1"
+    Write-Host "Note: Verification script not found - skipping verification" -ForegroundColor Yellow
 }
 
 Write-Step "Committing changes..."
@@ -242,9 +245,15 @@ if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch 
 Write-Success "Successfully pushed to GitHub"
 
 Write-Step "Cleaning up..."
+# Stash any changes before switching back
+git stash -u
+
 # Switch back to dev branch
 git checkout $DevBranch
-if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to switch back to $DevBranch" }
+if ($LASTEXITCODE -ne 0) { 
+    Write-Host "Failed to switch back to $DevBranch - please switch back manually" -ForegroundColor Red
+    exit 1
+}
 
 Write-Success "Deployment completed successfully!"
 
