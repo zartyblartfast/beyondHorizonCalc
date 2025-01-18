@@ -38,17 +38,8 @@ function Restore-InitialState {
         git checkout $OriginalBranch
     }
     
-    # If temp directory exists but is incomplete/corrupted, archive it with error flag
-    if (Test-Path $TempBuildDir) {
-        $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-        $errorDir = "$TempBuildDir`_error_$timestamp"
-        Write-Host "Moving incomplete build to: $errorDir" -ForegroundColor Yellow
-        Move-Item -Path $TempBuildDir -Destination $errorDir
-    }
-    
     Write-Host ">> Deployment failed and was safely aborted" -ForegroundColor Red
     Write-Host "Please check the error message above and try again" -ForegroundColor Yellow
-    Write-Host "Any incomplete files were preserved at: $errorDir" -ForegroundColor Yellow
     exit 1
 }
 
@@ -116,6 +107,32 @@ if ($TempBuildDir.Contains(".git") -or (Test-Path "$TempBuildDir\.git")) {
     Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Temporary directory cannot be within a git repository"
 }
 
+# Check if temp directory exists
+if (-not (Test-Path $TempBuildDir)) {
+    Write-Error "Temp build directory does not exist: $TempBuildDir"
+}
+
+# Check if temp directory is not empty
+if ((Get-ChildItem -Path $TempBuildDir -Force | Measure-Object).Count -gt 0) {
+    if (-not $Force) {
+        $confirmation = Read-Host "Temp directory is not empty. Do you want to delete its contents? (y/N)"
+        if ($confirmation -ne 'y') {
+            Write-Error "Deployment cancelled by user"
+        }
+    }
+    
+    # Clean the temp directory
+    Write-Step "Cleaning temp directory..."
+    try {
+        Get-ChildItem -Path $TempBuildDir -Force | ForEach-Object {
+            Remove-Item -Path $_.FullName -Force -Recurse
+        }
+    }
+    catch {
+        Restore-InitialState -ErrorMessage "Failed to clean temp directory: $_"
+    }
+}
+
 # Ask for confirmation unless -Force is used
 if (-not $Force) {
     Write-Host "`nWARNING: You are about to deploy to GitHub Pages" -ForegroundColor Yellow
@@ -142,27 +159,6 @@ if ($currentBranch -ne $DevBranch) {
 }
 
 Write-Step "Preparing temporary directory..."
-# Check temp directory exists
-if (-not (Test-Path $TempBuildDir)) {
-    Write-Host "`n>> Error: Temporary directory does not exist: $TempBuildDir" -ForegroundColor Red
-    Write-Host "Please create the directory first before running this script" -ForegroundColor Yellow
-    Write-Host "This is a safety measure to ensure the correct directory is used" -ForegroundColor Yellow
-    exit 1
-}
-
-# Check if directory has contents
-$hasContents = (Get-ChildItem -Path $TempBuildDir -Force).Count -gt 0
-if ($hasContents) {
-    Write-Host "`nWARNING: The temporary directory contains files: $TempBuildDir" -ForegroundColor Yellow
-    $confirm = Read-Host "Do you want to delete its contents? (Y/N)"
-    if ($confirm -eq "Y") {
-        Write-Host "Cleaning existing temp directory contents..."
-        Get-ChildItem -Path $TempBuildDir -Force | Remove-Item -Recurse -Force
-    } else {
-        Write-Host "Deployment cancelled - temp directory was not cleared" -ForegroundColor Red
-        exit 1
-    }
-}
 
 Write-Step "Building Flutter web application..."
 try {
