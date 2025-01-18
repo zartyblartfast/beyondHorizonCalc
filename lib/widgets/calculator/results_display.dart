@@ -49,31 +49,48 @@ class ResultsDisplay extends StatelessWidget {
   }
 
   Widget _buildResultRow(String label, String value, String infoKey) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
+        
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: isMobile ? 2.0 : 4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        label,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: isMobile ? 2.0 : 4.0),
+                      child: InfoIcon(
+                        infoKey: infoKey,
+                        size: isMobile ? 16 : 20,
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: InfoIcon(
-                    infoKey: infoKey,
-                    size: 20,
-                  ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  value,
+                  textAlign: TextAlign.right,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Text(value),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -81,42 +98,48 @@ class ResultsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     if (result == null) return const SizedBox.shrink();
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildResultRow(
-              'Distance to Horizon (D1)',
-              _formatDistance(result!.horizonDistance),
-              'horizon_distance',
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
+        
+        return Card(
+          child: Padding(
+            padding: EdgeInsets.all(isMobile ? 8.0 : 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildResultRow(
+                  'Distance to Horizon (D1)',
+                  _formatDistance(result!.horizonDistance),
+                  'horizon_distance',
+                ),
+                _buildResultRow(
+                  'Hidden Height (h2, XC)',
+                  _formatHeight(result!.hiddenHeight),
+                  'hidden_height',
+                ),
+                if (targetHeight != null) ...[
+                  _buildResultRow(
+                    'Visible Height (h3)',
+                    _formatHeight(result!.visibleTargetHeight!),
+                    'visible_height',
+                  ),
+                  _buildResultRow(
+                    'Apparent Visible Height (CD)',
+                    _formatHeight(result!.apparentVisibleHeight!),
+                    'apparent_height',
+                  ),
+                  _buildResultRow(
+                    'Perspective Scaled Apparent Visible Height',
+                    _formatHeight(result!.perspectiveScaledHeight!),
+                    'perspective_scaled_height',
+                  ),
+                ],
+              ],
             ),
-            _buildResultRow(
-              'Hidden Height (h2, XC)',
-              _formatHeight(result!.hiddenHeight),
-              'hidden_height',
-            ),
-            if (targetHeight != null) ...[
-              _buildResultRow(
-                'Visible Height (h3)',
-                _formatHeight(result!.visibleTargetHeight!),
-                'visible_height',
-              ),
-              _buildResultRow(
-                'Apparent Visible Height (CD)',
-                _formatHeight(result!.apparentVisibleHeight!),
-                'apparent_height',
-              ),
-              _buildResultRow(
-                'Perspective Scaled Apparent Visible Height',
-                _formatHeight(result!.perspectiveScaledHeight!),
-                'perspective_scaled_height',
-              ),
-            ],
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

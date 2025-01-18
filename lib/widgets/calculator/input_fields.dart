@@ -33,7 +33,7 @@ class InputFields extends StatelessWidget {
       builder: (context, constraints) {
         final isNarrow = constraints.maxWidth < 600;
         final contentPadding = isNarrow 
-            ? const EdgeInsets.all(8.0)
+            ? const EdgeInsets.all(4.0)
             : const EdgeInsets.all(16.0);
 
         return SingleChildScrollView(
@@ -158,36 +158,43 @@ class InputFields extends StatelessWidget {
     required String infoKey,
     bool enabled = true,
   }) {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: label,
-              border: const OutlineInputBorder(),
-              enabled: enabled,
-              labelStyle: TextStyle(color: enabled ? null : Colors.black87),
-              suffixText: suffix,
-              suffixStyle: TextStyle(color: enabled ? null : Colors.black87),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
+        
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: controller,
+                decoration: InputDecoration(
+                  labelText: label,
+                  suffixText: suffix,
+                  border: const OutlineInputBorder(),
+                  enabled: enabled,
+                  contentPadding: isMobile 
+                      ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                      : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                ),
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+                ],
+                validator: validator,
+                onFieldSubmitted: (_) => onCalculate(),
+              ),
             ),
-            style: TextStyle(color: enabled ? null : Colors.black87),
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-            ],
-            validator: validator,
-            enabled: enabled,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: InfoIcon(
-            infoKey: infoKey,
-            size: 20,
-          ),
-        ),
-      ],
+            Padding(
+              padding: EdgeInsets.only(left: isMobile ? 2.0 : 4.0),
+              child: InfoIcon(
+                infoKey: infoKey,
+                size: isMobile ? 16 : 20,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
