@@ -4,7 +4,6 @@ param(
     [string]$DevBranch = "dev2",                                  # The branch you develop on
     [string]$GhPagesBranch = "gh-pages",                         # The branch that hosts the GitHub Pages
     [string]$TempBuildDir = "C:\Users\clive\VSC\temp_web_build", # Absolute path to temp directory
-    [string]$WorkingIndexPath = ".\docs\working_index.html",      # Path to the known working index.html
     [switch]$Force                                                # Force deployment without confirmations
 )
 
@@ -107,8 +106,9 @@ if ($localCommit -ne $remoteCommit) {
 }
 
 # 7. Verify working index.html
-if (-not (Test-Path $WorkingIndexPath)) {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Working index.html not found at $WorkingIndexPath"
+$workingIndexPath = Join-Path $PSScriptRoot "..\docs\working_index.html"
+if (-not (Test-Path $workingIndexPath)) {
+    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Working index.html not found at $workingIndexPath"
 }
 
 # 8. Verify temp directory location is safe
@@ -187,11 +187,12 @@ robocopy ".\build\web" $TempBuildDir /E
 Write-Success "Build files copied to $TempBuildDir"
 
 Write-Step "Replacing index.html with known working version..."
-Copy-Item -Path $WorkingIndexPath -Destination "$TempBuildDir\index.html" -Force
-# Update base href in the working index.html to match repository
-$indexContent = Get-Content "$TempBuildDir\index.html" -Raw
-$indexContent = $indexContent -replace '<base href="[^"]*">', "<base href=`"$baseHref`">"
-$indexContent | Set-Content "$TempBuildDir\index.html" -NoNewline
+$workingIndexPath = Join-Path $PSScriptRoot "..\docs\working_index.html"
+if (-not (Test-Path $workingIndexPath)) {
+    Write-Error "Could not find working index.html at: $workingIndexPath"
+}
+Copy-Item $workingIndexPath -Destination (Join-Path $TempBuildDir "index.html") -Force
+Write-Success "Replaced index.html with dynamic base href version"
 
 Write-Step "Verifying critical files in new build..."
 $criticalFiles = @(
