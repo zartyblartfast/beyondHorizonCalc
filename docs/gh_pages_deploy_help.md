@@ -73,7 +73,9 @@ Before pushing to gh-pages, ensure these critical files are present in the ROOT 
 1. `index.html` - The main entry point for the web app (must be in root directory)
 2. `main.dart.js` - The compiled Flutter application
 3. `flutter.js` and `flutter_bootstrap.js` - Required Flutter web runtime files
-4. All assets from your assets directory
+4. `favicon.png` - Web app icon
+5. `manifest.json` - Web app manifest file (contains app metadata and icon information)
+6. All assets from your assets directory
 
 ## Verification Steps
 
