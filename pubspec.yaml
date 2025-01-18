@@ -31,12 +31,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  url_launcher: ^6.2.2  # For opening links and handling email
   fl_chart: ^0.65.0     # For curve visualization
   flutter_svg: ^2.0.9   # For SVG rendering
   vector_math: ^2.1.4   # For vector and matrix operations
   meta: ^1.11.0         # For additional annotations
   flutter_html: ^3.0.0-beta.2  # For rendering HTML content
+  url_launcher: ^6.2.2  # For opening links
+  url_launcher_web: ^2.2.2  # For web support
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'models/menu_item.dart';
-import 'widgets/dialogs/email_report_dialog.dart';
+import 'widgets/dialogs/report_dialog.dart';
 
 void main() {
   runApp(const EarthCurvatureApp());
@@ -107,64 +107,63 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not open $urlString')),
+        );
+      }
+    }
+  }
+
   void _showContactDialog() {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Contact Us'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () => launchUrl(Uri.parse('mailto:beyondhorizoncalc@gmail.com')),
-                child: const Row(
-                  children: [
-                    Icon(Icons.email),
-                    SizedBox(width: 8),
-                    Text('beyondhorizoncalc@gmail.com',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue,
-                        )),
-                  ],
-                ),
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Contact Us'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: () => _launchURL('mailto:beyondhorizoncalc@gmail.com'),
+              child: const Row(
+                children: [
+                  Icon(Icons.email),
+                  SizedBox(width: 8),
+                  Text('beyondhorizoncalc@gmail.com'),
+                ],
               ),
-              const SizedBox(height: 16),
-              InkWell(
-                onTap: () => launchUrl(Uri.parse('https://x.com/BeyondHorizon_1')),
-                child: const Row(
-                  children: [
-                    Icon(Icons.link),
-                    SizedBox(width: 8),
-                    Text('@BeyondHorizon_1 on X',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue,
-                        )),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () => _launchURL('https://x.com/BeyondHorizon_1'),
+              child: const Row(
+                children: [
+                  Icon(Icons.link),
+                  SizedBox(width: 8),
+                  Text('Follow us on X (Twitter)'),
+                ],
               ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
           ],
-        );
-      },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
     );
   }
 
-  void _showEmailReportDialog() {
+  void _showReportDialog() {
     showDialog(
       context: context,
-      builder: (BuildContext context) => const EmailReportDialog(),
+      builder: (BuildContext context) => const ReportDialog(),
     );
   }
 
@@ -188,7 +187,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _handleMenuSelection(MenuItem item) {
+  Future<void> _handleMenuSelection(MenuItem item) async {
+    if (item.url != null) {
+      await _launchURL(item.url!);
+      return;
+    }
     switch (item.id) {
       case 'about':
         _showAboutDialog();
@@ -200,7 +203,7 @@ class _HomePageState extends State<HomePage> {
         _showContactDialog();
         break;
       case 'report':
-        _showEmailReportDialog();
+        _showReportDialog();
         break;
     }
   }
@@ -322,7 +325,7 @@ class _HomePageState extends State<HomePage> {
                                         child: GestureDetector(
                                           onTap: () {
                                             if (item.url != null) {
-                                              launchUrl(Uri.parse(item.url!));
+                                              _launchURL(item.url!);
                                             }
                                           },
                                           child: Row(
@@ -358,11 +361,7 @@ class _HomePageState extends State<HomePage> {
                         }).toList();
                       },
                       onSelected: (MenuItem item) {
-                        if (item.type == 'link' && item.url != null) {
-                          launchUrl(Uri.parse(item.url!));
-                        } else {
-                          _handleMenuSelection(item);
-                        }
+                        _handleMenuSelection(item);
                       },
                     ),
                   ),

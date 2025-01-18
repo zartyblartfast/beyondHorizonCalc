@@ -16,11 +16,11 @@
     },
     {
       "id": "report",
-      "title": "Email Me Report",
-      "description": "Get a detailed report of long line of sight examples",
+      "title": "Long Line of Sight Report",
+      "description": "View and copy detailed report of long line of sight examples",
       "icon": "list_alt",
       "type": "action",
-      "action": "email_report"
+      "action": "report"
     },
     {
       "id": "social",
