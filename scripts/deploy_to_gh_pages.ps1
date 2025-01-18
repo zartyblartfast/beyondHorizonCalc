@@ -11,7 +11,7 @@ param(
 # Function to write colored output
 function Write-Step {
     param([string]$Message)
-    Write-Host "`n🔷 $Message" -ForegroundColor Cyan
+    Write-Host "`n🔄 $Message" -ForegroundColor Cyan
 }
 
 function Write-Success {
@@ -135,34 +135,10 @@ $repoUrl = git config --get remote.origin.url
 $repoName = ($repoUrl -split '/')[-1] -replace '\.git$',''
 $baseHref = "/$repoName/"
 
-Write-Step "Verifying current state..."
 # Check if we're on the right branch
 $currentBranch = git branch --show-current
 if ($currentBranch -ne $DevBranch) {
     Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Must start from $DevBranch branch. Current branch: $currentBranch"
-}
-
-Write-Step "Verifying working index.html..."
-if (-not (Test-Path $WorkingIndexPath)) {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Working index.html not found at $WorkingIndexPath"
-}
-
-Write-Step "Building Flutter web application..."
-try {
-    # Clean and rebuild
-    flutter clean
-    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter clean failed" }
-    
-    flutter pub get
-    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter pub get failed" }
-    
-    Write-Host "Using base-href: $baseHref (matches repository name exactly)"
-    flutter build web --release --base-href $baseHref --web-renderer canvaskit
-    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter build failed" }
-    
-    Write-Success "Flutter build completed"
-} catch {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter build process failed: $_"
 }
 
 Write-Step "Preparing temporary directory..."
@@ -182,6 +158,24 @@ if ($confirm -ne "Y") {
 }
 Write-Host "Cleaning existing temp directory..." -ForegroundColor Yellow
 Remove-Item "$TempBuildDir\*" -Recurse -Force
+
+Write-Step "Building Flutter web application..."
+try {
+    # Clean and rebuild
+    flutter clean
+    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter clean failed" }
+    
+    flutter pub get
+    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter pub get failed" }
+    
+    Write-Host "Using base-href: $baseHref (matches repository name exactly)"
+    flutter build web --release --base-href $baseHref --web-renderer canvaskit
+    if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter build failed" }
+    
+    Write-Success "Flutter build completed"
+} catch {
+    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Flutter build process failed: $_"
+}
 
 Write-Step "Copying build files to temporary location..."
 robocopy ".\build\web" $TempBuildDir /E
@@ -221,12 +215,7 @@ if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch 
 
 Write-Step "Cleaning $GhPagesBranch branch..."
 # Remove everything except specific files/directories
-Get-ChildItem -Path . -Exclude '.git','.github','CNAME','.gitignore','README.md','LICENSE','scripts' | 
-    ForEach-Object {
-        if (Test-Path $_) {
-            Remove-Item $_.FullName -Recurse -Force
-        }
-    }
+Get-ChildItem -Path . -Exclude @('.git', 'scripts') | Remove-Item -Recurse -Force
 
 Write-Step "Copying new files from temporary directory..."
 robocopy $TempBuildDir "." /E
@@ -244,10 +233,8 @@ if (Test-Path ".\scripts\verify_gh_pages_deploy.ps1") {
 }
 
 Write-Step "Committing changes..."
-$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$commitMessage = "Update gh-pages with latest web build ($timestamp)"
-git add .
-git commit -m $commitMessage
+git add -A
+git commit -m "Deploy to GitHub Pages - $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
 Write-Step "Pushing to GitHub..."
 git push origin $GhPagesBranch --force
@@ -264,9 +251,4 @@ Write-Host "`n💡 Your site should be live in a few minutes at: https://zartybl
 Write-Host "🔍 If you encounter any issues, check:" -ForegroundColor Yellow
 Write-Host "   1. GitHub Pages settings in your repository" -ForegroundColor Yellow
 Write-Host "   2. Browser's developer console (F12) for errors" -ForegroundColor Yellow
-Write-Host "   3. That all files are present in the gh-pages branch`n" -ForegroundColor Yellow
-Write-Host "`n📝 A deployment log has been saved to: $TempBuildDir\deploy_log.txt`n" -ForegroundColor Yellow
-
-catch {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage $_.Exception.Message
-}
+Write-Host "   3. That all files are present in the gh-pages branch" -ForegroundColor Yellow
