@@ -142,7 +142,7 @@ if ($currentBranch -ne $DevBranch) {
 }
 
 Write-Step "Preparing temporary directory..."
-# Check temp directory
+# Check temp directory exists
 if (-not (Test-Path $TempBuildDir)) {
     Write-Host "`n>> Error: Temporary directory does not exist: $TempBuildDir" -ForegroundColor Red
     Write-Host "Please create the directory first before running this script" -ForegroundColor Yellow
@@ -150,14 +150,19 @@ if (-not (Test-Path $TempBuildDir)) {
     exit 1
 }
 
-Write-Host "`nWARNING: The temporary directory exists: $TempBuildDir" -ForegroundColor Yellow
-$confirm = Read-Host "Do you want to delete its contents? (Y/N)"
-if ($confirm -ne "Y") {
-    Write-Host "Deployment cancelled - temp directory was not cleared" -ForegroundColor Red
-    exit 1
+# Check if directory has contents
+$hasContents = (Get-ChildItem -Path $TempBuildDir -Force).Count -gt 0
+if ($hasContents) {
+    Write-Host "`nWARNING: The temporary directory contains files: $TempBuildDir" -ForegroundColor Yellow
+    $confirm = Read-Host "Do you want to delete its contents? (Y/N)"
+    if ($confirm -eq "Y") {
+        Write-Host "Cleaning existing temp directory contents..."
+        Get-ChildItem -Path $TempBuildDir -Force | Remove-Item -Recurse -Force
+    } else {
+        Write-Host "Deployment cancelled - temp directory was not cleared" -ForegroundColor Red
+        exit 1
+    }
 }
-Write-Host "Cleaning existing temp directory..." -ForegroundColor Yellow
-Remove-Item "$TempBuildDir\*" -Recurse -Force
 
 Write-Step "Building Flutter web application..."
 try {
