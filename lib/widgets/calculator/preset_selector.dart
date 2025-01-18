@@ -56,9 +56,9 @@ class _PresetSelectorState extends State<PresetSelector> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 3,
                       child: _isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : DropdownButtonFormField<LineOfSightPreset>(
@@ -87,8 +87,16 @@ class _PresetSelectorState extends State<PresetSelector> {
                               onChanged: widget.onPresetChanged,
                             ),
                     ),
-                    SizedBox(width: isNarrow ? 4 : 8),
-                    const InfoIcon(infoKey: 'presets'),
+                    SizedBox(
+                      width: 24,
+                      height: isNarrow ? 40 : 48,
+                      child: Center(
+                        child: InfoIcon(
+                          infoKey: 'presets',
+                          size: 20,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
