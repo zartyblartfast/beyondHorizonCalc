@@ -59,6 +59,7 @@ class CurvatureCalculator {
     // Calculate visible height of target if target height is provided
     double visibleTargetHeight = 0;
     double apparentVisibleHeight = 0;
+    double perspectiveScaledHeight = 0;
 
     if (targetHeightMeters != null && targetHeightMeters > 0) {
       // Actual visible height is target height minus hidden height
@@ -71,6 +72,11 @@ class CurvatureCalculator {
         // CD = CZ * cos(angle)
         final double angle = distanceMeters / effectiveRadius;
         apparentVisibleHeight = visibleTargetHeight * math.cos(angle);
+
+        // Calculate perspective scaled height using pinhole camera model
+        const double FOCAL_LENGTH = 1000.0; // 1km focal length
+        perspectiveScaledHeight = FOCAL_LENGTH * apparentVisibleHeight / distanceMeters;
+        perspectiveScaledHeight = perspectiveScaledHeight < 0 ? 0 : perspectiveScaledHeight;
       }
     }
 
@@ -83,7 +89,8 @@ class CurvatureCalculator {
       totalDistance: d0 * distanceConversion,
       visibleDistance: (d0 - d1) * distanceConversion,
       visibleTargetHeight: visibleTargetHeight / 1000,  
-      apparentVisibleHeight: apparentVisibleHeight / 1000,  
+      apparentVisibleHeight: apparentVisibleHeight / 1000,
+      perspectiveScaledHeight: perspectiveScaledHeight / 1000,
     );
   }
 }

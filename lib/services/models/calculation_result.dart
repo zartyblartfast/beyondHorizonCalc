@@ -5,6 +5,7 @@ class CalculationResult {
   final double? visibleDistance;    // in kilometers
   final double? visibleTargetHeight;// in kilometers
   final double? apparentVisibleHeight; // in kilometers
+  final double? perspectiveScaledHeight; // in kilometers
 
   const CalculationResult({
     this.horizonDistance = 0,
@@ -13,6 +14,7 @@ class CalculationResult {
     this.visibleDistance = 0,
     this.visibleTargetHeight = 0,
     this.apparentVisibleHeight = 0,
+    this.perspectiveScaledHeight = 0,
   });
 
   // Convert to Map for backward compatibility with existing code
@@ -24,6 +26,7 @@ class CalculationResult {
       'visibleDistance': visibleDistance,
       'visibleTargetHeight': visibleTargetHeight,
       'apparentVisibleHeight': apparentVisibleHeight,
+      'perspectiveScaledHeight': perspectiveScaledHeight,
     };
   }
 
@@ -36,6 +39,7 @@ class CalculationResult {
       visibleDistance: map['visibleDistance'] as double?,
       visibleTargetHeight: map['visibleTargetHeight'] as double?,
       apparentVisibleHeight: map['apparentVisibleHeight'] as double?,
+      perspectiveScaledHeight: map['perspectiveScaledHeight'] as double?,
     );
   }
 }

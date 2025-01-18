@@ -108,6 +108,11 @@ class ResultsDisplay extends StatelessWidget {
                 _formatHeight(result!.apparentVisibleHeight!),
                 'apparent_height',
               ),
+              _buildResultRow(
+                'Perspective Scaled Apparent Visible Height',
+                _formatHeight(result!.perspectiveScaledHeight!),
+                'perspective_scaled_height',
+              ),
             ],
           ],
         ),
