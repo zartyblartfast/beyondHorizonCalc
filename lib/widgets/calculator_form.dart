@@ -180,7 +180,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         isMetric: _isMetric,
                         onMetricChanged: _handleMetricChanged,
                         onCalculate: _handleCalculate,
-                        showCalculateButton: _selectedPreset == null,
+                        showCalculateButton: true,  // Always show the Calculate button
                         isCustomPreset: _selectedPreset == null,
                       ),
                       SizedBox(height: isMobile ? 8 : 16),
@@ -237,7 +237,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             isMetric: _isMetric,
                             onMetricChanged: _handleMetricChanged,
                             onCalculate: _handleCalculate,
-                            showCalculateButton: _selectedPreset == null,
+                            showCalculateButton: true,  // Always show the Calculate button
                             isCustomPreset: _selectedPreset == null,
                           ),
                           SizedBox(height: isMobile ? 8 : 16),

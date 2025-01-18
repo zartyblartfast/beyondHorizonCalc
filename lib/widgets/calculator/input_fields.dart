@@ -73,13 +73,6 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'target_height',
                     ),
-                    if (showCalculateButton) ...[
-                      SizedBox(height: isNarrow ? 8 : 16),
-                      ElevatedButton(
-                        onPressed: onCalculate,
-                        child: const Text('Calculate'),
-                      ),
-                    ],
                   ] else ...[
                     // Horizontal layout for wider screens
                     Row(
@@ -124,21 +117,11 @@ class InputFields extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (showCalculateButton) ...[
-                      SizedBox(height: isNarrow ? 8 : 16),
-                      ElevatedButton(
-                        onPressed: onCalculate,
-                        child: const Text('Calculate'),
-                      ),
-                    ],
                   ],
                   const SizedBox(height: 16),
-                  // Units toggle and Calculate buttons
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.center,
+                  // Units toggle and Calculate button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -151,6 +134,11 @@ class InputFields extends StatelessWidget {
                           const Text('Metric'),
                         ],
                       ),
+                      if (showCalculateButton)
+                        ElevatedButton(
+                          onPressed: onCalculate,
+                          child: const Text('Calculate'),
+                        ),
                     ],
                   ),
                 ],
