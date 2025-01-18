@@ -185,6 +185,7 @@ class InputFields extends StatelessWidget {
                 onFieldSubmitted: (_) => onCalculate(),
               ),
             ),
+            const SizedBox(width: 8),  
             SizedBox(
               width: 24,
               height: isMobile ? 40 : 48,

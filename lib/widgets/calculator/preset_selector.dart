@@ -59,34 +59,39 @@ class _PresetSelectorState extends State<PresetSelector> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: _isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : DropdownButtonFormField<LineOfSightPreset>(
-                              value: widget.selectedPreset,
-                              decoration: InputDecoration(
-                                labelText: 'Famous Line of Sight',
-                                border: const OutlineInputBorder(),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                contentPadding: isNarrow 
-                                    ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                                    : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                              ),
-                              items: [
-                                const DropdownMenuItem(
-                                  value: null,
-                                  child: Text('Custom Values'),
+                      child: Container(
+                        width: double.infinity,
+                        child: _isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : DropdownButtonFormField<LineOfSightPreset>(
+                                isExpanded: true,
+                                value: widget.selectedPreset,
+                                decoration: InputDecoration(
+                                  labelText: 'Famous Line of Sight',
+                                  border: const OutlineInputBorder(),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  contentPadding: isNarrow 
+                                      ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                                      : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                                 ),
-                                ..._presets.map((preset) => DropdownMenuItem(
-                                      value: preset,
-                                      child: Text(
-                                        preset.name,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )),
-                              ],
-                              onChanged: widget.onPresetChanged,
-                            ),
+                                items: [
+                                  const DropdownMenuItem(
+                                    value: null,
+                                    child: Text('Custom Values'),
+                                  ),
+                                  ..._presets.map((preset) => DropdownMenuItem(
+                                        value: preset,
+                                        child: Text(
+                                          preset.name,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      )),
+                                ],
+                                onChanged: widget.onPresetChanged,
+                              ),
+                      ),
                     ),
+                    const SizedBox(width: 8),  
                     SizedBox(
                       width: 24,
                       height: isNarrow ? 40 : 48,

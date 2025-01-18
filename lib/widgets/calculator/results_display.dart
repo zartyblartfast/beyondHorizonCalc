@@ -64,12 +64,13 @@ class ResultsDisplay extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Flexible(
+                    Expanded(
                       child: Text(
                         label,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
+                    const SizedBox(width: 8),  // Consistent spacing
                     SizedBox(
                       width: 24,
                       child: Center(
