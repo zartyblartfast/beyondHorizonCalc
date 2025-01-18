@@ -211,30 +211,34 @@ class InputFields extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _getRefractionKey(refractionFactorController.text),
-                decoration: InputDecoration(
-                  labelText: 'Refraction Factor',
-                  border: const OutlineInputBorder(),
-                  contentPadding: isMobile 
-                      ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                      : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Container(
+                width: double.infinity,
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  value: _getRefractionKey(refractionFactorController.text),
+                  decoration: InputDecoration(
+                    labelText: 'Refraction Factor',
+                    border: const OutlineInputBorder(),
+                    contentPadding: isMobile 
+                        ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                        : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
+                    DropdownMenuItem(value: 'low', child: Text('Low (1.02)')),
+                    DropdownMenuItem(value: 'below_average', child: Text('Below Avg (1.04)')),
+                    DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
+                    DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
+                    DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
+                    DropdownMenuItem(value: 'very_high', child: Text('Very High (1.20)')),
+                    DropdownMenuItem(value: 'extremely_high', child: Text('Extremely High (1.25)')),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      refractionFactorController.text = _getRefractionValue(value);
+                    }
+                  },
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
-                  DropdownMenuItem(value: 'low', child: Text('Low (1.02)')),
-                  DropdownMenuItem(value: 'below_average', child: Text('Below Avg (1.04)')),
-                  DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
-                  DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
-                  DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
-                  DropdownMenuItem(value: 'very_high', child: Text('Very High (1.20)')),
-                  DropdownMenuItem(value: 'extremely_high', child: Text('Extremely High (1.25)')),
-                ],
-                onChanged: (value) {
-                  if (value != null) {
-                    refractionFactorController.text = _getRefractionValue(value);
-                  }
-                },
               ),
             ),
             SizedBox(
