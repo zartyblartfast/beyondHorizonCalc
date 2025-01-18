@@ -224,7 +224,27 @@ Write-Step "Cleaning $GhPagesBranch branch..."
 git stash -u
 
 # Remove everything except .git directory
-Get-ChildItem -Path . -Exclude '.git' | Remove-Item -Recurse -Force
+Write-Host "Removing existing files (excluding .git)..."
+Get-ChildItem -Path . -Exclude '.git' | ForEach-Object {
+    try {
+        # Try to remove read-only attribute if present
+        if (Test-Path $_.FullName -PathType Leaf) {
+            Set-ItemProperty $_.FullName -Name IsReadOnly -Value $false -ErrorAction SilentlyContinue
+        }
+        # Add a small delay to allow any file handles to be released
+        Start-Sleep -Milliseconds 100
+        Remove-Item $_.FullName -Force -Recurse -ErrorAction Stop
+    } catch {
+        Write-Host "Warning: Could not remove $($_.FullName): $($_.Exception.Message)" -ForegroundColor Yellow
+        # Try one more time after a longer delay
+        Start-Sleep -Seconds 1
+        try {
+            Remove-Item $_.FullName -Force -Recurse -ErrorAction Stop
+        } catch {
+            Write-Host "Error: Failed to remove file after retry. Continuing anyway..." -ForegroundColor Red
+        }
+    }
+}
 
 Write-Step "Copying new files from temporary directory..."
 robocopy $TempBuildDir "." /E
