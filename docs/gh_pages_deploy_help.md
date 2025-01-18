@@ -71,6 +71,8 @@ git checkout dev2
 
 Before pushing to gh-pages, ensure these critical files are present in the ROOT directory of gh-pages branch:
 1. `index.html` - The main entry point for the web app (must be in root directory)
+   - IMPORTANT: The base href must match the repository name EXACTLY (case-sensitive)
+   - Example: if your repo is named `beyondHorizonCalc`, use `<base href="/beyondHorizonCalc/">`
 2. `main.dart.js` - The compiled Flutter application
 3. `flutter.js` and `flutter_bootstrap.js` - Required Flutter web runtime files
 4. `favicon.png` - Web app icon
@@ -81,11 +83,11 @@ Before pushing to gh-pages, ensure these critical files are present in the ROOT 
 
 After deployment:
 1. Wait a few minutes for GitHub Pages to update (usually 2-5 minutes)
-2. Visit your GitHub Pages URL: `https://[username].github.io/BeyondHorizonCalc/`
+2. Visit your GitHub Pages URL: `https://[username].github.io/beyondHorizonCalc/`
 3. If you see a blank page:
    - Check browser's developer tools (F12) for any console errors
    - Verify that `index.html` exists in the root of gh-pages branch
-   - Ensure the `base href` in index.html matches your repository path exactly
+   - Ensure the `base href` in index.html matches your repository path exactly (case-sensitive)
    - Confirm all required Flutter web files are present (see Critical Files Checklist)
 
 ## Important Notes
