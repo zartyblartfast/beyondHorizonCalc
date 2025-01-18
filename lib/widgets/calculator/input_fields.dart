@@ -100,7 +100,7 @@ class InputFields extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: isNarrow ? 8 : 16),
+                    const SizedBox(height: 16),
                     Row(
                       children: [
                         Expanded(
@@ -213,8 +213,8 @@ class InputFields extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Container(
-                width: double.infinity,
+              child: SizedBox(
+                height: isMobile ? 60 : 68,
                 child: DropdownButtonFormField<String>(
                   isExpanded: true,
                   value: _getRefractionKey(refractionFactorController.text),
@@ -243,6 +243,7 @@ class InputFields extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(width: 8),
             SizedBox(
               width: 24,
               height: isMobile ? 40 : 48,
