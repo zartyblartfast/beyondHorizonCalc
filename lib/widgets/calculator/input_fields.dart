@@ -32,11 +32,14 @@ class InputFields extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isNarrow = constraints.maxWidth < 600;
+        final contentPadding = isNarrow 
+            ? const EdgeInsets.all(8.0)
+            : const EdgeInsets.all(16.0);
 
         return SingleChildScrollView(
           child: Card(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: contentPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -50,7 +53,7 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'observer_height',
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isNarrow ? 8 : 16),
                     _buildInputField(
                       controller: distanceController,
                       label: 'Distance (L0)',
@@ -59,9 +62,9 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'distance',
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isNarrow ? 8 : 16),
                     _buildRefractionDropdown(),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isNarrow ? 8 : 16),
                     _buildInputField(
                       controller: targetHeightController,
                       label: 'Target height - optional (XZ)',
@@ -70,6 +73,13 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'target_height',
                     ),
+                    if (showCalculateButton) ...[
+                      SizedBox(height: isNarrow ? 8 : 16),
+                      ElevatedButton(
+                        onPressed: onCalculate,
+                        child: const Text('Calculate'),
+                      ),
+                    ],
                   ] else ...[
                     // Horizontal layout for wider screens
                     Row(
@@ -97,7 +107,7 @@ class InputFields extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isNarrow ? 8 : 16),
                     Row(
                       children: [
                         Expanded(child: _buildRefractionDropdown()),
@@ -114,6 +124,13 @@ class InputFields extends StatelessWidget {
                         ),
                       ],
                     ),
+                    if (showCalculateButton) ...[
+                      SizedBox(height: isNarrow ? 8 : 16),
+                      ElevatedButton(
+                        onPressed: onCalculate,
+                        child: const Text('Calculate'),
+                      ),
+                    ],
                   ],
                   const SizedBox(height: 16),
                   // Units toggle and Calculate buttons
@@ -133,10 +150,6 @@ class InputFields extends StatelessWidget {
                           ),
                           const Text('Metric'),
                         ],
-                      ),
-                      ElevatedButton(
-                        onPressed: onCalculate,
-                        child: const Text('Calculate'),
                       ),
                     ],
                   ),

@@ -150,15 +150,20 @@ class _CalculatorFormState extends State<CalculatorForm> {
       key: _formKey,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide =
-              constraints.maxWidth > 900; // Breakpoint for wide screens
+          final isWide = constraints.maxWidth > 900; // Breakpoint for wide screens
+          final isMobile = constraints.maxWidth < 600; // Mobile breakpoint
+
+          // Adjust padding based on screen size
+          final contentPadding = isMobile
+              ? const EdgeInsets.all(8.0)
+              : const EdgeInsets.all(16.0);
 
           Widget content = Column(
             children: [
               // Left side - Calculator inputs and results
               Card(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: contentPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -166,7 +171,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         selectedPreset: _selectedPreset,
                         onPresetChanged: _handlePresetChanged,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: isMobile ? 8 : 16),
                       InputFields(
                         observerHeightController: _observerHeightController,
                         distanceController: _distanceController,
@@ -178,7 +183,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         showCalculateButton: _selectedPreset == null,
                         isCustomPreset: _selectedPreset == null,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: isMobile ? 8 : 16),
                       ResultsDisplay(
                         result: _result,
                         isMetric: _isMetric,
@@ -190,11 +195,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   ),
                 ),
               ),
-              if (!isWide) const SizedBox(height: 16),
+              if (!isWide) SizedBox(height: isMobile ? 8 : 16),
               // Right side - Diagram
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: contentPadding,
                   child: DiagramDisplay(
                     result: _result,
                     targetHeight: _targetHeightController.text.isEmpty
@@ -214,7 +219,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                 Expanded(
                   child: Card(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: contentPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -222,7 +227,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             selectedPreset: _selectedPreset,
                             onPresetChanged: _handlePresetChanged,
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: isMobile ? 8 : 16),
                           InputFields(
                             observerHeightController: _observerHeightController,
                             distanceController: _distanceController,
@@ -235,7 +240,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             showCalculateButton: _selectedPreset == null,
                             isCustomPreset: _selectedPreset == null,
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: isMobile ? 8 : 16),
                           ResultsDisplay(
                             result: _result,
                             isMetric: _isMetric,
@@ -248,11 +253,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 32),
+                SizedBox(width: isMobile ? 16 : 32),
                 Expanded(
                   child: Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: contentPadding,
                       child: DiagramDisplay(
                         result: _result,
                         targetHeight: _targetHeightController.text.isEmpty

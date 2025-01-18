@@ -42,50 +42,60 @@ class _PresetSelectorState extends State<PresetSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isNarrow = constraints.maxWidth < 600;
+        final contentPadding = isNarrow 
+            ? const EdgeInsets.all(8.0)
+            : const EdgeInsets.all(16.0);
+
+        return Card(
+          child: Padding(
+            padding: contentPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  flex: 3,
-                  child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : DropdownButtonFormField<LineOfSightPreset>(
-                          value: widget.selectedPreset,
-                          decoration: const InputDecoration(
-                            labelText: 'Famous Line of Sight',
-                            border: OutlineInputBorder(),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          items: [
-                            const DropdownMenuItem(
-                              value: null,
-                              child: Text('Custom Values'),
-                            ),
-                            ..._presets.map(
-                              (preset) => DropdownMenuItem(
-                                value: preset,
-                                child: Text(
-                                  preset.name,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: _isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : DropdownButtonFormField<LineOfSightPreset>(
+                              value: widget.selectedPreset,
+                              decoration: InputDecoration(
+                                labelText: 'Famous Line of Sight',
+                                border: const OutlineInputBorder(),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                contentPadding: isNarrow 
+                                    ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                                    : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                               ),
+                              items: [
+                                const DropdownMenuItem(
+                                  value: null,
+                                  child: Text('Custom Values'),
+                                ),
+                                ..._presets.map((preset) => DropdownMenuItem(
+                                      value: preset,
+                                      child: Text(
+                                        preset.name,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )),
+                              ],
+                              onChanged: widget.onPresetChanged,
                             ),
-                          ],
-                          onChanged: widget.onPresetChanged,
-                        ),
+                    ),
+                    SizedBox(width: isNarrow ? 4 : 8),
+                    const InfoIcon(infoKey: 'presets'),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                const InfoIcon(infoKey: 'presets'),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
