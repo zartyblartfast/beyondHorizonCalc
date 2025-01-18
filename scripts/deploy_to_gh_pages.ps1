@@ -11,17 +11,17 @@ param(
 # Function to write colored output
 function Write-Step {
     param([string]$Message)
-    Write-Host "`n🔄 $Message" -ForegroundColor Cyan
+    Write-Host "`n>> $Message" -ForegroundColor Cyan
 }
 
 function Write-Success {
     param([string]$Message)
-    Write-Host "✅ $Message" -ForegroundColor Green
+    Write-Host ">> $Message" -ForegroundColor Green
 }
 
 function Write-Error {
     param([string]$Message)
-    Write-Host "❌ $Message" -ForegroundColor Red
+    Write-Host ">> $Message" -ForegroundColor Red
     exit 1
 }
 
@@ -30,8 +30,8 @@ function Restore-InitialState {
         [string]$OriginalBranch,
         [string]$ErrorMessage
     )
-    Write-Host "`n⚠️ Error occurred: $ErrorMessage" -ForegroundColor Red
-    Write-Host "🔄 Attempting to restore initial state..." -ForegroundColor Yellow
+    Write-Host "`n>> Error occurred: $ErrorMessage" -ForegroundColor Red
+    Write-Host ">> Attempting to restore initial state..." -ForegroundColor Yellow
     
     # Try to get back to original branch
     if ($OriginalBranch) {
@@ -47,7 +47,7 @@ function Restore-InitialState {
         Move-Item -Path $TempBuildDir -Destination $errorDir
     }
     
-    Write-Host "❌ Deployment failed and was safely aborted" -ForegroundColor Red
+    Write-Host ">> Deployment failed and was safely aborted" -ForegroundColor Red
     Write-Host "Please check the error message above and try again" -ForegroundColor Yellow
     Write-Host "Any incomplete files were preserved at: $errorDir" -ForegroundColor Yellow
     exit 1
@@ -56,7 +56,7 @@ function Restore-InitialState {
 # Store initial state
 $originalBranch = git branch --show-current
 
-Write-Host "`n🚀 GitHub Pages Deployment Script" -ForegroundColor Cyan
+Write-Host "`n>> GitHub Pages Deployment Script" -ForegroundColor Cyan
 Write-Host "==============================`n" -ForegroundColor Cyan
 
 # Initial Safety Checks
@@ -118,7 +118,7 @@ if ($TempBuildDir.Contains(".git") -or (Test-Path "$TempBuildDir\.git")) {
 
 # Ask for confirmation unless -Force is used
 if (-not $Force) {
-    Write-Host "`n⚠️  You are about to deploy to GitHub Pages" -ForegroundColor Yellow
+    Write-Host "`nWARNING: You are about to deploy to GitHub Pages" -ForegroundColor Yellow
     Write-Host "This will:" -ForegroundColor Yellow
     Write-Host "  1. Clean and rebuild the Flutter web app" -ForegroundColor Yellow
     Write-Host "  2. Replace all content in the $GhPagesBranch branch" -ForegroundColor Yellow
@@ -144,13 +144,13 @@ if ($currentBranch -ne $DevBranch) {
 Write-Step "Preparing temporary directory..."
 # Check temp directory
 if (-not (Test-Path $TempBuildDir)) {
-    Write-Host "`n❌ Error: Temporary directory does not exist: $TempBuildDir" -ForegroundColor Red
+    Write-Host "`n>> Error: Temporary directory does not exist: $TempBuildDir" -ForegroundColor Red
     Write-Host "Please create the directory first before running this script" -ForegroundColor Yellow
     Write-Host "This is a safety measure to ensure the correct directory is used" -ForegroundColor Yellow
     exit 1
 }
 
-Write-Host "`n⚠️  The temporary directory exists: $TempBuildDir" -ForegroundColor Yellow
+Write-Host "`nWARNING: The temporary directory exists: $TempBuildDir" -ForegroundColor Yellow
 $confirm = Read-Host "Do you want to delete its contents? (Y/N)"
 if ($confirm -ne "Y") {
     Write-Host "Deployment cancelled - temp directory was not cleared" -ForegroundColor Red
