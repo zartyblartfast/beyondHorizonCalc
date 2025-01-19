@@ -27,28 +27,28 @@ class ResultsDisplay extends StatelessWidget {
   }
 
   String _getDiagramAsset() {
-    if (result == null) return 'assets/images/BTH_1.png';
+    if (result == null) return 'assets/svg/BTH_1.svg';
     
     // If target height is null or 0, show BTH_1
     if (targetHeight == null || targetHeight == 0) {
-      return 'assets/images/BTH_1.png';
+      return 'assets/svg/BTH_1.svg';
     }
     
     // Get h2 (XC) from the hiddenHeight
     final double? h2 = result!.hiddenHeight;
-    if (h2 == null) return 'assets/images/BTH_1.png';
+    if (h2 == null) return 'assets/svg/BTH_1.svg';
     
     // Compare target height with h2
     if (targetHeight! < h2) {
-      return 'assets/images/BTH_2.png';
+      return 'assets/svg/BTH_2.svg';
     } else if ((targetHeight! - h2).abs() < 0.000001) { // Use small epsilon for floating point comparison
-      return 'assets/images/BTH_3.png';
+      return 'assets/svg/BTH_3.svg';
     } else {
-      return 'assets/images/BTH_4.png';
+      return 'assets/svg/BTH_4.svg';
     }
   }
 
-  Widget _buildResultRow(String label, String value, String infoKey) {
+  Widget _buildResultRow(String label, String value, {String? infoKey}) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
@@ -70,16 +70,18 @@ class ResultsDisplay extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    const SizedBox(width: 8),  // Consistent spacing
-                    SizedBox(
-                      width: 24,
-                      child: Center(
-                        child: InfoIcon(
-                          infoKey: infoKey,
-                          size: 20,
+                    if (infoKey != null) ...[
+                      const SizedBox(width: 8),  // Consistent spacing
+                      SizedBox(
+                        width: 24,
+                        child: Center(
+                          child: InfoIcon(
+                            infoKey: infoKey,
+                            size: 20,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -114,28 +116,33 @@ class ResultsDisplay extends StatelessWidget {
                 _buildResultRow(
                   'Distance to Horizon (D1)',
                   _formatDistance(result!.horizonDistance),
-                  'horizon_distance',
+                  infoKey: 'horizon_distance',
+                ),
+                _buildResultRow(
+                  'Total Distance (L0)',
+                  _formatDistance(result!.totalDistance),
+                  infoKey: 'total_distance',
                 ),
                 _buildResultRow(
                   'Hidden Height (h2, XC)',
                   _formatHeight(result!.hiddenHeight),
-                  'hidden_height',
+                  infoKey: 'hidden_height',
                 ),
                 if (targetHeight != null) ...[
                   _buildResultRow(
                     'Visible Height (h3)',
                     _formatHeight(result!.visibleTargetHeight!),
-                    'visible_height',
+                    infoKey: 'visible_height',
                   ),
                   _buildResultRow(
                     'Apparent Visible Height (CD)',
                     _formatHeight(result!.apparentVisibleHeight!),
-                    'apparent_height',
+                    infoKey: 'apparent_height',
                   ),
                   _buildResultRow(
                     'Perspective Scaled Apparent Visible Height',
                     _formatHeight(result!.perspectiveScaledHeight!),
-                    'perspective_scaled_height',
+                    infoKey: 'perspective_scaled_height',
                   ),
                 ],
               ],
