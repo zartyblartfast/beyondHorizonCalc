@@ -205,6 +205,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                     targetHeight: _targetHeightController.text.isEmpty
                         ? null
                         : double.parse(_targetHeightController.text),
+                    isMetric: _isMetric,
                   ),
                 ),
               ),
@@ -263,6 +264,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         targetHeight: _targetHeightController.text.isEmpty
                             ? null
                             : double.parse(_targetHeightController.text),
+                        isMetric: _isMetric,
                       ),
                     ),
                   ),

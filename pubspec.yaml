@@ -67,7 +67,6 @@ flutter:
     - assets/observer.png
     - assets/source_file.svg
     - assets/svg_diagram.svg
-    - assets/info/
     - assets/icons/
     - assets/slides/
     - assets/images/
@@ -76,3 +75,9 @@ flutter:
     - assets/images/BTH_3.png
     - assets/images/BTH_4.png
     - assets/images/Kangchenjunga_520_km.jpg
+    - assets/svg/
+    - assets/svg/BTH_1.svg
+    - assets/svg/BTH_2.svg
+    - assets/svg/BTH_3.svg
+    - assets/svg/BTH_4.svg
+    - assets/info/

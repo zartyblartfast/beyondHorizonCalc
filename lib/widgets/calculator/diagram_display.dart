@@ -1,68 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/models/calculation_result.dart';
 
 class DiagramDisplay extends StatelessWidget {
   final CalculationResult? result;
   final double? targetHeight;
+  final bool isMetric;
 
   const DiagramDisplay({
     super.key,
     required this.result,
     this.targetHeight,
+    required this.isMetric,
   });
 
   String _getDiagramAsset() {
-    if (result == null) return 'assets/images/BTH_1.png';
-
+    if (result == null) return 'assets/svg/BTH_1.svg';
+    
     // If target height is null or 0, show BTH_1
     if (targetHeight == null || targetHeight == 0) {
-      return 'assets/images/BTH_1.png';
+      return 'assets/svg/BTH_1.svg';
     }
-
-    // Get h2 (XC) from the hiddenHeight (convert from km to m)
+    
+    // Get h2 (XC) from the hiddenHeight (convert from km to m or ft)
     final double? h2 = result!.hiddenHeight;
-    if (h2 == null) return 'assets/images/BTH_1.png';
+    if (h2 == null) return 'assets/svg/BTH_1.svg';
 
-    final h2InMeters = h2 * 1000; // Convert km to m
-
+    // Convert h2 from km to m or ft
+    final double h2InUnits = isMetric ? h2 * 1000 : h2 * 3280.84;
+    
     // Compare target height with h2
-    if (targetHeight! < h2InMeters) {
-      return 'assets/images/BTH_2.png';
-    } else if ((targetHeight! - h2InMeters).abs() < 0.000001) {
-      // Use small epsilon for floating point comparison
-      return 'assets/images/BTH_3.png';
+    if (targetHeight! < h2InUnits) {
+      return 'assets/svg/BTH_2.svg';
+    } else if ((targetHeight! - h2InUnits).abs() < 0.1) { // Use slightly larger epsilon for m/ft comparison
+      return 'assets/svg/BTH_3.svg';
     } else {
-      return 'assets/images/BTH_4.png';
+      return 'assets/svg/BTH_4.svg';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 500),
-      layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            ...previousChildren,
-            if (currentChild != null) currentChild,
-          ],
-        );
-      },
-      transitionBuilder: (Widget child, Animation<double> animation) {
-        return FadeTransition(
-          opacity: CurvedAnimation(
-            parent: animation,
-            curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
-            reverseCurve: const Interval(0.4, 1.0, curve: Curves.easeOut),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AspectRatio(
+          aspectRatio: 2.0,  // Width is twice the height
+          child: SvgPicture.asset(
+            _getDiagramAsset(),
+            fit: BoxFit.contain,
           ),
-          child: child,
-        );
-      },
-      child: Image.asset(
-        _getDiagramAsset(),
-        key: ValueKey<String>(_getDiagramAsset()),
-        fit: BoxFit.contain,
+        ),
       ),
     );
   }
