@@ -2,19 +2,19 @@
 
 ## SVG Object IDs and Descriptions
 
-| ID | Name | Description | Value Source |
-|----|------|-------------|--------------|
-| FromTo | Preset Label | Corresponds to the preset label text | Selected preset name |
-| HiddenVisible | Visibility State | Indicates object visibility state | Calculated based on target height vs. hidden height (h2) |
-| HiddenHeight | Hidden Portion | For target height Z: If Z ≤ h2, equals XZ; If Z > h2, equals XC | Calculation result |
-| VisibleHeight | Visible Portion | For target height Z: If Z > h2, equals CZ | Calculation result |
-| h1 | Observer Height | Height of observer's eye level | Direct from input field |
-| h2 | Hidden Height | Height hidden beyond horizon (XC) | Calculation result |
-| LoS_Distance_d0 | Line of Sight | Line of sight distance (D0) AC | Calculation result |
-| d1 | Distance to Horizon | Distance from observer (A) to horizon (B) | Calculation result |
-| d2 | Horizon to Object Base | Distance from horizon (B) to object base projection (C) | Calculation result |
-| L0 | Total Distance | Sea level distance between observer and object | Direct from input field |
-| radius | Earth Radius | Earth's radius in km or miles | Based on units: "R = 6,378 km" or "R = 3,963 mi" |
+| ID | Name | Description | Value Source | Label Format |
+|----|------|-------------|--------------|--------------|
+| FromTo | Preset Label | Corresponds to the preset label text | Selected preset name | Direct value |
+| HiddenVisible | Visibility State | Indicates object visibility state | Calculated based on target height vs. hidden height (h2) | Direct value |
+| HiddenHeight | Hidden Portion | For target height Z: If Z ≤ h2, equals XZ; If Z > h2, equals XC | Calculation result | "Hidden Height = [value]" |
+| VisibleHeight | Visible Portion | For target height Z: If Z > h2, equals CZ | Calculation result | "Visible Height = [value]" |
+| h1 | Observer Height | Height of observer's eye level | Direct from input field | "h₁" |
+| h2 | Hidden Height | Height hidden beyond horizon (XC) | Calculation result | "h₂" |
+| LoS_Distance_d0 | Line of Sight | Line of sight distance (D0) AC | Calculation result | "D₀" |
+| d1 | Distance to Horizon | Distance from observer (A) to horizon (B) | Calculation result | "d₁" |
+| d2 | Horizon to Object Base | Distance from horizon (B) to object base projection (C) | Calculation result | "d₂" |
+| L0 | Total Distance | Sea level distance between observer and object | Direct from input field | "L₀" |
+| radius | Earth Radius | Earth's radius in km or miles | Based on units: "R = 6,378 km" or "R = 3,963 mi" | "R = [value]" |
 
 ## Visibility States
 - "Hidden": Target height < Hidden height (h2)

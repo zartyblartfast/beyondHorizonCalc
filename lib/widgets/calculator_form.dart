@@ -206,6 +206,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         ? null
                         : double.parse(_targetHeightController.text),
                     isMetric: _isMetric,
+                    presetName: _selectedPreset?.name,
                   ),
                 ),
               ),
@@ -265,6 +266,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             ? null
                             : double.parse(_targetHeightController.text),
                         isMetric: _isMetric,
+                        presetName: _selectedPreset?.name,
                       ),
                     ),
                   ),

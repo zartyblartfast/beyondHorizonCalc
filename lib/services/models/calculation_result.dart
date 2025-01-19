@@ -6,6 +6,7 @@ class CalculationResult {
   final double? visibleTargetHeight;// in kilometers
   final double? apparentVisibleHeight; // in kilometers
   final double? perspectiveScaledHeight; // in kilometers
+  final double? inputDistance;      // in kilometers/miles based on isMetric
 
   const CalculationResult({
     this.horizonDistance = 0,
@@ -15,6 +16,7 @@ class CalculationResult {
     this.visibleTargetHeight = 0,
     this.apparentVisibleHeight = 0,
     this.perspectiveScaledHeight = 0,
+    this.inputDistance = 0,
   });
 
   // Convert to Map for backward compatibility with existing code
@@ -27,6 +29,7 @@ class CalculationResult {
       'visibleTargetHeight': visibleTargetHeight,
       'apparentVisibleHeight': apparentVisibleHeight,
       'perspectiveScaledHeight': perspectiveScaledHeight,
+      'inputDistance': inputDistance,
     };
   }
 
@@ -40,6 +43,7 @@ class CalculationResult {
       visibleTargetHeight: map['visibleTargetHeight'] as double?,
       apparentVisibleHeight: map['apparentVisibleHeight'] as double?,
       perspectiveScaledHeight: map['perspectiveScaledHeight'] as double?,
+      inputDistance: map['inputDistance'] as double?,
     );
   }
 }

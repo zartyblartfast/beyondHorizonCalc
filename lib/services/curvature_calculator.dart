@@ -91,6 +91,7 @@ class CurvatureCalculator {
       visibleTargetHeight: visibleTargetHeight / 1000,  
       apparentVisibleHeight: apparentVisibleHeight / 1000,
       perspectiveScaledHeight: perspectiveScaledHeight / 1000,
+      inputDistance: distance,  // Original input distance
     );
   }
 }
