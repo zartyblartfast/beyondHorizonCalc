@@ -43,12 +43,12 @@ class DiagramDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),  // Reduced padding
         child: AspectRatio(
-          aspectRatio: 2.0,  // Width is twice the height
+          aspectRatio: 1.75,  // Slightly less wide to give more height
           child: SvgPicture.asset(
             _getDiagramAsset(),
-            fit: BoxFit.contain,
+            fit: BoxFit.contain,  // Maintain aspect ratio
           ),
         ),
       ),
