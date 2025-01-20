@@ -10,6 +10,7 @@
 | VisibleHeight | Visible Portion | For target height Z: If Z > h2, equals CZ | Calculation result | "Visible Height = [value]" |
 | h1 | Observer Height | Height of observer's eye level | Direct from input field | "h₁" |
 | h2 | Hidden Height | Height hidden beyond horizon (XC) | Calculation result | "h₂" |
+| h3 | Visible Height | Visible portion of target height (CZ) | Calculation result | "h₃" |
 | LoS_Distance_d0 | Line of Sight | Line of sight distance (D0) AC | Calculation result | "D₀" |
 | d1 | Distance to Horizon | Distance from observer (A) to horizon (B) | Calculation result | "d₁" |
 | d2 | Horizon to Object Base | Distance from horizon (B) to object base projection (C) | Calculation result | "d₂" |

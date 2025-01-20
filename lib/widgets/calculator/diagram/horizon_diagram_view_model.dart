@@ -24,6 +24,7 @@ class HorizonDiagramViewModel extends DiagramViewModel {
       'VisibleHeight': 'Visible Height = ${_getVisibleHeightText()}',
       'h1': formatHeight(targetHeight),  
       'h2': formatHeight(h2InUnits),  
+      'h3': formatHeight(result?.visibleTargetHeight != null ? convertFromKm(result!.visibleTargetHeight!) : null),  // Convert from km to current units
       'LoS_Distance_d0': formatDistance(result?.totalDistance),  // Total line of sight distance
       'd1': formatDistance(result?.horizonDistance),  // Distance to horizon
       'd2': formatDistance(result?.visibleDistance),  // Distance beyond horizon

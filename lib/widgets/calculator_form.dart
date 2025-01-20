@@ -158,6 +158,35 @@ class _CalculatorFormState extends State<CalculatorForm> {
               ? const EdgeInsets.all(8.0)
               : const EdgeInsets.all(16.0);
 
+          // Create a single instance of PresetSelector
+          final presetSelector = PresetSelector(
+            key: const ValueKey('preset_selector'), // Add a stable key
+            selectedPreset: _selectedPreset,
+            onPresetChanged: _handlePresetChanged,
+          );
+
+          // Create a single instance of InputFields
+          final inputFields = InputFields(
+            observerHeightController: _observerHeightController,
+            distanceController: _distanceController,
+            refractionFactorController: _refractionFactorController,
+            targetHeightController: _targetHeightController,
+            isMetric: _isMetric,
+            onMetricChanged: _handleMetricChanged,
+            onCalculate: _handleCalculate,
+            showCalculateButton: true,
+            isCustomPreset: _selectedPreset == null,
+          );
+
+          // Create a single instance of ResultsDisplay
+          final resultsDisplay = ResultsDisplay(
+            result: _result,
+            isMetric: _isMetric,
+            targetHeight: _targetHeightController.text.isEmpty
+                ? null
+                : double.parse(_targetHeightController.text),
+          );
+
           Widget content = Column(
             children: [
               // Left side - Calculator inputs and results
@@ -167,30 +196,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      PresetSelector(
-                        selectedPreset: _selectedPreset,
-                        onPresetChanged: _handlePresetChanged,
-                      ),
+                      presetSelector,
                       SizedBox(height: isMobile ? 8 : 16),
-                      InputFields(
-                        observerHeightController: _observerHeightController,
-                        distanceController: _distanceController,
-                        refractionFactorController: _refractionFactorController,
-                        targetHeightController: _targetHeightController,
-                        isMetric: _isMetric,
-                        onMetricChanged: _handleMetricChanged,
-                        onCalculate: _handleCalculate,
-                        showCalculateButton: true,  // Always show the Calculate button
-                        isCustomPreset: _selectedPreset == null,
-                      ),
+                      inputFields,
                       SizedBox(height: isMobile ? 8 : 16),
-                      ResultsDisplay(
-                        result: _result,
-                        isMetric: _isMetric,
-                        targetHeight: _targetHeightController.text.isEmpty
-                            ? null
-                            : double.parse(_targetHeightController.text),
-                      ),
+                      resultsDisplay,
                     ],
                   ),
                 ),
@@ -214,7 +224,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
           );
 
           if (isWide) {
-            // For wide screens, use a Row layout
+            // For wide screens, use a Row layout with the same widget instances
             content = Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -225,37 +235,17 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          PresetSelector(
-                            selectedPreset: _selectedPreset,
-                            onPresetChanged: _handlePresetChanged,
-                          ),
+                          presetSelector,
                           SizedBox(height: isMobile ? 8 : 16),
-                          InputFields(
-                            observerHeightController: _observerHeightController,
-                            distanceController: _distanceController,
-                            refractionFactorController:
-                                _refractionFactorController,
-                            targetHeightController: _targetHeightController,
-                            isMetric: _isMetric,
-                            onMetricChanged: _handleMetricChanged,
-                            onCalculate: _handleCalculate,
-                            showCalculateButton: true,  // Always show the Calculate button
-                            isCustomPreset: _selectedPreset == null,
-                          ),
+                          inputFields,
                           SizedBox(height: isMobile ? 8 : 16),
-                          ResultsDisplay(
-                            result: _result,
-                            isMetric: _isMetric,
-                            targetHeight: _targetHeightController.text.isEmpty
-                                ? null
-                                : double.parse(_targetHeightController.text),
-                          ),
+                          resultsDisplay,
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: isMobile ? 16 : 32),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Card(
                     child: Padding(
