@@ -26,15 +26,6 @@ class _PresetSelectorState extends State<PresetSelector> {
     _loadPresets();
   }
 
-  @override
-  void didUpdateWidget(PresetSelector oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Ensure the dropdown value stays in sync with widget.selectedPreset
-    if (oldWidget.selectedPreset != widget.selectedPreset) {
-      setState(() {}); // Trigger rebuild with new selected value
-    }
-  }
-
   Future<void> _loadPresets() async {
     final presets = await LineOfSightPreset.loadPresets();
     if (mounted) {
@@ -75,7 +66,6 @@ class _PresetSelectorState extends State<PresetSelector> {
                             : DropdownButtonFormField<LineOfSightPreset>(
                                 isExpanded: true,
                                 value: widget.selectedPreset,
-                                key: ValueKey(widget.selectedPreset?.name ?? 'custom'), // Add key to force rebuild
                                 decoration: InputDecoration(
                                   labelText: 'Famous Line of Sight',
                                   border: const OutlineInputBorder(),
