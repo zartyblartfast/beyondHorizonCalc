@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "svgSpec": {
+      "viewBox": {
+        "x": [-200, 200],
+        "y": [0, 1000],
+        "width": 400,
+        "height": 1000,
+        "origin": "top center (0,0)"
+      },
+      "coordinateSystem": {
+        "xAxis": "Centered at 0, extends -200 to +200",
+        "yAxis": "Top to bottom (0 at top, 1000 at bottom)",
+        "verticalZones": {
+          "sky": {"start": 0, "end": 342, "purpose": "Labels and upper elements"},
+          "horizon": {"start": 342, "end": 474, "purpose": "Critical reference area"},
+          "mountain": {"start": 474, "end": 1000, "purpose": "Dynamic mountain area"}
+        }
+      }
+    },
+    "userInputs": {
+      "required": ["Observer Height (h1)", "Total Distance (L₀)"],
+      "optional": ["Target Height"],
+      "validation": {
+        "observerHeight": {"min": 2, "max": 9000, "units": "meters"},
+        "distance": {"min": 5, "max": 600, "units": "kilometers"},
+        "targetHeight": {"max": 9000, "units": "meters"}
+      }
+    }
+  },
+  "layers": [
+    {
+      "priority": 1,
+      "name": "Sky",
+      "id": "Sky",
+      "type": "rect",
+      "purpose": "Background and upper boundary",
+      "position": {
+        "width": 400,
+        "height": 343
+      }
+    },
+    {
+      "priority": 2,
+      "name": "Reference Lines",
+      "elements": [
+        {
+          "id": "C_Point_Line",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "path": "m 200,342 -400,5.3e-4"
+          },
+          "significance": "Primary horizon reference line",
+          "relationships": ["Defines horizon level", "Base for visibility calculations"]
+        },
+        {
+          "id": "Observer_Height_Above_Sea_Level",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "path": "M 0,345 0,474"
+          },
+          "relationships": {
+            "length": "Scaled from user input 'Observer Height (h1)'",
+            "position": "Extends down from C_Point_Line"
+          }
+        },
+        {
+          "id": "Z_Point_Line",
+          "type": "path",
+          "behavior": "dynamic",
+          "relationships": ["Connects to mountain peak"]
+        }
+      ]
+    },
+    {
+      "priority": 3,
+      "name": "Mountain",
+      "elements": [
+        {
+          "id": "Mountain",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "base": {
+              "x": [-90, 90],
+              "y": "dynamic based on distance"
+            },
+            "peak": {
+              "x": 0,
+              "y": "calculated from target height"
+            }
+          },
+          "visualEffect": {
+            "visibility": {
+              "above_horizon": "Fully visible",
+              "below_horizon": "Visible through opacity layer"
+            }
+          }
+        },
+        {
+          "id": "Beyond_Horizon_Hidden",
+          "type": "rect",
+          "behavior": "dynamic",
+          "purpose": "Creates opacity mask for hidden portions",
+          "position": {
+            "x": -200,
+            "y": 342,
+            "width": 400,
+            "height": 660
+          }
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "points": [
+      {
+        "id": "A",
+        "type": "text",
+        "position": {"x": -85, "y": 350},
+        "significance": "Observer position"
+      },
+      {
+        "id": "B",
+        "type": "text",
+        "position": {"x": -65, "y": 350},
+        "significance": "Horizon point"
+      },
+      {
+        "id": "C",
+        "type": "text",
+        "position": {"x": -45, "y": 350},
+        "significance": "Line of sight intersection"
+      },
+      {
+        "id": "X",
+        "type": "text",
+        "position": "dynamic",
+        "significance": "Mountain base"
+      },
+      {
+        "id": "Z",
+        "type": "text",
+        "position": "dynamic",
+        "significance": "Mountain peak"
+      }
+    ],
+    "measurements": [
+      {
+        "id": "HiddenHeight",
+        "type": "text",
+        "content": "Hidden Height = [value]",
+        "position": {"x": -190, "y": 91}
+      },
+      {
+        "id": "VisibleHeight",
+        "type": "text",
+        "content": "Visible Height = [value]",
+        "position": {"x": -190, "y": 119}
+      },
+      {
+        "id": "HiddenVisible",
+        "type": "text",
+        "content": "dynamic state",
+        "position": {"x": -190, "y": 63}
+      }
+    ]
+  },
+  "coordinateMapping": {
+    "heightScale": {
+      "description": "Maps real heights to diagram y-coordinates",
+      "considerations": [
+        "Different scales for observer vs target height",
+        "Must maintain visibility within viewbox",
+        "Account for perspective effects"
+      ]
+    },
+    "distanceScale": {
+      "description": "Maps real distances to diagram x-coordinates",
+      "considerations": [
+        "Center-aligned coordinate system",
+        "Mountain width proportional to height",
+        "Maintain readability at extreme values"
+      ]
+    },
+    "dynamicPositioning": {
+      "mountainBase": {
+        "x": "Fixed width centered on x=0",
+        "y": "Calculated from distance and curvature"
+      },
+      "mountainPeak": {
+        "x": "Centered at x=0",
+        "y": "Calculated from target height and perspective"
+      },
+      "opacityMask": {
+        "adjustment": "Dynamic based on mountain position"
+      }
+    }
+  }
+}
