@@ -169,33 +169,63 @@
     ]
   },
   "coordinateMapping": {
-    "heightScale": {
-      "description": "Maps real heights to diagram y-coordinates",
-      "considerations": [
-        "Different scales for observer vs target height",
-        "Must maintain visibility within viewbox",
-        "Account for perspective effects"
-      ]
-    },
-    "distanceScale": {
-      "description": "Maps real distances to diagram x-coordinates",
-      "considerations": [
-        "Center-aligned coordinate system",
-        "Mountain width proportional to height",
-        "Maintain readability at extreme values"
-      ]
-    },
-    "dynamicPositioning": {
-      "mountainBase": {
-        "x": "Fixed width centered on x=0",
-        "y": "Calculated from distance and curvature"
+    "viewbox": {
+      "y": {
+        "min": 0,
+        "max": 1000
       },
-      "mountainPeak": {
-        "x": "Centered at x=0",
-        "y": "Calculated from target height and perspective"
+      "x": {
+        "min": -200,
+        "max": 200
+      }
+    },
+    "groups": {
+      "observer": {
+        "seaLevel": {
+          "y": 500,
+          "line": {
+            "x1": -200,
+            "x2": 200
+          }
+        },
+        "heightScale": {
+          "viewboxRange": {
+            "min": 250,
+            "max": 500
+          }
+        }
       },
-      "opacityMask": {
-        "adjustment": "Dynamic based on mountain position"
+      "mountain": {
+        "baseRange": {
+          "y": {
+            "min": 100,
+            "max": 900
+          },
+          "x": {
+            "min": -90,
+            "max": 90
+          }
+        },
+        "heightScale": {
+          "viewboxRange": {
+            "min": 50,
+            "max": 900
+          }
+        },
+        "perspectiveScale": {
+          "comments": [
+            "Reserved for future implementation",
+            "Will handle distance-based size adjustments",
+            "May need dynamic adjustment based on input ranges"
+          ]
+        }
+      },
+      "horizon": {
+        "cPointLine": {
+          "y": 500,
+          "x1": -200,
+          "x2": 200
+        }
       }
     }
   }

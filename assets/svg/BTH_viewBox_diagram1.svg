@@ -46,9 +46,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.586"
-     inkscape:cx="307.16724"
-     inkscape:cy="470.98976"
+     inkscape:zoom="0.82872915"
+     inkscape:cx="151.43669"
+     inkscape:cy="526.10675"
      inkscape:window-width="1440"
      inkscape:window-height="830"
      inkscape:window-x="-6"
@@ -56,7 +56,7 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1"
      showguides="true"
-     showgrid="false">
+     showgrid="true">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -70,7 +70,7 @@
        opacity="0.14901961"
        empspacing="5"
        enabled="true"
-       visible="false" />
+       visible="true" />
   </sodipodi:namedview>
   <rect
      style="opacity:0.74;fill:url(#linearGradient1);fill-opacity:1;fill-rule:evenodd;stroke-width:0.270778"
@@ -131,7 +131,7 @@
      fill-rule="evenodd"
      id="C_Point_Line"
      inkscape:label="C_Point_Line"
-     style="fill:#808080;fill-opacity:0;stroke:#808080;stroke-width:3.3255;stroke-dasharray:6.651, 3.3255;stroke-dashoffset:0;stroke-opacity:1" />
+     style="fill:#000000;fill-opacity:0;stroke:#17830c;stroke-width:3.3255;stroke-dasharray:6.651, 3.3255;stroke-dashoffset:0;stroke-opacity:1;opacity:1" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.261;stroke-dasharray:none"
@@ -171,13 +171,13 @@
      id="Visible_Label"
      x="-190"
      y="333"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.1284px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479"
      inkscape:label="Visible_Label"><tspan
        sodipodi:role="line"
        id="tspan29"
        x="-185.48112"
        y="332.9715"
-       style="stroke-width:0.261479">Visible</tspan></text>
+       style="stroke-width:0.261479;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-family:Calibri, Calibri_MSFontService, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Visible</tspan></text>
   <text
      font-family="Calibri, Calibri_MSFontService, sans-serif"
      font-weight="700"
@@ -185,23 +185,23 @@
      id="Hidden_Label"
      x="-190"
      y="368"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.1284px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479"
      inkscape:label="Hidden_Label"><tspan
        sodipodi:role="line"
        id="tspan30"
        x="-185.29939"
        y="367.77463"
-       style="stroke-width:0.261479">Hidden</tspan><tspan
+       style="stroke-width:0.261479;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-family:Calibri, Calibri_MSFontService, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Hidden</tspan><tspan
        sodipodi:role="line"
        id="tspan31"
        x="-185.29939"
        y="390.43506"
-       style="stroke-width:0.261479">Beyond</tspan><tspan
+       style="stroke-width:0.261479;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-family:Calibri, Calibri_MSFontService, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Beyond</tspan><tspan
        sodipodi:role="line"
        id="tspan32"
        x="-185.29939"
        y="413.09549"
-       style="stroke-width:0.261479">Horizon</tspan></text>
+       style="stroke-width:0.261479;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-family:Calibri, Calibri_MSFontService, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Horizon</tspan></text>
   <text
      fill="#ff0000"
      font-family="Calibri, Calibri_MSFontService, sans-serif"
@@ -274,7 +274,7 @@
      inkscape:label="A">A</text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.9587px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.95751"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333333px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
      x="-191"
      y="91"
      id="HiddenHeight"
@@ -283,10 +283,10 @@
        id="tspan6"
        x="-191.5287"
        y="91.032303"
-       style="stroke-width:2.95751">HiddenHeight</tspan></text>
+       style="stroke-width:2.958;stroke-dasharray:none;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:13.33333333px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">HiddenHeight</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.9587px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.95751"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333333px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
      x="-190"
      y="119"
      id="VisibleHeight"
@@ -295,10 +295,10 @@
        id="tspan1"
        x="-192.04045"
        y="119.32464"
-       style="stroke-width:2.95751">VisibleHeight</tspan></text>
+       style="stroke-width:2.958;stroke-dasharray:none;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:13.33333333px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">VisibleHeight</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.9587px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.95751"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333333px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
      x="-190"
      y="63"
      id="HiddenVisible"
@@ -307,10 +307,10 @@
        id="tspan5"
        x="-190.41565"
        y="63.287151"
-       style="stroke-width:2.95751">HiddenVisible</tspan></text>
+       style="stroke-width:2.958;stroke-dasharray:none;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:13.33333333px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">HiddenVisible</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.6352px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.95751"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.95751"
      x="-190"
      y="30"
      id="FromTo"
@@ -319,7 +319,7 @@
        id="tspan3"
        x="-191.77527"
        y="31.507355"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.6352px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#552200;stroke-width:2.95751">FromTo</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.66666667px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#552200;stroke-width:2.95751">FromTo</tspan></text>
   <!--
       You can place more shapes here, remembering that:
         - In this coordinate system, y=0 is bottom, y=1000 is top.
@@ -327,4 +327,11 @@
         - Because of scale(1,-1), shapes themselves are vertically flipped;
           for non-flipped shapes (like upright text), apply a nested "scale(1,-1)" again.
     -->
+  <ellipse
+     style="display:none;opacity:1;fill:#ff0000;fill-opacity:1;stroke:#17830c;stroke-width:2.28276;stroke-opacity:1"
+     id="Test_Dot"
+     cx="5"
+     cy="705"
+     rx="3.8586204"
+     ry="3.8586197" />
 </svg>

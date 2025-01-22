@@ -20,7 +20,7 @@ class DiagramLabelService {
   };
 
   /// Updates all labels in the SVG with values from the view model
-  String updateLabels(String svgContent, HorizonDiagramViewModel viewModel) {
+  String updateLabels(String svgContent, DiagramViewModel viewModel) {
     String updatedSvg = svgContent;
     final labelValues = viewModel.getLabelValues();
     

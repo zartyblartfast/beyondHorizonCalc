@@ -83,6 +83,124 @@
    - maxDistance = 600km (maximum input distance)
    ```
 
+## Implementation Strategy
+
+### 1. Configuration Structure
+- JSON-based configuration for all diagram groups
+- Separate scaling configurations for Observer and Mountain
+- Flexible framework for future adjustments
+
+### 2. Scaling Implementation
+
+#### Phase 1: Observer Group
+- Sea level reference at y=500
+- Linear scaling for observer height
+- ViewBox range 250-500 for height representation
+- Scale factor computation based on validation ranges
+
+#### Phase 2: Mountain Group (Planned)
+- Base position range: y=100 to 900
+- Width range: x=-90 to +90
+- Height scale range: y=50 to 900
+- Perspective scaling reserved for future implementation
+
+### 3. Class Structure
+
+#### DiagramScaling
+- Base class managing overall scaling factors
+- Configurable scale adjustments
+- Group-specific scaling implementations
+
+#### ObserverScaling
+- Handles Observer group coordinate mapping
+- Uses validation ranges for scale computation
+- Linear scaling with configurable factors
+
+#### Future: MountainScaling
+- Will handle mountain position and size
+- Dynamic perspective adjustments
+- Scale factor adjustments based on distance
+
+### 4. Benefits of Approach
+- Separation of configuration and logic
+- Flexible scaling framework
+- Easy adjustment of reference points
+- Maintainable and extensible structure
+- Group-specific scaling control
+
+### 5. Next Steps
+1. Implement Observer group scaling
+2. Test with various input ranges
+3. Validate visual representation
+4. Plan Mountain group implementation
+5. Consider perspective scaling requirements
+
+## Observer Group Structure
+
+### Objects and Relationships
+
+#### 1. Primary Reference Elements
+- **Observer_SL_Line** (Sea Level Line):
+  * Primary datum line
+  * Horizontal line spanning full width
+  * Position at y=500 in viewbox
+  * All other elements positioned relative to this
+
+- **Observer_Height_Above_Sea_Level**:
+  * Vertical line representing h1
+  * Bottom anchored to Observer_SL_Line
+  * Length determined by scaled h1 value
+  * Key dynamic element
+
+#### 2. Secondary Elements
+- **C_Point_Line**:
+  * Horizontal line spanning full width
+  * Position determined by top of Observer_Height_Above_Sea_Level
+  * Acts as horizon reference line
+
+- **dot** (ellipse):
+  * Centered on top of Observer_Height_Above_Sea_Level
+  * Represents observer's eye position
+
+#### 3. Labels
+- **h1_label**:
+  * Positioned midway along Observer_Height_Above_Sea_Level
+  * Moves to maintain center position as h1 changes
+
+- **A, B, C points**:
+  * Aligned horizontally with C_Point_Line
+  * Move vertically with C_Point_Line as h1 changes
+
+- **Visible_Label & Hidden_Label**:
+  * Position relative to C_Point_Line
+  * Move vertically as h1 changes
+
+#### 4. Opacity Mask
+- **Beyond_Horizon_Hidden**:
+  * Top edge anchored to and moves with C_Point_Line
+  * Bottom edge fixed at viewbox bottom (y=1000)
+  * Height adjusts dynamically (1000 - C_Point_Line y-position)
+  * Width spans full diagram
+  * Creates opacity mask for elements below horizon
+
+### Dynamic Behavior
+
+When Observer Height (h1) changes:
+1. Observer_Height_Above_Sea_Level adjusts length based on scaled h1
+2. C_Point_Line moves to new top position of Observer_Height_Above_Sea_Level
+3. dot moves with top of Observer_Height_Above_Sea_Level
+4. All labels maintain relative positions to their reference elements
+5. Beyond_Horizon_Hidden:
+   * Top edge follows C_Point_Line's new position
+   * Height automatically adjusts to maintain bottom at y=1000
+   * Ensures consistent opacity masking below horizon
+
+### Key Positioning References
+All elements position relative to either:
+- The datum (Observer_SL_Line)
+- The scaled height line (Observer_Height_Above_Sea_Level)
+- The horizon line (C_Point_Line)
+
 ## Implementation Recommendations
 
 ### 1. New Components Needed

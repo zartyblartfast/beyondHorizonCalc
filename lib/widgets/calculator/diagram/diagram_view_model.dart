@@ -58,4 +58,7 @@ abstract class DiagramViewModel {
   String getRadiusText() {
     return isMetric ? 'R = 6,378 km' : 'R = 3,963 mi';
   }
+
+  /// Gets all label values for the diagram
+  Map<String, String> getLabelValues();
 }

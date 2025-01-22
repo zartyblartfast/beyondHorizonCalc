@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/models/calculation_result.dart';
 import 'diagram/diagram_label_service.dart';
 import 'diagram/horizon_diagram_view_model.dart';
+import 'diagram/mountain_diagram_view_model.dart';
+import 'diagram/test_diagram_view_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class DiagramDisplay extends StatefulWidget {
@@ -26,6 +28,8 @@ class DiagramDisplay extends StatefulWidget {
 class _DiagramDisplayState extends State<DiagramDisplay> {
   final DiagramLabelService _labelService = DiagramLabelService();
   String? _svgContent;
+  String? _mountainSvgContent;
+  TestDiagramViewModel? _testViewModel;
   
   String _getDiagramAsset() {
     if (widget.result == null) return 'assets/svg/BTH_1.svg';
@@ -54,11 +58,11 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
 
   Future<void> _loadAndUpdateSvg() async {
     try {
-      // Load SVG content
+      // Load SVG content for original diagram
       final String svgPath = _getDiagramAsset();
       final String rawSvg = await rootBundle.loadString(svgPath);
       
-      // Create view model and update labels
+      // Create view model and update labels for original diagram
       final viewModel = HorizonDiagramViewModel(
         result: widget.result,
         targetHeight: widget.targetHeight,
@@ -68,10 +72,31 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       
       // Update SVG with new labels
       final updatedSvg = _labelService.updateLabels(rawSvg, viewModel);
+
+      // Load and update mountain diagram
+      final String mountainSvgPath = 'assets/svg/BTH_viewBox_diagram1.svg';
+      final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
+      
+      // Create mountain view model and update labels
+      final mountainViewModel = MountainDiagramViewModel(
+        result: widget.result,
+        targetHeight: widget.targetHeight,
+        isMetric: widget.isMetric,
+        presetName: widget.presetName,
+      );
+      
+      // Update mountain SVG with new labels
+      var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, mountainViewModel);
+      
+      // Update test dot position if test view model exists
+      if (_testViewModel != null) {
+        updatedMountainSvg = _testViewModel!.updateTestDot(updatedMountainSvg);
+      }
       
       if (mounted) {
         setState(() {
           _svgContent = updatedSvg;
+          _mountainSvgContent = updatedMountainSvg;
         });
       }
     } catch (e) {
@@ -93,24 +118,70 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   @override
   void initState() {
     super.initState();
+    _testViewModel = TestDiagramViewModel(isMetric: widget.isMetric);
     _loadAndUpdateSvg();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AspectRatio(
-          aspectRatio: 1.75,
-          child: _svgContent == null
-              ? const Center(child: CircularProgressIndicator())
-              : SvgPicture.string(
-                  _svgContent!,
-                  fit: BoxFit.contain,
-                ),
+    final titleStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
+      fontWeight: FontWeight.bold,
+    );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(
+            'Not to Scale, Cross-Section: Distant Object Visibility Over Earth\'s Curvature',
+            textAlign: TextAlign.center,
+            style: titleStyle,
+          ),
         ),
-      ),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AspectRatio(
+              aspectRatio: 1.75,
+              child: _svgContent == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : SvgPicture.string(
+                      _svgContent!,
+                      fit: BoxFit.contain,
+                    ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(
+            'To Scale, Vertical Perspective: Distant Object Visibility Over Earth\'s Curvature',
+            textAlign: TextAlign.center,
+            style: titleStyle,
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AspectRatio(
+                  aspectRatio: 0.4,
+                  child: _mountainSvgContent == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : SvgPicture.string(
+                          _mountainSvgContent!,
+                          fit: BoxFit.contain,
+                        ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
