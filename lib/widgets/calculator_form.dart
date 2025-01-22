@@ -21,27 +21,36 @@ class _CalculatorFormState extends State<CalculatorForm> {
   final _distanceController = TextEditingController();
   final _refractionFactorController = TextEditingController(text: '1.07');
   final _targetHeightController = TextEditingController();
+  final _presetSelectorKey = GlobalKey();
 
   bool _isMetric = true;
   LineOfSightPreset? _selectedPreset;
   CalculationResult? _result;
+  PresetSelector? _presetSelector;
 
   @override
   void initState() {
     super.initState();
+    print('CalculatorForm - initState called');
     _initializeForm();
   }
 
   Future<void> _initializeForm() async {
+    print('CalculatorForm - _initializeForm started');
     // Initialize with empty result to avoid null errors
     _result = const CalculationResult();
 
-    // Load presets and set default values
+    // Load presets first
     final presets = await LineOfSightPreset.loadPresets();
-    if (presets.isNotEmpty) {
+    print('CalculatorForm - Loaded ${presets.length} presets');
+    
+    if (presets.isNotEmpty && mounted) {
+      // Set initial preset
+      _selectedPreset = presets.first;
+      print('CalculatorForm - Setting initial preset: ${_selectedPreset?.name}');
+
       setState(() {
-        _selectedPreset = presets.first;
-        // Initialize controllers with default preset values
+        // Initialize controllers with preset values
         final observerHeight =
             _isMetric ? _selectedPreset!.observerHeight : _selectedPreset!.observerHeight * 3.28084;
         final distance =
@@ -53,39 +62,45 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _targetHeightController.text =
             _selectedPreset!.targetHeight?.toString() ?? '';
 
-        // Calculate initial results after setting values
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _handleCalculate();
-        });
+        print('CalculatorForm - Controllers initialized with preset values');
       });
+
+      // Create PresetSelector with initial preset
+      _presetSelector = PresetSelector(
+        key: _presetSelectorKey,
+        selectedPreset: _selectedPreset,  // Now this has the first preset
+        onPresetChanged: _handlePresetChanged,
+      );
+
+      // Calculate initial results
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        print('CalculatorForm - Post-frame callback triggered');
+        _handleCalculate();
+      });
+    } else {
+      // Create PresetSelector with no selection if no presets available
+      _presetSelector = PresetSelector(
+        key: _presetSelectorKey,
+        selectedPreset: null,
+        onPresetChanged: _handlePresetChanged,
+      );
     }
   }
 
-  @override
-  void dispose() {
-    _observerHeightController.dispose();
-    _distanceController.dispose();
-    _refractionFactorController.dispose();
-    _targetHeightController.dispose();
-    super.dispose();
-  }
-
   void _handlePresetChanged(LineOfSightPreset? preset) {
+    print('CalculatorForm - Preset changed to: ${preset?.name}');
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
         final observerHeight =
             _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
-        final distance =
-            _isMetric ? preset.distance : preset.distance * 0.621371;
+        final distance = _isMetric ? preset.distance : preset.distance * 0.621371;
         _observerHeightController.text = observerHeight.toStringAsFixed(1);
         _distanceController.text = distance.toStringAsFixed(1);
-        _refractionFactorController.text = preset.refractionFactor.toStringAsFixed(2);
+        _refractionFactorController.text =
+            preset.refractionFactor.toStringAsFixed(2);
         _targetHeightController.text = preset.targetHeight?.toString() ?? '';
-        // Automatically calculate when preset changes
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _handleCalculate();
-        });
+        _handleCalculate();
       }
     });
   }
@@ -145,6 +160,15 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   @override
+  void dispose() {
+    _observerHeightController.dispose();
+    _distanceController.dispose();
+    _refractionFactorController.dispose();
+    _targetHeightController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -157,13 +181,6 @@ class _CalculatorFormState extends State<CalculatorForm> {
           final contentPadding = isMobile
               ? const EdgeInsets.all(8.0)
               : const EdgeInsets.all(16.0);
-
-          // Create a single instance of PresetSelector
-          final presetSelector = PresetSelector(
-            key: const ValueKey('preset_selector'), // Add a stable key
-            selectedPreset: _selectedPreset,
-            onPresetChanged: _handlePresetChanged,
-          );
 
           // Create a single instance of InputFields
           final inputFields = InputFields(
@@ -196,7 +213,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      presetSelector,
+                      _presetSelector ?? const SizedBox.shrink(),
                       SizedBox(height: isMobile ? 8 : 16),
                       inputFields,
                       SizedBox(height: isMobile ? 8 : 16),
@@ -235,7 +252,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          presetSelector,
+                          _presetSelector ?? const SizedBox.shrink(),
                           SizedBox(height: isMobile ? 8 : 16),
                           inputFields,
                           SizedBox(height: isMobile ? 8 : 16),

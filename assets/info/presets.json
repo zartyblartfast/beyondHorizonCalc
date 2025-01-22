@@ -6,6 +6,31 @@
   },
   "presets": [
     {
+      "name": "Pic de Finstrelles to Pic Gaspard",
+      "description": "View from Pic de Finstrelles, Spain to Pic Gaspard, France (best visibility at sunrise with very high refraction)",
+      "observerHeight": 2826,
+      "distance": 443,
+      "refractionFactor": 1.20,
+      "targetHeight": 3883,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Pic de Finstrelles",
+            "region": "Pyrenees",
+            "country": "Spain"
+          },
+          "target": {
+            "name": "Pic Gaspard",
+            "region": "Écrins",
+            "country": "France"
+          }
+        },
+        "notes": "Exceptional cross-country view between Spain and France, demonstrating extreme refraction effects",
+        "bestViewingConditions": "Sunrise conditions with very high refraction",
+        "imageUrl": null
+      }
+    },
+    {
       "name": "Mount Dankova to Hindu Tagh",
       "description": "View from Mount Dankova to Hindu Tagh peak",
       "observerHeight": 7015,
@@ -102,31 +127,6 @@
         },
         "notes": "Cross-border view from urban British Columbia to Washington's highest peak",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null
-      }
-    },
-    {
-      "name": "Pic de Finstrelles to Pic Gaspard",
-      "description": "View from Pic de Finstrelles, Spain to Pic Gaspard, France (best visibility at sunrise with very high refraction)",
-      "observerHeight": 2826,
-      "distance": 443,
-      "refractionFactor": 1.20,
-      "targetHeight": 3883,
-      "details": {
-        "location": {
-          "observer": {
-            "name": "Pic de Finstrelles",
-            "region": "Pyrenees",
-            "country": "Spain"
-          },
-          "target": {
-            "name": "Pic Gaspard",
-            "region": "Écrins",
-            "country": "France"
-          }
-        },
-        "notes": "Exceptional cross-country view between Spain and France, demonstrating extreme refraction effects",
-        "bestViewingConditions": "Sunrise conditions with very high refraction",
         "imageUrl": null
       }
     }

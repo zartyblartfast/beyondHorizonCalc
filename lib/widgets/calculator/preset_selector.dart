@@ -23,18 +23,18 @@ class _PresetSelectorState extends State<PresetSelector> {
   @override
   void initState() {
     super.initState();
+    print('PresetSelector - initState with selectedPreset: ${widget.selectedPreset?.name}');
     _loadPresets();
   }
 
   Future<void> _loadPresets() async {
+    print('PresetSelector - Loading presets');
     final presets = await LineOfSightPreset.loadPresets();
+    print('PresetSelector - Loaded ${presets.length} presets');
+    
     if (mounted) {
       setState(() {
         _presets = presets;
-        // If no preset is selected and we have presets, select the first one
-        if (widget.selectedPreset == null && presets.isNotEmpty) {
-          widget.onPresetChanged(presets.first);
-        }
         _isLoading = false;
       });
     }
@@ -42,12 +42,38 @@ class _PresetSelectorState extends State<PresetSelector> {
 
   @override
   Widget build(BuildContext context) {
+    print('PresetSelector - Building with selectedPreset: ${widget.selectedPreset?.name}');
+
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    // Create dropdown items during build
+    final dropdownItems = [
+      ..._presets.map((preset) => DropdownMenuItem<LineOfSightPreset?>(
+            value: preset,
+            child: Text(
+              preset.name,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )),
+      const DropdownMenuItem<LineOfSightPreset?>(
+        value: null,
+        child: Text('Custom Values'),
+      ),
+    ];
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final isNarrow = constraints.maxWidth < 600;
+        print('PresetSelector - Layout width: ${constraints.maxWidth}');
+        
         final contentPadding = isNarrow 
             ? const EdgeInsets.all(8.0)
             : const EdgeInsets.all(16.0);
+        final dropdownPadding = isNarrow 
+            ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+            : const EdgeInsets.symmetric(horizontal: 12, vertical: 16);
 
         return Card(
           child: Padding(
@@ -61,34 +87,22 @@ class _PresetSelectorState extends State<PresetSelector> {
                     Expanded(
                       child: Container(
                         width: double.infinity,
-                        child: _isLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : DropdownButtonFormField<LineOfSightPreset>(
-                                isExpanded: true,
-                                value: widget.selectedPreset,
-                                decoration: InputDecoration(
-                                  labelText: 'Famous Line of Sight',
-                                  border: const OutlineInputBorder(),
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  contentPadding: isNarrow 
-                                      ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                                      : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                                ),
-                                items: [
-                                  const DropdownMenuItem(
-                                    value: null,
-                                    child: Text('Custom Values'),
-                                  ),
-                                  ..._presets.map((preset) => DropdownMenuItem(
-                                        value: preset,
-                                        child: Text(
-                                          preset.name,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )),
-                                ],
-                                onChanged: widget.onPresetChanged,
-                              ),
+                        padding: dropdownPadding,
+                        child: DropdownButtonFormField<LineOfSightPreset?>(
+                          key: const ValueKey('preset_dropdown'),
+                          isExpanded: true,
+                          value: widget.selectedPreset,
+                          decoration: InputDecoration(
+                            labelText: 'Famous Line of Sight',
+                            border: const OutlineInputBorder(),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            contentPadding: isNarrow 
+                                ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                                : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                          ),
+                          items: dropdownItems,
+                          onChanged: widget.onPresetChanged,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),  
