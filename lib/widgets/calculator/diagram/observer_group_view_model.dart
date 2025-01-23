@@ -93,6 +93,35 @@ class ObserverGroupViewModel extends DiagramViewModel {
       },
     );
 
+    // Calculate the height of the vertical line
+    final double lineHeight = (_seaLevel - observerLevel).abs();
+    
+    // Define minimum space needed for h1_label (font size plus padding)
+    // Font size is 18.6667px, add 10px padding (5px top and bottom)
+    final double minRequiredSpace = 28.6667; // 18.6667 + 10
+    
+    // Update h1_label position and visibility based on available space
+    final double h1Y = (observerLevel + _seaLevel) / 2; // Calculate midpoint
+    updatedSvg = SvgElementUpdater.updateTextElement(
+      updatedSvg,
+      'h1_label',
+      {
+        'x': '7.3378983', // Keep existing x coordinate
+        'y': '$h1Y',
+        'visibility': lineHeight >= minRequiredSpace ? 'visible' : 'hidden',
+        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.261;stroke-dasharray:none',
+      },
+    );
+
+    // Hide Test_Dot
+    updatedSvg = SvgElementUpdater.updateEllipseElement(
+      updatedSvg,
+      'Test_Dot',
+      {
+        'visibility': 'hidden',
+      },
+    );
+
     // Update observer sea level line
     updatedSvg = SvgElementUpdater.updatePathElement(
       updatedSvg,
