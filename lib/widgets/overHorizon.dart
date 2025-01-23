@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as Math;
 
 class OverHorizon extends StatelessWidget {
   final Size size;
@@ -40,10 +41,20 @@ class OverHorizonPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Scale and translate the canvas to center the drawing
-    canvas.translate(size.width / 2, size.height / 2);
-    double scale = size.width / 400; // Adjust scale based on the width
-    canvas.scale(scale);
+    // First flip the Y axis since SVG and Flutter use opposite Y directions
+    canvas.scale(1, -1);
+    canvas.translate(0, -size.height);
+    
+    // Calculate independent scales for x and y
+    double scaleX = size.width / 500;
+    double scaleY = size.height / 1000;
+    
+    // Center horizontally and account for viewBox x-offset
+    double xOffset = 0;  // No need to center since we're using exact scaling
+    canvas.translate(xOffset - (-200 * scaleX), 0);  // Adjust for viewBox x-offset
+    
+    // Apply independent scaling
+    canvas.scale(scaleX, scaleY);
             
     Path path_0 = Path();
     path_0.moveTo(0,-129.88826);
@@ -108,6 +119,63 @@ class OverHorizonPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     canvas.drawPath(path_5, paintStroke5);
+
+    // Draw C_Point_Line
+    final cPointY = 342.0; // Y coordinate of C_Point_Line
+    Path cPointLine = Path();
+    cPointLine.moveTo(-200, cPointY);
+    cPointLine.lineTo(200, cPointY);
+
+    final cPointPaint = Paint()
+      ..color = lineColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3.3255;
+    canvas.drawPath(cPointLine, cPointPaint);
+
+    // Draw labels relative to C_Point_Line's actual position
+    final textStyle = TextStyle(
+      color: const Color(0xFF800080),
+      fontSize: 16,
+      fontFamily: 'Calibri',
+      fontWeight: FontWeight.bold,
+    );
+
+    // Position Visible label above C_Point_Line
+    TextPainter visiblePainter = TextPainter(
+      text: TextSpan(text: 'Visible', style: textStyle),
+      textDirection: TextDirection.ltr,
+    );
+    visiblePainter.layout();
+    visiblePainter.paint(canvas, Offset(-190, cPointY - 10));
+
+    // Position the group of labels that were originally one tspan label
+    // Hidden is the anchor point, positioned relative to C_Point_Line
+    final groupStartY = cPointY + 10;  // Hidden's position relative to C_Point_Line
+    final lineHeight = 20.0;  // Vertical spacing between lines in the group
+    
+    // Hidden - anchor point for the group
+    TextPainter hiddenPainter = TextPainter(
+      text: TextSpan(text: 'Hidden', style: textStyle),
+      textDirection: TextDirection.ltr,
+    );
+    hiddenPainter.layout();
+    hiddenPainter.paint(canvas, Offset(-190, groupStartY));
+    
+    // Beyond - second line in the group
+    TextPainter beyondPainter = TextPainter(
+      text: TextSpan(text: 'Beyond', style: textStyle),
+      textDirection: TextDirection.ltr,
+    );
+    beyondPainter.layout();
+    beyondPainter.paint(canvas, Offset(-190, groupStartY + lineHeight));
+    
+    // Horizon - third line in the group
+    TextPainter horizonPainter = TextPainter(
+      text: TextSpan(text: 'Horizon', style: textStyle),
+      textDirection: TextDirection.ltr,
+    );
+    horizonPainter.layout();
+    horizonPainter.paint(canvas, Offset(-190, groupStartY + (lineHeight * 2)));
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
 import '../../services/models/calculation_result.dart';
 import 'diagram/diagram_label_service.dart';
 import 'diagram/horizon_diagram_view_model.dart';
@@ -58,6 +59,17 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
 
   Future<void> _loadAndUpdateSvg() async {
     try {
+      Map<String, dynamic> diagramSpec;
+      try {
+        // Load diagram spec configuration
+        final String specJson = await rootBundle.loadString('assets/info/diagram_spec.json');
+        diagramSpec = json.decode(specJson) as Map<String, dynamic>;
+      } catch (e) {
+        debugPrint('Error loading diagram spec: $e');
+        // Provide empty config, view model will use defaults
+        diagramSpec = {};
+      }
+
       // Load SVG content for original diagram
       final String svgPath = _getDiagramAsset();
       final String rawSvg = await rootBundle.loadString(svgPath);
@@ -76,6 +88,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       // Load and update mountain diagram
       final String mountainSvgPath = 'assets/svg/BTH_viewBox_diagram1.svg';
       final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
+      debugPrint('Loaded mountain SVG length: ${rawMountainSvg.length}');
+      debugPrint('Mountain SVG contains Observer_SL_Line: ${rawMountainSvg.contains('Observer_SL_Line')}');
       
       // Create mountain view model and update labels
       final mountainViewModel = MountainDiagramViewModel(
@@ -83,15 +97,12 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         targetHeight: widget.targetHeight,
         isMetric: widget.isMetric,
         presetName: widget.presetName,
+        diagramSpec: diagramSpec,
       );
       
-      // Update mountain SVG with new labels
+      // Update mountain SVG with new labels and dynamic elements
       var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, mountainViewModel);
-      
-      // Update test dot position if test view model exists
-      if (_testViewModel != null) {
-        updatedMountainSvg = _testViewModel!.updateTestDot(updatedMountainSvg);
-      }
+      updatedMountainSvg = mountainViewModel.updateDynamicElements(updatedMountainSvg);
       
       if (mounted) {
         setState(() {
@@ -168,14 +179,21 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: AspectRatio(
-                  aspectRatio: 0.4,
-                  child: _mountainSvgContent == null
-                      ? const Center(child: CircularProgressIndicator())
-                      : SvgPicture.string(
-                          _mountainSvgContent!,
-                          fit: BoxFit.contain,
-                        ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Calculate height based on width to maintain 400:1000 ratio of the main diagram area
+                    // The total width is 500 (400 + 100 extra), so we adjust the ratio accordingly
+                    final height = (constraints.maxWidth * 1000) / 400;
+                    return SizedBox(
+                      height: height,
+                      child: _mountainSvgContent == null
+                          ? const Center(child: CircularProgressIndicator())
+                          : SvgPicture.string(
+                              _mountainSvgContent!,
+                              fit: BoxFit.fill,
+                            ),
+                    );
+                  }
                 ),
               ),
             ),

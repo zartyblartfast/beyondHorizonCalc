@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class SvgHelper {
-  static Widget loadSvg(String assetName, {BoxFit fit = BoxFit.contain}) {
+  static Widget loadSvg(String assetName, {BoxFit fit = BoxFit.fill}) {
     return SvgPicture.asset(
       assetName,
       fit: fit,
@@ -19,7 +19,7 @@ class SvgHelper {
     );
   }
 
-  static Future<Widget> loadSvgAsset(String assetName, {BoxFit fit = BoxFit.contain}) async {
+  static Future<Widget> loadSvgAsset(String assetName, {BoxFit fit = BoxFit.fill}) async {
     try {
       // Load the SVG file as a string
       String svgString = await rootBundle.loadString(assetName);

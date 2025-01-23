@@ -16,6 +16,10 @@
           "horizon": {"start": 342, "end": 474, "purpose": "Critical reference area"},
           "mountain": {"start": 474, "end": 1000, "purpose": "Dynamic mountain area"}
         }
+      },
+      "overflow": {
+        "x": "visible",
+        "y": "hidden"
       }
     },
     "userInputs": {
