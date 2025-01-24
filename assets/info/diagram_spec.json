@@ -4,9 +4,16 @@
       "viewBox": {
         "x": [-200, 200],
         "y": [0, 1000],
-        "width": 400,
+        "width": 500,
         "height": 1000,
-        "origin": "top center (0,0)"
+        "origin": "top center (0,0)",
+        "scaling": {
+          "preserveAspectRatio": true,
+          "workingArea": {
+            "width": 400,
+            "height": 1000
+          }
+        }
       },
       "coordinateSystem": {
         "xAxis": "Centered at 0, extends -200 to +200",

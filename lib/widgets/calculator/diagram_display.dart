@@ -31,7 +31,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   String? _svgContent;
   String? _mountainSvgContent;
   TestDiagramViewModel? _testViewModel;
-  
+  MountainDiagramViewModel? _mountainViewModel;
+
   String _getDiagramAsset() {
     if (widget.result == null) return 'assets/svg/BTH_1.svg';
     
@@ -92,7 +93,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       debugPrint('Mountain SVG contains Observer_SL_Line: ${rawMountainSvg.contains('Observer_SL_Line')}');
       
       // Create mountain view model and update labels
-      final mountainViewModel = MountainDiagramViewModel(
+      _mountainViewModel = MountainDiagramViewModel(
         result: widget.result,
         targetHeight: widget.targetHeight,
         isMetric: widget.isMetric,
@@ -101,8 +102,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       );
       
       // Update mountain SVG with new labels and dynamic elements
-      var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, mountainViewModel);
-      updatedMountainSvg = mountainViewModel.updateDynamicElements(updatedMountainSvg);
+      var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, _mountainViewModel!);
+      updatedMountainSvg = _mountainViewModel!.updateDynamicElements(updatedMountainSvg);
       
       if (mounted) {
         setState(() {
@@ -181,9 +182,10 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                 padding: const EdgeInsets.all(8.0),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    // Calculate height based on width to maintain 400:1000 ratio of the main diagram area
-                    // The total width is 500 (400 + 100 extra), so we adjust the ratio accordingly
-                    final height = (constraints.maxWidth * 1000) / 400;
+                    // Use viewBox dimensions from _mountainViewModel's diagramSpec
+                    final viewBoxWidth = _mountainViewModel?.diagramSpec['metadata']?['svgSpec']?['viewBox']?['width'] ?? 500;
+                    final viewBoxHeight = _mountainViewModel?.diagramSpec['metadata']?['svgSpec']?['viewBox']?['height'] ?? 1000;
+                    final height = (constraints.maxWidth * viewBoxHeight) / viewBoxWidth;
                     return SizedBox(
                       height: height,
                       child: _mountainSvgContent == null
