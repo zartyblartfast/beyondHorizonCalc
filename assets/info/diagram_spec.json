@@ -2,9 +2,9 @@
   "metadata": {
     "svgSpec": {
       "viewBox": {
-        "x": [-200, 200],
+        "x": [-300, 300],
         "y": [0, 1000],
-        "width": 500,
+        "width": 600,
         "height": 1000,
         "origin": "top center (0,0)",
         "scaling": {
@@ -16,7 +16,7 @@
         }
       },
       "coordinateSystem": {
-        "xAxis": "Centered at 0, extends -200 to +200",
+        "xAxis": "Centered at 0, core area extends -200 to +200, with 100-unit margins on both sides (-300 to -200 left, 200 to 300 right)",
         "yAxis": "Top to bottom (0 at top, 1000 at bottom)",
         "verticalZones": {
           "sky": {"start": 0, "end": 342, "purpose": "Labels and upper elements"},
@@ -186,8 +186,8 @@
         "max": 1000
       },
       "x": {
-        "min": -200,
-        "max": 200
+        "min": -300,
+        "max": 300
       }
     },
     "groups": {
@@ -195,8 +195,8 @@
         "seaLevel": {
           "y": 500,
           "line": {
-            "x1": -200,
-            "x2": 200
+            "x1": -300,
+            "x2": 300
           }
         },
         "heightScale": {
@@ -234,8 +234,8 @@
       "horizon": {
         "cPointLine": {
           "y": 500,
-          "x1": -200,
-          "x2": 200
+          "x1": -300,
+          "x2": 300
         }
       }
     }

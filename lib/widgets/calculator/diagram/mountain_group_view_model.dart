@@ -9,7 +9,7 @@ class MountainGroupViewModel extends DiagramViewModel {
   final Map<String, dynamic> config;
 
   // Coordinate system constants - matching observer group
-  static const double _viewboxScale = 500 / 18; // Scale factor: 500 viewbox units = 18km
+  static const double _viewboxScale = 600 / 18; // Scale factor: 600 viewbox units = 18km
 
   MountainGroupViewModel({
     required CalculationResult? result,
