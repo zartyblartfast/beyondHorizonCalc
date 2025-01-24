@@ -8,21 +8,46 @@
    - Separate major components into distinct paths
 
 2. **Technical Specs**
-   - viewBox: Use round numbers, reasonable scale (e.g., 0 0 600 300)
-   - No embedded styles or colors
-   - No unnecessary metadata
-   - Clean, optimized paths
+   - viewBox format: `viewBox="<min-x> <min-y> <width> <height>"`
+   - All four parameters work together to define both coordinate space AND scaling:
+     - min-x/y: Starting point of coordinate system
+     - width/height: Total units in each dimension
+     - Example: viewBox="-300 0 600 1000" means:
+       - Coordinates from -300 to +300 horizontally (600 units total)
+       - Coordinates from 0 to 1000 vertically
+   - Changes to viewBox parameters affect both positioning AND scaling
+   - Must match configuration in diagram_spec.json exactly
 
 3. **Example Structure**
 ```svg
-<svg viewBox="0 0 600 300">
+<svg viewBox="-300 0 600 300">
   <g id="main-structure">
-    <path id="base-line" d="M100,200 L500,200"/>
-  </g>
-  <g id="measurements">
-    <circle id="point-a" cx="100" cy="200" r="2"/>
+    <!-- Core content in -200 to +200 range -->
+    <path id="base-line" d="M-200,200 L200,200"/>
+    <!-- Labels can use full -300 to +300 range -->
+    <text x="-250" y="150">Label</text>
   </g>
 </svg>
 ```
 
-Questions? Contact: [Your Contact Info]
+## BTH Diagram Requirements
+
+### ViewBox Configuration
+- Format: `viewBox="<min-x> <min-y> <width> <height>"`
+- Current values: `-200 0 500 1000`
+- These parameters define both coordinate space and scaling
+- Must match configuration in diagram_spec.json
+- Changing these values affects both positioning and scaling
+
+### Coordinate Space
+- Core diagram area: -200 to +200 horizontally (400 units)
+- Right margin: +200 to +300 (100 units for labels)
+- Height: 0 to 1000 units vertically
+- All element coordinates must be within this space
+
+### Adding Left Margin
+To add a left margin while maintaining diagram proportions:
+1. Update SVG viewBox to: `-300 0 500 1000`
+2. Update diagram_spec.json to match these exact parameters
+3. Do not modify the core diagram area (-200 to +200)
+4. New left margin space: -300 to -200 (100 units for labels)
