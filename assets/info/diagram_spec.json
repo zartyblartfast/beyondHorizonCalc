@@ -1,6 +1,10 @@
 {
   "metadata": {
     "svgSpec": {
+      "files": {
+        "description": "SVG file paths relative to assets/svg directory",
+        "mountainDiagram": "BTH_viewBox_diagram2.svg"
+      },
       "viewBox": {
         "x": [-300, 300],
         "y": [0, 1000],
@@ -12,7 +16,8 @@
           "workingArea": {
             "width": 400,
             "height": 1000
-          }
+          },
+          "displayScale": 0.6
         }
       },
       "coordinateSystem": {
@@ -193,7 +198,8 @@
     "groups": {
       "observer": {
         "seaLevel": {
-          "y": 500,
+          "description": "Datum line for the entire Observer group. Changing y value moves all Observer group elements (including horizon line) vertically",
+          "y": 550,
           "line": {
             "x1": -300,
             "x2": 300
