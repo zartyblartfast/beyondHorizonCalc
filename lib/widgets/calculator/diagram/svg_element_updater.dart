@@ -124,6 +124,54 @@ class SvgElementUpdater {
     });
   }
 
+  /// Updates circle element attributes while preserving style and other attributes
+  static String updateCircleElement(String svgContent, String elementId, Map<String, dynamic> attributes) {
+    // Find the circle element with the given ID or inkscape:label
+    final RegExp elementPattern = RegExp(
+      r'(<circle[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?)(/>|>)',
+      multiLine: true,
+      dotAll: true,
+    );
+
+    if (kDebugMode) {
+      debugPrint('Searching for circle element with pattern: ${elementPattern.pattern}');
+      
+      // Find element with this ID or label
+      final idPattern = RegExp('(?:id|inkscape:label)="$elementId"');
+      final idMatch = idPattern.firstMatch(svgContent);
+      if (idMatch != null) {
+        // Get surrounding context
+        final start = idMatch.start - 50;
+        final end = idMatch.end + 50;
+        debugPrint('Found element in context: ${svgContent.substring(start < 0 ? 0 : start, end > svgContent.length ? svgContent.length : end)}');
+      }
+    }
+
+    // Update attributes while preserving others
+    return svgContent.replaceFirstMapped(elementPattern, (match) {
+      var element = match.group(1) ?? '';
+      final closing = match.group(2) ?? '/>';
+      
+      if (kDebugMode) {
+        debugPrint('Found circle element: $element');
+      }
+      
+      attributes.forEach((key, value) {
+        final attributePattern = RegExp('$key="[^"]*"');
+        if (element.contains(attributePattern)) {
+          element = element.replaceAll(attributePattern, '$key="$value"');
+        } else {
+          element = element + ' $key="$value"';
+        }
+      });
+      
+      if (kDebugMode) {
+        debugPrint('Updated circle element: $element$closing');
+      }
+      return element + closing;
+    });
+  }
+
   /// Updates text element attributes while preserving style and other attributes
   static String updateTextElement(String svgContent, String elementId, Map<String, dynamic> attributes) {
     // Find the text element with the given ID or inkscape:label

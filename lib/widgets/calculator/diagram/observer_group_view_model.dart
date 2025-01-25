@@ -133,12 +133,12 @@ class ObserverGroupViewModel extends DiagramViewModel {
     );
 
     // Update observer dot
-    updatedSvg = SvgElementUpdater.updateEllipseElement(
+    updatedSvg = SvgElementUpdater.updateCircleElement(
       updatedSvg,
       'dot',
       {
         'cx': '0',
-        'cy': observerLevel,
+        'cy': '$observerLevel',
       },
     );
 
