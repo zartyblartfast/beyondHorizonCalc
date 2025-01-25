@@ -23,8 +23,8 @@ abstract class DiagramViewModel {
   String formatDistance(double? value) {
     if (value == null) return '';
     return isMetric 
-        ? '${value.toStringAsFixed(2)} km'
-        : '${(value * 0.621371).toStringAsFixed(2)} mi';
+        ? '${value.toStringAsFixed(1)} km'
+        : '${(value * 0.621371).toStringAsFixed(1)} mi';
   }
 
   /// Formats a height value with appropriate units for display

@@ -46,6 +46,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
       'Observer_Height_Label': observerHeight != null ? formatHeight(observerHeight) : '',
       'Visible_Label': 'Visible',
       'Hidden_Label': 'Hidden\nBeyond\nHorizon',
+      'L0': 'Distance (L0): ${formatDistance(result?.inputDistance)}',
     };
   }
 

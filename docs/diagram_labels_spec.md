@@ -14,13 +14,55 @@
 | LoS_Distance_d0 | Line of Sight | Line of sight distance (D0) AC | Calculation result | "D₀" |
 | d1 | Distance to Horizon | Distance from observer (A) to horizon (B) | Calculation result | "d₁" |
 | d2 | Horizon to Object Base | Distance from horizon (B) to object base projection (C) | Calculation result | "d₂" |
-| L0 | Total Distance | Sea level distance between observer and object | Direct from input field | "L₀" |
+| L0 | Total Distance | Sea level distance between observer and object | Direct from input field | "Distance (L0): [value]" with 1 decimal place |
 | radius | Earth Radius | Earth's radius in km or miles | Based on units: "R = 6,378 km" or "R = 3,963 mi" | "R = [value]" |
 
 ## Visibility States
 - "Hidden": Target height < Hidden height (h2)
 - "Partially Visible": Target height ≈ Hidden height (h2)
 - "Fully Visible": Target height > Hidden height (h2)
+
+## Label Diagram Mapping
+
+Labels may appear in multiple diagram types. Here's the mapping:
+
+### Horizon Diagrams (BTH_1.svg through BTH_4.svg)
+- FromTo
+- HiddenVisible
+- HiddenHeight
+- VisibleHeight
+- h1, h2, h3
+- LoS_Distance_d0
+- d1, d2
+- L0
+- radius
+
+### Mountain Diagram (BTH_viewBox_diagram2.svg)
+- FromTo
+- HiddenVisible
+- HiddenHeight
+- VisibleHeight
+- Observer_Height_Label
+- Visible_Label
+- Hidden_Label
+- L0
+
+## View Model Label Responsibility
+
+Labels are managed by different view models:
+
+1. **ObserverGroupViewModel**
+   - Observer_Height_Label
+   - Visible_Label
+   - Hidden_Label
+   - L0 (used by both diagram types)
+
+2. **HorizonDiagramViewModel**
+   - All horizon diagram labels except those from ObserverGroupViewModel
+
+3. **MountainDiagramViewModel**
+   - Inherits ObserverGroupViewModel labels
+   - Adds mountain-specific labels (FromTo, HiddenVisible, etc.)
 
 ## Implementation Plan
 

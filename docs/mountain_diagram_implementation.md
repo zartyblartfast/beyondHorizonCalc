@@ -10,11 +10,33 @@
 - **DiagramLabelService**: Manages SVG text updates
 - **SvgHelper**: Handles SVG loading and basic modifications
 
-### 2. Data Flow
+### 2. View Model Hierarchy and Responsibilities
+
+#### Base Classes
+- **DiagramViewModel**: Provides common utilities like formatDistance() (1 decimal place) and formatHeight()
+- **DiagramLabelService**: Handles SVG text updates while preserving attributes
+
+#### Specific View Models
+1. **ObserverGroupViewModel**
+   - Primary owner of observer-related labels
+   - Provides L0 label for both diagram types
+   - Format: "Distance (L0): [value]" with 1 decimal place
+
+2. **HorizonDiagramViewModel**
+   - Handles BTH_1.svg through BTH_4.svg
+   - Manages horizon-specific calculations and labels
+   - Uses ObserverGroupViewModel for some labels
+
+3. **MountainDiagramViewModel**
+   - Handles BTH_viewBox_diagram2.svg
+   - Uses ObserverGroupViewModel for observer labels
+   - Adds mountain-specific labels and calculations
+
+### 3. Data Flow
 - User inputs → CalculationResult → ViewModel → SVG Updates
 - All calculations are in metric (km) and converted for display
 
-### 3. Value Ranges
+### 4. Value Ranges
 - Observer Height: 2m to 9000m
 - Distance: 5km to 600km
 - Target Height: 0m to 9000m
