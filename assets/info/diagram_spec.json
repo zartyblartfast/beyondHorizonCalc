@@ -17,7 +17,7 @@
             "width": 400,
             "height": 1000
           },
-          "displayScale": 0.6
+          "displayScale": 0.7
         }
       },
       "coordinateSystem": {
@@ -210,6 +210,47 @@
             "min": 250,
             "max": 500
           }
+        },
+        "labelGroup": {
+          "description": "Elements that move together with the observer dot",
+          "elements": [
+            {
+              "id": "4_1_Observer_here_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "dot",
+                "offset": {
+                  "x": 12.02782,
+                  "y": -17.68905
+                }
+              }
+            },
+            {
+              "id": "4_2_observer_A",
+              "type": "text",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 88.034515,
+                  "y": -36.50892
+                }
+              }
+            },
+            {
+              "id": "4_3_Observer_Line_of_Sight",
+              "type": "text",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 64.332047,
+                  "y": -15.00183
+                }
+              }
+            }
+          ]
         }
       },
       "mountain": {

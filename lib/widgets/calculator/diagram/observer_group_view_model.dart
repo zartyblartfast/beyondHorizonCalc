@@ -78,6 +78,86 @@ class ObserverGroupViewModel extends DiagramViewModel {
     return _seaLevel - scaledHeight;
   }
 
+  /// Updates the observer label group elements that move with the dot
+  String _updateObserverLabelGroup(String svgContent, double observerLevel) {
+    var updatedSvg = svgContent;
+    
+    // Get label group config
+    final labelGroup = config['coordinateMapping']?['groups']?['observer']?['labelGroup'];
+    if (labelGroup == null) return updatedSvg;
+
+    // Track positions for relative positioning
+    final Map<String, Map<String, double>> elementPositions = {};
+
+    // Update each element based on its base point
+    for (final element in labelGroup['elements'] ?? []) {
+      final id = element['id'];
+      final basePoint = element['position']?['basePoint'];
+      final offset = element['position']?['offset'];
+      
+      if (id == null || basePoint == null || offset == null) continue;
+
+      // Calculate position based on base point
+      double baseX = 0;
+      double baseY = observerLevel;
+
+      // If base point is not dot, get its position from previous element
+      if (basePoint != 'dot' && elementPositions.containsKey(basePoint)) {
+        baseX = elementPositions[basePoint]!['x']!;
+        baseY = elementPositions[basePoint]!['y']!;
+      }
+
+      // Apply offset to base position
+      final x = baseX + (offset['x']?.toDouble() ?? 0);
+      final y = baseY + (offset['y']?.toDouble() ?? 0);
+
+      // Store position for other elements to reference
+      elementPositions[id] = {'x': x, 'y': y};
+
+      // Update element based on its type
+      switch (element['type']) {
+        case 'path':
+          // For the arrow, preserve all original attributes and just update position
+          final pathD = 'M $x,$y c 20.589574,-19.50955 23.908472,-20.00519 37.348535,-26.01275 10.832606,-4.84205 33.996744,-7.68557 33.996744,-7.68557';
+          updatedSvg = SvgElementUpdater.updatePathElement(
+            updatedSvg,
+            id,
+            {
+              'd': pathD,
+              'style': 'fill:none;stroke:#ff0000;stroke-width:1.55855;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#DartArrow)',
+              'sodipodi:nodetypes': 'csc',
+            },
+          );
+          break;
+
+        case 'text':
+          if (kDebugMode) {
+            print('Updating text element $id at x: $x, y: $y');
+          }
+          // Use simpler text format without tspans
+          final style = id == '4_2_observer_A' 
+            ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
+            : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000';
+          
+          final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
+          
+          updatedSvg = SvgElementUpdater.updateTextElement(
+            updatedSvg,
+            id,
+            {
+              'x': '$x',
+              'y': '$y',
+              'style': style,
+              'text': text,
+            },
+          );
+          break;
+      }
+    }
+
+    return updatedSvg;
+  }
+
   /// Updates all Observer group elements in the SVG
   String updateObserverGroup(String svgContent) {
     var updatedSvg = svgContent;
@@ -98,7 +178,6 @@ class ObserverGroupViewModel extends DiagramViewModel {
     final double lineHeight = (_seaLevel - observerLevel).abs();
     
     // Define minimum space needed for h1_label (font size plus padding)
-    // Font size is 18.6667px, add 10px padding (5px top and bottom)
     final double minRequiredSpace = 28.6667; // 18.6667 + 10
     
     // Update h1_label position and visibility based on available space
@@ -109,8 +188,6 @@ class ObserverGroupViewModel extends DiagramViewModel {
       {
         'x': '7.3378983', // Keep existing x coordinate
         'y': '$h1Y',
-        'visibility': lineHeight >= minRequiredSpace ? 'visible' : 'hidden',
-        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.261;stroke-dasharray:none',
       },
     );
 
@@ -141,6 +218,9 @@ class ObserverGroupViewModel extends DiagramViewModel {
         'cy': '$observerLevel',
       },
     );
+
+    // Update observer label group elements
+    updatedSvg = _updateObserverLabelGroup(updatedSvg, observerLevel);
 
     // Update curvature point line
     updatedSvg = SvgElementUpdater.updatePathElement(
@@ -174,31 +254,22 @@ class ObserverGroupViewModel extends DiagramViewModel {
     );
 
     // Update A, B, C point labels - vertically centered on C_Point_Line
-    const pointLabelStyle = 'font-family:Calibri, Calibri_MSFontService, sans-serif;font-weight:700;font-size:28.7614px;stroke-width:0.261479';
-    const pointLabelBaseAttributes = {
-      'style': pointLabelStyle,
-      'fill': '#ff0000',
-      'dominant-baseline': 'middle', // Center text vertically
+    final pointLabelBaseAttributes = {
+      'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke-width:0.261479',
     };
-    
+
     // Point label positions relative to C_Point_Line
     final pointLabels = {
-      'A': -85.0,
-      'B': -65.0,
-      'C': -45.0,
+      'A': -85,
+      'B': -65,
+      'C': -47,
     };
-    
-    // Update all point labels
+
     pointLabels.forEach((label, xPos) {
-      if (kDebugMode) {
-        debugPrint('Updating $label label at x=$xPos, y=$observerLevel');
-      }
-      
       updatedSvg = SvgElementUpdater.updateTextElement(
         updatedSvg,
         label,
         {
-          ...pointLabelBaseAttributes,
           'x': '$xPos',
           'y': '$observerLevel',
         },
@@ -206,58 +277,27 @@ class ObserverGroupViewModel extends DiagramViewModel {
     });
 
     // Update visibility labels - positioned relative to C_Point_Line
-    const double visibleLabelOffset = 15; // Offset for visible label
-    const double hiddenLabelOffset = 25; // Increased offset for hidden label
+    final visibilityLabelStyle = 'font-weight:bold;font-size:16px;font-family:Calibri;fill:#800080';
     
-    if (kDebugMode) {
-      debugPrint('Updating Visible_Label at y=${observerLevel - visibleLabelOffset}');
-    }
-    
-    updatedSvg = SvgElementUpdater.updateTextElement(
-      updatedSvg,
-      'Visible_Label',
-      {
-        'x': '-190',
-        'y': '${observerLevel - visibleLabelOffset}',
-        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479',
-      },
-    );
+    // Label positions relative to C_Point_Line
+    final visibilityLabels = {
+      'label_visible_new': -10, // 10 units above C_Point_Line
+      'label_hidden_new': 10,   // 10 units below C_Point_Line
+      'label_beyond_new': 30,   // 30 units below C_Point_Line
+      'label_horizon_new': 50,  // 50 units below C_Point_Line
+    };
 
-    if (kDebugMode) {
-      debugPrint('Updating Hidden_Label at y=${observerLevel + hiddenLabelOffset}');
-    }
-    
-    updatedSvg = SvgElementUpdater.updateTextElement(
-      updatedSvg,
-      'Hidden_Label',
-      {
-        'x': '-190',
-        'y': '${observerLevel + hiddenLabelOffset}',
-        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479',
-      },
-    );
-
-    // Update Beyond_Label with same offset + 20 units
-    updatedSvg = SvgElementUpdater.updateTextElement(
-      updatedSvg,
-      'Beyond_Label',
-      {
-        'x': '-190',
-        'y': '${observerLevel + hiddenLabelOffset + 20}',
-        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479',
-      },
-    );
-
-    // Update Horizon_Label with same offset + 40 units
-    updatedSvg = SvgElementUpdater.updateTextElement(
-      updatedSvg,
-      'Horizon_Label',
-      {
-        'x': '-190',
-        'y': '${observerLevel + hiddenLabelOffset + 40}',
-        'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;stroke-width:0.261479',
-      },
-    );
+    visibilityLabels.forEach((labelId, yOffset) {
+      updatedSvg = SvgElementUpdater.updateTextElement(
+        updatedSvg,
+        labelId,
+        {
+          'x': '-190',
+          'y': '${observerLevel + yOffset}',
+          'style': visibilityLabelStyle,
+        },
+      );
+    });
 
     return updatedSvg;
   }

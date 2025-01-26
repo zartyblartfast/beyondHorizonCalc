@@ -176,70 +176,37 @@ class SvgElementUpdater {
   static String updateTextElement(String svgContent, String elementId, Map<String, dynamic> attributes) {
     // Find the text element with the given ID or inkscape:label
     final RegExp elementPattern = RegExp(
-      r'(<text[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?>)(.*?</text>)',
+      r'(<text[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?>)(.*?)(</text>)',
       multiLine: true,
       dotAll: true,
     );
-    
-    if (kDebugMode) {
-      debugPrint('Searching for text element with pattern: ${elementPattern.pattern}');
-      debugPrint('Attributes to update: $attributes');
-    }
 
-    // Update attributes while preserving others and text content
+    // Update attributes while preserving others
     return svgContent.replaceFirstMapped(elementPattern, (match) {
       var element = match.group(1) ?? '';
-      var textContent = match.group(2) ?? '';
+      final originalContent = match.group(2) ?? '';
+      final closing = match.group(3) ?? '</text>';
       
-      if (kDebugMode) {
-        debugPrint('Found text element: $element');
-        debugPrint('Text content: $textContent');
-      }
-      
-      // Remove any transform attributes that might affect positioning
-      element = element.replaceAll(RegExp(r'transform="[^"]*"'), '');
-      
-      // Update text element attributes
-      attributes.forEach((key, value) {
-        if (key != 'y' || !textContent.contains('<tspan')) { // Only update y if not using tspans
-          final attributePattern = RegExp('$key="[^"]*"');
-          if (element.contains(attributePattern)) {
-            element = element.replaceAll(attributePattern, '$key="$value"');
-          } else {
-            element = element.substring(0, element.length - 1) + ' $key="$value">';
-          }
-        }
-      });
-
-      // Update tspan positions if tspans exist
-      if (textContent.contains('<tspan')) {
-        // Find all tspans and update their positions
-        final tspanPattern = RegExp(r'(<tspan[^>]*?)(?:x|y)="[^"]*"([^>]*?>)');
-        
-        if (attributes.containsKey('tspan')) {
-          final tspanAttrs = attributes['tspan'] as Map<String, dynamic>;
-          textContent = textContent.replaceAllMapped(tspanPattern, (tspanMatch) {
-            var tspanElement = tspanMatch.group(1) ?? '';
-            final closing = tspanMatch.group(2) ?? '>';
-            
-            tspanAttrs.forEach((key, value) {
-              final attributePattern = RegExp('$key="[^"]*"');
-              if (tspanElement.contains(attributePattern)) {
-                tspanElement = tspanElement.replaceAll(attributePattern, '$key="$value"');
-              } else {
-                tspanElement = '$tspanElement $key="$value"';
-              }
-            });
-            
-            return '$tspanElement$closing';
-          });
+      // Only update position attributes, preserve everything else
+      if (attributes.containsKey('x')) {
+        final xPattern = RegExp(r'x="[^"]*"');
+        if (element.contains(xPattern)) {
+          element = element.replaceAll(xPattern, 'x="${attributes['x']}"');
+        } else {
+          element = element + ' x="${attributes['x']}"';
         }
       }
       
-      if (kDebugMode) {
-        debugPrint('Updated text element: $element$textContent');
+      if (attributes.containsKey('y')) {
+        final yPattern = RegExp(r'y="[^"]*"');
+        if (element.contains(yPattern)) {
+          element = element.replaceAll(yPattern, 'y="${attributes['y']}"');
+        } else {
+          element = element + ' y="${attributes['y']}"';
+        }
       }
-      return element + textContent;
+      
+      return element + originalContent + closing;
     });
   }
 

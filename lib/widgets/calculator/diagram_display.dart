@@ -74,6 +74,10 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       // Load SVG content for original diagram
       final String svgPath = _getDiagramAsset();
       final String rawSvg = await rootBundle.loadString(svgPath);
+
+      // Extract defs section to preserve markers
+      final defsMatch = RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true).firstMatch(rawSvg);
+      final defs = defsMatch?.group(1) ?? '';
       
       // Create view model and update labels for original diagram
       final viewModel = HorizonDiagramViewModel(
@@ -84,13 +88,20 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       );
       
       // Update SVG with new labels
-      final updatedSvg = _labelService.updateLabels(rawSvg, viewModel);
+      var updatedSvg = _labelService.updateLabels(rawSvg, viewModel);
+
+      // Ensure defs section is preserved
+      if (!updatedSvg.contains('<defs') && defs.isNotEmpty) {
+        updatedSvg = updatedSvg.replaceFirst('</svg>', '$defs</svg>');
+      }
 
       // Load and update mountain diagram
-      final String mountainSvgPath = 'assets/svg/BTH_viewBox_diagram1.svg';
+      final String mountainSvgPath = 'assets/svg/${diagramSpec['metadata']['svgSpec']['files']['mountainDiagram']}';
       final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
-      debugPrint('Loaded mountain SVG length: ${rawMountainSvg.length}');
-      debugPrint('Mountain SVG contains Observer_SL_Line: ${rawMountainSvg.contains('Observer_SL_Line')}');
+      
+      // Extract defs section from mountain SVG
+      final mountainDefsMatch = RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true).firstMatch(rawMountainSvg);
+      final mountainDefs = mountainDefsMatch?.group(1) ?? '';
       
       // Create mountain view model and update labels
       _mountainViewModel = MountainDiagramViewModel(
@@ -104,6 +115,11 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       // Update mountain SVG with new labels and dynamic elements
       var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, _mountainViewModel!);
       updatedMountainSvg = _mountainViewModel!.updateDynamicElements(updatedMountainSvg);
+
+      // Ensure defs section is preserved in mountain SVG
+      if (!updatedMountainSvg.contains('<defs') && mountainDefs.isNotEmpty) {
+        updatedMountainSvg = updatedMountainSvg.replaceFirst('</svg>', '$mountainDefs</svg>');
+      }
       
       if (mounted) {
         setState(() {
@@ -175,28 +191,32 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         ),
         Align(
           alignment: Alignment.center,
-          child: FractionallySizedBox(
-            widthFactor: 0.5,
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    // Use viewBox dimensions from _mountainViewModel's diagramSpec
-                    final viewBoxWidth = _mountainViewModel?.diagramSpec['metadata']?['svgSpec']?['viewBox']?['width'] ?? 500;
-                    final viewBoxHeight = _mountainViewModel?.diagramSpec['metadata']?['svgSpec']?['viewBox']?['height'] ?? 1000;
-                    final height = (constraints.maxWidth * viewBoxHeight) / viewBoxWidth;
-                    return SizedBox(
-                      height: height,
-                      child: _mountainSvgContent == null
-                          ? const Center(child: CircularProgressIndicator())
-                          : SvgPicture.string(
-                              _mountainSvgContent!,
-                              fit: BoxFit.fill,
-                            ),
-                    );
-                  }
-                ),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Get diagram spec values
+                  final spec = _mountainViewModel?.diagramSpec['metadata']?['svgSpec'];
+                  final viewBoxWidth = spec?['viewBox']?['width'] ?? 500;
+                  final viewBoxHeight = spec?['viewBox']?['height'] ?? 1000;
+                  final displayScale = spec?['viewBox']?['scaling']?['displayScale'] ?? 0.6;
+                  
+                  // Apply displayScale to width while maintaining aspect ratio
+                  final scaledWidth = constraints.maxWidth * displayScale;
+                  final height = (scaledWidth * viewBoxHeight) / viewBoxWidth;
+                  
+                  return SizedBox(
+                    width: scaledWidth,
+                    height: height,
+                    child: _mountainSvgContent == null
+                        ? const Center(child: CircularProgressIndicator())
+                        : SvgPicture.string(
+                            _mountainSvgContent!,
+                            fit: BoxFit.fill,
+                          ),
+                  );
+                }
               ),
             ),
           ),
