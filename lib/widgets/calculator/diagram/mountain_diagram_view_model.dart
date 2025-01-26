@@ -74,7 +74,7 @@ class MountainDiagramViewModel extends DiagramViewModel {
     var updatedSvg = svgContent;
     
     // Update observer group first to get observer level
-    updatedSvg = _observerGroup.updateObserverGroup(updatedSvg);
+    updatedSvg = _observerGroup.updateSvg(updatedSvg);
     
     // Get observer level from observer group for sky and mountain positioning
     final observerLevel = _observerGroup.getObserverLevel();

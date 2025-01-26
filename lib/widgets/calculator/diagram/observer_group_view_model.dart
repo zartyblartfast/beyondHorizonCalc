@@ -42,12 +42,18 @@ class ObserverGroupViewModel extends DiagramViewModel {
   @override
   Map<String, String> getLabelValues() {
     final observerHeight = result?.h1;
-    return {
+    final Map<String, String> labels = {
       'Observer_Height_Label': observerHeight != null ? formatHeight(observerHeight) : '',
       'Visible_Label': 'Visible',
       'Hidden_Label': 'Hidden\nBeyond\nHorizon',
       'L0': 'Distance (L0): ${formatDistance(result?.inputDistance)}',
     };
+    
+    if (observerHeight != null) {
+      labels['2_2_C_Height'] = 'h1: ${formatHeight(observerHeight)}';
+    }
+    
+    return labels;
   }
 
   /// Gets the scaled observer height in viewbox units
@@ -149,6 +155,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
               'y': '$y',
               'style': style,
               'text': text,
+              'text-anchor': 'middle', // Update text element to use text-anchor for centering
             },
           );
           break;
@@ -158,8 +165,9 @@ class ObserverGroupViewModel extends DiagramViewModel {
     return updatedSvg;
   }
 
-  /// Updates all Observer group elements in the SVG
-  String updateObserverGroup(String svgContent) {
+  /// Updates the SVG content with current values
+  @override
+  String updateSvg(String svgContent) {
     var updatedSvg = svgContent;
     
     final double scaledHeight = _getScaledObserverHeight();
@@ -205,7 +213,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
       updatedSvg,
       'Observer_SL_Line',
       {
-        'd': 'M -200,$_seaLevel L 200,$_seaLevel',
+        'd': 'M -275,$_seaLevel L 200,$_seaLevel',
       },
     );
 
@@ -227,7 +235,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
       updatedSvg,
       'C_Point_Line',
       {
-        'd': 'M -200,$observerLevel L 200,$observerLevel',
+        'd': 'M -275,$observerLevel L 200,$observerLevel',
       },
     );
 
@@ -298,6 +306,131 @@ class ObserverGroupViewModel extends DiagramViewModel {
         },
       );
     });
+
+    // Constants for C-height marker
+    const double C_HEIGHT_LABEL_HEIGHT = 12.0877;
+    const double C_HEIGHT_LABEL_PADDING = 5.0;
+    const double C_HEIGHT_MIN_ARROW_LENGTH = 10.0;
+    const double C_HEIGHT_TOTAL_REQUIRED_HEIGHT = C_HEIGHT_LABEL_HEIGHT + (2 * C_HEIGHT_LABEL_PADDING) + (2 * C_HEIGHT_MIN_ARROW_LENGTH);
+
+    // Check if there's enough space to display the C-height marker
+    bool hasSufficientSpaceForCHeight(double h1) {
+      return h1 >= C_HEIGHT_TOTAL_REQUIRED_HEIGHT;
+    }
+
+    // Calculate positions for C-height marker elements
+    Map<String, double> calculateCHeightPositions(double h1) {
+      final double scaledHeight = _getScaledObserverHeight();
+      final double observerLevel = _seaLevel - scaledHeight;  // Top of line
+      final double seaLevel = _seaLevel;  // Bottom of line
+      
+      // Check if there's enough space
+      if ((seaLevel - observerLevel) < C_HEIGHT_TOTAL_REQUIRED_HEIGHT) {
+        return {
+          'visible': 0.0,
+        };
+      }
+      
+      // Calculate positions relative to the observer height line
+      final double labelY = observerLevel + ((seaLevel - observerLevel) / 2.0) + (C_HEIGHT_LABEL_HEIGHT / 4.0);  // Midpoint of line plus half of text height
+      final double topArrowEnd = labelY - (C_HEIGHT_LABEL_HEIGHT) - C_HEIGHT_LABEL_PADDING;
+      final double bottomArrowStart = labelY + C_HEIGHT_LABEL_PADDING;
+      
+      return {
+        'visible': 1.0,
+        'labelY': labelY,
+        'topArrowEnd': topArrowEnd,
+        'bottomArrowStart': bottomArrowStart,
+        'startY': observerLevel,  // Top of line
+        'endY': seaLevel,  // Bottom of line
+      };
+    }
+
+    // Update C-height marker elements
+    final observerHeight = result?.h1;
+    if (observerHeight != null) {
+      final cHeightPositions = calculateCHeightPositions(observerHeight);
+      if (cHeightPositions['visible'] == 1.0) {
+        const xCoord = -251.08543; // Use exact same x-coordinate for all elements
+        
+        // Update label with proper centering
+        updatedSvg = SvgElementUpdater.updateTextElement(
+          updatedSvg,
+          '2_2_C_Height',
+          {
+            'x': '$xCoord',
+            'y': '${cHeightPositions['labelY']}',
+            'style': 'text-anchor:middle;fill:#552200',
+            'visibility': 'visible',
+          },
+        );
+        
+        // Update top arrow
+        updatedSvg = SvgElementUpdater.updatePathElement(
+          updatedSvg,
+          '2_1_C_Top_arrow',
+          {
+            'd': 'M $xCoord,${cHeightPositions['startY']} V ${cHeightPositions['topArrowEnd']}',
+            'stroke': '#000000',
+            'stroke-width': '1.99598',
+            'stroke-dasharray': 'none',
+            'stroke-dashoffset': '0',
+            'stroke-opacity': '1',
+            'visibility': 'visible',
+          },
+        );
+        
+        // Update top arrowhead
+        updatedSvg = SvgElementUpdater.updatePathElement(
+          updatedSvg,
+          '2_1_C_Top_arrowhead',
+          {
+            'd': 'M $xCoord,${cHeightPositions['startY']} l -5,10 l 10,0 z',
+            'fill': '#000000',
+            'stroke': 'none',
+            'fill-opacity': '1',
+            'visibility': 'visible',
+          },
+        );
+        
+        // Update bottom arrow
+        updatedSvg = SvgElementUpdater.updatePathElement(
+          updatedSvg,
+          '2_3_C_Bottom_arrow',
+          {
+            'd': 'M $xCoord,${cHeightPositions['bottomArrowStart']} V ${cHeightPositions['endY']}',
+            'stroke': '#000000',
+            'stroke-width': '2.07704',
+            'stroke-dasharray': 'none',
+            'stroke-dashoffset': '0',
+            'stroke-opacity': '1',
+            'visibility': 'visible',
+          },
+        );
+
+        // Update bottom arrowhead
+        updatedSvg = SvgElementUpdater.updatePathElement(
+          updatedSvg,
+          '2_3_C_Bottom_arrowhead',
+          {
+            'd': 'M $xCoord,${cHeightPositions['endY']} l -5,-10 l 10,0 z',
+            'fill': '#000000',
+            'stroke': 'none',
+            'fill-opacity': '1',
+            'visibility': 'visible',
+          },
+        );
+      } else {
+        // Hide all elements if insufficient space
+        for (final id in ['2_2_C_Height', '2_1_C_Top_arrow', '2_1_C_Top_arrowhead', '2_3_C_Bottom_arrow', '2_3_C_Bottom_arrowhead']) {
+          updatedSvg = SvgElementUpdater.updatePathElement(
+            updatedSvg,
+            id,
+            {'visibility': 'hidden'},
+          );
+        }
+      }
+    }
 
     return updatedSvg;
   }

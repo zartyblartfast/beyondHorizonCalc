@@ -206,6 +206,16 @@ class SvgElementUpdater {
         }
       }
       
+      // Only update style if it's the 2_2_C_Height element
+      if (elementId == '2_2_C_Height' && attributes.containsKey('style')) {
+        final stylePattern = RegExp(r'style="[^"]*"');
+        if (element.contains(stylePattern)) {
+          element = element.replaceAll(stylePattern, 'style="${attributes['style']}"');
+        } else {
+          element = element + ' style="${attributes['style']}"';
+        }
+      }
+      
       return element + originalContent + closing;
     });
   }
