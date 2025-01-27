@@ -315,6 +315,27 @@
               }
             },
             {
+              "id": "4_1_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 0,
+                  "y": 0
+                }
+              },
+              "style": {
+                "fill": "#ff0000",
+                "stroke": "none"
+              },
+              "visibility": {
+                "condition": "parent_visible",
+                "parent": "4_1_Observer_here_arrow",
+                "behavior": "match_parent"
+              }
+            },
+            {
               "id": "4_2_observer_A",
               "type": "text",
               "behavior": "dynamic",

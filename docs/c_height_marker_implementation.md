@@ -38,15 +38,46 @@ style="font-style:normal;
 ```
 stroke="#000000"
 stroke-width="1.99598"
-marker-end="url(#Triangle-6)"
+```
+
+### Top Arrowhead (2_1_C_Top_arrowhead)
+```
+style="fill:#000000;stroke:none;fill-opacity:1"
+d="m -229.47326,349.35208 l -5,10 l 10,0 z"
 ```
 
 ### Bottom Arrow (2_3_C_Bottom_arrow)
 ```
 stroke="#000000"
 stroke-width="2.07704"
-marker-end="url(#Triangle-2-5)"
 ```
+
+### Bottom Arrowhead (2_3_C_Bottom_arrowhead)
+```
+style="fill:#000000;stroke:none;fill-opacity:1"
+d="m -229.48734,465.97393 l -5,-10 l 10,0 z"
+```
+
+## Dynamic Positioning System
+
+### Base Reference
+- Sea level (`_seaLevel`) serves as the primary datum line
+- All vertical positions are calculated relative to sea level
+- Positions in SVG file are NOT absolute - they are dynamically updated based on user inputs
+- Only x-coordinates remain fixed for vertical alignment
+
+### Position Calculation
+1. Observer height (h1) from user input is converted to viewbox units using `_getScaledObserverHeight()`
+2. Final vertical position is calculated as `_seaLevel - scaledHeight`
+3. All elements in the observer group are positioned relative to this calculated level
+4. ObserverGroupViewModel handles all position updates when user inputs change
+
+### Implementation Notes
+- When adding new elements to observer group:
+  - Define fixed x-coordinate for vertical alignment
+  - Use relative positioning from observer level
+  - Elements will automatically move with observer height changes
+  - Group related elements (e.g., arrow and arrowhead) to maintain their relationship
 
 ## Implementation Steps
 
@@ -64,9 +95,26 @@ Add new measurement group for C-height marker:
             "behavior": "dynamic",
             "style": {
               "stroke": "#000000",
-              "strokeWidth": 1.99598,
-              "markerEnd": "url(#Triangle-6)"
+              "strokeWidth": 1.99598
             },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_1_C_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "d": "m -229.47326,349.35208 l -5,10 l 10,0 z",
             "position": {
               "x": -250,
               "y": {
@@ -110,9 +158,26 @@ Add new measurement group for C-height marker:
             "behavior": "dynamic",
             "style": {
               "stroke": "#000000",
-              "strokeWidth": 2.07704,
-              "markerEnd": "url(#Triangle-2-5)"
+              "strokeWidth": 2.07704
             },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_3_C_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "d": "m -229.48734,465.97393 l -5,-10 l 10,0 z",
             "position": {
               "x": -250,
               "y": {
@@ -314,3 +379,53 @@ This improved approach will be particularly relevant for implementing similar me
    - Value matches Observer Height input
    - Units displayed correctly
    - Text alignment and spacing
+
+### SVG Element Visibility Handling
+
+#### Key Implementation Details
+1. Different SVG Element Types:
+   - Path elements (arrows, arrowheads): Only need visibility attribute
+   - Text elements (labels): Need ALL attributes set in both visible and hidden states
+   - Reason: Text elements retain their last position if not explicitly set
+
+2. Visibility State Management:
+   ```dart
+   // For path elements (arrows, arrowheads)
+   {'visibility': 'hidden'}  // Sufficient for paths
+
+   // For text elements (labels)
+   {
+     'x': '$xCoord',
+     'y': '$yCoord',
+     'style': 'text-anchor:middle;fill:#552200',
+     'visibility': 'hidden'
+   }  // Must set ALL attributes
+   ```
+
+3. Common Pitfalls:
+   - Setting only visibility for text elements causes them to revert to default positions
+   - Different SVG element types need different attribute handling
+   - Position attributes must be consistent between visible and hidden states
+
+#### Best Practices for Future Tasks (3_1, 3_2, 3_3)
+1. Element Visibility:
+   - Always set complete attributes for text elements in both states
+   - Use the same x-coordinate in both visible and hidden states
+   - Choose a safe y-coordinate for hidden state (e.g., start or end position)
+
+2. Code Organization:
+   - Group element updates by type (text vs path)
+   - Maintain consistent attribute sets between states
+   - Use constants for shared values (x-coordinates, styles)
+
+3. Testing Visibility:
+   - Test both showing and hiding transitions
+   - Verify text elements maintain position when hidden
+   - Check all elements in group hide/show together
+
+4. Error Prevention:
+   - Always set complete attribute sets for text elements
+   - Use consistent coordinate variables across visibility states
+   - Document any element-specific handling requirements
+
+This approach ensures reliable visibility toggling while maintaining proper element positioning, particularly important for text elements in the diagram.

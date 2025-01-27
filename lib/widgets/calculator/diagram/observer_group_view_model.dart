@@ -123,39 +123,80 @@ class ObserverGroupViewModel extends DiagramViewModel {
       // Update element based on its type
       switch (element['type']) {
         case 'path':
-          // For the arrow, preserve all original attributes and just update position
-          final pathD = 'M $x,$y c 20.589574,-19.50955 23.908472,-20.00519 37.348535,-26.01275 10.832606,-4.84205 33.996744,-7.68557 33.996744,-7.68557';
+          if (id == '4_1_arrowhead') {
+            // For the arrowhead, adjust Y coordinate to center the base on the line end
+            final adjustedY = y + 3.5; // Slightly increased offset for better alignment
+            final pathD = 'm 8.311907,$adjustedY 11.53936,-4.98909 -7.665093,-5.35196 z';
+            updatedSvg = SvgElementUpdater.updatePathElement(
+              updatedSvg,
+              id,
+              {
+                'd': pathD,
+                'style': 'fill:#ff0000;fill-opacity:1;stroke:none',
+              },
+            );
+          } else {
+            // For the arrow, preserve all original attributes and just update position
+            final pathD = 'M $x,$y c 20.589574,-19.50955 23.908472,-20.00519 37.348535,-26.01275 10.832606,-4.84205 33.996744,-7.68557 33.996744,-7.68557';
+            updatedSvg = SvgElementUpdater.updatePathElement(
+              updatedSvg,
+              id,
+              {
+                'd': pathD,
+                'style': 'fill:none;stroke:#ff0000;stroke-width:1.55855;stroke-dasharray:none;stroke-opacity:1',
+                'sodipodi:nodetypes': 'csc',
+              },
+            );
+          }
+          break;
+
+        case 'text':
+          // Get text configuration based on element ID
+          Map<String, dynamic> textConfig;
+          if (id == '4_1_arrowhead') {
+            // For the arrowhead, preserve all original attributes and just update position
+            final pathD = 'm 8.311907,$y 11.53936,-4.98909 -7.665093,-5.35196 z';
+            updatedSvg = SvgElementUpdater.updatePathElement(
+              updatedSvg,
+              id,
+              {
+                'd': pathD,
+                'style': 'fill:#ff0000;fill-opacity:1;stroke:none',
+              },
+            );
+          } else {
+            if (kDebugMode) {
+              print('Updating text element $id at x: $x, y: $y');
+            }
+            // Use simpler text format without tspans
+            final style = id == '4_2_observer_A' 
+              ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
+              : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000';
+            
+            final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
+            
+            updatedSvg = SvgElementUpdater.updateTextElement(
+              updatedSvg,
+              id,
+              {
+                'x': '$x',
+                'y': '$y',
+                'style': style,
+                'text': text,
+                'text-anchor': 'middle', // Update text element to use text-anchor for centering
+              },
+            );
+          }
+          break;
+        case 'arrowhead':
+          // For the arrowhead, preserve all original attributes and just update position
+          final pathD = 'M $x,$y l -5,10 l 10,0 z';
           updatedSvg = SvgElementUpdater.updatePathElement(
             updatedSvg,
             id,
             {
               'd': pathD,
-              'style': 'fill:none;stroke:#ff0000;stroke-width:1.55855;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#DartArrow)',
-              'sodipodi:nodetypes': 'csc',
-            },
-          );
-          break;
-
-        case 'text':
-          if (kDebugMode) {
-            print('Updating text element $id at x: $x, y: $y');
-          }
-          // Use simpler text format without tspans
-          final style = id == '4_2_observer_A' 
-            ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
-            : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000';
-          
-          final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
-          
-          updatedSvg = SvgElementUpdater.updateTextElement(
-            updatedSvg,
-            id,
-            {
-              'x': '$x',
-              'y': '$y',
-              'style': style,
-              'text': text,
-              'text-anchor': 'middle', // Update text element to use text-anchor for centering
+              'style': 'fill:#ff0000;stroke:none;fill-opacity:1',
             },
           );
           break;
