@@ -179,6 +179,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
       'Observer_Height_Above_Sea_Level',
       {
         'd': 'M 0,$observerLevel L 0,$_seaLevel',
+        'visibility': 'hidden',
       },
     );
 
