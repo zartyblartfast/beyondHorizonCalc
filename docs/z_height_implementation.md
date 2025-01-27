@@ -2,7 +2,7 @@
 
 ## Components
 The Z-Height measurement consists of five elements in fixed vertical order, with fixed arrowhead positions and orientations:
-1. Top arrowhead (3_1_Visible_Height_Top_arrowhead) - always at top, pointing upward
+1. Top arrowhead (3_1_Z_Height_Top_arrowhead) - always at top, pointing upward
 2. Top arrow (3_1_Z_Top_arrow)
 3. Height label (3_2_Z_Height)
 4. Bottom arrow (3_3_Z_Bottom_arrow)
@@ -184,3 +184,38 @@ void calculatePositions(double mountainHeight) {
 5. Label should be centered between arrows both horizontally and vertically
 6. All elements should scale proportionally with mountain height changes
 7. Ensure proper z-index ordering to maintain visual hierarchy
+
+### Critical Label Update Requirements
+When updating the Z-height label (3_2_Z_Height), you must:
+1. Pass both positioning AND content attributes to the SVG updater:
+```dart
+updatedSvg = SvgElementUpdater.updateTextElement(
+  updatedSvg,
+  '3_2_Z_Height',
+  {
+    'x': '325',  // Center position
+    'y': '${mountainPeakY + 10}',  // Align with Z label
+    'text-anchor': 'middle',  // Center horizontally
+    'dominant-baseline': 'middle',  // Center vertically
+    'style': 'font-size:24px;font-family:Arial;fill:#000000',
+    'content': 'Z: ${formatHeight(targetHeight)}',  // Required for dynamic text update
+  },
+);
+```
+
+2. Key attributes for proper centering:
+   - `text-anchor="middle"`: Centers text horizontally around x-coordinate
+   - `dominant-baseline="middle"`: Centers text vertically around y-coordinate
+   - Position at x=325 to align with mountain center
+   - Offset y position by ~10 units for visual balance
+
+3. The SVG updater must handle both:
+   - Attribute updates (x, y, style, etc.)
+   - Text content updates via the 'content' attribute
+
+4. Label text format must be:
+   - Prefix: "Z: "
+   - Value: Formatted height with appropriate units (meters/feet)
+   - Example: "Z: 1000.0 m" or "Z: 3280.8 ft"
+
+These requirements ensure the Z-height label updates dynamically with the target height value and maintains proper positioning within the diagram.
