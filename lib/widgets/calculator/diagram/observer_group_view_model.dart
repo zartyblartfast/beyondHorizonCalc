@@ -261,29 +261,6 @@ class ObserverGroupViewModel extends DiagramViewModel {
       },
     );
 
-    // Update A, B, C point labels - vertically centered on C_Point_Line
-    final pointLabelBaseAttributes = {
-      'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke-width:0.261479',
-    };
-
-    // Point label positions relative to C_Point_Line
-    final pointLabels = {
-      'A': -85,
-      'B': -65,
-      'C': -47,
-    };
-
-    pointLabels.forEach((label, xPos) {
-      updatedSvg = SvgElementUpdater.updateTextElement(
-        updatedSvg,
-        label,
-        {
-          'x': '$xPos',
-          'y': '$observerLevel',
-        },
-      );
-    });
-
     // Update visibility labels - positioned relative to C_Point_Line
     final visibilityLabelStyle = 'font-weight:bold;font-size:16px;font-family:Calibri;fill:#800080';
     
@@ -422,7 +399,22 @@ class ObserverGroupViewModel extends DiagramViewModel {
         );
       } else {
         // Hide all elements if insufficient space
-        for (final id in ['2_2_C_Height', '2_1_C_Top_arrow', '2_1_C_Top_arrowhead', '2_3_C_Bottom_arrow', '2_3_C_Bottom_arrowhead']) {
+        const xCoord = -251.08543; // Use same x-coordinate for consistency
+        
+        // Update text element with position and visibility
+        updatedSvg = SvgElementUpdater.updateTextElement(
+          updatedSvg,
+          '2_2_C_Height',
+          {
+            'x': '$xCoord',
+            'y': '${cHeightPositions['startY']}',  // Use startY as a safe position
+            'style': 'text-anchor:middle;fill:#552200',
+            'visibility': 'hidden',
+          },
+        );
+        
+        // Update path elements
+        for (final id in ['2_1_C_Top_arrow', '2_1_C_Top_arrowhead', '2_3_C_Bottom_arrow', '2_3_C_Bottom_arrowhead']) {
           updatedSvg = SvgElementUpdater.updatePathElement(
             updatedSvg,
             id,

@@ -437,36 +437,6 @@
      y="250.94574"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke-width:0.261479"
      inkscape:label="Z">Z</text>
-  <text
-     fill="#ff0000"
-     font-family="Calibri, Calibri_MSFontService, sans-serif"
-     font-weight="700"
-     font-size="29.1042px"
-     id="C"
-     x="-47"
-     y="350"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke-width:0.261479"
-     inkscape:label="C">C</text>
-  <text
-     fill="#ff0000"
-     font-family="Calibri, Calibri_MSFontService, sans-serif"
-     font-weight="700"
-     font-size="28.7614px"
-     id="B"
-     x="-65"
-     y="350"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:0.74;fill:#ff0000;fill-opacity:1;stroke-width:0.261479"
-     inkscape:label="B">B</text>
-  <text
-     fill="#ff0000"
-     font-family="Calibri, Calibri_MSFontService, sans-serif"
-     font-weight="700"
-     font-size="28.7614px"
-     id="A"
-     x="-85"
-     y="350"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.7614px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke-width:0.261479"
-     inkscape:label="A">A</text>
   <!--
       You can place more shapes here, remembering that:
         - In this coordinate system, y=0 is bottom, y=1000 is top.

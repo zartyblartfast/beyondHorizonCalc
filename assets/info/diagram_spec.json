@@ -133,24 +133,6 @@
   "labels": {
     "points": [
       {
-        "id": "A",
-        "type": "text",
-        "position": {"x": -85, "y": 350},
-        "significance": "Observer position"
-      },
-      {
-        "id": "B",
-        "type": "text",
-        "position": {"x": -65, "y": 350},
-        "significance": "Horizon point"
-      },
-      {
-        "id": "C",
-        "type": "text",
-        "position": {"x": -45, "y": 350},
-        "significance": "Line of sight intersection"
-      },
-      {
         "id": "X",
         "type": "text",
         "position": "dynamic",
