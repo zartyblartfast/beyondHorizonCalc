@@ -184,39 +184,26 @@ class SvgElementUpdater {
     // Update attributes while preserving others
     return svgContent.replaceFirstMapped(elementPattern, (match) {
       var element = match.group(1) ?? '';
-      final originalContent = match.group(2) ?? '';
+      var content = match.group(2) ?? '';
       final closing = match.group(3) ?? '</text>';
-      
-      // Only update position attributes, preserve everything else
-      if (attributes.containsKey('x')) {
-        final xPattern = RegExp(r'x="[^"]*"');
-        if (element.contains(xPattern)) {
-          element = element.replaceAll(xPattern, 'x="${attributes['x']}"');
-        } else {
-          element = element + ' x="${attributes['x']}"';
-        }
+
+      // Update content if provided
+      if (attributes.containsKey('content')) {
+        content = attributes['content'];
+        attributes.remove('content');
       }
       
-      if (attributes.containsKey('y')) {
-        final yPattern = RegExp(r'y="[^"]*"');
-        if (element.contains(yPattern)) {
-          element = element.replaceAll(yPattern, 'y="${attributes['y']}"');
+      // Update remaining attributes
+      attributes.forEach((key, value) {
+        final attributePattern = RegExp('$key="[^"]*"');
+        if (element.contains(attributePattern)) {
+          element = element.replaceAll(attributePattern, '$key="$value"');
         } else {
-          element = element + ' y="${attributes['y']}"';
+          element = element + ' $key="$value"';
         }
-      }
+      });
       
-      // Only update style if it's the 2_2_C_Height element
-      if (elementId == '2_2_C_Height' && attributes.containsKey('style')) {
-        final stylePattern = RegExp(r'style="[^"]*"');
-        if (element.contains(stylePattern)) {
-          element = element.replaceAll(stylePattern, 'style="${attributes['style']}"');
-        } else {
-          element = element + ' style="${attributes['style']}"';
-        }
-      }
-      
-      return element + originalContent + closing;
+      return element + content + closing;
     });
   }
 
@@ -255,6 +242,31 @@ class SvgElementUpdater {
         debugPrint('Updated rect element: $element');
       }
       return element;
+    });
+  }
+
+  /// Hides an SVG element by setting its display style to 'none'
+  static String hideElement(String svgContent, String elementId) {
+    // Find any SVG element with the given ID or inkscape:label
+    final RegExp elementPattern = RegExp(
+      r'(<[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?)(/>|>)',
+      multiLine: true,
+      dotAll: true,
+    );
+
+    // Update style to hide element
+    return svgContent.replaceFirstMapped(elementPattern, (match) {
+      var element = match.group(1) ?? '';
+      final closing = match.group(2) ?? '/>';
+      
+      final stylePattern = RegExp(r'style="[^"]*"');
+      if (element.contains(stylePattern)) {
+        element = element.replaceAll(stylePattern, 'style="display:none"');
+      } else {
+        element = element + ' style="display:none"';
+      }
+      
+      return element + closing;
     });
   }
 }

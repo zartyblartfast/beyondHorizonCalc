@@ -185,36 +185,108 @@ void calculatePositions(double mountainHeight) {
 6. All elements should scale proportionally with mountain height changes
 7. Ensure proper z-index ordering to maintain visual hierarchy
 
+## SVG Text Styling Requirements
+
+### Text Attribute Handling
+When updating any text elements in the SVG, styling attributes must be handled correctly to ensure proper rendering:
+
+1. **Style String Attributes**
+   The following attributes must ALWAYS be included in the style string, never as standalone XML attributes:
+   ```
+   - text-anchor
+   - dominant-baseline
+   - font-style
+   - font-variant
+   - font-weight
+   - font-stretch
+   - font-size
+   - font-family
+   - text-align
+   - fill
+   ```
+
+2. **Correct Format**
+   ```dart
+   // CORRECT - Include in style string
+   'style': 'text-anchor:middle;dominant-baseline:middle;font-size:12.0877px;...'
+
+   // INCORRECT - Do not use as standalone attributes
+   'text-anchor': 'middle',
+   'dominant-baseline': 'middle',
+   ```
+
+3. **Common Issues**
+   - Standalone text attributes can cause rendering inconsistencies
+   - Text may not center properly if text-anchor is not in style string
+   - Multiple text elements may be created if attributes are duplicated
+   - This affects multiple components:
+     - Z-height labels (3_2_Z_Height)
+     - Observer labels (4_2_observer_A)
+     - Line of sight labels (4_3_Observer_Line_of_Sight)
+
+4. **Implementation Note**
+   When using SvgElementUpdater.updateTextElement, always combine all text-related attributes into the style string:
+   ```dart
+   updatedSvg = SvgElementUpdater.updateTextElement(
+     updatedSvg,
+     '3_2_Z_Height',
+     {
+       'x': '$xCoordinate',
+       'y': '$labelY',
+       'style': 'font-size:12.0877px;font-family:Calibri;text-anchor:middle;dominant-baseline:middle;fill:#552200',
+       'content': 'Z: $heightText',
+     },
+   );
+   ```
+
 ### Critical Label Update Requirements
 When updating the Z-height label (3_2_Z_Height), you must:
-1. Pass both positioning AND content attributes to the SVG updater:
+1. Pass both positioning AND content attributes to the SVG updater
+2. Include all text styling in the style string
+3. Never use standalone text styling attributes
+4. Example implementation:
 ```dart
 updatedSvg = SvgElementUpdater.updateTextElement(
   updatedSvg,
   '3_2_Z_Height',
   {
-    'x': '325',  // Center position
-    'y': '${mountainPeakY + 10}',  // Align with Z label
-    'text-anchor': 'middle',  // Center horizontally
-    'dominant-baseline': 'middle',  // Center vertically
-    'style': 'font-size:24px;font-family:Arial;fill:#000000',
-    'content': 'Z: ${formatHeight(targetHeight)}',  // Required for dynamic text update
-  },
+    'x': '325',  // Position attributes
+    'y': '${mountainPeakY + 10}',
+    'style': 'font-size:12.0877px;font-family:Calibri;text-anchor:middle;dominant-baseline:middle;fill:#552200',  // All text styling in style string
+    'content': 'Z: ${formatHeight(targetHeight)}',
+  }
 );
+```
 
-2. Key attributes for proper centering:
-   - `text-anchor="middle"`: Centers text horizontally around x-coordinate
-   - `dominant-baseline="middle"`: Centers text vertically around y-coordinate
-   - Position at x=325 to align with mountain center
-   - Offset y position by ~10 units for visual balance
+### Dependencies and Related Components
+The text styling requirements affect:
+1. Z-height Implementation:
+   - 3_1_Z_Height_Top_arrowhead
+   - 3_1_Z_Height_Top_arrow
+   - 3_2_Z_Height
+   - 3_3_Z_Height_Bottom_arrow
+   - 3_3_Z_Height_Bottom_arrowhead
 
-3. The SVG updater must handle both:
-   - Attribute updates (x, y, style, etc.)
-   - Text content updates via the 'content' attribute
+2. Observer Group:
+   - 4_2_observer_A
+   - 4_3_Observer_Line_of_Sight
 
-4. Label text format must be:
-   - Prefix: "Z: "
-   - Value: Formatted height with appropriate units (meters/feet)
-   - Example: "Z: 1000.0 m" or "Z: 3280.8 ft"
+Any changes to text handling must consider impacts on all these components.
 
-These requirements ensure the Z-height label updates dynamically with the target height value and maintains proper positioning within the diagram.
+### Important Note on Text Styling Attributes
+Text styling attributes like `text-anchor`, `dominant-baseline`, `font-style`, etc. must be passed as part of the style string, not as standalone attributes. The following attributes should ALWAYS be included in the style string, never as standalone XML attributes:
+   - text-anchor
+   - dominant-baseline
+   - font-style
+   - font-variant
+   - font-weight
+   - font-stretch
+   - font-size
+   - font-family
+   - text-align
+   - fill
+
+This is critical because:
+- Standalone text styling attributes can cause rendering issues
+- SVG spec prefers these attributes to be part of the style string
+- Affects not just Z-height labels but all text elements (e.g. 4_2_observer_A, 4_3_Observer_Line_of_Sight)

@@ -141,10 +141,108 @@ class MountainGroupViewModel extends DiagramViewModel {
       },
     );
 
+    // Constants for Z-height elements
+    const double labelHeight = 12.0877;
+    const double labelPadding = 5.0;
+    const double arrowMinLength = 10.0;
+    const double xCoordinate = 325.0;
+    const double arrowheadHeight = 10.0;
+    
+    // Calculate positions for Z-height elements
+    final double topArrowheadY = mountainPeakY;
+    final double topArrowStartY = topArrowheadY + arrowheadHeight;
+    final double labelY = mountainPeakY + ((mountainBaseY - mountainPeakY) / 2);
+    final double topArrowEndY = labelY - (labelHeight / 2) - labelPadding;
+    final double bottomArrowStartY = labelY + (labelHeight / 2) + labelPadding;
+    final double bottomArrowheadY = mountainBaseY;
+    final double bottomArrowEndY = bottomArrowheadY - arrowheadHeight;
+
+    // Only show Z-height elements if there's enough space
+    final bool hasEnoughSpace = (topArrowEndY - topArrowStartY) >= arrowMinLength &&
+                               (bottomArrowEndY - bottomArrowStartY) >= arrowMinLength;
+
+    if (hasEnoughSpace) {
+      // Update top arrowhead
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '3_1_Z_Height_Top_arrowhead',
+        {
+          'd': 'm ${xCoordinate - 5},$topArrowheadY -5,10 h 10 z',
+          'style': 'fill:#000000;fill-opacity:1;stroke:none',
+        },
+      );
+
+      // Update top arrow
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '3_1_Z_Height_Top_arrow',
+        {
+          'd': 'M $xCoordinate,$topArrowStartY L $xCoordinate,$topArrowEndY',
+          'style': 'stroke:#000000;stroke-width:2.43608',
+        },
+      );
+
+      // Update Z-height label
+      final String heightText = isMetric ? 
+        '${(targetHeight ?? 0.0).toStringAsFixed(1)}m' :
+        '${(targetHeight ?? 0.0).toStringAsFixed(1)}ft';
+      
+      updatedSvg = SvgElementUpdater.updateTextElement(
+        updatedSvg,
+        '3_2_Z_Height',
+        {
+          'x': '$xCoordinate',
+          'y': '$labelY',
+          'text-anchor': 'middle',
+          'dominant-baseline': 'middle',
+          'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;text-align:start;fill:#552200',
+          'content': 'Z: $heightText',
+        },
+      );
+
+      // Update bottom arrow
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '3_3_Z_Height_Bottom_arrow',
+        {
+          'd': 'M $xCoordinate,$bottomArrowStartY L $xCoordinate,$bottomArrowEndY',
+          'style': 'stroke:#000000;stroke-width:2.46886',
+        },
+      );
+
+      // Update bottom arrowhead
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '3_3_Z_Height_Bottom_arrowhead',
+        {
+          'd': 'm ${xCoordinate - 5},$bottomArrowheadY -5,-10 h 10 z',
+          'style': 'fill:#000000;fill-opacity:1;stroke:none',
+        },
+      );
+    } else {
+      // Hide all Z-height elements if there's not enough space
+      final zHeightElements = [
+        '3_1_Z_Height_Top_arrowhead',
+        '3_1_Z_Height_Top_arrow',
+        '3_2_Z_Height',
+        '3_3_Z_Height_Bottom_arrow',
+        '3_3_Z_Height_Bottom_arrowhead',
+      ];
+
+      for (final elementId in zHeightElements) {
+        updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
+      }
+    }
+
     if (kDebugMode) {
       debugPrint('\n6. Z_Point_Line and Label:');
       debugPrint('  - Line and label aligned at y: $mountainPeakY');
       debugPrint('  - Z label x position: 210');
+      debugPrint('\n7. Z-height Elements:');
+      debugPrint('  - Has enough space: $hasEnoughSpace');
+      debugPrint('  - Label position: ($xCoordinate, $labelY)');
+      debugPrint('  - Top arrow: $topArrowStartY -> $topArrowEndY');
+      debugPrint('  - Bottom arrow: $bottomArrowStartY -> $bottomArrowEndY');
     }
 
     return updatedSvg;
