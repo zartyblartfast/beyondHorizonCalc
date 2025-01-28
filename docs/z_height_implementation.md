@@ -3,16 +3,16 @@
 ## Components
 The Z-Height measurement consists of five elements in fixed vertical order, with fixed arrowhead positions and orientations:
 1. Top arrowhead (3_1_Z_Height_Top_arrowhead) - always at top, pointing upward
-2. Top arrow (3_1_Z_Top_arrow)
+2. Top arrow (3_1_Z_Height_Top_arrow)
 3. Height label (3_2_Z_Height)
-4. Bottom arrow (3_3_Z_Bottom_arrow)
+4. Bottom arrow (3_3_Z_Height_Bottom_arrow)
 5. Bottom arrowhead (3_3_Z_Height_Bottom_arrowhead) - always at bottom, pointing downward
 
 ## Overview
 Implement dynamic height measurement for the mountain's total height (XZ) in BTH_viewBox_diagram2.svg. The five elements must maintain their vertical order and work together as a unit:
-- Upper section: Upward-pointing arrowhead at top with its arrow (3_1_Visible_Height_Top_arrowhead, 3_1_Z_Top_arrow)
+- Upper section: Upward-pointing arrowhead at top with its arrow (3_1_Z_Height_Top_arrowhead, 3_1_Z_Height_Top_arrow)
 - Middle: Height label (3_2_Z_Height)
-- Lower section: Arrow with downward-pointing arrowhead at bottom (3_3_Z_Bottom_arrow, 3_3_Z_Height_Bottom_arrowhead)
+- Lower section: Arrow with downward-pointing arrowhead at bottom (3_3_Z_Height_Bottom_arrow, 3_3_Z_Height_Bottom_arrowhead)
 
 ## Mountain Group Context
 - Part of the Mountain layer in the diagram's vertical structure
@@ -41,13 +41,13 @@ Implement dynamic height measurement for the mountain's total height (XZ) in BTH
 ## SVG Element Specifications
 The arrowheads have fixed orientations that must be preserved:
 
-### Top Arrowhead (3_1_Visible_Height_Top_arrowhead)
+### Top Arrowhead (3_1_Z_Height_Top_arrowhead)
 ```
 style="fill:#000000;fill-opacity:1;stroke:none"
 d="m 324.75543,244.95184 -5,10 h 10 z"  # Always points upward
 ```
 
-### Top Arrow (3_1_Z_Top_arrow)
+### Top Arrow (3_1_Z_Height_Top_arrow)
 ```
 stroke="#000000"
 stroke-width="2.43608"
@@ -65,7 +65,7 @@ style="font-style:normal;
        fill:#552200"
 ```
 
-### Bottom Arrow (3_3_Z_Bottom_arrow)
+### Bottom Arrow (3_3_Z_Height_Bottom_arrow)
 ```
 stroke="#000000"
 stroke-width="2.46886"
@@ -86,11 +86,11 @@ All five elements require configuration:
   "mountain_group": {
     "z_height": {
       "elements": {
-        "3_1_Visible_Height_Top_arrowhead": {
+        "3_1_Z_Height_Top_arrowhead": {
           "type": "path",
           "behavior": "dynamic"
         },
-        "3_1_Z_Top_arrow": {
+        "3_1_Z_Height_Top_arrow": {
           "type": "path",
           "behavior": "dynamic"
         },
@@ -98,7 +98,7 @@ All five elements require configuration:
           "type": "text",
           "behavior": "dynamic"
         },
-        "3_3_Z_Bottom_arrow": {
+        "3_3_Z_Height_Bottom_arrow": {
           "type": "path",
           "behavior": "dynamic"
         },
@@ -201,7 +201,6 @@ updatedSvg = SvgElementUpdater.updateTextElement(
     'content': 'Z: ${formatHeight(targetHeight)}',  // Required for dynamic text update
   },
 );
-```
 
 2. Key attributes for proper centering:
    - `text-anchor="middle"`: Centers text horizontally around x-coordinate
