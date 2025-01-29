@@ -1,132 +1,300 @@
 # Z-Height Implementation Guide
 
+## Overview
+
+This document details the implementation of the Z-Height measurement group (3_*) for measuring the total height of the target mountain. Implementation follows patterns established by the C-Height reference implementation.
+
 ## Related Documentation
 - [1_measurement_groups_guide.md](1_measurement_groups_guide.md) - Main guide
 - [2_1_c_height_implementation.md](2_1_c_height_implementation.md) - Reference implementation
-
-## Coordinate System
-- Y-axis: 0 at top, 1000 at bottom
-- Mountain layer: Y range 474-1000
-- **IMPORTANT**: When calculating distances or checking space:
-  - A larger Y value means lower on the diagram
-  - To check if point A is above point B: A.y < B.y
-  - Height = |bottom.y - top.y|
-  - Available space = |bottom_anchor.y - top_anchor.y|
+- [1_1_measurement_config_guide.md](1_1_measurement_config_guide.md) - Configuration patterns
 
 ## Components
-The Z-Height measurement consists of five elements in fixed vertical order, with fixed arrowhead positions and orientations:
-1. Top arrowhead (3_1_Z_Height_Top_arrowhead) - always at top, pointing upward
+
+The Z-Height measurement consists of five elements in fixed vertical order:
+1. Top arrowhead (3_1_Z_Height_Top_arrowhead) - pointing upward
 2. Top arrow (3_1_Z_Height_Top_arrow)
 3. Height label (3_2_Z_Height)
 4. Bottom arrow (3_3_Z_Height_Bottom_arrow)
-5. Bottom arrowhead (3_3_Z_Height_Bottom_arrowhead) - always at bottom, pointing downward
-
-## Visibility Rules
-- Check space between Z_Point_Line (top) and Distant_Obj_Sea_Level (bottom)
-- **Space Calculation**: 
-  ```dart
-  double availableSpace = distant_obj_sea_level.y - z_point_line.y;  // Remember: larger Y = lower position
-  bool hasSpace = availableSpace >= MINIMUM_REQUIRED_HEIGHT;
-  ```
-- Minimum height needed = sum of:
-  - Top arrowhead height (10 units)
-  - Label height (15 units)
-  - Bottom arrowhead height (10 units)
-  - Minimum arrow lengths (20 units each)
-  - Total minimum: 75 units
-
-## Overview
-Implement dynamic height measurement for the mountain's total height (XZ) in BTH_viewBox_diagram2.svg. The five elements must maintain their vertical order and work together as a unit:
-- Upper section: Upward-pointing arrowhead at top with its arrow (3_1_Z_Height_Top_arrowhead, 3_1_Z_Height_Top_arrow)
-- Middle: Height label (3_2_Z_Height)
-- Lower section: Arrow with downward-pointing arrowhead at bottom (3_3_Z_Height_Bottom_arrow, 3_3_Z_Height_Bottom_arrowhead)
-
-## Mountain Group Context
-- Part of the Mountain layer in the diagram's vertical structure
-- Uses mountain-specific scaling (600 units = 18km)
-- Positioned dynamically based on calculation results
-- Reference points are Z_Point_Line and Distant_Obj_Sea_Level
-- All elements must move together as the mountain height changes
-
-## Geometric Model Integration
-- Z point: Mountain top (highest point of the target object)
-- X point: Mountain base at sea level
-- XZ: Total vertical height of the mountain
-- Relationship to h2/XC (hidden height below horizon)
-- All measurements relative to mountain's actual position
-
-## Label Positioning
-- **Vertical Centering**: Label must be vertically centered between its arrows
-  ```dart
-  double totalSpace = bottomArrowY - topArrowY;
-  double labelHeight = 15;  // Standard label height
-  labelY = topArrowY + (totalSpace - labelHeight) / 2;  // Centers label with equal padding
-  ```
-
-- **Horizontal Centering**: Configured in diagram_spec.json
-  ```json
-  {
-    "id": "3_2_Z_Height",
-    "type": "text",
-    "style": {
-      "textAlign": "start",  // This is overridden by the LabelGroupHandler
-      "fontFamily": "Calibri",
-      "fontSize": "12.0877px",
-      "fontWeight": "bold",
-      "fill": "#552200"
-    }
-  }
-  ```
-  Note: Text alignment is handled automatically by the LabelGroupHandler, which ensures proper centering.
-
-## Arrowhead Alignment
-- **Critical**: SVG path reference point must be adjusted to achieve proper centering
-- **Mountain Group Position**: All Z-height elements are on right side (x=325)
-  ```dart
-  // INCORRECT - Using right vertex as reference:
-  d="m 325,${y} -5,10 h 10 z"  // Results in off-center arrowhead
-  
-  // CORRECT - Adjust reference point left by half width:
-  double arrowX = 325;  // Mountain group x-coordinate
-  double refX = arrowX - 5;  // Move reference left by half width (10/2)
-  d="m ${refX},${y} -5,10 h 10 z"  // Creates centered arrowhead
-  ```
-
-- Arrowhead dimensions and centering:
-  - Total width: 10 units
-  - Reference point must be 5 units left of desired center
-  - For Mountain group (x=325), reference point is at x=320
-  - Path commands create triangle from adjusted reference:
-    1. Move to (refX, y)
-    2. Line left 5 units and down 10 units
-    3. Horizontal line right 10 units
-    4. Close path to create triangle
-
-- Common mistakes to avoid:
-  - Using arrow line x-coordinate directly as path reference
-  - Not adjusting for arrowhead width in reference point
-  - Assuming path commands are relative to arrow line center
-
-## Requirements
-- Fixed x-coordinate at 325 for all elements
-- Dynamic vertical positioning based on:
-  - Top anchor: Z_Point_Line (mountain top)
-  - Bottom anchor: Distant_Obj_Sea_Level (mountain base)
-- Label text format: "Z: [value]" using total mountain height
-- Elements must scale with height changes
-- Must maintain visual styling from original SVG
-- Hide all elements if insufficient space for display
+5. Bottom arrowhead (3_3_Z_Height_Bottom_arrowhead) - pointing downward
 
 ## SVG Element Specifications
-The arrowheads have fixed orientations and must be properly centered:
 
-### Top Arrowhead (3_1_Z_Height_Top_arrowhead)
+### Text Label (3_2_Z_Height)
 ```css
-style="fill:#000000;fill-opacity:1;stroke:none"
-d="m 320,244.95184 -5,10 h 10 z"  # Centered on x=325
+style="font-style:normal;
+       font-variant:normal;
+       font-weight:bold;
+       font-stretch:normal;
+       font-size:12.0877px;
+       font-family:Calibri;
+       text-align:start;
+       fill:#552200"
 ```
 
-### Top Arrow (3_1_Z_Height_Top_arrow)
+### Arrows
 ```css
-style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+/* Top Arrow (3_1_Z_Height_Top_arrow) */
+stroke="#000000"
+stroke-width="1.99598"
+
+/* Bottom Arrow (3_3_Z_Height_Bottom_arrow) */
+stroke="#000000"
+stroke-width="2.07704"
 ```
+
+### Arrowheads
+```css
+/* Both arrowheads */
+style="fill:#000000;stroke:none;fill-opacity:1"
+
+/* Top arrowhead path */
+d="m 320,${y} -5,-10 h 10 z"  // Points upward
+
+/* Bottom arrowhead path */
+d="m 320,${y} -5,10 h 10 z"   // Points downward
+```
+
+## Implementation Details
+
+### Fixed Properties
+- X-coordinate: 325 for all elements
+- Style properties must match original SVG
+- All elements treated as single visibility unit
+- Part of Mountain layer (uses mountain scaling)
+
+### Dynamic Properties
+- Vertical positioning based on Target Height (XZ)
+- Label text format: "XZ: [value]"
+- Arrow scaling with height changes
+- Reference points: Z_Point_Line (top) and Distant_Obj_Sea_Level (bottom)
+
+### Coordinate System
+- Y-axis: 0 at top, 1000 at bottom
+- Mountain layer range: 474-1000
+- Larger Y value = lower position
+- Height calculations: |bottom.y - top.y|
+- Available space: |Distant_Obj_Sea_Level.y - Z_Point_Line.y|
+
+### Scaling
+```dart
+// Mountain group scaling
+static const double _viewboxScale = 600 / 18;  // 600 viewbox units = 18km
+
+// Height conversion
+double heightInKm = isMetric ? targetHeight / 1000.0 : targetHeight / 3280.84;
+double scaledHeight = heightInKm * _viewboxScale;
+```
+
+## Code Integration
+
+### MountainGroupViewModel Integration
+```dart
+class MountainGroupViewModel extends DiagramViewModel {
+  // Get Z-Height label values
+  @override
+  Map<String, String> getLabelValues() {
+    final targetHeight = this.targetHeight;
+    if (targetHeight != null) {
+      final prefix = _getConfigString(['labels', 'points', '3_2_Z_Height', 'prefix']) ?? 'XZ: ';
+      labels['3_2_Z_Height'] = '$prefix${formatHeight(targetHeight)}';
+    }
+    return labels;
+  }
+
+  // Calculate Z-Height positions
+  Map<String, double> calculateZHeightPositions() {
+    if (!hasSufficientSpaceForZHeight()) {
+      return {'visible': 0.0};
+    }
+
+    final zPointY = getZPointY();
+    final seaLevelY = getDistantObjSeaLevelY();
+    
+    return {
+      'visible': 1.0,
+      'topArrowY': zPointY,
+      'labelY': calculateZHeightLabelY(zPointY, seaLevelY),
+      'bottomArrowY': seaLevelY
+    };
+  }
+
+  // Check available space
+  bool hasSufficientSpaceForZHeight() {
+    final zPointY = getZPointY();
+    final seaLevelY = getDistantObjSeaLevelY();
+    final availableSpace = seaLevelY - zPointY;
+    
+    return availableSpace >= 75.0;  // Minimum required height
+  }
+
+  // Update Z-Height elements
+  void updateZHeightGroup(String svgContent) {
+    final positions = calculateZHeightPositions();
+    
+    if (kDebugMode) {
+      debugPrint('\nZ-Height Group Validation:');
+      debugPrint('1. Input Values:');
+      debugPrint('  - Target Height (XZ): ${targetHeight ?? 0.0} ${isMetric ? 'm' : 'ft'}');
+      debugPrint('  - Z Point Y: ${positions['topArrowY']}');
+      debugPrint('  - Sea Level Y: ${positions['bottomArrowY']}');
+      debugPrint('  - Available Space: ${positions['bottomArrowY']! - positions['topArrowY']!}');
+    }
+
+    // Update visibility
+    final isVisible = positions['visible'] == 1.0;
+    final elements = [
+      '3_1_Z_Height_Top_arrowhead',
+      '3_1_Z_Height_Top_arrow',
+      '3_2_Z_Height',
+      '3_3_Z_Height_Bottom_arrow',
+      '3_3_Z_Height_Bottom_arrowhead'
+    ];
+    
+    for (final elementId in elements) {
+      updatedSvg = isVisible
+        ? SvgElementUpdater.showElement(updatedSvg, elementId)
+        : SvgElementUpdater.hideElement(updatedSvg, elementId);
+    }
+
+    // Update positions if visible
+    if (isVisible) {
+      // Update arrows and arrowheads
+      // Top section
+      updatedSvg = SvgElementUpdater.updateElement(
+        updatedSvg,
+        '3_1_Z_Height_Top_arrow',
+        {'y': '${positions['topArrowY']}'}
+      );
+      updatedSvg = SvgElementUpdater.updateElement(
+        updatedSvg,
+        '3_1_Z_Height_Top_arrowhead',
+        {'y': '${positions['topArrowY']}'}
+      );
+
+      // Label
+      updatedSvg = LabelGroupHandler.updateTextElement(
+        updatedSvg,
+        '3_2_Z_Height',
+        {
+          'x': '325',
+          'y': '${positions['labelY']}',
+        },
+        'heightMeasurement'
+      );
+
+      // Bottom section
+      updatedSvg = SvgElementUpdater.updateElement(
+        updatedSvg,
+        '3_3_Z_Height_Bottom_arrow',
+        {'y': '${positions['bottomArrowY']}'}
+      );
+      updatedSvg = SvgElementUpdater.updateElement(
+        updatedSvg,
+        '3_3_Z_Height_Bottom_arrowhead',
+        {'y': '${positions['bottomArrowY']}'}
+      );
+    }
+  }
+}
+```
+
+## Configuration
+
+### JSON Configuration (diagram_spec.json)
+```json
+{
+  "id": "z_height_marker",
+  "type": "group",
+  "elements": [
+    {
+      "id": "3_1_Z_Height_Top_arrowhead",
+      "type": "path",
+      "behavior": "dynamic",
+      "style": {
+        "fill": "#000000",
+        "stroke": "none",
+        "fillOpacity": 1
+      },
+      "position": {
+        "x": 325,
+        "y": {
+          "reference": "Target Height",
+          "visibility": "dependent"
+        }
+      }
+    },
+    {
+      "id": "3_2_Z_Height",
+      "type": "text",
+      "style": {
+        "fontFamily": "Calibri",
+        "fontSize": "12.0877px",
+        "fontWeight": "bold",
+        "fill": "#552200",
+        "textAnchor": "middle"
+      },
+      "content": {
+        "prefix": "XZ: ",
+        "value": {
+          "source": "Target Height",
+          "format": {
+            "type": "distance",
+            "decimalPlaces": 1,
+            "includeUnits": true
+          }
+        }
+      }
+    }
+  ],
+  "visibility": {
+    "condition": "sufficient_space",
+    "minimumSpace": "TOTAL_REQUIRED_HEIGHT",
+    "behavior": "all_or_none"
+  }
+}
+```
+
+## Debug Support
+
+Debug output includes:
+1. Input validation
+   - Target Height value and units
+   - Reference point positions
+2. Scaling verification
+   - Viewbox scale factor
+   - Converted heights
+3. Position validation
+   - Z_Point_Line position
+   - Distant_Obj_Sea_Level position
+   - Available space calculation
+4. Visibility decisions
+   - Space requirements
+   - Visibility state changes
+
+## Error Handling
+
+1. Missing reference points
+   ```dart
+   if (zPointY == null || seaLevelY == null) {
+     debugPrint('Error: Missing reference points for Z-Height measurement');
+     return {'visible': 0.0};
+   }
+   ```
+
+2. Invalid scaling
+   ```dart
+   if (targetHeight != null && (targetHeight <= 0 || targetHeight > 9000)) {
+     debugPrint('Error: Target height out of valid range');
+     return {'visible': 0.0};
+   }
+   ```
+
+3. Insufficient space
+   ```dart
+   if (availableSpace < MINIMUM_REQUIRED_HEIGHT) {
+     debugPrint('Warning: Insufficient space for Z-Height display');
+     debugPrint('Required: $MINIMUM_REQUIRED_HEIGHT, Available: $availableSpace');
+     return {'visible': 0.0};
+   }
+   ```
