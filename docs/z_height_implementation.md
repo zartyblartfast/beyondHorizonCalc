@@ -185,6 +185,49 @@ void calculatePositions(double mountainHeight) {
 6. All elements should scale proportionally with mountain height changes
 7. Ensure proper z-index ordering to maintain visual hierarchy
 
+## Label Content Implementation
+The Z-height label (3_2_Z_Height) is correctly displayed through a specific sequence of steps:
+
+1. **Content Generation in MountainGroupViewModel**
+   ```dart
+   // Format the height value with units
+   final String heightText = isMetric ? 
+     '${(targetHeight ?? 0.0).toStringAsFixed(1)}m' :
+     '${(targetHeight ?? 0.0).toStringAsFixed(1)}ft';
+   
+   // Combine prefix with formatted value
+   updatedSvg = LabelGroupHandler.updateTextElement(
+     updatedSvg,
+     '3_2_Z_Height',
+     {
+       'x': '$xCoordinate',
+       'y': '$labelY',
+       'content': 'Z: $heightText',  // Complete label content provided here
+     },
+     'heightMeasurement',
+   );
+   ```
+
+2. **Content Flow**
+   - MountainGroupViewModel formats the complete content string
+   - Content is passed as an attribute to LabelGroupHandler
+   - LabelGroupHandler preserves content while applying styles
+   - SvgElementUpdater writes content directly to SVG text element
+
+3. **Key Success Factors**
+   - Complete content string assembled in one place
+   - Consistent decimal places (1)
+   - Units included in value
+   - Fixed prefix format ("Z: ")
+   - Content passed through untouched by style handling
+
+4. **Style Application**
+   - Label style from diagram_spec.json applied via 'heightMeasurement' group
+   - Style merged with position attributes
+   - Content and style remain separate concerns
+
+This implementation ensures the label is displayed correctly while maintaining separation between content formatting and visual styling.
+
 ## SVG Text Styling Requirements
 
 ### Text Attribute Handling

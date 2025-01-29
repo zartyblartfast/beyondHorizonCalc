@@ -6,9 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'models/menu_item.dart';
 import 'widgets/dialogs/report_dialog.dart';
+import 'widgets/calculator/diagram/label_group_handler.dart';
 
 void main() {
-  runApp(const EarthCurvatureApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  LabelGroupHandler.initialize().then((_) => runApp(const EarthCurvatureApp()));
 }
 
 class EarthCurvatureApp extends StatelessWidget {

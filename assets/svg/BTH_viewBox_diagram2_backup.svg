@@ -18,6 +18,82 @@
      id="defs1">
     <marker
        style="overflow:visible"
+       id="marker14"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path14" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker13"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path13" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker12"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path12" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
        id="DartArrow"
        refX="0"
        refY="0"
@@ -58,82 +134,142 @@
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.0061054,0,0,1,-0.44765084,1.176886)" />
     <marker
-       id="marker1"
+       style="overflow:visible"
+       id="Triangle-6"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="5"
+       markerHeight="5"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-5"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="5"
+       markerHeight="5"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-7-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-3-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-7-3-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-1-5"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-2-0" />
+    </marker>
+    <marker
+       id="Triangle"
        viewBox="0 0 10 10"
        refX="9"
        refY="5"
        markerWidth="15"
        markerHeight="15"
        orient="auto-start-reverse">
-      <path
-         d="M 0,0 L 10,5 L 0,10 z"
-         fill="#ff0000"
-         id="path1" />
+      <path d="M 0,0 L 10,5 L 0,10 z" fill="#ff0000"/>
     </marker>
     <marker
-       id="marker2"
+       id="marker14"
        viewBox="0 0 10 10"
        refX="9"
        refY="5"
        markerWidth="15"
        markerHeight="15"
        orient="auto-start-reverse">
-      <path
-         d="M 0,0 L 10,5 L 0,10 L 4,5 z"
-         fill="#00ff00"
-         id="path2" />
+      <path d="M 0,0 L 10,5 L 0,10 L 4,5 z" fill="#00ff00"/>
     </marker>
     <marker
-       id="marker3"
+       id="Triangle-1-5"
        viewBox="0 0 10 10"
        refX="9"
        refY="5"
        markerWidth="15"
        markerHeight="15"
        orient="auto-start-reverse">
-      <path
-         d="M 0,2 L 10,5 L 0,8 z"
-         fill="#0000ff"
-         id="path3" />
+      <path d="M 0,2 L 10,5 L 0,8 z" fill="#0000ff"/>
     </marker>
     <marker
-       id="RedArrow"
-       viewBox="0 0 10 10"
-       refX="0"
-       refY="5"
-       markerWidth="50"
-       markerHeight="50"
-       orient="auto">
-      <polygon
-         points="0,0 10,5 0,10"
-         fill="red"
-         id="polygon3" />
+      id="RedArrow"
+      viewBox="0 0 10 10"
+      refX="0"
+      refY="5"
+      markerWidth="50"
+      markerHeight="50"
+      orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="red"/>
     </marker>
+
     <marker
-       id="GreenArrow"
-       viewBox="0 0 10 10"
-       refX="0"
-       refY="5"
-       markerWidth="40"
-       markerHeight="40"
-       orient="0">
-      <polygon
-         points="0,0 10,5 0,10"
-         fill="green"
-         id="polygon4" />
+      id="GreenArrow"
+      viewBox="0 0 10 10"
+      refX="0"
+      refY="5"
+      markerWidth="40"
+      markerHeight="40"
+      orient="0">
+      <polygon points="0,0 10,5 0,10" fill="green"/>
     </marker>
+
     <marker
-       id="BlueArrow"
-       viewBox="0 0 10 10"
-       refX="0"
-       refY="5"
-       markerWidth="30"
-       markerHeight="30"
-       orient="auto">
-      <polygon
-         points="0,0 10,5 0,10"
-         fill="blue"
-         id="polygon5" />
+      id="BlueArrow"
+      viewBox="0 0 10 10"
+      refX="0"
+      refY="5"
+      markerWidth="30"
+      markerHeight="30"
+      orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="blue"/>
     </marker>
   </defs>
   <sodipodi:namedview
@@ -145,9 +281,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.172"
-     inkscape:cx="570.81911"
-     inkscape:cy="600.68259"
+     inkscape:zoom="0.82872915"
+     inkscape:cx="34.993339"
+     inkscape:cy="-59.126676"
      inkscape:window-width="1440"
      inkscape:window-height="830"
      inkscape:window-x="-6"
@@ -320,13 +456,23 @@
      id="4_1_Observer_here_arrow"
      sodipodi:nodetypes="csc"
      inkscape:label="4_1_Observer_here_arrow" />
+  <path
+     d="M 325.06207,541.85094 V 398.55446"
+     id="3_3_Z_Bottom_arrow"
+     inkscape:label="3_3_Z_Bottom_arrow"
+     style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker12)" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
-     x="303.56766"
-     y="392.73181"
+     x="299.57318"
+     y="393.564"
      id="3_2_Z_Height"
      inkscape:label="3_2_Z_Height">Z_Height</text>
+  <path
+     d="M 324.82649,248.37517 V 379.47865"
+     id="3_1_Z_Top_arrow"
+     inkscape:label="3_1_Z_Top_arrow"
+     style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle)" />
   <path
      d="m -229.47326,403.73668 v -54.3846"
      id="2_1_C_Top_arrow"
@@ -352,31 +498,32 @@
      y="418.12045"
      id="2_2_C_Height"
      inkscape:label="2_2_C_Height">C_Height</text>
+  <path
+     d="M 235.84625,543.18707 V 458.80676"
+     id="1_6_Hidden_Height_Bottom_arrow"
+     inkscape:label="1_6_Hidden_Height_Bottom_arrow"
+     style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker13)" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
      x="200.37114"
      y="451.75308"
-     id="5_2_Hidden_Height_Height"
-     inkscape:label="5_2_Hidden_Height_Height">Hidden_Height_H</text>
+     id="1_5_Hidden_Height_Height"
+     inkscape:label="1_5_Hidden_Height_Height">Hidden_Height_H</text>
+  <path
+     d="m 236.27396,347.45199 v 92.83404"
+     id="1_4_Hidden_Height_Top_arrow"
+     inkscape:label="1_4_Hidden_Height_Top_arrow"
+     style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker14)" />
   <path
      d="m 236.17952,305.79732 v 28.42249"
      id="1_3_Visible_Height_Bottom_arrow"
      inkscape:label="1_3_Visible_Height_Bottom_arrow"
      style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1" />
   <path
-     d="m 236.53259,341.28113 -5,-10 h 10 z"
+     d="m 236.17952,334.21981 l -5,-10 l 10,0 z"
      id="1_3_Visible_Height_Bottom_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
-  <path
-     d="M 327.7876,394.83447 V 538.93054"
-     id="3_3_Z_Height_Bottom_arrow"
-     inkscape:label="3_3_Z_Height_Bottom_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.27964;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m 327.53794,548.7087 -5,-10 h 10 z"
-     id="3_3_Z_Height_Bottom_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
+     style="fill:#000000;stroke:none;fill-opacity:1" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
@@ -385,32 +532,14 @@
      id="1_2_Visible_Height_Height"
      inkscape:label="1_2_Visible_Height_Height">Visible_Height_Height</text>
   <path
-     d="M 236.09806,293.11485 V 254.9171"
+     d="M 236.09806,293.11485 V 249.29986"
      id="1_1_Visible_Height_Top_arrow"
      inkscape:label="1_1_Visible_Height_Top_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.33425;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:none;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-opacity:1" />
   <path
-     d="m 236.09806,244.72285 -5,10 h 10 z"
+     d="M 236.09806,249.29986 l -5,10 l 10,0 z"
      id="1_1_Visible_Height_Top_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
-  <path
-     d="M 236.15783,441.82262 V 354.19566"
-     id="5_1_Hidden_Height_Top_arrow"
-     inkscape:label="5_1_Hidden_Height_Top_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.26643817;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m 236.15783,344.00141 -5,10 h 10 z"
-     id="5_1_Hidden_Height_Top_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
-  <path
-     d="M 328.34072,382.33684 V 254.47126"
-     id="3_1_Z_Height_Top_arrow"
-     inkscape:label="3_1_Z_Height_Top_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.26643817;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m 328.34072,244.6931 -5,10 h 10 z"
-     id="3_1_Z_Height_Top_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
+     style="fill:#000000;stroke:none;fill-opacity:1" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.3333px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
@@ -446,13 +575,4 @@
      y="30.300688"
      id="FromTo"
      inkscape:label="FromTo">FromTo</text>
-  <path
-     d="m 235.22856,456.58939 v 82.41213"
-     id="5_3_Hidden_Height_Bottom_arrow"
-     inkscape:label="5_3_Hidden_Height_Bottom_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.26643817;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m 234.8755,548.71084 -5,-10 h 10 z"
-     id="5_3_Hidden_Height_Bottom_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
 </svg>

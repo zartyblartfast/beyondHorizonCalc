@@ -88,7 +88,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handlePresetChanged(LineOfSightPreset? preset) {
-    print('CalculatorForm - Preset changed to: ${preset?.name}');
+    print('CalculatorForm - Preset changed to: ${preset?.name ?? "Custom Values"}');
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
@@ -100,8 +100,19 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _refractionFactorController.text =
             preset.refractionFactor.toStringAsFixed(2);
         _targetHeightController.text = preset.targetHeight?.toString() ?? '';
-        _handleCalculate();
+        
+        print('CalculatorForm - Updated controller values:');
+        print('Observer Height: ${_observerHeightController.text}');
+        print('Distance: ${_distanceController.text}');
+        print('Refraction Factor: ${_refractionFactorController.text}');
+        print('Target Height: ${_targetHeightController.text}');
       }
+    });
+    
+    // Always calculate, even for Custom Values
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print('CalculatorForm - Calling _handleCalculate after preset change');
+      _handleCalculate();
     });
   }
 
@@ -134,7 +145,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handleCalculate() {
-    if (!_formKey.currentState!.validate()) return;
+    print('CalculatorForm - _handleCalculate called');
+    if (!_formKey.currentState!.validate()) {
+      print('CalculatorForm - Form validation failed');
+      return;
+    }
 
     // Get values from controllers
     final double observerHeight = double.parse(_observerHeightController.text);
@@ -145,6 +160,13 @@ class _CalculatorFormState extends State<CalculatorForm> {
         ? null
         : double.parse(_targetHeightController.text);
 
+    print('CalculatorForm - Calculation inputs:');
+    print('Observer Height: $observerHeight');
+    print('Distance: $distance');
+    print('Refraction Factor: $refractionFactor');
+    print('Target Height: $targetHeight');
+    print('Is Metric: $_isMetric');
+
     // Pass values in their original units (meters/feet and km/miles)
     final result = CurvatureCalculator.calculate(
       observerHeight: observerHeight,
@@ -153,6 +175,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
       targetHeight: targetHeight,
       isMetric: _isMetric,
     );
+
+    print('CalculatorForm - Calculation result: $result');
 
     setState(() {
       _result = result;
@@ -233,7 +257,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                         ? null
                         : double.parse(_targetHeightController.text),
                     isMetric: _isMetric,
-                    presetName: _selectedPreset?.name,
+                    presetName: _selectedPreset?.name,  // Pass null for Custom Values
                   ),
                 ),
               ),
@@ -273,7 +297,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                             ? null
                             : double.parse(_targetHeightController.text),
                         isMetric: _isMetric,
-                        presetName: _selectedPreset?.name,
+                        presetName: _selectedPreset?.name,  // Pass null for Custom Values
                       ),
                     ),
                   ),
