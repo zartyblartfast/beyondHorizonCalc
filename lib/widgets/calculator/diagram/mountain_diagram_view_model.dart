@@ -54,6 +54,7 @@ class MountainDiagramViewModel extends DiagramViewModel {
       'HiddenHeight': 'Hidden Height = ${formatHeight(h2InUnits)}',
       'VisibleHeight': 'Visible Height = ${_getVisibleHeightText()}',
       ..._observerGroup.getLabelValues(),
+      ..._mountainGroup.getLabelValues(),
     };
   }
 

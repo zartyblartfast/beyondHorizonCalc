@@ -17,6 +17,7 @@ class DiagramLabelService {
     'd2': 'd2',
     'L0': 'L0',
     'radius': 'radius',
+    '3_2_Z_Height': '3_2_Z_Height',
   };
 
   /// Updates all labels in the SVG with values from the view model

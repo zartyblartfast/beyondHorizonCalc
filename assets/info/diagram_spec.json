@@ -241,14 +241,22 @@
       {
         "id": "X",
         "type": "text",
-        "position": "dynamic",
-        "significance": "Mountain base"
+        "content": "X"
       },
       {
-        "id": "Z",
+        "id": "2_2_C_Height",
         "type": "text",
-        "position": "dynamic",
-        "significance": "Mountain peak"
+        "prefix": "h1: "
+      },
+      {
+        "id": "3_2_Z_Height",
+        "type": "text",
+        "prefix": "XZ: "
+      },
+      {
+        "id": "z_height",
+        "type": "text",
+        "prefix": "Z-Height: "
       }
     ],
     "measurements": [

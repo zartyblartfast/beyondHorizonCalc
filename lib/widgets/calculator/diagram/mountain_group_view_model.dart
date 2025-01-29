@@ -12,6 +12,12 @@ class MountainGroupViewModel extends DiagramViewModel {
   // Coordinate system constants - matching observer group
   static const double _viewboxScale = 600 / 18; // Scale factor: 600 viewbox units = 18km
 
+  // Constants for Z-height marker
+  static const double Z_HEIGHT_LABEL_HEIGHT = 12.0877;
+  static const double Z_HEIGHT_LABEL_PADDING = 5.0;
+  static const double Z_HEIGHT_MIN_ARROW_LENGTH = 10.0;
+  static const double Z_HEIGHT_TOTAL_REQUIRED_HEIGHT = Z_HEIGHT_LABEL_HEIGHT + (2 * Z_HEIGHT_LABEL_PADDING) + (2 * Z_HEIGHT_MIN_ARROW_LENGTH);
+
   MountainGroupViewModel({
     required CalculationResult? result,
     double? targetHeight,
@@ -27,8 +33,32 @@ class MountainGroupViewModel extends DiagramViewModel {
 
   @override
   Map<String, String> getLabelValues() {
-    // Mountain group has no labels to update
-    return {};
+    final Map<String, String> labels = {};
+    
+    // Use target height directly since it's already in the correct units
+    if (targetHeight != null) {
+      final prefix = _getConfigString(['labels', 'points', '3_2_Z_Height', 'prefix']) ?? 'XZ: ';
+      labels['3_2_Z_Height'] = '$prefix${formatHeight(targetHeight!)}';
+      
+      if (kDebugMode) {
+        debugPrint('Z-Height label updated:');
+        debugPrint('  - Target Height: $targetHeight');
+        debugPrint('  - Prefix: $prefix');
+        debugPrint('  - Final label: ${labels['3_2_Z_Height']}');
+      }
+    }
+    
+    return labels;
+  }
+
+  /// Gets a string value from nested config path with fallback
+  String? _getConfigString(List<String> path) {
+    dynamic value = config;
+    for (final key in path) {
+      value = value is Map ? value[key] : null;
+      if (value == null) return null;
+    }
+    return value is String ? value : null;
   }
 
   /// Gets a double value from nested config path with fallback
@@ -45,6 +75,17 @@ class MountainGroupViewModel extends DiagramViewModel {
   String updateMountainGroup(String svgContent, double observerLevel) {
     var updatedSvg = svgContent;
     
+    // Run validation first
+    validateZHeight();
+    
+    if (kDebugMode) {
+      debugPrint('\nMountain Group Validation:');
+      debugPrint('1. Input Values:');
+      debugPrint('  - Observer Height (h1): ${result?.h1 ?? 0.0} ${isMetric ? 'm' : 'ft'}');
+      debugPrint('  - Hidden Height (h2/XC): ${result?.hiddenHeight ?? 0.0} km');
+      debugPrint('  - Target Height (XZ): ${targetHeight ?? 0.0} ${isMetric ? 'm' : 'ft'}');
+    }
+    
     // Get hidden height (h2/XC) in kilometers from calculation result
     final double h2InKm = result?.hiddenHeight ?? 0.0;
     final double h2Viewbox = h2InKm * _viewboxScale;
@@ -53,12 +94,6 @@ class MountainGroupViewModel extends DiagramViewModel {
     final double seaLevelY = observerLevel + h2Viewbox;
     
     if (kDebugMode) {
-      debugPrint('\nMountain Group Validation:');
-      debugPrint('1. Input Values:');
-      debugPrint('  - Observer Height (h1): ${result?.h1 ?? 0.0} ${isMetric ? 'm' : 'ft'}');
-      debugPrint('  - Hidden Height (h2/XC): ${h2InKm} km');
-      debugPrint('  - Target Height (XZ): ${targetHeight ?? 0.0} ${isMetric ? 'm' : 'ft'}');
-      
       debugPrint('\n2. Viewbox Scaling:');
       debugPrint('  - Scale factor: $_viewboxScale viewbox units per km');
       debugPrint('  - h2/XC in viewbox units: $h2Viewbox');
@@ -94,10 +129,6 @@ class MountainGroupViewModel extends DiagramViewModel {
       debugPrint('  - Mountain base at: $mountainBaseY');
       debugPrint('  - Mountain peak at: $mountainPeakY');
       debugPrint('  - Mountain height in viewbox units: ${mountainBaseY - mountainPeakY}');
-      
-      debugPrint('\n5. Geometric Validation:');
-      debugPrint('  - Base below C_Point_Line by: ${mountainBaseY - observerLevel}');
-      debugPrint('  - Peak below C_Point_Line by: ${mountainPeakY - observerLevel}');
     }
 
     // Update Mountain triangle with fixed width base (-90 to +90)
@@ -120,78 +151,66 @@ class MountainGroupViewModel extends DiagramViewModel {
       },
     );
 
-    // Update Z label to align with Z_Point_Line
-    updatedSvg = SvgElementUpdater.updateTextElement(
+    // Update Z and X labels using LabelGroupHandler for consistent styling
+    updatedSvg = LabelGroupHandler.updateTextElement(
       updatedSvg,
       'Z',
       {
         'x': '210',
-        'y': '${mountainPeakY + 10}',  // Offset by ~1/3 of font size to center vertically
-        'dominant-baseline': 'middle',  // Helps with vertical centering
+        'y': '${mountainPeakY + 10}',
+        'dominant-baseline': 'middle',
       },
+      'heightMeasurement',
     );
 
-    // Update X label to align with Distant_Obj_Sea_Level
-    updatedSvg = SvgElementUpdater.updateTextElement(
+    updatedSvg = LabelGroupHandler.updateTextElement(
       updatedSvg,
       'X',
       {
         'x': '210',
-        'y': '${seaLevelY + 10}',  // Use same vertical centering offset as Z
+        'y': '${seaLevelY + 10}',
         'dominant-baseline': 'middle',
       },
+      'heightMeasurement',
     );
 
-    // Constants for Z-height elements
-    const double labelHeight = 12.0877;
-    const double labelPadding = 5.0;
-    const double arrowMinLength = 10.0;
-    const double xCoordinate = 325.0;
-    const double arrowheadHeight = 10.0;
-    
-    // Z-height measurement group elements
-    const zHeightElements = [
-      '3_1_Z_Height_Top_arrowhead',
+    // Fixed x-coordinate for all Z-height elements
+    const xCoord = 325.0;
+
+    // Calculate Z-Height positions
+    final zHeightPositions = calculateZHeightPositions(mountainPeakY, mountainBaseY);
+    final zHeightElements = [
       '3_1_Z_Height_Top_arrow',
+      '3_1_Z_Height_Top_arrowhead',
       '3_2_Z_Height',
       '3_3_Z_Height_Bottom_arrow',
       '3_3_Z_Height_Bottom_arrowhead'
     ];
 
-    // Check if we have enough space - note that Y increases downward in SVG
-    // so mountainPeakY will be larger than mountainBaseY
-    final bool hasEnoughSpace = (mountainPeakY - mountainBaseY).abs() >= 50.0;  // Minimum space needed
-    
-    if (!hasEnoughSpace) {
-      // Hide all Z-height elements if there's not enough space
+    if (zHeightPositions['visible'] == 0.0) {
+      // Hide Z-height elements if there's not enough space
       for (final elementId in zHeightElements) {
         updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
       }
-      
+
       if (kDebugMode) {
         debugPrint('Z-height elements hidden due to insufficient space');
-        debugPrint('Mountain height: ${(mountainPeakY - mountainBaseY).abs()}');
-        debugPrint('Required height: 50.0');
       }
     } else {
-      // Show all Z-height elements first
+      // Show all Z-height elements
       for (final elementId in zHeightElements) {
         updatedSvg = SvgElementUpdater.showElement(updatedSvg, elementId);
       }
 
-      // Fixed x-coordinate at 325 for all elements
-      const xCoord = 325.0;
-    
-      // Update top arrowhead at Z_Point_Line (mountain top)
-      updatedSvg = SvgElementUpdater.updatePathElement(
+      // Update Z-height label with proper centering using LabelGroupHandler
+      updatedSvg = LabelGroupHandler.updateTextElement(
         updatedSvg,
-        '3_1_Z_Height_Top_arrowhead',
+        '3_2_Z_Height',
         {
-          'd': 'M $xCoord,$mountainPeakY l -5,10 h 10 z',
-          'fill': '#000000',
-          'fill-opacity': '1',
-          'stroke': 'none',
+          'x': '$xCoord',
+          'y': '${zHeightPositions['labelY']}',
         },
+        'heightMeasurement'  // Use same group as C-Height for consistent styling
       );
 
       // Update top arrow
@@ -199,39 +218,25 @@ class MountainGroupViewModel extends DiagramViewModel {
         updatedSvg,
         '3_1_Z_Height_Top_arrow',
         {
-          'd': 'M $xCoord,${mountainPeakY + 10} V ${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2) - 10}',
+          'd': 'M $xCoord,${zHeightPositions['startY']} V ${zHeightPositions['topArrowEnd']}',
           'stroke': '#000000',
-          'stroke-width': '2.43608',
+          'stroke-width': '1.99598',
           'stroke-dasharray': 'none',
           'stroke-dashoffset': '0',
           'stroke-opacity': '1',
         },
       );
 
-      // Update Z-height label
-      final String heightText = isMetric ? 
-        '${(targetHeight ?? 0.0).toStringAsFixed(1)}m' :
-        '${(targetHeight ?? 0.0).toStringAsFixed(1)}ft';
-      
-      updatedSvg = LabelGroupHandler.updateTextElement(
+      // Update top arrowhead
+      updatedSvg = SvgElementUpdater.updatePathElement(
         updatedSvg,
-        '3_2_Z_Height',
+        '3_1_Z_Height_Top_arrowhead',
         {
-          'x': '$xCoord',
-          'y': '${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2)}',
-          'text-anchor': 'middle',
-          'dominant-baseline': 'middle',
-          'font-style': 'normal',
-          'font-variant': 'normal',
-          'font-weight': 'bold',
-          'font-stretch': 'normal',
-          'font-size': '12.0877px',
-          'font-family': 'Calibri',
-          'text-align': 'start',
-          'fill': '#552200',
-          'content': heightText,
+          'd': 'M $xCoord,${zHeightPositions['startY']} l -5,10 h 10 z',
+          'fill': '#000000',
+          'fill-opacity': '1',
+          'stroke': 'none',
         },
-        'heightMeasurement',
       );
 
       // Update bottom arrow
@@ -239,21 +244,21 @@ class MountainGroupViewModel extends DiagramViewModel {
         updatedSvg,
         '3_3_Z_Height_Bottom_arrow',
         {
-          'd': 'M $xCoord,${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2) + 10} V ${mountainBaseY - 10}',
+          'd': 'M $xCoord,${zHeightPositions['bottomArrowStart']} V ${zHeightPositions['endY']}',
           'stroke': '#000000',
-          'stroke-width': '2.46886',
+          'stroke-width': '2.07704',
           'stroke-dasharray': 'none',
           'stroke-dashoffset': '0',
           'stroke-opacity': '1',
         },
       );
 
-      // Update bottom arrowhead at Distant_Obj_Sea_Level (mountain base)
+      // Update bottom arrowhead
       updatedSvg = SvgElementUpdater.updatePathElement(
         updatedSvg,
         '3_3_Z_Height_Bottom_arrowhead',
         {
-          'd': 'M $xCoord,$mountainBaseY l -5,-10 h 10 z',
+          'd': 'M $xCoord,${zHeightPositions['endY']} l -5,-10 h 10 z',
           'fill': '#000000',
           'fill-opacity': '1',
           'stroke': 'none',
@@ -262,13 +267,135 @@ class MountainGroupViewModel extends DiagramViewModel {
     }
 
     if (kDebugMode) {
-      debugPrint('\n6. Z_Point_Line and Label:');
-      debugPrint('  - Line and label aligned at y: $mountainPeakY');
-      debugPrint('  - Z label x position: 210');
-      debugPrint('\n7. Z-height Elements:');
-      debugPrint('  - Has enough space: $hasEnoughSpace');
+      debugPrint('\n6. Z-height Element Positions:');
+      debugPrint('  - X coordinate: $xCoord');
+      debugPrint('  - Top elements at: ${zHeightPositions['startY']}');
+      debugPrint('  - Label at: ${zHeightPositions['labelY']}');
+      debugPrint('  - Bottom elements at: ${zHeightPositions['endY']}');
     }
 
     return updatedSvg;
+  }
+
+  /// Validates Z-height configuration and calculations
+  bool validateZHeight() {
+    if (kDebugMode) {
+      debugPrint('\nZ-Height Validation:');
+      
+      // 1. Configuration Validation
+      debugPrint('\n1. Configuration Check:');
+      final prefix = _getConfigString(['labels', 'points', '3_2_Z_Height', 'prefix']);
+      debugPrint('  - Label prefix: ${prefix ?? "Not found"}');
+      
+      // 2. Position Validation
+      debugPrint('\n2. Position Check:');
+      if (result?.hiddenHeight == null) {
+        debugPrint('  - Error: Missing hidden height');
+        return false;
+      }
+      if (targetHeight == null) {
+        debugPrint('  - Error: Missing target height');
+        return false;
+      }
+      
+      // 3. Visibility Rule Validation
+      debugPrint('\n3. Visibility Rules:');
+      final h2InKm = result?.hiddenHeight ?? 0.0;
+      final h2Viewbox = h2InKm * _viewboxScale;
+      final xzInKm = isMetric ? (targetHeight ?? 0.0) / 1000.0 : (targetHeight ?? 0.0) / 3280.84;
+      final xzViewbox = xzInKm * _viewboxScale;
+      
+      debugPrint('  - Hidden height (h2): $h2Viewbox viewbox units');
+      debugPrint('  - Target height (XZ): $xzViewbox viewbox units');
+      debugPrint('  - Total height: ${h2Viewbox + xzViewbox} viewbox units');
+      
+      if (h2Viewbox <= 0) {
+        debugPrint('  - Warning: Zero or negative hidden height');
+      }
+      if (xzViewbox <= 0) {
+        debugPrint('  - Warning: Zero or negative target height');
+      }
+      
+      // 4. Label Value Validation
+      debugPrint('\n4. Label Values:');
+      final labelValues = getLabelValues();
+      debugPrint('  - Z-height label: ${labelValues['3_2_Z_Height'] ?? "Not set"}');
+      
+      return true;
+    }
+    return true;
+  }
+
+  /// Checks if there's enough space between two points for Z-height display
+  bool hasSufficientSpace(double? topY, double? bottomY) {
+    if (topY == null || bottomY == null) {
+      if (kDebugMode) {
+        debugPrint('hasSufficientSpace - Missing reference points');
+      }
+      return false;
+    }
+    
+    final space = (bottomY - topY).abs();
+    const minSpace = 50.0;  // Minimum space needed for Z-height display
+    
+    if (kDebugMode) {
+      debugPrint('hasSufficientSpace - Available space: $space');
+      debugPrint('hasSufficientSpace - Required space: $minSpace');
+    }
+    
+    return space >= minSpace;
+  }
+
+  /// Updates visibility of multiple SVG elements
+  void updateVisibility(String svgContent, List<String> elements, bool isVisible) {
+    for (final elementId in elements) {
+      svgContent = isVisible
+        ? SvgElementUpdater.showElement(svgContent, elementId)
+        : SvgElementUpdater.hideElement(svgContent, elementId);
+    }
+  }
+
+  /// Calculate positions for Z-height marker elements
+  Map<String, double> calculateZHeightPositions(double peakY, double baseY) {
+    if (kDebugMode) {
+      debugPrint('calculateZHeightPositions - Starting calculation');
+    }
+
+    final double totalHeight = baseY - peakY;
+    
+    if (kDebugMode) {
+      debugPrint('calculateZHeightPositions - Mountain Peak Y: $peakY');
+      debugPrint('calculateZHeightPositions - Mountain Base Y: $baseY');
+      debugPrint('calculateZHeightPositions - Total available space: $totalHeight');
+      debugPrint('calculateZHeightPositions - Required space: $Z_HEIGHT_TOTAL_REQUIRED_HEIGHT');
+    }
+
+    // Check if there's enough space, following C-Height pattern
+    if (totalHeight < Z_HEIGHT_TOTAL_REQUIRED_HEIGHT) {
+      if (kDebugMode) {
+        debugPrint('calculateZHeightPositions - Insufficient space, hiding Z-height marker');
+      }
+      return {
+        'visible': 0.0,
+      };
+    }
+
+    // Calculate positions relative to the mountain height line, matching C-Height's approach
+    final double labelY = peakY + (totalHeight / 2.0) + (Z_HEIGHT_LABEL_HEIGHT / 4.0);
+    final double topArrowEnd = labelY - Z_HEIGHT_LABEL_HEIGHT - Z_HEIGHT_LABEL_PADDING;
+    final double bottomArrowStart = labelY + Z_HEIGHT_LABEL_PADDING;
+
+    if (kDebugMode) {
+      debugPrint('calculateZHeightPositions - Z-height marker is visible');
+    }
+
+    return {
+      'visible': 1.0,
+      'labelY': labelY,
+      'topArrowEnd': topArrowEnd,
+      'bottomArrowStart': bottomArrowStart,
+      'startY': peakY,
+      'endY': baseY,
+    };
   }
 }
