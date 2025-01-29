@@ -128,76 +128,109 @@
           }
         },
         {
-          "id": "3_1_Z_Height_Top_arrowhead",
-          "type": "path",
-          "behavior": "dynamic",
-          "style": {
-            "fill": "#000000",
-            "fillOpacity": 1,
-            "stroke": "none"
-          },
-          "position": {
-            "x": 325,
-            "y": "dynamic"
-          }
-        },
-        {
-          "id": "3_1_Z_Height_Top_arrow",
-          "type": "path",
-          "behavior": "dynamic",
-          "style": {
-            "stroke": "#000000",
-            "strokeWidth": 2.43608
-          },
-          "position": {
-            "x": 325,
-            "y": "dynamic"
-          }
-        },
-        {
-          "id": "3_2_Z_Height",
-          "type": "text",
-          "behavior": "dynamic",
-          "style": {
-            "fontStyle": "normal",
-            "fontVariant": "normal",
-            "fontWeight": "bold",
-            "fontStretch": "normal",
-            "fontSize": "12.0877px",
-            "fontFamily": "Calibri",
-            "textAlign": "start",
-            "fill": "#552200"
-          },
-          "position": {
-            "x": 325,
-            "y": "dynamic"
-          }
-        },
-        {
-          "id": "3_3_Z_Height_Bottom_arrow",
-          "type": "path",
-          "behavior": "dynamic",
-          "style": {
-            "stroke": "#000000",
-            "strokeWidth": 2.46886
-          },
-          "position": {
-            "x": 325,
-            "y": "dynamic"
-          }
-        },
-        {
-          "id": "3_3_Z_Height_Bottom_arrowhead",
-          "type": "path",
-          "behavior": "dynamic",
-          "style": {
-            "fill": "#000000",
-            "fillOpacity": 1,
-            "stroke": "none"
-          },
-          "position": {
-            "x": 325,
-            "y": "dynamic"
+          "id": "z_height_marker",
+          "type": "group",
+          "elements": [
+            {
+              "id": "3_1_Z_Height_Top_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "fill": "#000000",
+                "stroke": "none",
+                "fillOpacity": 1
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_1_Z_Height_Top_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "stroke": "#000000",
+                "strokeWidth": 1.99598
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_2_Z_Height",
+              "type": "text",
+              "style": {
+                "fontFamily": "Calibri",
+                "fontSize": "12.0877px",
+                "fontWeight": "bold",
+                "fill": "#552200",
+                "textAnchor": "middle"
+              },
+              "content": {
+                "prefix": "XZ: ",
+                "value": {
+                  "source": "Target Height",
+                  "format": {
+                    "type": "distance",
+                    "decimalPlaces": 1,
+                    "includeUnits": true
+                  }
+                }
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_3_Z_Height_Bottom_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "stroke": "#000000",
+                "strokeWidth": 2.07704
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Distant_Obj_Sea_Level",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_3_Z_Height_Bottom_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "fill": "#000000",
+                "stroke": "none",
+                "fillOpacity": 1
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Distant_Obj_Sea_Level",
+                  "visibility": "dependent"
+                }
+              }
+            }
+          ],
+          "visibility": {
+            "condition": "sufficient_space",
+            "minimumSpace": 75,
+            "behavior": "all_or_none"
           }
         }
       ]
@@ -370,6 +403,112 @@
             "reference": "Hidden Height (h2)",
             "visibility": "dependent"
           }
+        }
+      },
+      {
+        "id": "z_height_marker",
+        "type": "group",
+        "elements": [
+          {
+            "id": "3_1_Z_Height_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_1_Z_Height_Top_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_2_Z_Height",
+            "type": "text",
+            "style": {
+              "fontFamily": "Calibri",
+              "fontSize": "12.0877px",
+              "fontWeight": "bold",
+              "fill": "#552200",
+              "textAnchor": "middle"
+            },
+            "content": {
+              "prefix": "XZ: ",
+              "value": {
+                "source": "Target Height",
+                "format": {
+                  "type": "distance",
+                  "decimalPlaces": 1,
+                  "includeUnits": true
+                }
+              }
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_3_Z_Height_Bottom_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 2.07704
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Distant_Obj_Sea_Level",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_3_Z_Height_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Distant_Obj_Sea_Level",
+                "visibility": "dependent"
+              }
+            }
+          }
+        ],
+        "visibility": {
+          "condition": "sufficient_space",
+          "minimumSpace": 75,
+          "behavior": "all_or_none"
         }
       }
     ]
