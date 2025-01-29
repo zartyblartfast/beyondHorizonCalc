@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../../../services/models/calculation_result.dart';
 import 'diagram_view_model.dart';
 import 'svg_element_updater.dart';
+import 'label_group_handler.dart';
 
 /// Handles positioning and scaling for the Mountain group elements in the mountain diagram
 class MountainGroupViewModel extends DiagramViewModel {
@@ -148,27 +149,48 @@ class MountainGroupViewModel extends DiagramViewModel {
     const double xCoordinate = 325.0;
     const double arrowheadHeight = 10.0;
     
-    // Calculate positions for Z-height elements
-    final double topArrowheadY = mountainPeakY;
-    final double topArrowStartY = topArrowheadY + arrowheadHeight;
-    final double labelY = mountainPeakY + ((mountainBaseY - mountainPeakY) / 2);
-    final double topArrowEndY = labelY - (labelHeight / 2) - labelPadding;
-    final double bottomArrowStartY = labelY + (labelHeight / 2) + labelPadding;
-    final double bottomArrowheadY = mountainBaseY;
-    final double bottomArrowEndY = bottomArrowheadY - arrowheadHeight;
+    // Z-height measurement group elements
+    const zHeightElements = [
+      '3_1_Z_Height_Top_arrowhead',
+      '3_1_Z_Height_Top_arrow',
+      '3_2_Z_Height',
+      '3_3_Z_Height_Bottom_arrow',
+      '3_3_Z_Height_Bottom_arrowhead'
+    ];
 
-    // Only show Z-height elements if there's enough space
-    final bool hasEnoughSpace = (topArrowEndY - topArrowStartY) >= arrowMinLength &&
-                               (bottomArrowEndY - bottomArrowStartY) >= arrowMinLength;
+    // Check if we have enough space - note that Y increases downward in SVG
+    // so mountainPeakY will be larger than mountainBaseY
+    final bool hasEnoughSpace = (mountainPeakY - mountainBaseY).abs() >= 50.0;  // Minimum space needed
+    
+    if (!hasEnoughSpace) {
+      // Hide all Z-height elements if there's not enough space
+      for (final elementId in zHeightElements) {
+        updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
+      }
+      
+      if (kDebugMode) {
+        debugPrint('Z-height elements hidden due to insufficient space');
+        debugPrint('Mountain height: ${(mountainPeakY - mountainBaseY).abs()}');
+        debugPrint('Required height: 50.0');
+      }
+    } else {
+      // Show all Z-height elements first
+      for (final elementId in zHeightElements) {
+        updatedSvg = SvgElementUpdater.showElement(updatedSvg, elementId);
+      }
 
-    if (hasEnoughSpace) {
-      // Update top arrowhead
+      // Fixed x-coordinate at 325 for all elements
+      const xCoord = 325.0;
+    
+      // Update top arrowhead at Z_Point_Line (mountain top)
       updatedSvg = SvgElementUpdater.updatePathElement(
         updatedSvg,
         '3_1_Z_Height_Top_arrowhead',
         {
-          'd': 'm ${xCoordinate - 5},$topArrowheadY -5,10 h 10 z',
-          'style': 'fill:#000000;fill-opacity:1;stroke:none',
+          'd': 'M $xCoord,$mountainPeakY l -5,10 h 10 z',
+          'fill': '#000000',
+          'fill-opacity': '1',
+          'stroke': 'none',
         },
       );
 
@@ -177,8 +199,12 @@ class MountainGroupViewModel extends DiagramViewModel {
         updatedSvg,
         '3_1_Z_Height_Top_arrow',
         {
-          'd': 'M $xCoordinate,$topArrowStartY L $xCoordinate,$topArrowEndY',
-          'style': 'stroke:#000000;stroke-width:2.43608',
+          'd': 'M $xCoord,${mountainPeakY + 10} V ${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2) - 10}',
+          'stroke': '#000000',
+          'stroke-width': '2.43608',
+          'stroke-dasharray': 'none',
+          'stroke-dashoffset': '0',
+          'stroke-opacity': '1',
         },
       );
 
@@ -187,17 +213,25 @@ class MountainGroupViewModel extends DiagramViewModel {
         '${(targetHeight ?? 0.0).toStringAsFixed(1)}m' :
         '${(targetHeight ?? 0.0).toStringAsFixed(1)}ft';
       
-      updatedSvg = SvgElementUpdater.updateTextElement(
+      updatedSvg = LabelGroupHandler.updateTextElement(
         updatedSvg,
         '3_2_Z_Height',
         {
-          'x': '$xCoordinate',
-          'y': '$labelY',
+          'x': '$xCoord',
+          'y': '${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2)}',
           'text-anchor': 'middle',
           'dominant-baseline': 'middle',
-          'style': 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;text-align:start;fill:#552200',
-          'content': 'Z: $heightText',
+          'font-style': 'normal',
+          'font-variant': 'normal',
+          'font-weight': 'bold',
+          'font-stretch': 'normal',
+          'font-size': '12.0877px',
+          'font-family': 'Calibri',
+          'text-align': 'start',
+          'fill': '#552200',
+          'content': heightText,
         },
+        'heightMeasurement',
       );
 
       // Update bottom arrow
@@ -205,33 +239,26 @@ class MountainGroupViewModel extends DiagramViewModel {
         updatedSvg,
         '3_3_Z_Height_Bottom_arrow',
         {
-          'd': 'M $xCoordinate,$bottomArrowStartY L $xCoordinate,$bottomArrowEndY',
-          'style': 'stroke:#000000;stroke-width:2.46886',
+          'd': 'M $xCoord,${mountainPeakY + ((mountainBaseY - mountainPeakY) / 2) + 10} V ${mountainBaseY - 10}',
+          'stroke': '#000000',
+          'stroke-width': '2.46886',
+          'stroke-dasharray': 'none',
+          'stroke-dashoffset': '0',
+          'stroke-opacity': '1',
         },
       );
 
-      // Update bottom arrowhead
+      // Update bottom arrowhead at Distant_Obj_Sea_Level (mountain base)
       updatedSvg = SvgElementUpdater.updatePathElement(
         updatedSvg,
         '3_3_Z_Height_Bottom_arrowhead',
         {
-          'd': 'm ${xCoordinate - 5},$bottomArrowheadY -5,-10 h 10 z',
-          'style': 'fill:#000000;fill-opacity:1;stroke:none',
+          'd': 'M $xCoord,$mountainBaseY l -5,-10 h 10 z',
+          'fill': '#000000',
+          'fill-opacity': '1',
+          'stroke': 'none',
         },
       );
-    } else {
-      // Hide all Z-height elements if there's not enough space
-      final zHeightElements = [
-        '3_1_Z_Height_Top_arrowhead',
-        '3_1_Z_Height_Top_arrow',
-        '3_2_Z_Height',
-        '3_3_Z_Height_Bottom_arrow',
-        '3_3_Z_Height_Bottom_arrowhead',
-      ];
-
-      for (final elementId in zHeightElements) {
-        updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
-      }
     }
 
     if (kDebugMode) {
@@ -240,9 +267,6 @@ class MountainGroupViewModel extends DiagramViewModel {
       debugPrint('  - Z label x position: 210');
       debugPrint('\n7. Z-height Elements:');
       debugPrint('  - Has enough space: $hasEnoughSpace');
-      debugPrint('  - Label position: ($xCoordinate, $labelY)');
-      debugPrint('  - Top arrow: $topArrowStartY -> $topArrowEndY');
-      debugPrint('  - Bottom arrow: $bottomArrowStartY -> $bottomArrowEndY');
     }
 
     return updatedSvg;

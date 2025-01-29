@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../../../services/models/calculation_result.dart';
 import 'diagram_view_model.dart';
 import 'svg_element_updater.dart';
+import 'label_group_handler.dart';
 
 /// Handles positioning and scaling for the Observer group elements in the mountain diagram
 class ObserverGroupViewModel extends DiagramViewModel {
@@ -39,6 +40,16 @@ class ObserverGroupViewModel extends DiagramViewModel {
     return value is num ? value.toDouble() : null;
   }
 
+  /// Gets a string value from nested config path with fallback
+  String? _getConfigString(List<String> path) {
+    dynamic value = config;
+    for (final key in path) {
+      value = value is Map ? value[key] : null;
+      if (value == null) return null;
+    }
+    return value is String ? value : null;
+  }
+
   @override
   Map<String, String> getLabelValues() {
     final observerHeight = result?.h1;
@@ -50,7 +61,8 @@ class ObserverGroupViewModel extends DiagramViewModel {
     };
     
     if (observerHeight != null) {
-      labels['2_2_C_Height'] = 'h1: ${formatHeight(observerHeight)}';
+      final prefix = _getConfigString(['labels', 'points', '2_2_C_Height', 'prefix']) ?? 'h1: ';
+      labels['2_2_C_Height'] = '$prefix${formatHeight(observerHeight)}';
     }
     
     return labels;
@@ -153,40 +165,26 @@ class ObserverGroupViewModel extends DiagramViewModel {
         case 'text':
           // Get text configuration based on element ID
           Map<String, dynamic> textConfig;
-          if (id == '4_1_arrowhead') {
-            // For the arrowhead, preserve all original attributes and just update position
-            final pathD = 'm 8.311907,$y 11.53936,-4.98909 -7.665093,-5.35196 z';
-            updatedSvg = SvgElementUpdater.updatePathElement(
-              updatedSvg,
-              id,
-              {
-                'd': pathD,
-                'style': 'fill:#ff0000;fill-opacity:1;stroke:none',
-              },
-            );
-          } else {
-            if (kDebugMode) {
-              print('Updating text element $id at x: $x, y: $y');
-            }
-            // Use simpler text format without tspans
-            final style = id == '4_2_observer_A' 
-              ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
-              : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000';
-            
-            final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
-            
-            updatedSvg = SvgElementUpdater.updateTextElement(
-              updatedSvg,
-              id,
-              {
-                'x': '$x',
-                'y': '$y',
-                'style': style,
-                'text': text,
-                'text-anchor': 'middle', // Update text element to use text-anchor for centering
-              },
-            );
+          if (kDebugMode) {
+            print('Updating text element $id at x: $x, y: $y');
           }
+          // Use simpler text format without tspans
+          final style = id == '4_2_observer_A' 
+            ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
+            : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#ff0000';
+          
+          final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
+          
+          updatedSvg = SvgElementUpdater.updateTextElementWithStyle(
+            updatedSvg,
+            id,
+            {
+              'x': '$x',
+              'y': '$y',
+              'style': style,
+              'content': text,  // Changed from 'text' to 'content'
+            },
+          );
           break;
         case 'arrowhead':
           // For the arrowhead, preserve all original attributes and just update position
@@ -209,6 +207,14 @@ class ObserverGroupViewModel extends DiagramViewModel {
   /// Updates the SVG content with current values
   @override
   String updateSvg(String svgContent) {
+    if (kDebugMode) {
+      debugPrint('updateSvg - Starting update');
+      debugPrint('updateSvg - Preset name: $presetName');
+      debugPrint('updateSvg - Observer height: ${result?.h1}');
+      debugPrint('updateSvg - Distance: ${result?.inputDistance}');
+      debugPrint('updateSvg - Target height: $targetHeight');
+    }
+
     var updatedSvg = svgContent;
     
     final double scaledHeight = _getScaledObserverHeight();
@@ -227,20 +233,6 @@ class ObserverGroupViewModel extends DiagramViewModel {
     // Calculate the height of the vertical line
     final double lineHeight = (_seaLevel - observerLevel).abs();
     
-    // Define minimum space needed for h1_label (font size plus padding)
-    final double minRequiredSpace = 28.6667; // 18.6667 + 10
-    
-    // Update h1_label position and visibility based on available space
-    final double h1Y = (observerLevel + _seaLevel) / 2; // Calculate midpoint
-    updatedSvg = SvgElementUpdater.updateTextElement(
-      updatedSvg,
-      'h1_label',
-      {
-        'x': '7.3378983', // Keep existing x coordinate
-        'y': '$h1Y',
-      },
-    );
-
     // Hide Test_Dot
     updatedSvg = SvgElementUpdater.updateEllipseElement(
       updatedSvg,
@@ -339,12 +331,26 @@ class ObserverGroupViewModel extends DiagramViewModel {
 
     // Calculate positions for C-height marker elements
     Map<String, double> calculateCHeightPositions(double h1) {
+      if (kDebugMode) {
+        debugPrint('calculateCHeightPositions - Input observer height (h1): $h1');
+      }
       final double scaledHeight = _getScaledObserverHeight();
       final double observerLevel = _seaLevel - scaledHeight;  // Top of line
       final double seaLevel = _seaLevel;  // Bottom of line
       
+      if (kDebugMode) {
+        debugPrint('calculateCHeightPositions - Scaled height: $scaledHeight');
+        debugPrint('calculateCHeightPositions - Observer level: $observerLevel');
+        debugPrint('calculateCHeightPositions - Sea level: $seaLevel');
+        debugPrint('calculateCHeightPositions - Total available space: ${seaLevel - observerLevel}');
+        debugPrint('calculateCHeightPositions - Required space: $C_HEIGHT_TOTAL_REQUIRED_HEIGHT');
+      }
+      
       // Check if there's enough space
       if ((seaLevel - observerLevel) < C_HEIGHT_TOTAL_REQUIRED_HEIGHT) {
+        if (kDebugMode) {
+          debugPrint('calculateCHeightPositions - Insufficient space, hiding C-height marker');
+        }
         return {
           'visible': 0.0,
         };
@@ -354,6 +360,10 @@ class ObserverGroupViewModel extends DiagramViewModel {
       final double labelY = observerLevel + ((seaLevel - observerLevel) / 2.0) + (C_HEIGHT_LABEL_HEIGHT / 4.0);  // Midpoint of line plus half of text height
       final double topArrowEnd = labelY - (C_HEIGHT_LABEL_HEIGHT) - C_HEIGHT_LABEL_PADDING;
       final double bottomArrowStart = labelY + C_HEIGHT_LABEL_PADDING;
+      
+      if (kDebugMode) {
+        debugPrint('calculateCHeightPositions - C-height marker is visible');
+      }
       
       return {
         'visible': 1.0,
@@ -365,23 +375,46 @@ class ObserverGroupViewModel extends DiagramViewModel {
       };
     }
 
-    // Update C-height marker elements
+    // Update C-height elements if observer height is available
     final observerHeight = result?.h1;
     if (observerHeight != null) {
       final cHeightPositions = calculateCHeightPositions(observerHeight);
-      if (cHeightPositions['visible'] == 1.0) {
+      const cHeightElements = [
+        '2_1_C_Top_arrow',
+        '2_1_C_Top_arrowhead',
+        '2_2_C_Height',
+        '2_3_C_Bottom_arrow',
+        '2_3_C_Bottom_arrowhead'
+      ];
+      
+      if (cHeightPositions['visible'] == 0.0) {
+        // Hide C-height elements if there's not enough space
+        for (final elementId in cHeightElements) {
+          updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
+        }
+        
+        if (kDebugMode) {
+          debugPrint('C-height elements hidden due to insufficient space');
+          debugPrint('Observer height: $observerHeight');
+          debugPrint('Required height: $C_HEIGHT_TOTAL_REQUIRED_HEIGHT');
+        }
+      } else {
+        // Show and update C-height elements
+        for (final elementId in cHeightElements) {
+          updatedSvg = SvgElementUpdater.showElement(updatedSvg, elementId);
+        }
+        
         const xCoord = -251.08543; // Use exact same x-coordinate for all elements
         
-        // Update label with proper centering
-        updatedSvg = SvgElementUpdater.updateTextElement(
+        // Update label with proper centering using LabelGroupHandler
+        updatedSvg = LabelGroupHandler.updateTextElement(
           updatedSvg,
           '2_2_C_Height',
           {
             'x': '$xCoord',
             'y': '${cHeightPositions['labelY']}',
-            'style': 'text-anchor:middle;fill:#552200',
-            'visibility': 'visible',
           },
+          'heightMeasurement',  // Use same group as Z-height for consistent styling
         );
         
         // Update top arrow
@@ -395,10 +428,9 @@ class ObserverGroupViewModel extends DiagramViewModel {
             'stroke-dasharray': 'none',
             'stroke-dashoffset': '0',
             'stroke-opacity': '1',
-            'visibility': 'visible',
           },
         );
-        
+
         // Update top arrowhead
         updatedSvg = SvgElementUpdater.updatePathElement(
           updatedSvg,
@@ -406,9 +438,8 @@ class ObserverGroupViewModel extends DiagramViewModel {
           {
             'd': 'M $xCoord,${cHeightPositions['startY']} l -5,10 l 10,0 z',
             'fill': '#000000',
-            'stroke': 'none',
             'fill-opacity': '1',
-            'visibility': 'visible',
+            'stroke': 'none',
           },
         );
         
@@ -419,11 +450,10 @@ class ObserverGroupViewModel extends DiagramViewModel {
           {
             'd': 'M $xCoord,${cHeightPositions['bottomArrowStart']} V ${cHeightPositions['endY']}',
             'stroke': '#000000',
-            'stroke-width': '2.07704',
+            'stroke-width': '1.99598',
             'stroke-dasharray': 'none',
             'stroke-dashoffset': '0',
             'stroke-opacity': '1',
-            'visibility': 'visible',
           },
         );
 
@@ -434,38 +464,18 @@ class ObserverGroupViewModel extends DiagramViewModel {
           {
             'd': 'M $xCoord,${cHeightPositions['endY']} l -5,-10 l 10,0 z',
             'fill': '#000000',
-            'stroke': 'none',
             'fill-opacity': '1',
-            'visibility': 'visible',
-          },
-        );
-      } else {
-        // Hide all elements if insufficient space
-        const xCoord = -251.08543; // Use same x-coordinate for consistency
-        
-        // Update text element with position and visibility
-        updatedSvg = SvgElementUpdater.updateTextElement(
-          updatedSvg,
-          '2_2_C_Height',
-          {
-            'x': '$xCoord',
-            'y': '${cHeightPositions['startY']}',  // Use startY as a safe position
-            'style': 'text-anchor:middle;fill:#552200',
-            'visibility': 'hidden',
+            'stroke': 'none',
           },
         );
         
-        // Update path elements
-        for (final id in ['2_1_C_Top_arrow', '2_1_C_Top_arrowhead', '2_3_C_Bottom_arrow', '2_3_C_Bottom_arrowhead']) {
-          updatedSvg = SvgElementUpdater.updatePathElement(
-            updatedSvg,
-            id,
-            {'visibility': 'hidden'},
-          );
+        if (kDebugMode) {
+          debugPrint('C-height elements updated successfully');
+          debugPrint('Observer height: $observerHeight');
+          debugPrint('Label position: ${cHeightPositions['labelY']}');
         }
       }
     }
-
     return updatedSvg;
   }
 }

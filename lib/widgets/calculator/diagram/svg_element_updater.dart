@@ -120,6 +120,7 @@ class SvgElementUpdater {
           element = element + ' $key="$value"';
         }
       });
+      
       return element + closing;
     });
   }
@@ -132,7 +133,7 @@ class SvgElementUpdater {
       multiLine: true,
       dotAll: true,
     );
-
+    
     if (kDebugMode) {
       debugPrint('Searching for circle element with pattern: ${elementPattern.pattern}');
       
@@ -193,8 +194,44 @@ class SvgElementUpdater {
         attributes.remove('content');
       }
       
-      // Update remaining attributes
+      // Extract style-related attributes
+      final styleAttributes = <String, String>{};
+      final standardAttributes = <String, String>{};
+      
       attributes.forEach((key, value) {
+        // These attributes should be part of the style string
+        if (['text-anchor', 'dominant-baseline', 'font-style', 'font-variant', 
+             'font-weight', 'font-stretch', 'font-size', 'font-family', 
+             'text-align', 'fill'].contains(key)) {
+          styleAttributes[key] = value.toString();
+        } else {
+          standardAttributes[key] = value.toString();
+        }
+      });
+
+      // Update style attribute
+      if (styleAttributes.isNotEmpty) {
+        final stylePattern = RegExp(r'style="[^"]*"');
+        final styleString = styleAttributes.entries
+            .map((e) => '${e.key}:${e.value}')
+            .join(';');
+            
+        if (element.contains(stylePattern)) {
+          // Extract existing style
+          final match = stylePattern.firstMatch(element);
+          if (match != null) {
+            final existingStyle = element.substring(match.start + 7, match.end - 1);
+            // Merge existing style with new style
+            final mergedStyle = _mergeStyles(existingStyle, styleString);
+            element = element.replaceAll(stylePattern, 'style="$mergedStyle"');
+          }
+        } else {
+          element = element + ' style="$styleString"';
+        }
+      }
+      
+      // Update remaining standard attributes
+      standardAttributes.forEach((key, value) {
         final attributePattern = RegExp('$key="[^"]*"');
         if (element.contains(attributePattern)) {
           element = element.replaceAll(attributePattern, '$key="$value"');
@@ -205,6 +242,36 @@ class SvgElementUpdater {
       
       return element + content + closing;
     });
+  }
+
+  /// Merges two style strings, with new styles taking precedence
+  static String _mergeStyles(String existingStyle, String newStyle) {
+    final styles = <String, String>{};
+    
+    // Parse existing styles
+    for (final style in existingStyle.split(';')) {
+      if (style.trim().isNotEmpty) {
+        final parts = style.split(':');
+        if (parts.length == 2) {
+          styles[parts[0].trim()] = parts[1].trim();
+        }
+      }
+    }
+    
+    // Parse and merge new styles
+    for (final style in newStyle.split(';')) {
+      if (style.trim().isNotEmpty) {
+        final parts = style.split(':');
+        if (parts.length == 2) {
+          styles[parts[0].trim()] = parts[1].trim();
+        }
+      }
+    }
+    
+    // Combine all styles
+    return styles.entries
+        .map((e) => '${e.key}:${e.value}')
+        .join(';');
   }
 
   /// Updates rect element attributes while preserving style and other attributes
@@ -245,6 +312,83 @@ class SvgElementUpdater {
     });
   }
 
+  /// Helper method to merge two style strings, preserving existing styles unless overridden
+  static String _mergeStyles(String existingStyle, String newStyle) {
+    final styles = <String, String>{};
+    
+    // Parse existing styles
+    for (final style in existingStyle.split(';')) {
+      if (style.trim().isNotEmpty) {
+        final parts = style.split(':');
+        if (parts.length == 2) {
+          styles[parts[0].trim()] = parts[1].trim();
+        }
+      }
+    }
+    
+    // Parse and merge new styles
+    for (final style in newStyle.split(';')) {
+      if (style.trim().isNotEmpty) {
+        final parts = style.split(':');
+        if (parts.length == 2) {
+          styles[parts[0].trim()] = parts[1].trim();
+        }
+      }
+    }
+    
+    // Combine all styles
+    return styles.entries
+        .map((e) => '${e.key}:${e.value}')
+        .join(';');
+  }
+
+  /// Helper method to extract and combine style attributes
+  static Map<String, String> _extractStyleAttributes(Map<String, dynamic> attributes) {
+    final styleAttributes = <String, String>{};
+    final toRemove = <String>[];
+
+    attributes.forEach((key, value) {
+      if ([
+        'text-anchor',
+        'dominant-baseline',
+        'font-style',
+        'font-variant',
+        'font-weight',
+        'font-stretch',
+        'font-size',
+        'font-family',
+        'text-align',
+        'fill',
+        'fill-opacity',
+        'stroke',
+        'stroke-width',
+        'stroke-opacity'
+      ].contains(key)) {
+        styleAttributes[key] = value.toString();
+        toRemove.add(key);
+      }
+    });
+
+    // Remove the style attributes from the original map
+    toRemove.forEach(attributes.remove);
+
+    return styleAttributes;
+  }
+
+  /// Safely updates an element's style attribute by merging with existing styles
+  static String _updateElementStyle(String element, String newStyleString) {
+    final stylePattern = RegExp(r'style="[^"]*"');
+    final match = stylePattern.firstMatch(element);
+    
+    if (match != null) {
+      final existingStyle = element.substring(match.start + 7, match.end - 1);
+      final mergedStyle = _mergeStyles(existingStyle, newStyleString);
+      return element.replaceAll(stylePattern, 'style="$mergedStyle"');
+    } else {
+      return element + ' style="$newStyleString"';
+    }
+  }
+
   /// Hides an SVG element by setting its display style to 'none'
   static String hideElement(String svgContent, String elementId) {
     // Find any SVG element with the given ID or inkscape:label
@@ -259,14 +403,83 @@ class SvgElementUpdater {
       var element = match.group(1) ?? '';
       final closing = match.group(2) ?? '/>';
       
+      element = _updateElementStyle(element, 'display:none');
+      
+      return element + closing;
+    });
+  }
+
+  /// Shows a previously hidden SVG element by removing display:none
+  static String showElement(String svgContent, String elementId) {
+    // Find any SVG element with the given ID or inkscape:label
+    final RegExp elementPattern = RegExp(
+      r'(<[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?)(/>|>)',
+      multiLine: true,
+      dotAll: true,
+    );
+
+    // Update style to show element
+    return svgContent.replaceFirstMapped(elementPattern, (match) {
+      var element = match.group(1) ?? '';
+      final closing = match.group(2) ?? '/>';
+      
       final stylePattern = RegExp(r'style="[^"]*"');
-      if (element.contains(stylePattern)) {
-        element = element.replaceAll(stylePattern, 'style="display:none"');
-      } else {
-        element = element + ' style="display:none"';
+      final match = stylePattern.firstMatch(element);
+      
+      if (match != null) {
+        final existingStyle = element.substring(match.start + 7, match.end - 1);
+        final styles = existingStyle.split(';')
+            .where((s) => !s.trim().startsWith('display:'))
+            .join(';');
+        element = element.replaceAll(stylePattern, 'style="$styles"');
       }
       
       return element + closing;
+    });
+  }
+
+  /// New method for updating text elements with proper style handling
+  /// This method will be used in the next phase, keeping existing updateTextElement unchanged
+  static String updateTextElementWithStyle(String svgContent, String elementId, Map<String, dynamic> attributes) {
+    // Find the text element with the given ID or inkscape:label
+    final RegExp elementPattern = RegExp(
+      r'(<text[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?>)(.*?)(</text>)',
+      multiLine: true,
+      dotAll: true,
+    );
+
+    // Update attributes while preserving others
+    return svgContent.replaceFirstMapped(elementPattern, (match) {
+      var element = match.group(1) ?? '';
+      var content = match.group(2) ?? '';
+      final closing = match.group(3) ?? '</text>';
+
+      // Extract content if provided
+      if (attributes.containsKey('content')) {
+        content = attributes['content'];
+        attributes.remove('content');
+      }
+      
+      // Extract and combine style attributes
+      final styleAttributes = _extractStyleAttributes(attributes);
+      if (styleAttributes.isNotEmpty) {
+        final styleString = styleAttributes.entries
+            .map((e) => '${e.key}:${e.value}')
+            .join(';');
+        element = _updateElementStyle(element, styleString);
+      }
+      
+      // Update remaining standard attributes
+      attributes.forEach((key, value) {
+        final attributePattern = RegExp('$key="[^"]*"');
+        if (element.contains(attributePattern)) {
+          element = element.replaceAll(attributePattern, '$key="$value"');
+        } else {
+          element = element + ' $key="$value"';
+        }
+      });
+      
+      return element + content + closing;
     });
   }
 }
