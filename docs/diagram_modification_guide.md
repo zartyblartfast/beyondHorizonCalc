@@ -1,33 +1,42 @@
 # Guide to Modifying the OverHorizon Diagram
 
+## Documentation Structure
+
+1. **Core Documentation**
+   - [1_measurement_groups_guide.md](1_measurement_groups_guide.md) - Main guide for measurement groups
+   - [diagram_explanation.md](diagram_explanation.md) - Geometric model explanation
+   - [bth_diagram_architecture.md](bth_diagram_architecture.md) - Overall architecture
+
+2. **Implementation Guides**
+   - [1_1_measurement_config_guide.md](1_1_measurement_config_guide.md) - Configuration patterns
+   - [1_2_measurement_implementation_guide.md](1_2_measurement_implementation_guide.md) - Code patterns
+   - [1_3_measurement_testing_guide.md](1_3_measurement_testing_guide.md) - Testing requirements
+
+3. **Reference Implementations**
+   - [2_1_c_height_implementation.md](2_1_c_height_implementation.md) - C-Height (reference)
+   - [2_2_z_height_implementation.md](2_2_z_height_implementation.md) - Z-Height
+
 ## Quick Start
 
 1. **Understand the Geometry**
-   - Read `diagram_explanation.md` for the mathematical model
+   - Read [diagram_explanation.md](diagram_explanation.md) for the mathematical model
    - Key points: Observer (A), Horizon (B), Target (X), Hidden Height (XC)
 
-2. **Locate the Code**
+2. **Follow Implementation Standards**
+   - Start with [1_measurement_groups_guide.md](1_measurement_groups_guide.md)
+   - Use C-Height as reference: [2_1_c_height_implementation.md](2_1_c_height_implementation.md)
+   - Follow configuration patterns: [1_1_measurement_config_guide.md](1_1_measurement_config_guide.md)
+
+3. **Locate the Code**
    - Main implementation: `lib/widgets/calculator/diagram_display.dart`
    - SVG assets: `assets/svg/BTH_*.svg`
    - Configuration: `assets/info/diagram_spec.json`
 
-3. **Implementation Details**
+4. **Implementation Details**
    - The diagram uses `flutter_svg` to render SVG files
    - SVG files are loaded and modified dynamically based on calculations
    - Labels are updated using `DiagramLabelService`
    - Aspect ratio must be maintained at 500:1000 (including right margin)
-
-4. **Layer Structure**
-   ```
-   SVG ViewBox (0,0 to 500,1000)
-   ├── Sky Group (0-342)
-   │   └── Labels and upper elements
-   ├── Observer Group (342-474)
-   │   ├── C_Point_Line (horizon reference)
-   │   └── Observer height elements
-   └── Mountain Group (474-1000)
-       └── Dynamic mountain elements
-   ```
 
 ## Coordinate System and Scaling
 

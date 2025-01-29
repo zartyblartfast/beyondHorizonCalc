@@ -1,6 +1,8 @@
 # Earth Curvature Calculator Definitions
 
-> For implementation details and code examples of how these geometric concepts are rendered in the diagram, see [diagram_modification_guide.md](./diagram_modification_guide.md).
+> For implementation details and code examples of how these geometric concepts are rendered in the diagram, see:
+> - [diagram_modification_guide.md](./diagram_modification_guide.md) - Guide for modifying diagram elements
+> - [1_measurement_groups_guide.md](./1_measurement_groups_guide.md) - Guide for measurement group implementations
 
 Below is a concise explanation of all points and segments used in this Earth Curvature Calculator model, including the new variables **XC = h₂** and **L₀**.
 

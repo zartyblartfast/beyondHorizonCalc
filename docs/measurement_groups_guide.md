@@ -360,6 +360,94 @@ Testing Plan:
    - Visual regression tests
    - Performance impact assessment
 
+## Standard Implementation Pattern (C_Height Example)
+
+The C_Height (2_*) measurement group demonstrates the recommended implementation pattern for all measurement groups. This section documents the standard that should be followed.
+
+### JSON Configuration Pattern
+
+All measurement groups should be configured in `diagram_spec.json` following this structure:
+
+1. **Label Configuration**
+   ```json
+   {
+     "id": "2_2_C_Height",
+     "type": "text",
+     "style": {
+       "fontFamily": "Calibri",
+       "fontSize": "12.0877px",
+       "fontWeight": "bold",
+       "fill": "#552200",
+       "textAnchor": "middle"
+     },
+     "content": {
+       "prefix": "h1: ",
+       "value": {
+         "source": "Observer Height (h1)",
+         "format": {
+           "type": "distance",
+           "decimalPlaces": 1,
+           "includeUnits": true
+         }
+       }
+     }
+   }
+   ```
+
+   Key aspects:
+   - All styles defined in JSON, not hardcoded
+   - Prefix configuration in JSON
+   - Value source and formatting rules specified
+   - Position references defined
+
+2. **Label Group Structure**
+   - Group all related elements (arrows, labels, arrowheads)
+   - Define visibility rules at group level
+   - Maintain consistent naming convention (e.g., 2_1_*, 2_2_*, 2_3_*)
+
+### Code Implementation Pattern
+
+1. **Label Value Handling**
+   - Use `getLabelValues()` method in view model
+   - Read prefix from config, not hardcoded
+   - Format values using shared formatting utilities
+   - Example:
+     ```dart
+     labels['2_2_C_Height'] = '$prefix${formatHeight(observerHeight)}';
+     ```
+
+2. **Visibility Management**
+   - Check for sufficient space before showing/hiding
+   - Apply visibility to entire group
+   - Use consistent space calculation methods
+
+3. **Position Updates**
+   - Update all group elements together
+   - Use relative positioning within group
+   - Maintain fixed relationships (e.g., arrows to labels)
+
+### Testing Requirements
+
+1. **Configuration Testing**
+   - Verify JSON configuration loads correctly
+   - Test fallback values for missing config
+   - Validate style application
+
+2. **Functional Testing**
+   - Verify correct value display
+   - Check visibility rules
+   - Test position updates
+   - Validate group behavior
+
+### Implementation Steps
+
+When implementing a new measurement group:
+1. Add complete configuration to diagram_spec.json first
+2. Implement getLabelValues() for dynamic content
+3. Add visibility management
+4. Implement position updates
+5. Add comprehensive tests
+
 ## Required Code Changes
 
 When adding a new measurement group, changes are needed in both the configuration and code:
