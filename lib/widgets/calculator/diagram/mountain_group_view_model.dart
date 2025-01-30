@@ -25,6 +25,13 @@ class MountainGroupViewModel extends DiagramViewModel {
   static const double V_HEIGHT_X_COORD = 240.0;
   static const double V_HEIGHT_TOTAL_REQUIRED_HEIGHT = V_HEIGHT_LABEL_HEIGHT + (2 * V_HEIGHT_LABEL_PADDING) + (2 * V_HEIGHT_MIN_ARROW_LENGTH);
 
+  // Constants for H-height marker
+  static const double H_HEIGHT_LABEL_HEIGHT = 12.0877;
+  static const double H_HEIGHT_LABEL_PADDING = 5.0;
+  static const double H_HEIGHT_MIN_ARROW_LENGTH = 10.0;
+  static const double H_HEIGHT_X_COORD = V_HEIGHT_X_COORD;
+  static const double H_HEIGHT_TOTAL_REQUIRED_HEIGHT = H_HEIGHT_LABEL_HEIGHT + (2 * H_HEIGHT_LABEL_PADDING) + (2 * H_HEIGHT_MIN_ARROW_LENGTH);
+
   MountainGroupViewModel({
     required CalculationResult? result,
     double? targetHeight,
@@ -64,13 +71,29 @@ class MountainGroupViewModel extends DiagramViewModel {
       
       if (kDebugMode) {
         debugPrint('V-Height label updated:');
-        debugPrint('  - Visible Height (km): ${result!.visibleTargetHeight}');
-        debugPrint('  - Visible Height (units): $heightInUnits');
+        debugPrint('  - Visible Height: ${result!.visibleTargetHeight}');
+        debugPrint('  - Height in Units: $heightInUnits');
         debugPrint('  - Prefix: $prefix');
         debugPrint('  - Final label: ${labels['1_2_Visible_Height_Height']}');
       }
     }
-    
+
+    // Add Hidden Height (h2) label
+    if (result?.hiddenHeight != null) {
+      final prefix = _getConfigString(['labels', 'points', '5_2_Hidden_Height_Height', 'prefix']) ?? 'h2: ';
+      // Convert from km to current units (meters or feet)
+      final heightInUnits = convertFromKm(result!.hiddenHeight!);
+      labels['5_2_Hidden_Height_Height'] = '$prefix${formatHeight(heightInUnits)}';
+      
+      if (kDebugMode) {
+        debugPrint('H-Height label updated:');
+        debugPrint('  - Hidden Height: ${result!.hiddenHeight}');
+        debugPrint('  - Height in Units: $heightInUnits');
+        debugPrint('  - Prefix: $prefix');
+        debugPrint('  - Final label: ${labels['5_2_Hidden_Height_Height']}');
+      }
+    }
+
     return labels;
   }
 
@@ -248,6 +271,89 @@ class MountainGroupViewModel extends DiagramViewModel {
         debugPrint('  - Label Y: ${positions['labelY']}');
         debugPrint('  - Bottom Arrow Y: ${positions['endY']}');
       }
+    }
+
+    // Get Distant_Obj_Sea_Level and C_Point_Line Y-coordinates
+    final double distantObjY = seaLevelY;  // Distant_Obj_Sea_Level aligns with sea level
+    final double cPointY = observerLevel;  // C_Point_Line aligns with observer level
+
+    // Calculate H-Height positions between Distant_Obj_Sea_Level and C_Point_Line
+    final hHeightPositions = calculateHHeightPositions(distantObjY, cPointY);
+    final hHeightElements = [
+      '5_1_Hidden_Height_Top_arrowhead',
+      '5_1_Hidden_Height_Top_arrow',
+      '5_2_Hidden_Height_Height',
+      '5_3_Hidden_Height_Bottom_arrow',
+      '5_3_Hidden_Height_Bottom_arrowhead'
+    ];
+
+    if (hHeightPositions['visible'] == 0.0) {
+      // Hide H-height elements if there's not enough space
+      for (final elementId in hHeightElements) {
+        updatedSvg = SvgElementUpdater.hideElement(updatedSvg, elementId);
+      }
+
+      if (kDebugMode) {
+        debugPrint('H-height elements hidden due to insufficient space');
+      }
+    } else {
+      // Show and position all H-height elements
+      for (final elementId in hHeightElements) {
+        updatedSvg = SvgElementUpdater.showElement(updatedSvg, elementId);
+      }
+
+      // Update H-height arrows and label
+      final positions = hHeightPositions;
+      
+      // Update top arrow
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '5_1_Hidden_Height_Top_arrow',
+        {
+          'd': 'M ${H_HEIGHT_X_COORD},${positions['startY']} V ${positions['topArrowEnd']}',
+          'style': 'fill:none;stroke:#000000;stroke-width:1.99598',
+        },
+      );
+
+      // Update bottom arrow
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '5_3_Hidden_Height_Bottom_arrow',
+        {
+          'd': 'M ${H_HEIGHT_X_COORD},${positions['bottomArrowStart']} V ${positions['endY']}',
+          'style': 'fill:none;stroke:#000000;stroke-width:1.99598',
+        },
+      );
+
+      // Update arrowheads
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '5_1_Hidden_Height_Top_arrowhead',
+        {
+          'd': 'M ${H_HEIGHT_X_COORD},${positions['startY']} l -5,10 h 10 z',
+          'style': 'fill:#000000;stroke:none;fill-opacity:1',
+        },
+      );
+
+      updatedSvg = SvgElementUpdater.updatePathElement(
+        updatedSvg,
+        '5_3_Hidden_Height_Bottom_arrowhead',
+        {
+          'd': 'M ${H_HEIGHT_X_COORD},${positions['endY']} l -5,-10 h 10 z',
+          'style': 'fill:#000000;stroke:none;fill-opacity:1',
+        },
+      );
+
+      // Update label position
+      updatedSvg = LabelGroupHandler.updateTextElement(
+        updatedSvg,
+        '5_2_Hidden_Height_Height',
+        {
+          'x': H_HEIGHT_X_COORD.toString(),
+          'y': positions['labelY'].toString(),
+        },
+        'heightMeasurement',
+      );
     }
 
     // Update Z_Point_Line to align with mountain peak
@@ -464,6 +570,56 @@ class MountainGroupViewModel extends DiagramViewModel {
     }
   }
 
+  /// Calculate positions for V-height marker elements
+  Map<String, double> calculateVHeightPositions(double topY, double bottomY) {
+    if (!hasSufficientSpace(topY, bottomY)) {
+      return {'visible': 0.0};
+    }
+    
+    final double totalHeight = bottomY - topY;
+    final double labelY = topY + (totalHeight / 2.0) + (V_HEIGHT_LABEL_HEIGHT / 4.0);
+    final double topArrowEnd = labelY - V_HEIGHT_LABEL_HEIGHT - V_HEIGHT_LABEL_PADDING;
+    final double bottomArrowStart = labelY + V_HEIGHT_LABEL_PADDING;
+    
+    return {
+      'visible': 1.0,
+      'startY': topY,
+      'topArrowEnd': topArrowEnd,
+      'labelY': labelY,
+      'bottomArrowStart': bottomArrowStart,
+      'endY': bottomY
+    };
+  }
+
+  /// Calculate positions for H-height marker elements
+  Map<String, double> calculateHHeightPositions(double distantObjY, double cPointY) {
+    if (kDebugMode) {
+      debugPrint('calculateHHeightPositions - Starting calculation');
+      debugPrint('  - Distant_Obj_Sea_Level Y: $distantObjY');
+      debugPrint('  - C_Point_Line Y: $cPointY');
+    }
+
+    if (!hasSufficientSpace(distantObjY, cPointY)) {
+      return {'visible': 0.0};
+    }
+    
+    // Note: In viewBox coordinates, Y increases downward (0 to 1000)
+    // So cPointY will be less than distantObjY
+    final double totalHeight = distantObjY - cPointY;  // Reversed order due to coordinate system
+    final double labelY = cPointY + (totalHeight / 2.0) + (H_HEIGHT_LABEL_HEIGHT / 4.0);
+    final double topArrowEnd = labelY - H_HEIGHT_LABEL_HEIGHT - H_HEIGHT_LABEL_PADDING;
+    final double bottomArrowStart = labelY + H_HEIGHT_LABEL_PADDING;
+    
+    return {
+      'visible': 1.0,
+      'startY': cPointY,           // Top arrow starts at C_Point_Line (higher in viewBox)
+      'topArrowEnd': topArrowEnd,
+      'labelY': labelY,
+      'bottomArrowStart': bottomArrowStart,
+      'endY': distantObjY         // Bottom arrow ends at Distant_Obj_Sea_Level (lower in viewBox)
+    };
+  }
+
   /// Calculate positions for Z-height marker elements
   Map<String, double> calculateZHeightPositions(double peakY, double baseY) {
     if (kDebugMode) {
@@ -505,27 +661,6 @@ class MountainGroupViewModel extends DiagramViewModel {
       'bottomArrowStart': bottomArrowStart,
       'startY': peakY,
       'endY': baseY,
-    };
-  }
-
-  /// Calculate positions for V-height marker elements
-  Map<String, double> calculateVHeightPositions(double topY, double bottomY) {
-    if (!hasSufficientSpace(topY, bottomY)) {
-      return {'visible': 0.0};
-    }
-    
-    final double totalHeight = bottomY - topY;
-    final double labelY = topY + (totalHeight / 2.0) + (V_HEIGHT_LABEL_HEIGHT / 4.0);
-    final double topArrowEnd = labelY - V_HEIGHT_LABEL_HEIGHT - V_HEIGHT_LABEL_PADDING;
-    final double bottomArrowStart = labelY + V_HEIGHT_LABEL_PADDING;
-    
-    return {
-      'visible': 1.0,
-      'startY': topY,
-      'topArrowEnd': topArrowEnd,
-      'labelY': labelY,
-      'bottomArrowStart': bottomArrowStart,
-      'endY': bottomY
     };
   }
 }
