@@ -244,6 +244,11 @@
         "content": "X"
       },
       {
+        "id": "Z",
+        "type": "text",
+        "content": "Z"
+      },
+      {
         "id": "2_2_C_Height",
         "type": "text",
         "prefix": "h1: "
@@ -257,6 +262,28 @@
         "id": "z_height",
         "type": "text",
         "prefix": "Z-Height: "
+      },
+      {
+        "id": "1_2_Visible_Height_Height",
+        "type": "text",
+        "style": {
+          "fontFamily": "Calibri",
+          "fontSize": "12.0877px",
+          "fontWeight": "bold",
+          "fill": "#552200",
+          "textAnchor": "middle"
+        },
+        "content": {
+          "prefix": "h3: ",
+          "value": {
+            "source": "Visible Height (h3)",
+            "format": {
+              "type": "distance",
+              "decimalPlaces": 1,
+              "includeUnits": true
+            }
+          }
+        }
       }
     ],
     "measurements": [
@@ -527,9 +554,11 @@
         "visibleHeight": {
           "prefix": "1",
           "elements": [
+            "1_1_Visible_Height_Top_arrowhead",
             "1_1_Visible_Height_Top_arrow",
             "1_2_Visible_Height_Height",
-            "1_3_Visible_Height_Bottom_arrow"
+            "1_3_Visible_Height_Bottom_arrow",
+            "1_3_Visible_Height_Bottom_arrowhead"
           ]
         },
         "cHeight": {
