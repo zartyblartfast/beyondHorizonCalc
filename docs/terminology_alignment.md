@@ -5,8 +5,8 @@ This document outlines the recommended terminology alignments for future consist
 ## Geometric Concepts
 
 ### Angles
-- **Central/Subtended Angle (BOC)**: The angle at Earth's center between the observer's position and target
-- **Geometric Dip Angle**: The angle between horizontal line of sight and the radius line to target (90° - BOC)
+- **Central/Subtended Angle (θ)**: The angle at Earth's center between the observer's position and target
+- **Geometric Dip Angle (α)**: The angle between horizontal line of sight and the radius line to target (90° - θ)
 
 ### Distances and Heights
 - **Arc Distance**: The distance along Earth's surface (currently `totalDistance`)

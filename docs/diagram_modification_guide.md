@@ -4,8 +4,8 @@
 
 1. **Core Documentation**
    - [1_measurement_groups_guide.md](1_measurement_groups_guide.md) - Main guide for measurement groups
-   - [diagram_explanation.md](diagram_explanation.md) - Geometric model explanation
-   - [bth_diagram_architecture.md](bth_diagram_architecture.md) - Overall architecture
+   - [Geometric Model Reference](measurement_groups/technical/geometric_model.md) - Complete geometric model and mathematical relationships
+   - [Diagram Architecture](measurement_groups/technical/diagram_architecture.md) - Complete system architecture
 
 2. **Implementation Guides**
    - [1_1_measurement_config_guide.md](1_1_measurement_config_guide.md) - Configuration patterns
@@ -19,7 +19,7 @@
 ## Quick Start
 
 1. **Understand the Geometry**
-   - Read [diagram_explanation.md](diagram_explanation.md) for the mathematical model
+   - Read [Geometric Model Reference](measurement_groups/technical/geometric_model.md) for the mathematical model
    - Key points: Observer (A), Horizon (B), Target (X), Hidden Height (XC)
 
 2. **Follow Implementation Standards**

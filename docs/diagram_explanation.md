@@ -1,8 +1,10 @@
 # Earth Curvature Calculator Definitions
 
+> **Note**: This document provides a high-level introduction to the core geometric concepts used in the Beyond Horizon Calculator. For detailed technical implementation and mathematical relationships, see [geometric_model.md](./measurement_groups/technical/geometric_model.md).
+
 > For implementation details and code examples of how these geometric concepts are rendered in the diagram, see:
 > - [diagram_modification_guide.md](./diagram_modification_guide.md) - Guide for modifying diagram elements
-> - [1_measurement_groups_guide.md](./1_measurement_groups_guide.md) - Guide for measurement group implementations
+> - [measurement_groups/technical/geometric_model.md](./measurement_groups/technical/geometric_model.md) - Technical implementation details
 
 Below is a concise explanation of all points and segments used in this Earth Curvature Calculator model, including the new variables **XC = h₂** and **L₀**.
 

@@ -1,160 +1,181 @@
 # Beyond The Horizon - Diagram Architecture
 
-> For detailed implementation patterns and code examples for modifying the diagram, see [diagram_modification_guide.md](./diagram_modification_guide.md).
+## Overview
+This document describes the architecture of the Beyond Horizon Calculator's diagram system, covering all components from configuration to rendering.
 
-graph TB
-    %% Title
-    title[Beyond The Horizon - Diagram Architecture]
-    style title fill:none,stroke:none
+## System Components
 
-    %% Configuration Package
-    subgraph Configuration
-        diagram_spec[diagram_spec.json]
-        field_info[field_info.json]
-        presets[presets.json]
-        menu_items[menu_items.json]
-        
-        configNote["Configuration split across multiple files:
-        - Diagram specifications
-        - Field configurations
-        - Preset values
-        - Menu structure"]
-    end
-    style diagram_spec fill:#90EE90
-    style field_info fill:#90EE90
-    style presets fill:#90EE90
-    style menu_items fill:#90EE90
+### 1. Configuration Layer
+```json
+Configuration/
+├── diagram_spec.json     # Core diagram specifications
+│   ├── measurements/     # Measurement group configs
+│   ├── labels/          # Label positions and styles
+│   └── elements/        # SVG element properties
+├── field_info.json      # Input field configurations
+├── presets.json         # Preset scenarios
+└── menu_items.json      # Menu structure
+```
 
-    %% Models Package
-    subgraph Models
-        CalcResult["CalculationResult
-        --
-        +horizonDistance
-        +hiddenHeight
-        +totalDistance
-        +visibleDistance
-        +visibleTargetHeight
-        +apparentVisibleHeight
-        +perspectiveScaledHeight
-        +inputDistance
-        +h1
-        +toMap()"]
+### 2. Core View Models
 
-        InfoContent["InfoContent
-        --
-        +title
-        +content"]
+#### Diagram View Models
+```dart
+DiagramViewModel
+├── HorizonDiagramViewModel     # Simple horizon view
+└── MountainDiagramViewModel    # Complex mountain view
+    ├── Result management
+    ├── Unit conversion
+    └── Label formatting
+```
 
-        LineOfSightPreset["LineOfSightPreset
-        --
-        +name
-        +description
-        +parameters"]
+#### Group View Models
+```dart
+GroupViewModel
+├── SkyGroupViewModel          # Sky and background
+├── ObserverGroupViewModel     # Observer position
+└── MountainGroupViewModel     # Mountain and measurements
+```
 
-        MenuItem["MenuItem
-        --
-        +title
-        +route"]
-    end
+### 3. Services
 
-    %% SVG Assets Package
-    subgraph SVGAssets["SVG Assets"]
-        SimpleSVG["Simple SVG Templates
-        --
-        BTH_1.svg to BTH_4.svg
-        - Basic structure
-        - Static elements"]
-        
-        ComplexSVG["Complex SVG Template
-        --
-        BTH_viewBox_diagram1.svg
-        - ViewBox coordinates
-        - Complex paths
-        - Label positions"]
-    end
-    style SimpleSVG fill:#ADD8E6
-    style ComplexSVG fill:#ADD8E6
+#### Diagram Services
+```dart
+DiagramLabelService            # Label management
+├── Configuration loading
+├── Dynamic updates
+└── Group management
 
-    %% View Package - Simple Diagram
-    subgraph SimpleDiagramView["Simple Diagram Implementation"]
-        EarthCurve["EarthCurveDiagram
-        --
-        +observerHeight
-        +distanceToHorizon
-        +totalDistance
-        +hiddenHeight
-        +visibleDistance
-        --
-        +build()"]
+SvgElementUpdater             # SVG manipulation
+├── Element positioning
+├── Style management
+└── Visibility control
 
-        SvgHelper["SvgHelper
-        --
-        +loadSvgAsset()
-        +loadSvg()"]
+CurvatureCalculator          # Core calculations
+├── Earth curvature effects
+├── Refraction adjustments
+└── Height calculations
+```
 
-        simpleNote["Uses Flutter SVG package
-        for direct SVG rendering"]
-    end
+### 4. Asset Management
 
-    %% View Package - Complex Diagram
-    subgraph ComplexDiagramView["Complex Diagram Implementation"]
-        OverHorizon["OverHorizon
-        --
-        -size
-        -earthColor
-        -lineColor
-        -groundColor
-        --
-        +build()"]
+#### SVG Templates
+```
+assets/
+├── BTH_1.svg                # Simple diagram
+│   ├── Basic structure
+│   └── Static elements
+└── BTH_viewBox.svg         # Complex diagram
+    ├── ViewBox coordinates
+    ├── Complex paths
+    └── Measurement points
+```
 
-        OverHorizonPainter["OverHorizonPainter
-        --
-        -earthColor
-        -lineColor
-        -groundColor
-        --
-        +paint()
-        +shouldRepaint()
-        -drawPaths()
-        -drawLabels()"]
+## Implementation Patterns
 
-        complexNote["Custom painting with:
-        - Path drawing
-        - ViewBox transforms
-        - Dynamic labels"]
-    end
+### 1. Diagram Organization
+```
+Three-Layer Structure
+├── Sky Layer       # Background and atmosphere
+├── Observer Layer  # Observer position and horizon
+└── Ground Layer    # Earth surface and target
+```
 
-    %% Design Rules Note
-    designRules["Design Rules:
-    1. Two-Tier Diagram Approach
-        - Simple: Direct SVG rendering for basic diagrams
-        - Complex: Custom painting for advanced visualizations
+### 2. Measurement System
+```dart
+MeasurementGroups
+├── C-Height (h₁)   # Observer height
+├── H-Height (h₂)   # Hidden portion
+├── V-Height (h₃)   # Visible portion
+└── Z-Height (XZ)   # Total height
+```
 
-    2. SVG Integration
-        - Simple diagrams use Flutter SVG package
-        - Complex diagrams use custom painting
-        - SVG files serve as templates/coordinates
+### 3. Dynamic Updates
+```dart
+Update Flow
+├── Input changes
+├── Recalculate positions
+├── Update measurements
+└── Refresh display
+```
 
-    3. Configuration
-        - All configurable values in JSON
-        - Separate configs for different aspects
+## Key Files
 
-    4. Implementation Patterns
-        - Simple: SvgHelper → EarthCurveDiagram
-        - Complex: OverHorizon → OverHorizonPainter
-        - Both consume calculation results"]
+### 1. Core Components
+```
+lib/widgets/calculator/diagram/
+├── diagram_view_model.dart         # Base view model
+├── mountain_diagram_view_model.dart # Complex diagram
+└── horizon_diagram_view_model.dart  # Simple diagram
+```
 
-    %% Relationships
-    SimpleSVG --> SvgHelper
-    SvgHelper --> EarthCurve
-    ComplexSVG --> OverHorizonPainter
-    OverHorizon --> OverHorizonPainter
-    
-    diagram_spec -.-> EarthCurve
-    diagram_spec -.-> OverHorizon
-    
-    CalcResult -.-> EarthCurve
-    CalcResult -.-> OverHorizon
-    
-    EarthCurve -.-> simpleNote
-    OverHorizonPainter -.-> complexNote
+### 2. Group Components
+```
+lib/widgets/calculator/diagram/
+├── mountain_group_view_model.dart   # Mountain features
+├── observer_group_view_model.dart   # Observer elements
+└── sky_group_view_model.dart        # Background elements
+```
+
+### 3. Services
+```
+lib/services/
+├── diagram_label_service.dart       # Label management
+├── svg_element_updater.dart         # SVG updates
+└── curvature_calculator.dart        # Core math
+```
+
+## Data Flow
+
+```
+User Input → Calculator
+     ↓
+CalculationResult
+     ↓
+DiagramViewModel
+     ↓
+Group View Models
+     ↓
+SVG Updates
+```
+
+## Configuration Examples
+
+### 1. Measurement Group
+```json
+{
+  "measurements": {
+    "h1": {
+      "x": -250,
+      "style": "bold",
+      "elements": [
+        "2_1_C_Height_Top_arrow",
+        "2_2_C_Height",
+        "2_3_C_Height_Bottom_arrow"
+      ]
+    }
+  }
+}
+```
+
+### 2. Label Configuration
+```json
+{
+  "labels": {
+    "points": [
+      {
+        "id": "2_2_C_Height",
+        "type": "text",
+        "prefix": "h1: ",
+        "suffix": "m"
+      }
+    ]
+  }
+}
+```
+
+## Related Documentation
+- [Geometric Model](diagram_explanation.md)
+- [Measurement Groups](measurement_groups/technical/measurement_types.md)
+- [SVG Requirements](svg_requirements.md)
+- [Earth Curvature Calculations](earth_curvature_calculations.md)
