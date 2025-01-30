@@ -155,7 +155,7 @@ class MountainGroupViewModel extends DiagramViewModel {
       updatedSvg,
       'Distant_Obj_Sea_Level',
       {
-        'd': 'M -200,$seaLevelY L 200,$seaLevelY',
+        'd': 'M -200,$seaLevelY L 350,$seaLevelY',
         'style': 'fill:#808080;fill-opacity:0;stroke:#808080;stroke-width:3.28827;stroke-dasharray:none;stroke-opacity:1',
       },
     );
@@ -361,7 +361,7 @@ class MountainGroupViewModel extends DiagramViewModel {
       updatedSvg,
       'Z_Point_Line',
       {
-        'd': 'M 200,$mountainPeakY L 0,$mountainPeakY',
+        'd': 'M 350,$mountainPeakY L 0,$mountainPeakY',
         'style': 'fill:#1a1a1a;fill-opacity:0;stroke:#808080;stroke-width:2.12098;stroke-dasharray:4.24196, 2.12098;stroke-dashoffset:0;stroke-opacity:1',
       },
     );
@@ -372,8 +372,9 @@ class MountainGroupViewModel extends DiagramViewModel {
       'Z',
       {
         'x': '210',
-        'y': '${mountainPeakY + 10}',
+        'y': '${mountainPeakY - 10}',
         'dominant-baseline': 'middle',
+        'style': 'font-weight: bold',
       },
       'heightMeasurement',
     );
@@ -383,8 +384,9 @@ class MountainGroupViewModel extends DiagramViewModel {
       'X',
       {
         'x': '210',
-        'y': '${seaLevelY + 10}',
+        'y': '${seaLevelY + 20}',
         'dominant-baseline': 'middle',
+        'style': 'font-weight: bold',
       },
       'heightMeasurement',
     );

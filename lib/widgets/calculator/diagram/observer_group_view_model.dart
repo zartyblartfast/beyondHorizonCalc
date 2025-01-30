@@ -170,8 +170,8 @@ class ObserverGroupViewModel extends DiagramViewModel {
           }
           // Use simpler text format without tspans
           final style = id == '4_2_observer_A' 
-            ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1023px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
-            : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#ff0000';
+            ? 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.8px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:\'Calibri, Calibri_MSFontService, sans-serif, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:0.836237;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:0.26064;stroke-dasharray:none'
+            : 'font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.8px;font-family:Calibri;-inkscape-font-specification:\'Calibri, Bold\';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#ff0000';
           
           final text = id == '4_2_observer_A' ? 'Observer (A)' : 'Line of Sight (ABC)';
           
@@ -269,7 +269,7 @@ class ObserverGroupViewModel extends DiagramViewModel {
       updatedSvg,
       'C_Point_Line',
       {
-        'd': 'M -275,$observerLevel L 200,$observerLevel',
+        'd': 'M -275,$observerLevel L 250,$observerLevel',
       },
     );
 
@@ -300,10 +300,10 @@ class ObserverGroupViewModel extends DiagramViewModel {
     
     // Label positions relative to C_Point_Line
     final visibilityLabels = {
-      'label_visible_new': -10, // 10 units above C_Point_Line
-      'label_hidden_new': 10,   // 10 units below C_Point_Line
-      'label_beyond_new': 30,   // 30 units below C_Point_Line
-      'label_horizon_new': 50,  // 50 units below C_Point_Line
+      'label_visible_new': -10,  // Back to original: 10 units above C_Point_Line
+      'label_hidden_new': 20,    // 20 units below C_Point_Line (shifted down)
+      'label_beyond_new': 40,    // 40 units below C_Point_Line (shifted down)
+      'label_horizon_new': 60,   // 60 units below C_Point_Line (shifted down)
     };
 
     visibilityLabels.forEach((labelId, yOffset) {
