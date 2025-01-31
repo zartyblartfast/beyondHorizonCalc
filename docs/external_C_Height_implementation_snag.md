@@ -124,3 +124,49 @@ if ((seaLevel - observerLevel) < C_HEIGHT_TOTAL_REQUIRED_HEIGHT) {
    - Simplify visibility logic
    - Use consistent units throughout
    - Implement mutual exclusivity explicitly
+
+## C_Height Implementation Issues and Lessons
+
+## Problem Context
+Attempted to fix visibility issues with the C_Height measurement groups (internal and external) by modifying the `observer_group_view_model.dart` file.
+
+## Failed Approaches
+
+### 1. Coordinate System Assumptions
+- **What Was Tried**: Assumed SVG coordinates could be used as fallback/default positions
+- **Why It Failed**: The app never uses SVG coordinates directly. All positions are calculated from user inputs (presets or custom values)
+- **Impact**: Created confusion between SVG coordinates and calculated positions
+
+### 2. Partial Element Updates
+- **What Was Tried**: Updating individual elements of the C_Height group separately
+- **Why It Failed**: Elements in a measurement group must be treated as a single unit for visibility and positioning
+- **Impact**: Led to inconsistent visibility where only some elements of the group were shown
+
+### 3. Extensive Refactoring
+- **What Was Tried**: Attempted to refactor the entire updateSvg method to match Hidden_Height pattern
+- **Why It Failed**: Changes cascaded beyond the C_Height groups, affecting other diagram elements
+- **Impact**: Started corrupting other parts of the diagram that were working correctly
+
+## Key Lessons
+
+1. **Respect Existing Architecture**
+   - The diagram uses calculated positions exclusively
+   - SVG coordinates are never used as fallbacks or defaults
+   - Each measurement group is designed to be updated as a complete unit
+
+2. **Minimize Change Scope**
+   - Changes to visibility logic should be isolated to specific groups
+   - Avoid refactoring shared update methods
+   - Test changes on a single measurement group before expanding
+
+3. **Maintain Group Cohesion**
+   - All elements in a measurement group must be shown/hidden together
+   - Position updates must be applied to all group elements simultaneously
+   - Visibility state should be determined once and applied consistently
+
+## Next Steps
+
+1. Revert the extensive changes to `observer_group_view_model.dart`
+2. Focus only on the C_Height visibility logic without touching position calculations
+3. Ensure changes don't affect other measurement groups or diagram elements
+4. Test thoroughly with different preset values before making additional changes
