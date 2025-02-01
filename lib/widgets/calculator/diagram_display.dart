@@ -6,6 +6,7 @@ import 'diagram/diagram_label_service.dart';
 import 'diagram/horizon_diagram_view_model.dart';
 import 'diagram/mountain_diagram_view_model.dart';
 import 'diagram/test_diagram_view_model.dart';
+import 'diagram/diagram_with_info.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:developer' as developer;
 
@@ -218,10 +219,13 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
               aspectRatio: 1.75,
               child: _svgContent == null
                   ? const Center(child: CircularProgressIndicator())
-                  : SvgPicture.string(
-                      _svgContent!,
-                      key: ValueKey(_svgContent.hashCode),
-                      fit: BoxFit.contain,
+                  : DiagramWithInfo(
+                      svgWidget: SvgPicture.string(
+                        _svgContent!,
+                        key: ValueKey(_svgContent.hashCode),
+                        fit: BoxFit.contain,
+                      ),
+                      infoKey: 'horizon_diagram',
                     ),
             ),
           ),
@@ -258,12 +262,17 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                   return SizedBox(
                     width: scaledWidth,
                     height: height,
-                    child: SvgPicture.string(
-                      _mountainSvgContent!,
-                      key: ValueKey(_mountainSvgContent.hashCode),
-                      fit: BoxFit.fill,
-                      alignment: Alignment.topCenter,
-                    ),
+                    child: _mountainSvgContent == null
+                        ? const Center(child: CircularProgressIndicator())
+                        : DiagramWithInfo(
+                            svgWidget: SvgPicture.string(
+                              _mountainSvgContent!,
+                              key: ValueKey(_mountainSvgContent.hashCode),
+                              fit: BoxFit.fill,
+                              alignment: Alignment.topCenter,
+                            ),
+                            infoKey: 'mountain_diagram',
+                          ),
                   );
                 }
               ),

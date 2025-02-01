@@ -48,5 +48,15 @@
     "title": "Perspective Scaled Apparent Visible Height",
     "content": "<p>Shows how the Apparent Visible Height (CD) would appear to an observer's eye when accounting for perspective scaling with distance.</p><ul><li>Takes the Apparent Visible Height calculated above and applies perspective scaling</li><li>Based on the pinhole camera model of human vision where objects appear smaller with distance</li><li>Calculated using: Height = (Focal Length × Apparent Visible Height) / Distance</li><li>Uses a standard focal length to approximate typical human visual perception</li></ul>",
     "content_type": "html"
+  },
+  "horizon_diagram": {
+    "title": "Horizon Diagram",
+    "content": "<p>This diagram illustrates the line of sight view from observer to target:</p><ul><li>Vertical perspective (not to scale) showing height relationships</li><li>Observer position (h1) on left</li><li>Target position and visible/hidden portions on right</li><li>Earth's curvature shown affecting visibility</li><li>All measurements account for standard atmospheric refraction</li></ul>",
+    "content_type": "html"
+  },
+  "mountain_diagram": {
+    "title": "Mountain Diagram",
+    "content": "<p>This diagram shows a detailed cross-section view:</p><ul><li>Vertical scale exaggerated to show height relationships clearly</li><li>Observer position with height markers</li><li>Horizon distance and position</li><li>Target position with visible and hidden portions</li><li>Line of sight path accounting for Earth's curvature and refraction</li></ul>",
+    "content_type": "html"
   }
 }
