@@ -574,7 +574,25 @@ class MountainGroupViewModel extends DiagramViewModel {
 
   /// Calculate positions for V-height marker elements
   Map<String, double> calculateVHeightPositions(double topY, double bottomY) {
+    if (kDebugMode) {
+      debugPrint('calculateVHeightPositions - Starting calculation');
+      debugPrint('  - Z_Point_Line Y: $topY');
+      debugPrint('  - C_Point_Line Y: $bottomY');
+    }
+
+    // First check if mountain is hidden (Z_Point_Line >= C_Point_Line)
+    if (topY >= bottomY) {
+      if (kDebugMode) {
+        debugPrint('calculateVHeightPositions - Mountain is hidden (Z_Point_Line >= C_Point_Line), hiding V-height');
+      }
+      return {'visible': 0.0};
+    }
+    
+    // Then check if there's enough space
     if (!hasSufficientSpace(topY, bottomY)) {
+      if (kDebugMode) {
+        debugPrint('calculateVHeightPositions - Insufficient space, hiding V-height');
+      }
       return {'visible': 0.0};
     }
     
@@ -583,6 +601,13 @@ class MountainGroupViewModel extends DiagramViewModel {
     final double topArrowEnd = labelY - V_HEIGHT_LABEL_HEIGHT - V_HEIGHT_LABEL_PADDING;
     final double bottomArrowStart = labelY + V_HEIGHT_LABEL_PADDING;
     
+    if (kDebugMode) {
+      debugPrint('calculateVHeightPositions - V-height marker is visible');
+      debugPrint('  - Label Y: $labelY');
+      debugPrint('  - Top Arrow End: $topArrowEnd');
+      debugPrint('  - Bottom Arrow Start: $bottomArrowStart');
+    }
+
     return {
       'visible': 1.0,
       'startY': topY,
