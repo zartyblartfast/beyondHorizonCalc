@@ -3,12 +3,14 @@ import 'diagram_view_model.dart';
 import 'observer_group_view_model.dart';
 import 'sky_group_view_model.dart';
 import 'mountain_group_view_model.dart';
+import 'observer_external_group_view_model.dart';
 
 /// View model specifically for mountain diagram calculations and label values
 class MountainDiagramViewModel extends DiagramViewModel {
   final ObserverGroupViewModel _observerGroup;
   final SkyGroupViewModel _skyGroup;
   final MountainGroupViewModel _mountainGroup;
+  final ObserverExternalGroupViewModel _observerExternalGroup;
   final Map<String, dynamic> diagramSpec;
 
   MountainDiagramViewModel({
@@ -32,6 +34,13 @@ class MountainDiagramViewModel extends DiagramViewModel {
          config: diagramSpec,
        ),
        _mountainGroup = MountainGroupViewModel(
+         result: result,
+         targetHeight: targetHeight,
+         isMetric: isMetric,
+         presetName: presetName,
+         config: diagramSpec,
+       ),
+       _observerExternalGroup = ObserverExternalGroupViewModel(
          result: result,
          targetHeight: targetHeight,
          isMetric: isMetric,
@@ -76,6 +85,9 @@ class MountainDiagramViewModel extends DiagramViewModel {
     
     // Update observer group first to get observer level
     updatedSvg = _observerGroup.updateSvg(updatedSvg);
+    
+    // Update external observer group
+    updatedSvg = _observerExternalGroup.updateSvg(updatedSvg);
     
     // Get observer level from observer group for sky and mountain positioning
     final observerLevel = _observerGroup.getObserverLevel();
