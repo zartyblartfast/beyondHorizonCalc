@@ -1,0 +1,956 @@
+{
+  "metadata": {
+    "svgSpec": {
+      "files": {
+        "description": "SVG file paths relative to assets/svg directory",
+        "mountainDiagram": "BTH_viewBox_diagram2.svg"
+      },
+      "viewBox": {
+        "x": [-300, 300],
+        "y": [0, 1400],
+        "width": 600,
+        "height": 1400,
+        "origin": "top center (0,0)",
+        "scaling": {
+          "preserveAspectRatio": true,
+          "workingArea": {
+            "width": 400,
+            "height": 1000
+          },
+          "displayScale": 0.7
+        }
+      },
+      "coordinateSystem": {
+        "xAxis": "Centered at 0, core area extends -200 to +200, with 100-unit margins on both sides (-300 to -200 left, 200 to 300 right)",
+        "yAxis": "Top to bottom (0 at top, 1000 at bottom)",
+        "verticalZones": {
+          "sky": {"start": 0, "end": 342, "purpose": "Labels and upper elements"},
+          "horizon": {"start": 342, "end": 474, "purpose": "Critical reference area"},
+          "mountain": {"start": 474, "end": 1000, "purpose": "Dynamic mountain area"}
+        }
+      },
+      "overflow": {
+        "x": "visible",
+        "y": "hidden"
+      }
+    },
+    "userInputs": {
+      "required": ["Observer Height (h1)", "Total Distance (L₀)"],
+      "optional": ["Target Height"],
+      "validation": {
+        "observerHeight": {"min": 2, "max": 9000, "units": "meters"},
+        "distance": {"min": 5, "max": 600, "units": "kilometers"},
+        "targetHeight": {"max": 9000, "units": "meters"}
+      }
+    }
+  },
+  "layers": [
+    {
+      "priority": 1,
+      "name": "Sky",
+      "id": "Sky",
+      "type": "rect",
+      "purpose": "Background and upper boundary",
+      "position": {
+        "width": 400,
+        "height": 342
+      }
+    },
+    {
+      "priority": 2,
+      "name": "Reference Lines",
+      "elements": [
+        {
+          "id": "C_Point_Line",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "path": "m 200,342 -400,5.3e-4"
+          },
+          "significance": "Primary horizon reference line",
+          "relationships": ["Defines horizon level", "Base for visibility calculations"]
+        },
+        {
+          "id": "Observer_Height_Above_Sea_Level",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "path": "M 0,345 0,474"
+          },
+          "relationships": {
+            "length": "Scaled from user input 'Observer Height (h1)'",
+            "position": "Extends down from C_Point_Line"
+          }
+        },
+        {
+          "id": "Z_Point_Line",
+          "type": "path",
+          "behavior": "dynamic",
+          "relationships": ["Connects to mountain peak"]
+        }
+      ]
+    },
+    {
+      "priority": 3,
+      "name": "Mountain",
+      "elements": [
+        {
+          "id": "Mountain",
+          "type": "path",
+          "behavior": "dynamic",
+          "position": {
+            "base": {
+              "x": [-90, 90],
+              "y": "dynamic based on distance"
+            },
+            "peak": {
+              "x": 0,
+              "y": "calculated from target height"
+            }
+          },
+          "visualEffect": {
+            "visibility": {
+              "above_horizon": "Fully visible",
+              "below_horizon": "Visible through opacity layer"
+            }
+          }
+        },
+        {
+          "id": "Beyond_Horizon_Hidden",
+          "type": "rect",
+          "behavior": "dynamic",
+          "purpose": "Creates opacity mask for hidden portions",
+          "position": {
+            "x": -200,
+            "y": 342,
+            "width": 400,
+            "height": 658
+          }
+        },
+        {
+          "id": "z_height_marker",
+          "type": "group",
+          "elements": [
+            {
+              "id": "3_1_Z_Height_Top_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "fill": "#000000",
+                "stroke": "none",
+                "fillOpacity": 1
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_1_Z_Height_Top_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "stroke": "#000000",
+                "strokeWidth": 1.99598
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_2_Z_Height",
+              "type": "text",
+              "style": {
+                "fontFamily": "Calibri",
+                "fontSize": "12.0877px",
+                "fontWeight": "bold",
+                "fill": "#552200",
+                "textAnchor": "middle"
+              },
+              "content": {
+                "prefix": "XZ: ",
+                "value": {
+                  "source": "Target Height",
+                  "format": {
+                    "type": "distance",
+                    "decimalPlaces": 1,
+                    "includeUnits": true
+                  }
+                }
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Z_Point_Line",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_3_Z_Height_Bottom_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "stroke": "#000000",
+                "strokeWidth": 2.07704
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Distant_Obj_Sea_Level",
+                  "visibility": "dependent"
+                }
+              }
+            },
+            {
+              "id": "3_3_Z_Height_Bottom_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "style": {
+                "fill": "#000000",
+                "stroke": "none",
+                "fillOpacity": 1
+              },
+              "position": {
+                "x": 325,
+                "y": {
+                  "reference": "Distant_Obj_Sea_Level",
+                  "visibility": "dependent"
+                }
+              }
+            }
+          ],
+          "visibility": {
+            "condition": "sufficient_space",
+            "minimumSpace": 75,
+            "behavior": "all_or_none"
+          }
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "points": [
+      {
+        "id": "X",
+        "type": "text",
+        "content": "X"
+      },
+      {
+        "id": "Z",
+        "type": "text",
+        "content": "Z"
+      },
+      {
+        "id": "2_2_C_Height",
+        "type": "text",
+        "prefix": "h1: "
+      },
+      {
+        "id": "3_2_Z_Height",
+        "type": "text",
+        "prefix": "XZ: "
+      },
+      {
+        "id": "z_height",
+        "type": "text",
+        "prefix": "Z-Height: "
+      },
+      {
+        "id": "1_2_Visible_Height_Height",
+        "type": "text",
+        "style": {
+          "fontFamily": "Calibri",
+          "fontSize": "12.0877px",
+          "fontWeight": "bold",
+          "fill": "#552200",
+          "textAnchor": "middle"
+        },
+        "content": {
+          "prefix": "h3: ",
+          "value": {
+            "source": "Visible Height (h3)",
+            "format": {
+              "type": "distance",
+              "decimalPlaces": 1,
+              "includeUnits": true
+            }
+          }
+        }
+      },
+      {
+        "id": "5_2_Hidden_Height_Height",
+        "type": "text",
+        "style": {
+          "fontFamily": "Calibri",
+          "fontSize": "12.0877px",
+          "fontWeight": "bold",
+          "fill": "#552200",
+          "textAnchor": "middle"
+        },
+        "content": {
+          "prefix": "h2: ",
+          "value": {
+            "source": "Hidden Height",
+            "format": {
+              "type": "distance",
+              "decimalPlaces": 1,
+              "includeUnits": true
+            }
+          }
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "id": "HiddenHeight",
+        "type": "text",
+        "content": "Hidden Height = [value]",
+        "position": {"x": -190, "y": 91}
+      },
+      {
+        "id": "VisibleHeight",
+        "type": "text",
+        "content": "Visible Height = [value]",
+        "position": {"x": -190, "y": 119}
+      },
+      {
+        "id": "HiddenVisible",
+        "type": "text",
+        "content": "dynamic state",
+        "position": {"x": -190, "y": 63}
+      },
+      {
+        "id": "c_height_marker",
+        "type": "group",
+        "elements": [
+          {
+            "id": "2_1_C_Top_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_1_C_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_2_C_Height",
+            "type": "text",
+            "style": {
+              "fontFamily": "Calibri",
+              "fontSize": "12.0877px",
+              "fontWeight": "bold",
+              "fill": "#552200",
+              "textAnchor": "middle"
+            },
+            "content": {
+              "prefix": "h1: ",
+              "value": {
+                "source": "Observer Height (h1)",
+                "format": {
+                  "type": "distance",
+                  "decimalPlaces": 1,
+                  "includeUnits": true
+                }
+              }
+            },
+            "position": {
+              "x": -251.08543,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_3_C_Bottom_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 2.07704
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2_3_C_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "external_c_height_marker",
+        "type": "group",
+        "elements": [
+          {
+            "id": "2e_1_C_Top_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2e_1_C_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2e_1_C_Height",
+            "type": "text",
+            "style": {
+              "fontFamily": "Calibri",
+              "fontSize": "12.0877px",
+              "fontWeight": "bold",
+              "fill": "#552200",
+              "textAnchor": "middle"
+            },
+            "content": {
+              "prefix": "h1: ",
+              "value": {
+                "source": "Observer Height (h1)",
+                "format": {
+                  "type": "distance",
+                  "decimalPlaces": 1,
+                  "includeUnits": true
+                }
+              }
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2e_3_C_Bottom_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "2e_3_C_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": -250,
+              "y": {
+                "reference": "Observer Height (h1)",
+                "visibility": "dependent"
+              }
+            }
+          }
+        ],
+        "visibility": {
+          "condition": "insufficient_space",
+          "minimumSpace": "TOTAL_REQUIRED_HEIGHT",
+          "behavior": "all_or_none"
+        }
+      },
+      {
+        "id": "5_2_Hidden_Height_Height",
+        "type": "text",
+        "style": {
+          "fontFamily": "Calibri",
+          "fontSize": "12.0877px",
+          "fontWeight": "bold",
+          "fill": "#552200",
+          "textAnchor": "middle"
+        },
+        "content": {
+          "prefix": "h2: ",
+          "value": {
+            "source": "Hidden Height",
+            "format": {
+              "type": "distance",
+              "decimalPlaces": 1,
+              "includeUnits": true
+            }
+          }
+        },
+        "position": {
+          "x": 236.17952,
+          "y": {
+            "reference": "Hidden Height",
+            "visibility": "dependent"
+          }
+        }
+      },
+      {
+        "id": "z_height_marker",
+        "type": "group",
+        "elements": [
+          {
+            "id": "3_1_Z_Height_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_1_Z_Height_Top_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_2_Z_Height",
+            "type": "text",
+            "style": {
+              "fontFamily": "Calibri",
+              "fontSize": "12.0877px",
+              "fontWeight": "bold",
+              "fill": "#552200",
+              "textAnchor": "middle"
+            },
+            "content": {
+              "prefix": "XZ: ",
+              "value": {
+                "source": "Target Height",
+                "format": {
+                  "type": "distance",
+                  "decimalPlaces": 1,
+                  "includeUnits": true
+                }
+              }
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_3_Z_Height_Bottom_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 2.07704
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Distant_Obj_Sea_Level",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "3_3_Z_Height_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 325,
+              "y": {
+                "reference": "Distant_Obj_Sea_Level",
+                "visibility": "dependent"
+              }
+            }
+          }
+        ],
+        "visibility": {
+          "condition": "sufficient_space",
+          "minimumSpace": 75,
+          "behavior": "all_or_none"
+        }
+      },
+      {
+        "id": "hidden_height_marker",
+        "type": "group",
+        "elements": [
+          {
+            "id": "5_1_Hidden_Height_Top_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 240,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "5_1_Hidden_Height_Top_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 1.99598
+            },
+            "position": {
+              "x": 240,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "5_2_Hidden_Height_Height",
+            "type": "text",
+            "style": {
+              "fontFamily": "Calibri",
+              "fontSize": "12.0877px",
+              "fontWeight": "bold",
+              "fill": "#552200",
+              "textAnchor": "middle"
+            },
+            "position": {
+              "x": 240,
+              "y": {
+                "reference": "Z_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "5_3_Hidden_Height_Bottom_arrow",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "stroke": "#000000",
+              "strokeWidth": 2.07704
+            },
+            "position": {
+              "x": 240,
+              "y": {
+                "reference": "C_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          },
+          {
+            "id": "5_3_Hidden_Height_Bottom_arrowhead",
+            "type": "path",
+            "behavior": "dynamic",
+            "style": {
+              "fill": "#000000",
+              "stroke": "none",
+              "fillOpacity": 1
+            },
+            "position": {
+              "x": 240,
+              "y": {
+                "reference": "C_Point_Line",
+                "visibility": "dependent"
+              }
+            }
+          }
+        ],
+        "visibility": {
+          "condition": "sufficient_space",
+          "minimumSpace": 75,
+          "behavior": "all_or_none"
+        }
+      }
+    ]
+  },
+  "labelGroups": {
+    "heightMeasurement": {
+      "components": {
+        "visibleHeight": {
+          "prefix": "1",
+          "elements": [
+            "1_1_Visible_Height_Top_arrowhead",
+            "1_1_Visible_Height_Top_arrow",
+            "1_2_Visible_Height_Height",
+            "1_3_Visible_Height_Bottom_arrow",
+            "1_3_Visible_Height_Bottom_arrowhead"
+          ]
+        },
+        "cHeight": {
+          "prefix": "2",
+          "elements": [
+            "2_1_C_Top_arrow",
+            "2_2_C_Height",
+            "2_3_C_Bottom_arrow"
+          ]
+        },
+        "hiddenHeight": {
+          "prefix": "5",
+          "elements": [
+            "5_1_Hidden_Height_Top_arrowhead",
+            "5_1_Hidden_Height_Top_arrow",
+            "5_2_Hidden_Height_Height",
+            "5_3_Hidden_Height_Bottom_arrow",
+            "5_3_Hidden_Height_Bottom_arrowhead"
+          ]
+        },
+        "zHeight": {
+          "prefix": "3",
+          "elements": [
+            "3_1_Z_Height_Top_arrow",
+            "3_2_Z_Height",
+            "3_3_Z_Height_Bottom_arrow"
+          ]
+        }
+      },
+      "styling": {
+        "label": {
+          "style": "font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;text-anchor:middle;dominant-baseline:middle;fill:#552200"
+        }
+      }
+    }
+  },
+  "coordinateMapping": {
+    "viewbox": {
+      "y": {
+        "min": 0,
+        "max": 1400
+      },
+      "x": {
+        "min": -300,
+        "max": 300
+      }
+    },
+    "groups": {
+      "observer": {
+        "seaLevel": {
+          "description": "Datum line for the entire Observer group. Changing y value moves all Observer group elements (including horizon line) vertically",
+          "y": 675,
+          "line": {
+            "x1": -300,
+            "x2": 300
+          }
+        },
+        "heightScale": {
+          "viewboxRange": {
+            "min": 225,
+            "max": 600
+          }
+        },
+        "labelGroup": {
+          "description": "Elements that move together with the observer dot",
+          "elements": [
+            {
+              "id": "4_1_Observer_here_arrow",
+              "type": "path",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "dot",
+                "offset": {
+                  "x": 12.02782,
+                  "y": -17.68905
+                }
+              }
+            },
+            {
+              "id": "4_1_arrowhead",
+              "type": "path",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 0,
+                  "y": 0
+                }
+              },
+              "style": {
+                "fill": "#ff0000",
+                "stroke": "none"
+              },
+              "visibility": {
+                "condition": "parent_visible",
+                "parent": "4_1_Observer_here_arrow",
+                "behavior": "match_parent"
+              }
+            },
+            {
+              "id": "4_2_observer_A",
+              "type": "text",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 111.67,
+                  "y": -36.50892
+                }
+              },
+              "style": {
+                "textAnchor": "start",
+                "fontFamily": "Calibri",
+                "fontSize": "14.1023px",
+                "fontWeight": "bold",
+                "fill": "#ff0000",
+                "stroke": "#ff0000",
+                "strokeWidth": "0.26064"
+              }
+            },
+            {
+              "id": "4_3_Observer_Line_of_Sight",
+              "type": "text",
+              "behavior": "dynamic",
+              "position": {
+                "basePoint": "4_1_Observer_here_arrow",
+                "offset": {
+                  "x": 111.67,
+                  "y": -15.00183
+                }
+              },
+              "style": {
+                "textAnchor": "start",
+                "fontFamily": "Calibri",
+                "fontSize": "14.1023px",
+                "fontWeight": "bold",
+                "fill": "#ff0000"
+              }
+            }
+          ]
+        }
+      },
+      "mountain": {
+        "baseRange": {
+          "y": {
+            "min": 150,
+            "max": 1050
+          },
+          "x": {
+            "min": -90,
+            "max": 90
+          }
+        },
+        "heightScale": {
+          "viewboxRange": {
+            "min": 75,
+            "max": 1050
+          }
+        },
+        "perspectiveScale": {
+          "comments": [
+            "Reserved for future implementation",
+            "Will handle distance-based size adjustments",
+            "May need dynamic adjustment based on input ranges"
+          ]
+        }
+      },
+      "horizon": {
+        "cPointLine": {
+          "y": 600,
+          "x1": -300,
+          "x2": 300
+        }
+      }
+    }
+  }
+}

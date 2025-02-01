@@ -1,0 +1,33 @@
+obj_num,Layer_Priority,Inter_Layer_Priority,Layer_Group,Object_id,type,dyamic_static,start,Relationships_Connections
+1,1,1,Header,FromTo,text,static,"x=-190,y=30",fixed x & y
+2,1,1,Header,HiddenVisible,text,static,"x=-190,y=63",fixed x & y
+3,1,1,Header,HiddenHeight,text,static,"x=-190,y=91",fixed x & y
+4,1,1,Header,VisibleHeight,text,static,"x=-190,y=119",fixed x & y
+5,2,1,Observer,Visible_Label,text,dyamic,"x=-190,y=333",Fixed x.  Relative: y = slightly above y value for 17
+6,2,1,Observer,Hidden_Label,text,dyamic,"x=-190,y=368",Fixed x.  Relative: y = slightly a little below 6 with some padding
+7,2,1,Observer,A,text,dyamic,"x=-85,y=350",Fixed x.  Relative: y = same as y value for 14 (eg. 342)
+8,2,1,Observer,B,text,dyamic,"x=-65,y=350",Fixed x.  Relative: y = same as y value for 14 (eg. 342)
+9,2,1,Observer,C,text,dyamic,"x=-45,y=350",Fixed x.  Relative: y = same as y value for 14 (eg. 342)
+10,2,1,Observer,X,text,dyamic,"x=0,y=580",Fixed x. Relative:  y = slightly below line 19 (eg. 550)
+11,2,1,Observer,Z,text,dyamic,"x=0,y=238",Fixed x. Relative: y = slightly above top of triange at 18 (eg. 245 - n)
+12,2,1,Observer,h1_label,text,dyamic,"x=7,y=410","Fixed x. Relative  to16, y= (y1+y2)/2 eg. (345+474)/2"
+13,2,1,Observer,dot,ellipse,dyamic,"x=0,y=342","Fixed x. Relative to 16,y = y1 (eg. 345) ie. Center of ellipse"
+14,2,2,Observer,C_Point_Line,path,dyamic,"m  200,342 -400,5.3e-4",Fixed x1 & x2.  We can use this line as the vertical datum line so we can possition it on the y axis at convenient point to keep other objects in vertical bounds of the diagram
+15,2,2,Observer,Observer_SL_Line,path,dyamic,"m 200,474 -400,5.2e-4",Fixed x1 & x2. The y coordinate will be gained from 17 y2.  ie. The bottom of the vertical 17 line.  Eg. y = 474
+16,2,2,Observer,Observer_Height_Above_Sea_Level,path,dyamic,"M 0,345 0,474","Fixed x.  Length of this vertical line is taken from user input 'Observer Height (h1)', so y2 - y1 = scaled h1.  y2 being the 'lower' coordinate will the scalled length DOWN from 15, C_Point_Line"
+17,2,2,Observer,Beyond_Horizon_Hidden,rect,dyamic,x= -200 y=342 W 400 H 660,"Fixed x1 & x2.  y1 is relative to 14 y1. eg. y1 = 342, W always = 400. H = 1000 - y1 to go down to the bottom of the diagram without going out of vertical bounds"
+18,3,1,Mountain,Mountain,path,dyamic,"M -90,552 90,552 0,245","Fixed x1, x2 & x3.  y1 & y2 is the base of the mountain. Y3 is the top of the mountain.  The overall height of the mountain is gained from the 'Target Height' user input, which is optional.  To establish the y coordinate of the base of the mountain, we have calculated output variable 'XC' ... expand on this because we could calculate a perspective equivalent to XC (XC leans away).  "
+19,3,2,Mountain,Distant_Obj_Sea_Level,path,dyamic,"m 200,550 -400,5.3e-4",Fixed x1 & x2. y is the bottom of the mountain (18) ie. y = y1 or y2. (eg. Y = 552)
+20,3,2,Mountain,Z_Point_Line,path,dyamic,"M 200,243 0,243",Fixed x.  y1 = top of the mountain (18) eg. Y1 and y2 = 550 
+21,4,1,Sky,Sky,rect,dyamic,W 400 H 343,"Fixed x1 & x2, rectangle full width of the diagram.  Ie. W 400.  y1 = 0, y2 relative to 14. (eg. y2 = 342) "
+,,,,,,,,
+,,,,,,,,
+notes,,,,,,,,
+"viewbox: Being a vertically focused diagram, we are mainly concerned with calculating y values.  The diagram uses an svg/inkscape viewbox to establish a coordinate system. Ie. X = -200 to +200 and Y= 0 to 1000 downwards",,,,,,,,
+Most of the vertical positoning and sizing of objects are from derived y values - ie. Relationships with other objects in the diagram.,,,,,,,,
+The only two application user input/output values required by this diagram are 'Observer Height (h1)' and 'Target height'. ,,,,,,,,
+"14. The C_Point_Line, is an important reference line which represents the line of sight from the observer A, touching the horizon at B and onward to C where C crosses an extended radius line that passes through the center of the object/structure (eg. mountain).  ",,,,,,,,
+"18.  Mountain... we need to calculate the base of the mountain's y coordinate (X) from the 14, the C_Point_Line.  We have this measurement via the XC calculated field but we might want to consider a new calcualted field representing the perspective adjusted measurement - because XC is leaning away from the observer due to Earth's curvature",,,,,,,,
+18. Mountain… we need to calculate the top of the mountain (Z) and we can do this with the 'Target Height' user input.  ,,,,,,,,
+"18. Mountain… As the 'Target Height' is optional, the application can hide this diagram if Target Height is not input",,,,,,,,
+"18. Mountain… If there is a proportion of the mountain object that is 'visible' as opposed to being 'hidden' below/beyond the horizon, the diagram uses layers and opacity to visualse the visible vs hidden parts of the mountain. 17. Beyond_Horizon_Hidden is a rectangle with a fill opacity that allows the 'hidden' part of the mountain to be seen.  However, the visible portion of the mountain is above the semi-opaque rectangle and therefore appears darker.  ",,,,,,,,
