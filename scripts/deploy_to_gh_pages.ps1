@@ -213,7 +213,15 @@ if ($missingFiles.Count -gt 0) {
 
 Write-Step "Switching to $GhPagesBranch branch..."
 git checkout $GhPagesBranch
-if ($LASTEXITCODE -ne 0) { Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to switch to $GhPagesBranch branch" }
+if ($LASTEXITCODE -ne 0) { 
+    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to switch to $GhPagesBranch branch" 
+}
+
+# Verify we are actually on gh-pages branch before cleaning
+$currentBranch = git branch --show-current
+if ($currentBranch -ne $GhPagesBranch) {
+    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to verify switch to $GhPagesBranch branch. Current branch: $currentBranch"
+}
 
 Write-Step "Cleaning $GhPagesBranch branch..."
 # First stash any changes in gh-pages branch
@@ -237,7 +245,7 @@ Get-ChildItem -Path . -Exclude '.git' | ForEach-Object {
         try {
             Remove-Item $_.FullName -Force -Recurse -ErrorAction Stop
         } catch {
-            Write-Host "Error: Failed to remove file after retry. Continuing anyway..." -ForegroundColor Red
+            Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Failed to clean $GhPagesBranch branch: Could not remove $($_.FullName)"
         }
     }
 }
