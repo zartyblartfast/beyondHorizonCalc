@@ -14,8 +14,9 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
   late final double _viewboxScale;
   
   // Fixed x-coordinate for all external elements
-  static const double _xCoord = -250.0;
-  static const double _labelXOffset = -251.08543;  // Centered x position for label
+  static const double _xCoord = -250.0;  // Common x-coordinate for all elements
+  static const double _labelWidth = 80.0;  // Approximate width of label text
+  static const double _labelXOffset = _xCoord - (_labelWidth / 2);  // Position label start so its midpoint aligns with _xCoord
 
   // Fixed length for external arrows
   static const double EXTERNAL_ARROW_LENGTH = 50.0;
@@ -23,7 +24,6 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
 
   // External area positioning
   static const double EXTERNAL_BASE_Y = 100.0;  // Base Y position for external elements
-  static const double EXTERNAL_SCALE = 0.1;     // Scale factor for external measurements
 
   // Define external elements in correct SVG layering order
   static const externalElements = [
@@ -91,8 +91,13 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
       print('[ExternalCHeight] _getScaledObserverHeight - No observer height available');
       return 0.0;
     }
-    final scaled = observerHeight * EXTERNAL_SCALE;  // Use external scale
-    print('[ExternalCHeight] _getScaledObserverHeight - Height: $observerHeight, Scaled: $scaled');
+    
+    // Convert to km for scaling if using metric
+    final heightInKm = isMetric ? observerHeight / 1000.0 : observerHeight / 3280.84;
+    
+    // Scale height to viewbox coordinates
+    final scaled = heightInKm * _viewboxScale;
+    print('[ExternalCHeight] _getScaledObserverHeight - Height: $observerHeight, HeightInKm: $heightInKm, Scaled: $scaled');
     return scaled;
   }
 
@@ -122,7 +127,7 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
     if (height == null) return '';
     final value = isMetric ? height : height * 3.28084;
     final unit = isMetric ? 'm' : 'ft';
-    return 'h1: ${value.toStringAsFixed(1)}$unit';
+    return 'h1: ${value.toStringAsFixed(1)} $unit';  // Added space before unit
   }
 
   /// Calculates positions for C-height marker elements
@@ -140,13 +145,13 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
     
     print('[ExternalCHeight] calculateCHeightPositions - C_Point_Line Y: $cPointY, Observer_SL_Line Y: $observerSLY');
     
-    // Position elements relative to the datum lines with fixed offsets
+    // Position elements relative to the datum lines with fixed offsets in viewBox coordinates
     final double topArrowheadY = cPointY;  // Anchored exactly to C_Point_Line
-    final double topArrowY = topArrowheadY - EXTERNAL_ARROW_LENGTH;  // Fixed length above C_Point_Line
-    final double labelY = topArrowY - C_HEIGHT_LABEL_HEIGHT/2;  // Centered above top arrow
+    final double topArrowY = cPointY - EXTERNAL_ARROW_LENGTH;  // Fixed offset in viewBox coordinates
+    final double labelY = cPointY - (EXTERNAL_ARROW_LENGTH + C_HEIGHT_LABEL_HEIGHT/2);  // Fixed offset in viewBox coordinates
 
     final double bottomArrowheadY = observerSLY;  // Anchored exactly to Observer_SL_Line
-    final double bottomArrowY = bottomArrowheadY + EXTERNAL_ARROW_LENGTH;  // Fixed length below Observer_SL_Line
+    final double bottomArrowY = observerSLY + EXTERNAL_ARROW_LENGTH;  // Fixed offset in viewBox coordinates
     
     print('[ExternalCHeight] calculateCHeightPositions - Positions:');
     print('  Label Y: $labelY');
@@ -212,9 +217,9 @@ class ObserverExternalGroupViewModel extends DiagramViewModel {
       updatedSvg,
       '2e_1_C_Height',
       {
-        'x': '$_labelXOffset',
+        'x': '$_labelXOffset',  // Position label so its midpoint aligns with vertical line
         'y': '${positions['labelY']}',
-        'text-anchor': 'middle',
+        'text-anchor': 'start',  // Start alignment since we're calculating midpoint manually
         'dominant-baseline': 'middle',
         'content': formatHeightLabel(observerHeight),
         'style': 'visibility: visible'  // Move visibility into style attribute
