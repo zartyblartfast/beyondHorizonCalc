@@ -418,37 +418,47 @@ class SvgElementUpdater {
   static String updateRectElement(String svgContent, String elementId, Map<String, dynamic> attributes) {
     // Find the rect element with the given ID or inkscape:label
     final RegExp elementPattern = RegExp(
-      r'(<rect[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?>)',
+      r'(<rect[^>]*?(?:id|inkscape:label)="' + elementId + r'"[^>]*?)(/>|>)',
       multiLine: true,
       dotAll: true,
     );
     
     if (kDebugMode) {
       debugPrint('Searching for rect element with pattern: ${elementPattern.pattern}');
+      
+      // Find element with this ID or label
+      final idPattern = RegExp('(?:id|inkscape:label)="$elementId"');
+      final idMatch = idPattern.firstMatch(svgContent);
+      if (idMatch != null) {
+        // Get surrounding context
+        final start = idMatch.start - 50;
+        final end = idMatch.end + 50;
+        debugPrint('Found element in context: ${svgContent.substring(start < 0 ? 0 : start, end > svgContent.length ? svgContent.length : end)}');
+      }
     }
 
     // Update attributes while preserving others
     return svgContent.replaceFirstMapped(elementPattern, (match) {
-      var element = match.group(1) ?? '';  // Changed from final to var since we modify it
+      var element = match.group(1) ?? '';
+      final closing = match.group(2) ?? '/>';
       
       if (kDebugMode) {
         debugPrint('Found rect element: $element');
       }
       
-      // Update rect element attributes
       attributes.forEach((key, value) {
         final attributePattern = RegExp('$key="[^"]*"');
         if (element.contains(attributePattern)) {
           element = element.replaceAll(attributePattern, '$key="$value"');
         } else {
-          element = element.substring(0, element.length - 1) + ' $key="$value">';
+          element = element + ' $key="$value"';
         }
       });
       
       if (kDebugMode) {
-        debugPrint('Updated rect element: $element');
+        debugPrint('Updated rect element: $element$closing');
       }
-      return element;
+      return element + closing;
     });
   }
 

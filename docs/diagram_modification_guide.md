@@ -36,7 +36,7 @@
    - The diagram uses `flutter_svg` to render SVG files
    - SVG files are loaded and modified dynamically based on calculations
    - Labels are updated using `DiagramLabelService`
-   - Aspect ratio must be maintained at 500:1000 (including right margin)
+   - Aspect ratio must be maintained at 400:1000 (including right margin)
 
 ## Coordinate System and Scaling
 
@@ -51,10 +51,16 @@
   "metadata": {
     "svgSpec": {
       "viewBox": {
-        "width": 500,    // Total width including right margin
-        "height": 1000,
+        "x": [-300, 300],    // Total width including margins
+        "y": [0, 1400],      // Extended height for full diagram
+        "width": 600,
+        "height": 1400,
         "scaling": {
-          "preserveAspectRatio": true
+          "preserveAspectRatio": true,
+          "workingArea": {
+            "width": 400,    // Core diagram width (-200 to +200)
+            "height": 1000   // Original diagram height
+          }
         }
       }
     }
@@ -63,19 +69,27 @@
 ```
 
 > **Critical**: When implementing scaling or layout:
-> 1. Always use the full viewBox dimensions from config (`metadata.svgSpec.viewBox`)
-> 2. Never hard-code dimensions like 500 or 1000
-> 3. The aspect ratio must be maintained using viewBox.width:viewBox.height
-> 4. Example: `height = (containerWidth * viewBoxHeight) / viewBoxWidth`
+> 1. Always use the viewBox dimensions from config (`metadata.svgSpec.viewBox`)
+> 2. Never hard-code dimensions
+> 3. Use BoxFit.fill with topCenter alignment to prevent extra canvas space
+> 4. Example SVG rendering:
+>    ```dart
+>    SvgPicture.string(
+>      svgContent,
+>      fit: BoxFit.fill,
+>      alignment: Alignment.topCenter,
+>    )
+>    ```
 > 5. The viewBox dimensions define the SVG's coordinate space - all elements (paths, text, etc.) are positioned relative to this space
-> 6. Changing these values will affect the entire diagram's layout and proportions
+> 6. The extended height (1400) provides space for the full diagram while maintaining proper scaling
 
 ### SVG Coordinate Space
-- **Total Width**: 500 units
+- **Total Width**: 600 units (-300 to +300)
   - Core diagram area: 400 units (-200 to +200)
-  - Right margin: 100 units (400 to 500)
-  - All X-coordinates are relative to this 500-unit space
-- **Total Height**: 1000 units
+  - Right margin: 100 units (200 to 300)
+  - Left margin: 100 units (-300 to -200)
+  - All X-coordinates are relative to this 600-unit space
+- **Total Height**: 1400 units
   - All Y-coordinates use this full height
   - Vertical zones must maintain their relative positions
   - Text and shape proportions depend on this scale
@@ -91,10 +105,10 @@
   3. Test with different container sizes to verify scaling
 
 ### Margin Areas
-- **Right Margin**: 100 units (400 to 500)
+- **Right Margin**: 100 units (200 to 300)
   - Purpose: Space for 'X' and 'Z' labels
   - Labels must stay anchored to their corresponding elements
-- **Left Margin**: (Future) 100 units (-300 to -200)
+- **Left Margin**: 100 units (-300 to -200)
   - Will provide space for additional labels
   - Must maintain diagram proportions
 
@@ -111,7 +125,7 @@
 
 ### Common Pitfalls
 1. **Incorrect Scaling**
-   - ❌ Using viewBox width (500) for aspect ratio calculations
+   - ❌ Using viewBox width (600) for aspect ratio calculations
    - ❌ Applying independent horizontal and vertical scaling
    - ✅ Use working area (400x1000) for consistent proportions
 

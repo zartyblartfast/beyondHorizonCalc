@@ -7,9 +7,9 @@
       },
       "viewBox": {
         "x": [-300, 300],
-        "y": [0, 1000],
+        "y": [0, 1400],
         "width": 600,
-        "height": 1000,
+        "height": 1400,
         "origin": "top center (0,0)",
         "scaling": {
           "preserveAspectRatio": true,
@@ -53,7 +53,7 @@
       "purpose": "Background and upper boundary",
       "position": {
         "width": 400,
-        "height": 343
+        "height": 342
       }
     },
     {
@@ -124,7 +124,7 @@
             "x": -200,
             "y": 342,
             "width": 400,
-            "height": 660
+            "height": 658
           }
         },
         {
@@ -817,7 +817,7 @@
     "viewbox": {
       "y": {
         "min": 0,
-        "max": 1000
+        "max": 1400
       },
       "x": {
         "min": -300,
@@ -828,7 +828,7 @@
       "observer": {
         "seaLevel": {
           "description": "Datum line for the entire Observer group. Changing y value moves all Observer group elements (including horizon line) vertically",
-          "y": 550,
+          "y": 675,
           "line": {
             "x1": -300,
             "x2": 300
@@ -836,8 +836,8 @@
         },
         "heightScale": {
           "viewboxRange": {
-            "min": 250,
-            "max": 500
+            "min": 225,
+            "max": 600
           }
         },
         "labelGroup": {
@@ -922,8 +922,8 @@
       "mountain": {
         "baseRange": {
           "y": {
-            "min": 100,
-            "max": 900
+            "min": 150,
+            "max": 1050
           },
           "x": {
             "min": -90,
@@ -932,8 +932,8 @@
         },
         "heightScale": {
           "viewboxRange": {
-            "min": 50,
-            "max": 900
+            "min": 75,
+            "max": 1050
           }
         },
         "perspectiveScale": {
@@ -946,7 +946,7 @@
       },
       "horizon": {
         "cPointLine": {
-          "y": 500,
+          "y": 600,
           "x1": -300,
           "x2": 300
         }

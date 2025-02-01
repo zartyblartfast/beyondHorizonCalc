@@ -3,7 +3,7 @@
    version="1.1"
    width="825"
    height="1450"
-   viewBox="-300 0 682.75862 1400"
+   viewBox="-300 0 682.75862 1000"
    preserveAspectRatio="none"
    overflow="visible"
    id="svg1"
@@ -145,9 +145,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.82872915"
-     inkscape:cx="319.76672"
-     inkscape:cy="456.12007"
+     inkscape:zoom="1.172"
+     inkscape:cx="570.81911"
+     inkscape:cy="600.68259"
      inkscape:window-width="1440"
      inkscape:window-height="830"
      inkscape:window-x="-6"
@@ -195,12 +195,13 @@
      inkscape:label="Distant_Obj_Sea_Level"
      style="fill:#808080;fill-opacity:0;stroke:#808080;stroke-width:3.86432;stroke-dasharray:none;stroke-opacity:1" />
   <rect
-     style="fill:url(#Beyond_Horizon_Hidden_gradient);stroke:none;stroke-width:1.00157;stroke-dasharray:none"
+     style="opacity:0.836237;fill:#bdbdbd;fill-opacity:0.980315;fill-rule:evenodd;stroke-width:0.558508"
      id="Beyond_Horizon_Hidden"
      width="400"
-     height="1058"
+     height="660"
      x="-200"
-     y="342" />
+     y="342"
+     inkscape:label="Beyond_Horizon_Hidden" />
   <path
      d="M 250,243 H -199.1291"
      stroke="#000000"
@@ -319,6 +320,13 @@
      id="4_1_Observer_here_arrow"
      sodipodi:nodetypes="csc"
      inkscape:label="4_1_Observer_here_arrow" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
+     x="303.56766"
+     y="392.73181"
+     id="3_2_Z_Height"
+     inkscape:label="3_2_Z_Height"></text>
   <path
      d="m -229.47326,403.73668 v -54.3846"
      id="2_1_C_Top_arrow"
@@ -360,13 +368,6 @@
      d="m 236.53259,341.28113 -5,-10 h 10 z"
      id="1_3_Visible_Height_Bottom_arrowhead"
      style="fill:#000000;fill-opacity:1;stroke:none" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
-     x="305.16727"
-     y="391.06393"
-     id="3_2_Z_Height"
-     inkscape:label="3_2_Z_Height">Z_Height</text>
   <path
      d="M 327.7876,394.83447 V 538.93054"
      id="3_3_Z_Height_Bottom_arrow"
@@ -453,30 +454,5 @@
   <path
      d="m 234.8755,548.71084 -5,-10 h 10 z"
      id="5_3_Hidden_Height_Bottom_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
-  <path
-     d="m -228.67492,311.22028 v 18.22485"
-     id="2e_1_C_Top_arrow"
-     inkscape:label="2e_1_C_Top_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.26644;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m -228.67492,338.59915 -5,-10 h 10 z"
-     id="2e_1_C_Top_arrowhead"
-     style="fill:#000000;fill-opacity:1;stroke:none" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.0877px;font-family:Calibri;-inkscape-font-specification:'Calibri, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#552200;stroke-width:2.958;stroke-dasharray:none"
-     x="-251.31671"
-     y="307.37085"
-     id="2e_1_C_Height"
-     inkscape:label="2e_1_C_Height">C_Height</text>
-  <path
-     d="M -230.33985,509.37728 V 486.7686"
-     id="2e_3_C_Bottom_arrow"
-     inkscape:label="2e_3_C_Bottom_arrow"
-     style="fill:none;stroke:#000000;stroke-width:2.26644;stroke-dasharray:none;stroke-opacity:1" />
-  <path
-     d="m -230.58951,476.78239 -5,10 h 10 z"
-     id="2e_3_C_Bottom_arrowhead"
      style="fill:#000000;fill-opacity:1;stroke:none" />
 </svg>

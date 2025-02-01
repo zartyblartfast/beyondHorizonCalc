@@ -91,10 +91,16 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       try {
         // Load diagram spec configuration
         final String specJson = await rootBundle.loadString('assets/info/diagram_spec.json');
+        developer.log('Raw diagram spec JSON: $specJson', name: 'DiagramDisplay');
         diagramSpec = json.decode(specJson) as Map<String, dynamic>;
-        developer.log('Diagram spec loaded successfully', name: 'DiagramDisplay');
-      } catch (e) {
+        developer.log('Parsed diagram spec: $diagramSpec', name: 'DiagramDisplay');
+        developer.log('ViewBox height from spec: ${diagramSpec['metadata']?['svgSpec']?['viewBox']?['height']}', name: 'DiagramDisplay');
+        if (diagramSpec.isEmpty) {
+          developer.log('Warning: Diagram spec is empty', name: 'DiagramDisplay');
+        }
+      } catch (e, stackTrace) {
         developer.log('Error loading diagram spec: $e', name: 'DiagramDisplay', error: e);
+        developer.log('Stack trace: $stackTrace', name: 'DiagramDisplay');
         // Provide empty config, view model will use defaults
         diagramSpec = {};
       }
@@ -129,9 +135,16 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       }
 
       // Load and update mountain diagram
-      final String mountainSvgPath = 'assets/svg/${diagramSpec['metadata']['svgSpec']['files']['mountainDiagram']}';
-      final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
+      String mountainSvgPath;
+      try {
+        mountainSvgPath = 'assets/svg/${diagramSpec['metadata']?['svgSpec']?['files']?['mountainDiagram'] ?? 'BTH_viewBox_diagram2.svg'}';
+        developer.log('Mountain diagram path from spec: $mountainSvgPath', name: 'DiagramDisplay');
+      } catch (e) {
+        developer.log('Error getting mountain diagram path: $e', name: 'DiagramDisplay');
+        mountainSvgPath = 'assets/svg/BTH_viewBox_diagram2.svg';
+      }
       
+      final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
       developer.log('Mountain SVG loaded', name: 'DiagramDisplay');
 
       // Extract defs section from mountain SVG
@@ -175,6 +188,11 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
     super.initState();
     _testViewModel = TestDiagramViewModel(isMetric: widget.isMetric);
     _loadAndUpdateSvg();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -225,23 +243,27 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final spec = _mountainViewModel?.diagramSpec['metadata']?['svgSpec'];
-                  final viewBoxWidth = spec?['viewBox']?['width'] ?? 500;
-                  final viewBoxHeight = spec?['viewBox']?['height'] ?? 1000;
+                  final workingArea = spec?['viewBox']?['scaling']?['workingArea'];
+                  final workingWidth = workingArea?['width'] ?? 400;
+                  final workingHeight = workingArea?['height'] ?? 1000;
                   final displayScale = spec?['viewBox']?['scaling']?['displayScale'] ?? 0.6;
                   
                   final scaledWidth = constraints.maxWidth * displayScale;
-                  final height = (scaledWidth * viewBoxHeight) / viewBoxWidth;
+                  final height = (scaledWidth * workingHeight) / workingWidth;
+                  
+                  print('Diagram scaling: width=$scaledWidth, height=$height');
+                  print('Working area: width=$workingWidth, height=$workingHeight');
+                  print('Constraints: ${constraints.toString()}');
                   
                   return SizedBox(
                     width: scaledWidth,
                     height: height,
-                    child: _mountainSvgContent == null
-                        ? const Center(child: CircularProgressIndicator())
-                        : SvgPicture.string(
-                            _mountainSvgContent!,
-                            key: ValueKey(_mountainSvgContent.hashCode),
-                            fit: BoxFit.fill,
-                          ),
+                    child: SvgPicture.string(
+                      _mountainSvgContent!,
+                      key: ValueKey(_mountainSvgContent.hashCode),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.topCenter,
+                    ),
                   );
                 }
               ),
