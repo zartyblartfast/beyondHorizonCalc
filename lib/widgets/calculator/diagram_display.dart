@@ -34,6 +34,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   String? _mountainSvgContent;
   TestDiagramViewModel? _testViewModel;
   MountainDiagramViewModel? _mountainViewModel;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void didUpdateWidget(DiagramDisplay oldWidget) {
@@ -50,6 +51,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         oldWidget.presetName != widget.presetName) {
       developer.log('DiagramDisplay - Props changed, calling _loadAndUpdateSvg', name: 'DiagramDisplay');
       _loadAndUpdateSvg();
+      // Reset scroll position to top
+      _scrollController.jumpTo(0);
     } else {
       developer.log('DiagramDisplay - Widget updated, but no relevant changes detected', name: 'DiagramDisplay');
     }
@@ -193,6 +196,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -261,18 +265,26 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                   
                   return SizedBox(
                     width: scaledWidth,
-                    height: height,
-                    child: _mountainSvgContent == null
-                        ? const Center(child: CircularProgressIndicator())
-                        : DiagramWithInfo(
-                            svgWidget: SvgPicture.string(
-                              _mountainSvgContent!,
-                              key: ValueKey(_mountainSvgContent.hashCode),
-                              fit: BoxFit.fill,
-                              alignment: Alignment.topCenter,
-                            ),
-                            infoKey: 'mountain_diagram',
-                          ),
+                    height: height * 0.6, // Show 60% of the total height
+                    child: ClipRect(
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: SizedBox(
+                          width: scaledWidth,
+                          height: height,
+                          child: _mountainSvgContent == null
+                              ? const Center(child: CircularProgressIndicator())
+                              : DiagramWithInfo(
+                                  svgWidget: SvgPicture.string(
+                                    _mountainSvgContent!,
+                                    fit: BoxFit.fill,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                  infoKey: 'mountain_diagram',
+                                ),
+                        ),
+                      ),
+                    ),
                   );
                 }
               ),
