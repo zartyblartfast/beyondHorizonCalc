@@ -267,21 +267,26 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                     width: scaledWidth,
                     height: height * 0.6, // Show 60% of the total height
                     child: ClipRect(
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: SizedBox(
-                          width: scaledWidth,
-                          height: height,
-                          child: _mountainSvgContent == null
-                              ? const Center(child: CircularProgressIndicator())
-                              : DiagramWithInfo(
-                                  svgWidget: SvgPicture.string(
-                                    _mountainSvgContent!,
-                                    fit: BoxFit.fill,
-                                    alignment: Alignment.topCenter,
+                      child: Scrollbar(
+                        thumbVisibility: true,  // Always show the scrollbar
+                        thickness: 6.0,         // Slightly thinner than default
+                        radius: const Radius.circular(10),  // Rounded corners
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          child: SizedBox(
+                            width: scaledWidth,
+                            height: height,
+                            child: _mountainSvgContent == null
+                                ? const Center(child: CircularProgressIndicator())
+                                : DiagramWithInfo(
+                                    svgWidget: SvgPicture.string(
+                                      _mountainSvgContent!,
+                                      fit: BoxFit.fill,
+                                      alignment: Alignment.topCenter,
+                                    ),
+                                    infoKey: 'mountain_diagram',
                                   ),
-                                  infoKey: 'mountain_diagram',
-                                ),
+                          ),
                         ),
                       ),
                     ),

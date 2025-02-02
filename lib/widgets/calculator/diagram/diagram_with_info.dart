@@ -12,7 +12,7 @@ class DiagramWithInfo extends StatelessWidget {
     super.key,
     required this.svgWidget,
     required this.infoKey,
-    this.iconSize = 16,
+    this.iconSize = 20,  // Match the standard InfoIcon size
     this.padding = const EdgeInsets.all(8.0),
   });
 
