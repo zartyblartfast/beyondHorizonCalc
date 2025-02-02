@@ -41,7 +41,7 @@ class _HelpPageState extends State<HelpPage> {
             const SlidesViewer(),
             const SizedBox(height: 32),
             const Text(
-              'Famous Long Lines of Sight',
+              'Notable Long Lines of Sight',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

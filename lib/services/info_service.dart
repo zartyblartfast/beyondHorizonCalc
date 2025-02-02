@@ -15,7 +15,7 @@ class InfoService {
       // Update presets info with dynamic content
       final presetsInfo = await PresetInfoService.generatePresetsInfo();
       _content!['presets'] = {
-        'title': 'Famous Lines of Sight',
+        'title': 'Notable Lines of Sight',
         'content': presetsInfo,
         'content_type': 'html'
       };

@@ -93,7 +93,7 @@ class _PresetSelectorState extends State<PresetSelector> {
                           isExpanded: true,
                           value: widget.selectedPreset,
                           decoration: InputDecoration(
-                            labelText: 'Famous Line of Sight',
+                            labelText: 'Notable Line of Sight',
                             border: const OutlineInputBorder(),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             contentPadding: isNarrow 

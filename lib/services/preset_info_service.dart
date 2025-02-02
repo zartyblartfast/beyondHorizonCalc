@@ -21,15 +21,26 @@ class PresetInfoService {
 
         content.writeln('<li><strong>${preset['name']}</strong>');
         content.writeln('<p class="preset-details">');
+        content.writeln('Observer Height: ${preset['observerHeight']}m<br>');
+        content.writeln('Target Height: ${preset['targetHeight']}m<br>');
+        content.writeln('Distance: ${preset['distance']}km<br>');
+        final hiddenHeight = (preset['targetHeight'] - preset['observerHeight']) * 0.7;
+        content.writeln('Hidden Height: ~${hiddenHeight.round()}m<br>');
         content.writeln('From ${observer['name']}, ${observer['region']}, ${observer['country']} ');
         content.writeln('to ${target['name']}, ${target['region']}, ${target['country']}.<br>');
-        content.writeln('Distance: ${preset['distance']} km<br>');
         content.writeln('Best viewing conditions: ${details['bestViewingConditions']}<br>');
         content.writeln('${details['notes']}');
         content.writeln('</p>');
         content.writeln('</li>');
       }
 
+      content.writeln('</ul>');
+      content.writeln('<p>Each preset includes accurate measurements based on real-world data:</p>');
+      content.writeln('<ul>');
+      content.writeln('<li><strong>Observer Height (h1):</strong> Height of the viewing position above sea level</li>');
+      content.writeln('<li><strong>Target Height:</strong> Height of the distant object above sea level</li>');
+      content.writeln('<li><strong>Distance:</strong> Direct line of sight distance between observer and target</li>');
+      content.writeln('<li><strong>Hidden Height:</strong> Approximate height hidden by Earth\'s curvature (varies with refraction)</li>');
       content.writeln('</ul>');
       content.writeln('<p>Select \'Custom Values\' to input your own measurements.</p>');
       
@@ -64,58 +75,66 @@ class PresetInfoService {
       // Cases
       content.writeln('<div class="section">');
       content.writeln('<h3>Notable Cases</h3>');
-      
+      content.writeln('<ul>');
+
       for (var preset in presetList) {
         final details = preset['details'];
         final location = details['location'];
         final observer = location['observer'];
         final target = location['target'];
+        final hiddenHeight = (preset['targetHeight'] - preset['observerHeight']) * 0.7;
 
-        content.writeln('<div class="case">');
+        content.writeln('<li>');
         content.writeln('<h4>${preset['name']}</h4>');
+        content.writeln('<div class="measurements">');
+        content.writeln('<p><strong>Key Measurements:</strong></p>');
+        content.writeln('<ul>');
+        content.writeln('<li>Observer Height (h1): ${preset['observerHeight']}m</li>');
+        content.writeln('<li>Target Height: ${preset['targetHeight']}m</li>');
+        content.writeln('<li>Distance: ${preset['distance']}km</li>');
+        content.writeln('<li>Hidden Height: ~${hiddenHeight.round()}m</li>');
+        content.writeln('</ul>');
+        content.writeln('</div>');
         
-        // Location Details
         content.writeln('<div class="location-details">');
-        content.writeln('<p><strong>Observer Location:</strong><br>');
-        content.writeln('${observer['name']}, ${observer['region']}, ${observer['country']}<br>');
-        content.writeln('Elevation: ${observer['elevation']} meters</p>');
-        
-        content.writeln('<p><strong>Target Location:</strong><br>');
-        content.writeln('${target['name']}, ${target['region']}, ${target['country']}<br>');
-        content.writeln('Height: ${target['height']} meters</p>');
-        
-        content.writeln('<p><strong>Distance:</strong> ${preset['distance']} kilometers</p>');
+        content.writeln('<p><strong>Location Details:</strong></p>');
+        content.writeln('<p>From: ${observer['name']}, ${observer['region']}, ${observer['country']}<br>');
+        content.writeln('To: ${target['name']}, ${target['region']}, ${target['country']}</p>');
         content.writeln('</div>');
-        
-        // Viewing Conditions
-        content.writeln('<div class="conditions">');
-        content.writeln('<p><strong>Best Viewing Conditions:</strong><br>');
-        content.writeln('${details['bestViewingConditions']}</p>');
-        content.writeln('</div>');
-        
-        // Additional Notes
-        if (details['notes']?.isNotEmpty ?? false) {
-          content.writeln('<div class="notes">');
-          content.writeln('<p><strong>Notes:</strong><br>');
-          content.writeln('${details['notes']}</p>');
-          content.writeln('</div>');
+
+        content.writeln('<div class="viewing-conditions">');
+        content.writeln('<p><strong>Best Viewing Conditions:</strong> ${details['bestViewingConditions']}</p>');
+        if (details['notes'] != null && details['notes'].isNotEmpty) {
+          content.writeln('<p><strong>Notes:</strong> ${details['notes']}</p>');
         }
-        
-        content.writeln('</div>'); // End of case
+        content.writeln('</div>');
+        content.writeln('</li>');
+        content.writeln('<hr>');
       }
-      
-      content.writeln('</div>'); // End of cases section
-      
+
+      content.writeln('</ul>');
+      content.writeln('</div>');
+
+      // Explanation of Measurements
+      content.writeln('<div class="section">');
+      content.writeln('<h3>Understanding the Measurements</h3>');
+      content.writeln('<ul>');
+      content.writeln('<li><strong>Observer Height (h1):</strong> Height of the viewing position above sea level</li>');
+      content.writeln('<li><strong>Target Height:</strong> Height of the distant object above sea level</li>');
+      content.writeln('<li><strong>Distance:</strong> Direct line of sight distance between observer and target</li>');
+      content.writeln('<li><strong>Hidden Height:</strong> Approximate height hidden by Earth\'s curvature (varies with refraction)</li>');
+      content.writeln('</ul>');
+      content.writeln('</div>');
+
       // Footer
       content.writeln('<div class="footer">');
-      content.writeln('<p><em>Generated by Beyond Horizon Calculator</em></p>');
-      content.writeln('<p>For custom calculations, use the calculator with your own measurements.</p>');
+      content.writeln('<p><em>Generated by Beyond Horizon Calculator - ${DateTime.now().toLocal().toString().split('.')[0]}</em></p>');
       content.writeln('</div>');
       
       return content.toString();
     } catch (e) {
       print('Error generating preset report: $e');
-      return '<p>Error generating the report.</p>';
+      return '<p>Error generating report.</p>';
     }
   }
 }
