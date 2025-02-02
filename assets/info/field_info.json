@@ -49,14 +49,16 @@
     "content": "<p>Shows how the Apparent Visible Height (CD) would appear to an observer's eye when accounting for perspective scaling with distance.</p><ul><li>Takes the Apparent Visible Height calculated above and applies perspective scaling</li><li>Based on the pinhole camera model of human vision where objects appear smaller with distance</li><li>Calculated using: Height = (Focal Length × Apparent Visible Height) / Distance</li><li>Uses a standard focal length to approximate typical human visual perception</li></ul>",
     "content_type": "html"
   },
-  "horizon_diagram": {
-    "title": "Horizon Diagram",
-    "content": "<p>This diagram illustrates the line of sight view from observer to target:</p><ul><li>Vertical perspective (not to scale) showing height relationships</li><li>Observer position (h1) on left</li><li>Target position and visible/hidden portions on right</li><li>Earth's curvature shown affecting visibility</li><li>All measurements account for standard atmospheric refraction</li></ul>",
-    "content_type": "html"
+    "horizon_diagram": {
+      "title": "Horizon Diagram",
+      "content": "<p>This diagram provides a cross-sectional view illustrating how Earth's curvature affects visibility (not to scale). Key elements and distances are marked and explained below:</p><ul><li><strong>ABC</strong> = Observer's Line of Sight (LoS)<ul><li><strong>A</strong> = Observer's position and height above sea level (h₁)</li><li><strong>B</strong> = Apparent horizon as seen by the observer</li><li><strong>C</strong> = Point where the observer's LoS intersects line OXC</li></ul></li><li><strong>Earth's Reference Points</strong>:<ul><li><strong>O</strong> = Origin (center of the Earth)</li><li><strong>X</strong> = Sea level directly beneath the distant object or structure (base point on OC)</li><li><strong>XC</strong> = Hidden height (h₂) beyond the horizon, below the LoS</li></ul></li><li><strong>Target Structure Details</strong>:<ul><li><strong>Z</strong> = Top of the object/structure located at X</li><li><strong>XZ</strong> = Target height of the object/structure above sea level</li><li><strong>CZ</strong> = Visible portion of the object/structure above the apparent horizon</li></ul></li><li><strong>Distance Measurements</strong>:<ul><li><strong>LO</strong> = Sea level distance from the observer's location to the distant object/structure's base at X</li><li><strong>L₁</strong> = Sea level distance from the observer's location to the horizon (A to B)</li><li><strong>L₂</strong> = Sea level distance from the horizon to the object's base (B to X)</li><li><strong>D₀</strong> = Line of Sight distance from A to C</li><li><strong>D₁</strong> = Line of Sight distance from A to B</li><li><strong>D₂</strong> = Line of Sight distance from B to C</li></ul></li></ul>",
+      "content_type": "html"
   },
-  "mountain_diagram": {
-    "title": "Mountain Diagram",
-    "content": "<p>This diagram shows a detailed cross-section view:</p><ul><li>Vertical scale exaggerated to show height relationships clearly</li><li>Observer position with height markers</li><li>Horizon distance and position</li><li>Target position with visible and hidden portions</li><li>Line of sight path accounting for Earth's curvature and refraction</li></ul>",
-    "content_type": "html"
-  }
+    "mountain_diagram": {
+      "title": "Mountain Diagram",
+      "content": "<p>This diagram illustrates the line of sight view from observer to target (as if standing behind the observer). This type of diagram can be 'to scale' because it has vertical perspective that shows the effects of curvature without directly including the distance from observer to the mountain.</p><ul><li><strong>Observer:</strong><ul><li>Observer (red dot)</li><li>Observer's sea level location (grey dashed line)</li><li>Observer Height (h<sub>1</sub>) above sea level</li><li>Observer Horizon (green dashed line)</li></ul></li><li><strong>Mountain:</strong><ul><li>X = Mountain base</li><li>Z = Mountain top</li></ul></li><li><strong>Measurements:</strong><ul><li>h<sub>1</sub> = Observer's height above sea level</li><li>h<sub>2</sub> = Hidden portion of the mountain</li><li>h<sub>3</sub> = Visible portion of the mountain</li><li>XZ = Height of mountain</li></ul></li></ul>",
+      "content_type": "html"
+    }
 }
+  
+
