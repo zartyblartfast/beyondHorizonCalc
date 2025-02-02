@@ -119,11 +119,6 @@ class ResultsDisplay extends StatelessWidget {
                   infoKey: 'horizon_distance',
                 ),
                 _buildResultRow(
-                  'Total Distance (L0)',
-                  _formatDistance(result!.totalDistance),
-                  infoKey: 'total_distance',
-                ),
-                _buildResultRow(
                   'Hidden Height (h2, XC)',
                   _formatHeight(result!.hiddenHeight),
                   infoKey: 'hidden_height',
