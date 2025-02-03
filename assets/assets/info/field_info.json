@@ -21,7 +21,12 @@
   },
   "horizon_distance": {
     "title": "Distance to Horizon (D1)",
-    "content": "<p>The ground level distance from the observer's location to the horizon.</p><p>This distance increases with observer height due to the Earth's spherical geometry. The calculation uses the formula:</p><pre>D1 = √(2 × h1 × R)</pre><p>Where:</p><ul><li>D1 is the distance to horizon</li><li>h1 is observer height above sea level</li><li>R is Earth's radius × refraction factor</li></ul><p>The higher the observer's position, the greater the distance to the visible horizon.</p>",
+    "content": "<p>The distance from the observer to their visible horizon.</p><ul><li>Calculated using the Pythagorean theorem</li><li>Increases with observer height</li><li>Affected by atmospheric refraction</li><li>Represents maximum unobstructed viewing distance</li></ul>",
+    "content_type": "html"
+  },
+  "dip_angle": {
+    "title": "Horizon Dip Angle",
+    "content": "<p>The angle between the horizontal plane at the observer's eye level and their line of sight to the horizon.</p><ul><li>Calculated using spherical geometry: dip = arccos(R / (R + h))</li><li>Increases with observer height</li><li>Tells you how many degrees you need to look down to see the horizon</li><li>Affected by atmospheric refraction (included in calculation)</li><li>Important for:<ul><li>Navigation and surveying</li><li>Photography and visual observations</li><li>Understanding how much the horizon appears to 'drop' below eye level</li></ul></li></ul>",
     "content_type": "html"
   },
   "hidden_height": {
