@@ -197,19 +197,26 @@ $criticalFiles = @(
     "flutter.js",
     "flutter_bootstrap.js",
     "favicon.png",
-    "manifest.json"
+    "manifest.json",
+    "assets/social_preview.png"
 )
 
-$missingFiles = @()
 foreach ($file in $criticalFiles) {
-    if (-not (Test-Path "$TempBuildDir\$file")) {
-        $missingFiles += $file
+    $filePath = Join-Path $TempBuildDir $file
+    if (-not (Test-Path $filePath)) {
+        Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Critical file missing from build: $file"
     }
 }
+Write-Success "All critical files present"
 
-if ($missingFiles.Count -gt 0) {
-    Restore-InitialState -OriginalBranch $originalBranch -ErrorMessage "Missing critical files in new build: $($missingFiles -join ', ')"
+# Ensure assets directory exists and copy social preview image
+Write-Step "Ensuring social preview image is in place..."
+$assetsDir = Join-Path $TempBuildDir "assets"
+if (-not (Test-Path $assetsDir)) {
+    New-Item -ItemType Directory -Path $assetsDir | Out-Null
 }
+Copy-Item "web/assets/social_preview.png" -Destination (Join-Path $assetsDir "social_preview.png") -Force
+Write-Success "Social preview image copied to assets directory"
 
 Write-Step "Switching to $GhPagesBranch branch..."
 git checkout $GhPagesBranch
