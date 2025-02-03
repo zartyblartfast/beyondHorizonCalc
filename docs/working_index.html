@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A horizon visibility calculator to show how much of a distant object is hidden by Earth's curvature">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate Earth's curvature effect on long-distance visibility. Perfect for photographers, mountain views, coastal observations, and long line of sight calculations. Determine hidden height and visible portions of distant objects.">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="earth curvature calculator, long line of sight calculator, horizon distance calculator, mountain visibility, coastal visibility, earth curve hidden height, long distance photography, atmospheric refraction calculator, distant object visibility, mountain peak visibility, sea level calculator, geodetic visibility, observation point height, target visibility calculator, earth bulge calculator">
+  <meta name="author" content="Beyond Horizon Calculator">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <link rel="canonical" href="https://beyondhorizoncalc.com/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://beyondhorizoncalc.com/">
+  <meta property="og:title" content="Beyond Horizon Calculator - Earth Curvature & Long Distance Visibility Calculator">
+  <meta property="og:description" content="Calculate Earth's curvature effect on long-distance visibility. Perfect for photographers, mountain views, coastal observations, and long line of sight calculations. Determine hidden height and visible portions of distant objects.">
+  <meta property="og:image" content="https://beyondhorizoncalc.com/assets/social_preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Beyond Horizon Calculator - Calculate object visibility over Earth's curvature">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://beyondhorizoncalc.com/">
+  <meta name="twitter:title" content="Beyond Horizon Calculator - Earth Curvature & Long Distance Visibility Calculator">
+  <meta name="twitter:description" content="Calculate Earth's curvature effect on long-distance visibility. Perfect for photographers, mountain views, coastal observations, and long line of sight calculations. Determine hidden height and visible portions of distant objects.">
+  <meta name="twitter:image" content="https://beyondhorizoncalc.com/assets/social_preview.png">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,9 +38,50 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Beyond Horizon Calculator</title>
+  <title>Beyond Horizon Calculator - Earth Curvature & Long Distance Visibility Calculator</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Schema.org markup for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Beyond Horizon Calculator",
+    "description": "Calculate Earth's curvature effect on long-distance visibility. Perfect for photographers, mountain views, coastal observations, and long line of sight calculations. Determine hidden height and visible portions of distant objects.",
+    "url": "https://beyondhorizoncalc.com",
+    "image": "https://beyondhorizoncalc.com/assets/social_preview.png",
+    "applicationCategory": "CalculatorApplication",
+    "keywords": "earth curvature calculator, long line of sight calculator, horizon distance calculator, mountain visibility, coastal visibility, earth curve hidden height",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Dynamic base href handling -->
+  <script>
+    (function() {
+      var host = window.location.hostname.toLowerCase();
+      var basePath = "/";  // Default for custom domain (beyondhorizoncalc.com)
+      
+      // If on GitHub Pages domain, use the repository path
+      if (host === "zartyblartfast.github.io") {
+        basePath = "/beyondHorizonCalc/";
+      }
+
+      // Create and insert base tag
+      var baseTag = document.createElement('base');
+      baseTag.href = basePath;
+      document.head.appendChild(baseTag);
+
+      // Store the base path for any script that might need it
+      window.beyondHorizonBaseHref = basePath;
+    })();
+  </script>
 
   <style>
     .loading-container {
@@ -60,46 +114,6 @@
       100% { transform: rotate(360deg); }
     }
   </style>
-
-  <!-- Dynamic base href handling -->
-  <script>
-    (function() {
-      var host = window.location.hostname.toLowerCase();
-      var basePath = "/";  // Default for custom domain (beyondhorizoncalc.com)
-      
-      // If on GitHub Pages domain, use the repository path
-      if (host === "zartyblartfast.github.io") {
-        basePath = "/beyondHorizonCalc/";
-      }
-
-      // Create and insert base tag
-      var baseTag = document.createElement('base');
-      baseTag.href = basePath;
-      document.head.appendChild(baseTag);
-
-      // Store the base path for any script that might need it
-      window.beyondHorizonBaseHref = basePath;
-    })();
-  </script>
-
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Initialize Flutter -->
-  <script>
-    // Ensure service worker uses the correct scope based on base href
-    window.addEventListener('load', function() {
-      if ('serviceWorker' in navigator) {
-        var swScope = window.beyondHorizonBaseHref || '/';
-        navigator.serviceWorker.register('flutter_service_worker.js', { scope: swScope })
-          .then(function(reg) {
-            console.log('Service worker registered with scope:', reg.scope);
-          })
-          .catch(function(err) {
-            console.error('Service worker registration failed:', err);
-          });
-      }
-    });
-  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
