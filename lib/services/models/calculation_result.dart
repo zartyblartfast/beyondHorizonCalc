@@ -8,6 +8,7 @@ class CalculationResult {
   final double? perspectiveScaledHeight; // in kilometers
   final double? inputDistance;      // in kilometers/miles based on isMetric
   final double? h1;                 // observer height in meters/feet based on isMetric
+  final double? dipAngle;          // angle in degrees to look down to horizon
 
   const CalculationResult({
     this.horizonDistance = 0,
@@ -19,6 +20,7 @@ class CalculationResult {
     this.perspectiveScaledHeight = 0,
     this.inputDistance = 0,
     this.h1 = 0,
+    this.dipAngle = 0,
   });
 
   // Convert to Map for backward compatibility with existing code
@@ -33,6 +35,7 @@ class CalculationResult {
       'perspectiveScaledHeight': perspectiveScaledHeight,
       'inputDistance': inputDistance,
       'h1': h1,
+      'dipAngle': dipAngle,
     };
   }
 
@@ -48,6 +51,7 @@ class CalculationResult {
       perspectiveScaledHeight: map['perspectiveScaledHeight'] as double?,
       inputDistance: map['inputDistance'] as double?,
       h1: map['h1'] as double?,
+      dipAngle: map['dipAngle'] as double?,
     );
   }
 }

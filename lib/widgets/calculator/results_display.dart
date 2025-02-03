@@ -119,6 +119,11 @@ class ResultsDisplay extends StatelessWidget {
                   infoKey: 'horizon_distance',
                 ),
                 _buildResultRow(
+                  'Horizon Dip Angle',
+                  '${result!.dipAngle?.toStringAsFixed(2) ?? 'N/A'}°',
+                  infoKey: 'dip_angle',
+                ),
+                _buildResultRow(
                   'Hidden Height (h2, XC)',
                   _formatHeight(result!.hiddenHeight),
                   infoKey: 'hidden_height',

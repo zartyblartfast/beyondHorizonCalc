@@ -55,7 +55,23 @@ class CurvatureCalculator {
     // Calculate total distance (d0) and visible distance (d2)
     final double d2 = R * math.sin(BOX_angle);
     final double d0 = d1 + d2;
-    
+
+    // Calculate geometric dip angle
+    final double dipAngle = math.acos(R / (R + heightMeters)) * (180 / math.pi);
+
+    // If no target height, return basic calculations
+    if (targetHeightMeters == null) {
+      return CalculationResult(
+        horizonDistance: d1 / 1000,  // Convert to km
+        hiddenHeight: hiddenHeight,
+        totalDistance: d0 / 1000,  // Convert to km
+        visibleDistance: d2 / 1000,  // Convert to km
+        inputDistance: distance,  // Store original input
+        h1: observerHeight,  // Store original input
+        dipAngle: dipAngle,  // Add dip angle
+      );
+    }
+
     // Calculate visible height of target if target height is provided
     double visibleTargetHeight = 0;
     double apparentVisibleHeight = 0;
@@ -84,15 +100,16 @@ class CurvatureCalculator {
     final double distanceConversion = isMetric ? 0.001 : 0.000621371; // meters to km/mi
 
     return CalculationResult(
-      horizonDistance: d1 * distanceConversion,
-      hiddenHeight: hiddenHeight,  
-      totalDistance: d0 * distanceConversion,
-      visibleDistance: (d0 - d1) * distanceConversion,
+      horizonDistance: d1 / 1000,  // Convert to km
+      hiddenHeight: hiddenHeight,
+      totalDistance: d0 / 1000,  // Convert to km
+      visibleDistance: d2 / 1000,  // Convert to km
       visibleTargetHeight: visibleTargetHeight / 1000,  
       apparentVisibleHeight: apparentVisibleHeight / 1000,
       perspectiveScaledHeight: perspectiveScaledHeight / 1000,
       inputDistance: distance,  // Original input distance
       h1: observerHeight,  // Store original input value
+      dipAngle: dipAngle,  // Add dip angle
     );
   }
 }
