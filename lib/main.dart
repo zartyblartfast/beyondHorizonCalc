@@ -150,6 +150,17 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            const SizedBox(height: 8),  // Add spacing between links
+            InkWell(
+              onTap: () => _launchURL('https://www.facebook.com/groups/1129036478659732'),
+              child: const Row(
+                children: [
+                  Icon(Icons.facebook_outlined),  // Using Facebook icon
+                  SizedBox(width: 8),
+                  Text('Join "Beyond Horizon" on Facebook'),
+                ],
+              ),
+            ),
           ],
         ),
         actions: [
