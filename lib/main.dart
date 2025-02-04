@@ -233,6 +233,8 @@ class _HomePageState extends State<HomePage> {
         return Icons.share;
       case 'list_alt':
         return Icons.list_alt;
+      case 'facebook':
+        return Icons.facebook_outlined;
       default:
         return Icons.error_outline;
     }
