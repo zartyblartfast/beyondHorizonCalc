@@ -129,6 +129,31 @@
         "bestViewingConditions": "Clear weather with average refraction",
         "imageUrl": null
       }
+    },
+    {
+      "name": "Fort Niagra State Pk to Toronto",
+      "description": "View from Fort Niagra State Park, NY to the CN Tower in Toronto",
+      "observerHeight": 2,
+      "distance": 51,
+      "refractionFactor": 1.20,
+      "targetHeight": 533,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Fort Niagra State Park",
+            "region": "New York",
+            "country": "United States"
+          },
+          "target": {
+            "name": "CN Tower",
+            "region": "Ontario",
+            "country": "Canada"
+          }
+        },
+        "notes": "Cross-lake view from New York State to Toronto's iconic CN Tower, demonstrating visibility across Lake Ontario",
+        "bestViewingConditions": "Clear weather with high refraction (1.20) for optimal visibility",
+        "imageUrl": null
+      }
     }
   ]
 }
