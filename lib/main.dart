@@ -334,39 +334,37 @@ class _HomePageState extends State<HomePage> {
                               leading: Icon(_getIconData(item.icon)),
                               title: Text(item.title),
                               subtitle: item.type == 'link'
-                                  ? SelectionArea(
-                                      child: MouseRegion(
-                                        cursor: SystemMouseCursors.click,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            if (item.url != null) {
-                                              _launchURL(item.url!);
-                                            }
-                                          },
-                                          child: Row(
-                                            children: [
-                                              if (item.id == 'social') ...[
-                                                SvgPicture.asset(
-                                                  'assets/icons/twitter_x.svg',
-                                                  width: 14,
-                                                  height: 14,
-                                                  colorFilter: const ColorFilter.mode(
-                                                    Colors.blue,
-                                                    BlendMode.srcIn,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 4),
-                                              ],
-                                              SelectableText(
-                                                item.description,
-                                                style: const TextStyle(
-                                                  color: Colors.blue,
-                                                  decoration: TextDecoration.underline,
-                                                  fontSize: 14,
+                                  ? MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (item.url != null) {
+                                            _launchURL(item.url!);
+                                          }
+                                        },
+                                        child: Row(
+                                          children: [
+                                            if (item.id == 'social_x') ...[
+                                              SvgPicture.asset(
+                                                'assets/icons/twitter_x.svg',
+                                                width: 14,
+                                                height: 14,
+                                                colorFilter: const ColorFilter.mode(
+                                                  Colors.blue,
+                                                  BlendMode.srcIn,
                                                 ),
                                               ),
+                                              const SizedBox(width: 4),
                                             ],
-                                          ),
+                                            Text(
+                                              item.description,
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                                decoration: TextDecoration.underline,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     )
