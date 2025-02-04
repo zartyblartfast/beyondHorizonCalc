@@ -115,9 +115,23 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    /* Static content styles */
+    #static-content {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
   </style>
 </head>
 <body>
+  <!-- Static content for crawlers -->
+  <div id="static-content">
+    <h1>Beyond Horizon Calculator - Earth Curvature & Long Distance Visibility Calculator</h1>
+    <p>Calculate Earth's curvature effect on long-distance visibility. Perfect for photographers, mountain views, coastal observations, and long line of sight calculations. Determine hidden height and visible portions of distant objects.</p>
+  </div>
+
   <script src="flutter_bootstrap.js" async></script>
   <div class="loading-container">
     <div class="loading-content">
