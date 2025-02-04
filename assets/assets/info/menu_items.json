@@ -23,12 +23,20 @@
       "action": "report"
     },
     {
-      "id": "social",
-      "title": "Follow Us",
+      "id": "social_x",
+      "title": "Follow Us on X",
       "description": "@BeyondHorizon_1",
       "icon": "share",
       "type": "link",
       "url": "https://x.com/BeyondHorizon_1"
+    },
+    {
+      "id": "social_fb",
+      "title": "Join Beyond Horizon",
+      "description": "Join our Facebook group",
+      "icon": "facebook",
+      "type": "link",
+      "url": "https://www.facebook.com/groups/1129036478659732"
     }
   ]
 }
