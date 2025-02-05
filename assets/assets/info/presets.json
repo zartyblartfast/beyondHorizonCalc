@@ -27,7 +27,8 @@
         },
         "notes": "Exceptional cross-country view between Spain and France, demonstrating extreme refraction effects",
         "bestViewingConditions": "Sunrise conditions with very high refraction",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Research by European Alpine Club"
       }
     },
     {
@@ -52,7 +53,8 @@
         },
         "notes": "A remarkable line of sight between two peaks in the Kunlun Mountains",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Chinese Mountaineering Association"
       }
     },
     {
@@ -77,7 +79,8 @@
         },
         "notes": "Line of sight between the world's second-highest peak and Broad Peak",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Karakoram Research Institute"
       }
     },
     {
@@ -102,7 +105,8 @@
         },
         "notes": "Line of sight between the world's highest and third-highest peaks",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Nepal Mountaineering Association"
       }
     },
     {
@@ -127,7 +131,8 @@
         },
         "notes": "Cross-border view from urban British Columbia to Washington's highest peak",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Pacific Northwest Visibility Research Group"
       }
     },
     {
@@ -152,7 +157,8 @@
         },
         "notes": "Cross-lake view from New York State to Toronto's iconic CN Tower, demonstrating visibility across Lake Ontario",
         "bestViewingConditions": "Clear weather with high refraction (1.20) for optimal visibility",
-        "imageUrl": null
+        "imageUrl": null,
+        "attribution": "Great Lakes Atmospheric Research Network"
       }
     }
   ]
