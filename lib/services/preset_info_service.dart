@@ -29,7 +29,10 @@ class PresetInfoService {
         content.writeln('From ${observer['name']}, ${observer['region']}, ${observer['country']} ');
         content.writeln('to ${target['name']}, ${target['region']}, ${target['country']}.<br>');
         content.writeln('Best viewing conditions: ${details['bestViewingConditions']}<br>');
-        content.writeln('${details['notes']}');
+        content.writeln('${details['notes']}<br>');
+        if (details['attribution'] != null) {
+          content.writeln('Attribution: ${details['attribution']}');
+        }
         content.writeln('</p>');
         content.writeln('</li>');
       }
@@ -106,6 +109,9 @@ class PresetInfoService {
         content.writeln('<p><strong>Best Viewing Conditions:</strong> ${details['bestViewingConditions']}</p>');
         if (details['notes'] != null && details['notes'].isNotEmpty) {
           content.writeln('<p><strong>Notes:</strong> ${details['notes']}</p>');
+        }
+        if (details['attribution'] != null) {
+          content.writeln('<p><strong>Attribution:</strong> ${details['attribution']}</p>');
         }
         content.writeln('</div>');
         content.writeln('</li>');
