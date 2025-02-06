@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "lastUpdated": "2025-01-17",
+    "lastUpdated": "2025-02-06",
     "description": "Collection of famous long-distance visibility cases from around the world"
   },
   "presets": [
@@ -201,6 +201,303 @@
         "imageURL_4": null,
         "imageURL_4_source": null,
         "attribution": "Great Lakes Atmospheric Research Network"
+      }
+    },
+    {
+      "name": "Mount Dankova to Hindu Tagh",
+      "description": "View from Mount Dankova (Kyrgyzstan) to Hindu Tagh (China)",
+      "observerHeight": 5934,
+      "distance": 542,
+      "refractionFactor": 1.07,
+      "targetHeight": 6421,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Mount Dankova",
+            "region": "Hindu Kush",
+            "country": "Kyrgyzstan"
+          },
+          "target": {
+            "name": "Hindu Tagh",
+            "region": "Hindu Kush",
+            "country": "China"
+          }
+        },
+        "notes": "One of the longest documented lines of sight at 542 km",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Hindu Tagh to Kongur Tube",
+      "description": "View from Hindu Tagh to Kongur Tube in the Hindu Kush range",
+      "observerHeight": 5420,
+      "distance": 506,
+      "refractionFactor": 1.07,
+      "targetHeight": 7530,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Hindu Tagh",
+            "region": "Hindu Kush",
+            "country": "China"
+          },
+          "target": {
+            "name": "Kongur Tube",
+            "region": "Hindu Kush",
+            "country": "China"
+          }
+        },
+        "notes": "Notable intra-range visibility within the Hindu Kush mountains",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Alto Mora to Pico La Reina",
+      "description": "View from Alto Mora to Pico La Reina in Colombia",
+      "observerHeight": 3367,
+      "distance": 505,
+      "refractionFactor": 1.15,
+      "targetHeight": 5535,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Alto Mora",
+            "region": "Colombia",
+            "country": "Colombia"
+          },
+          "target": {
+            "name": "Pico La Reina",
+            "region": "Sierra Nevada de Santa Marta",
+            "country": "Colombia"
+          }
+        },
+        "notes": "One of two remarkable sightings from Alto Mora to the Sierra Nevada peaks",
+        "bestViewingConditions": "Clear weather with elevated refraction (1.15)",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Alto Mora to Pico Cristobal Colon",
+      "description": "View from Alto Mora to Pico Cristobal Colon in Colombia",
+      "observerHeight": 3367,
+      "distance": 502,
+      "refractionFactor": 1.15,
+      "targetHeight": 5775,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Alto Mora",
+            "region": "Colombia",
+            "country": "Colombia"
+          },
+          "target": {
+            "name": "Pico Cristobal Colon",
+            "region": "Sierra Nevada de Santa Marta",
+            "country": "Colombia"
+          }
+        },
+        "notes": "Second of two remarkable sightings from Alto Mora to the Sierra Nevada peaks",
+        "bestViewingConditions": "Clear weather with elevated refraction (1.15)",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Kongur Tagh to Hindu Kush Peak",
+      "description": "View from Kongur Tagh to an unnamed peak in the Hindu Kush",
+      "observerHeight": 7649,
+      "distance": 500,
+      "refractionFactor": 1.07,
+      "targetHeight": 5017,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Kongur Tagh",
+            "region": "Hindu Kush",
+            "country": "China"
+          },
+          "target": {
+            "name": "Unnamed Peak",
+            "region": "Hindu Kush",
+            "country": "China"
+          }
+        },
+        "notes": "Notable sighting from one of the highest peaks in the Hindu Kush range",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Cerro Paramillo to Pico La Reina",
+      "description": "View from Cerro Paramillo to Pico La Reina in Colombia",
+      "observerHeight": 3724,
+      "distance": 491,
+      "refractionFactor": 1.07,
+      "targetHeight": 5535,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Cerro Paramillo",
+            "region": "Colombia",
+            "country": "Colombia"
+          },
+          "target": {
+            "name": "Pico La Reina",
+            "region": "Sierra Nevada de Santa Marta",
+            "country": "Colombia"
+          }
+        },
+        "notes": "First of two remarkable sightings from Cerro Paramillo to the Sierra Nevada peaks",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Cerro Paramillo to Pico Cristobal Colon",
+      "description": "View from Cerro Paramillo to Pico Cristobal Colon in Colombia",
+      "observerHeight": 3724,
+      "distance": 484,
+      "refractionFactor": 1.07,
+      "targetHeight": 5775,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Cerro Paramillo",
+            "region": "Colombia",
+            "country": "Colombia"
+          },
+          "target": {
+            "name": "Pico Cristobal Colon",
+            "region": "Sierra Nevada de Santa Marta",
+            "country": "Colombia"
+          }
+        },
+        "notes": "Second of two remarkable sightings from Cerro Paramillo to the Sierra Nevada peaks",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Kanchenjunga to Parasnath",
+      "description": "View from Kanchenjunga to Parasnath in India",
+      "observerHeight": 8586,
+      "distance": 462,
+      "refractionFactor": 1.07,
+      "targetHeight": 1360,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Kanchenjunga",
+            "region": "Himalaya",
+            "country": "India"
+          },
+          "target": {
+            "name": "Parasnath",
+            "region": "General",
+            "country": "India"
+          }
+        },
+        "notes": "Notable sighting from Kanchenjunga, which also appears in another preset as viewed from Mount Everest",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
+      }
+    },
+    {
+      "name": "Mount Everest to Parasnath",
+      "description": "View from Mount Everest to Parasnath in India",
+      "observerHeight": 8848,
+      "distance": 455,
+      "refractionFactor": 1.07,
+      "targetHeight": 1360,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Mount Everest",
+            "region": "Himalaya",
+            "country": "Nepal"
+          },
+          "target": {
+            "name": "Parasnath",
+            "region": "General",
+            "country": "India"
+          }
+        },
+        "notes": "Notable sighting from Mount Everest, which also appears in another preset viewing Kanchenjunga",
+        "bestViewingConditions": "Clear weather with standard refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": null
       }
     }
   ]
