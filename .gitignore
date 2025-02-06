@@ -31,6 +31,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Windows Flutter ephemeral files
+**/windows/flutter/ephemeral/
+
 # Symbolication related
 app.*.symbols
 
