@@ -204,39 +204,6 @@
       }
     },
     {
-      "name": "Mount Dankova to Hindu Tagh",
-      "description": "View from Mount Dankova (Kyrgyzstan) to Hindu Tagh (China)",
-      "observerHeight": 5934,
-      "distance": 542,
-      "refractionFactor": 1.07,
-      "targetHeight": 6421,
-      "details": {
-        "location": {
-          "observer": {
-            "name": "Mount Dankova",
-            "region": "Hindu Kush",
-            "country": "Kyrgyzstan"
-          },
-          "target": {
-            "name": "Hindu Tagh",
-            "region": "Hindu Kush",
-            "country": "China"
-          }
-        },
-        "notes": "One of the longest documented lines of sight at 542 km",
-        "bestViewingConditions": "Clear weather with standard refraction",
-        "imageURL_1": null,
-        "imageURL_1_source": null,
-        "imageURL_2": null,
-        "imageURL_2_source": null,
-        "imageURL_3": null,
-        "imageURL_3_source": null,
-        "imageURL_4": null,
-        "imageURL_4_source": null,
-        "attribution": null
-      }
-    },
-    {
       "name": "Hindu Tagh to Kongur Tube",
       "description": "View from Hindu Tagh to Kongur Tube in the Hindu Kush range",
       "observerHeight": 5420,
