@@ -27,7 +27,14 @@
         },
         "notes": "Exceptional cross-country view between Spain and France, demonstrating extreme refraction effects",
         "bestViewingConditions": "Sunrise conditions with very high refraction",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Research by European Alpine Club"
       }
     },
@@ -53,7 +60,14 @@
         },
         "notes": "A remarkable line of sight between two peaks in the Kunlun Mountains",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Chinese Mountaineering Association"
       }
     },
@@ -79,7 +93,14 @@
         },
         "notes": "Line of sight between the world's second-highest peak and Broad Peak",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Karakoram Research Institute"
       }
     },
@@ -105,7 +126,14 @@
         },
         "notes": "Line of sight between the world's highest and third-highest peaks",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Nepal Mountaineering Association"
       }
     },
@@ -131,7 +159,14 @@
         },
         "notes": "Cross-border view from urban British Columbia to Washington's highest peak",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Pacific Northwest Visibility Research Group"
       }
     },
@@ -157,7 +192,14 @@
         },
         "notes": "Cross-lake view from New York State to Toronto's iconic CN Tower, demonstrating visibility across Lake Ontario",
         "bestViewingConditions": "Clear weather with high refraction (1.20) for optimal visibility",
-        "imageUrl": null,
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
         "attribution": "Great Lakes Atmospheric Research Network"
       }
     }
