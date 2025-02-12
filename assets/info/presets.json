@@ -7,6 +7,7 @@
   "presets": [
     {
       "name": "Pic de Finstrelles to Pic Gaspard",
+      "isHidden": true,
       "description": "View from Pic de Finstrelles, Spain to Pic Gaspard, France (best visibility at sunrise with very high refraction)",
       "observerHeight": 2826,
       "distance": 443,
@@ -40,6 +41,7 @@
     },
     {
       "name": "Mount Dankova to Hindu Tagh",
+      "isHidden": false,
       "description": "View from Mount Dankova to Hindu Tagh peak",
       "observerHeight": 7015,
       "distance": 539,
@@ -73,6 +75,7 @@
     },
     {
       "name": "K2 to Broad Peak",
+      "isHidden": false,
       "description": "View from K2 to Broad Peak",
       "observerHeight": 8611,
       "distance": 458,
@@ -106,6 +109,7 @@
     },
     {
       "name": "Mount Everest to Kanchenjunga",
+      "isHidden": false,
       "description": "View from Mount Everest to Kanchenjunga",
       "observerHeight": 8848,
       "distance": 380,
@@ -139,6 +143,7 @@
     },
     {
       "name": "Burnaby to Mount Rainier",
+      "isHidden": false,
       "description": "View from Burnaby, BC to Mount Rainier, Washington",
       "observerHeight": 190,
       "distance": 280,
@@ -172,6 +177,7 @@
     },
     {
       "name": "Fort Niagara State Park to Toronto",
+      "isHidden": false,
       "description": "View from Fort Niagra State Park, NY to the CN Tower in Toronto",
       "observerHeight": 2,
       "distance": 51,
@@ -205,6 +211,7 @@
     },
     {
       "name": "Alto Mora to Pico La Reina",
+      "isHidden": false,
       "description": "View from Alto Mora to Pico La Reina in Colombia",
       "observerHeight": 3367,
       "distance": 505,
@@ -238,6 +245,7 @@
     },
     {
       "name": "Alto Mora to Pico Cristobal Colon",
+      "isHidden": false,
       "description": "View from Alto Mora to Pico Cristobal Colon in Colombia",
       "observerHeight": 3367,
       "distance": 502,
@@ -271,6 +279,7 @@
     },
     {
       "name": "Kongur Tagh to Hindu Kush Peak",
+      "isHidden": false,
       "description": "View from Kongur Tagh to an unnamed peak in the Hindu Kush",
       "observerHeight": 7649,
       "distance": 500,
@@ -304,6 +313,7 @@
     },
     {
       "name": "Cerro Paramillo to Pico La Reina",
+      "isHidden": false,
       "description": "View from Cerro Paramillo to Pico La Reina in Colombia",
       "observerHeight": 3724,
       "distance": 491,
@@ -337,6 +347,7 @@
     },
     {
       "name": "Cerro Paramillo to Pico Cristobal Colon",
+      "isHidden": false,
       "description": "View from Cerro Paramillo to Pico Cristobal Colon in Colombia",
       "observerHeight": 3724,
       "distance": 484,
@@ -370,6 +381,7 @@
     },
     {
       "name": "Kanchenjunga to Parasnath",
+      "isHidden": false,
       "description": "View from Kanchenjunga to Parasnath in India",
       "observerHeight": 8586,
       "distance": 462,
@@ -403,6 +415,7 @@
     },
     {
       "name": "Mount Everest to Parasnath",
+      "isHidden": false,
       "description": "View from Mount Everest to Parasnath in India",
       "observerHeight": 8848,
       "distance": 455,

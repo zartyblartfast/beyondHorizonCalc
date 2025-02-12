@@ -20,11 +20,17 @@ class _HelpPageState extends State<HelpPage> {
   }
 
   Future<void> _loadPresets() async {
-    final presets = await LineOfSightPreset.loadPresets();
-    setState(() {
-      _presets = presets;
-      _isLoading = false;
-    });
+    print('HelpPage - Loading presets');
+    // Load only visible presets
+    final presets = await LineOfSightPreset.loadPresets(includeHidden: false);
+    print('HelpPage - Loaded ${presets.length} visible presets');
+    
+    if (mounted) {
+      setState(() {
+        _presets = presets;
+        _isLoading = false;
+      });
+    }
   }
 
   @override

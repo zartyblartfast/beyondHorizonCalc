@@ -1,7 +1,8 @@
 [
     {
-        "name": "Dankova. to Hindu Tagh\u00a0.",
-        "description": "View from Dankova. to Hindu Tagh\u00a0.",
+        "name": "Dankova. to Hindu Tagh .",
+        "isHidden": true,
+        "description": "View from Dankova. to Hindu Tagh .",
         "observerHeight": 5934,
         "distance": 542,
         "refractionFactor": 1.07,
@@ -14,12 +15,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Hindu Tagh\u00a0.",
+                    "name": "Hindu Tagh .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Dankova. and Hindu Tagh\u00a0.",
+            "notes": "Line of sight between Dankova. and Hindu Tagh .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -34,6 +35,7 @@
     },
     {
         "name": "HinduTagh. to Kongur Tube.",
+        "isHidden": true,
         "description": "View from HinduTagh. to Kongur Tube.",
         "observerHeight": 5420,
         "distance": 506,
@@ -67,6 +69,7 @@
     },
     {
         "name": "Alto Mora. to Pico La Reina.",
+        "isHidden": true,
         "description": "View from Alto Mora. to Pico La Reina.",
         "observerHeight": 3367,
         "distance": 505,
@@ -100,6 +103,7 @@
     },
     {
         "name": "Alto Mora. to Pico Cristobal Colon.",
+        "isHidden": true,
         "description": "View from Alto Mora. to Pico Cristobal Colon.",
         "observerHeight": 3367,
         "distance": 502,
@@ -132,8 +136,9 @@
         }
     },
     {
-        "name": "Kongur Tagh\u00a0. to N/N.",
-        "description": "View from Kongur Tagh\u00a0. to N/N.",
+        "name": "Kongur Tagh . to N/N.",
+        "isHidden": true,
+        "description": "View from Kongur Tagh . to N/N.",
         "observerHeight": 7649,
         "distance": 500,
         "refractionFactor": 1.07,
@@ -141,7 +146,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Kongur Tagh\u00a0.",
+                    "name": "Kongur Tagh .",
                     "region": "",
                     "country": ""
                 },
@@ -151,7 +156,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Kongur Tagh\u00a0. and N/N.",
+            "notes": "Line of sight between Kongur Tagh . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -166,6 +171,7 @@
     },
     {
         "name": "Cerro Paramillo. to Pico La Reina.",
+        "isHidden": true,
         "description": "View from Cerro Paramillo. to Pico La Reina.",
         "observerHeight": 3724,
         "distance": 491,
@@ -199,6 +205,7 @@
     },
     {
         "name": "Cerro Paramillo. to Pico Cristobal Colon.",
+        "isHidden": true,
         "description": "View from Cerro Paramillo. to Pico Cristobal Colon.",
         "observerHeight": 3724,
         "distance": 484,
@@ -231,8 +238,9 @@
         }
     },
     {
-        "name": "Kanchenjunga\u00a0. to Parasnath\u00a0.",
-        "description": "View from Kanchenjunga\u00a0. to Parasnath\u00a0.",
+        "name": "Kanchenjunga . to Parasnath .",
+        "isHidden": true,
+        "description": "View from Kanchenjunga . to Parasnath .",
         "observerHeight": 8586,
         "distance": 462,
         "refractionFactor": 1.07,
@@ -240,17 +248,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Kanchenjunga\u00a0.",
+                    "name": "Kanchenjunga .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Parasnath\u00a0.",
+                    "name": "Parasnath .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Kanchenjunga\u00a0. and Parasnath\u00a0.",
+            "notes": "Line of sight between Kanchenjunga . and Parasnath .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -264,8 +272,9 @@
         }
     },
     {
-        "name": "Everest\u00a0. to Parasnath\u00a0.",
-        "description": "View from Everest\u00a0. to Parasnath\u00a0.",
+        "name": "Everest . to Parasnath .",
+        "isHidden": true,
+        "description": "View from Everest . to Parasnath .",
         "observerHeight": 8848,
         "distance": 455,
         "refractionFactor": 1.07,
@@ -273,17 +282,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Everest\u00a0.",
+                    "name": "Everest .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Parasnath\u00a0.",
+                    "name": "Parasnath .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Everest\u00a0. and Parasnath\u00a0.",
+            "notes": "Line of sight between Everest . and Parasnath .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -297,8 +306,9 @@
         }
     },
     {
-        "name": "Finestrelles. to Pic Gaspard\u00a0.",
-        "description": "View from Finestrelles. to Pic Gaspard\u00a0.",
+        "name": "Finestrelles. to Pic Gaspard .",
+        "isHidden": true,
+        "description": "View from Finestrelles. to Pic Gaspard .",
         "observerHeight": 2828,
         "distance": 443,
         "refractionFactor": 1.07,
@@ -311,12 +321,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pic Gaspard\u00a0.",
+                    "name": "Pic Gaspard .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Finestrelles. and Pic Gaspard\u00a0.",
+            "notes": "Line of sight between Finestrelles. and Pic Gaspard .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -330,8 +340,9 @@
         }
     },
     {
-        "name": "Nanga Parbat\u00a0. to Tor Sar\u00a0.",
-        "description": "View from Nanga Parbat\u00a0. to Tor Sar\u00a0.",
+        "name": "Nanga Parbat . to Tor Sar .",
+        "isHidden": true,
+        "description": "View from Nanga Parbat . to Tor Sar .",
         "observerHeight": 8126,
         "distance": 443,
         "refractionFactor": 1.07,
@@ -339,17 +350,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Nanga Parbat\u00a0.",
+                    "name": "Nanga Parbat .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Tor Sar\u00a0.",
+                    "name": "Tor Sar .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Nanga Parbat\u00a0. and Tor Sar\u00a0.",
+            "notes": "Line of sight between Nanga Parbat . and Tor Sar .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -364,6 +375,7 @@
     },
     {
         "name": "Finestrelles. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Finestrelles. to Barre des Ecrins.",
         "observerHeight": 2828,
         "distance": 440,
@@ -396,8 +408,9 @@
         }
     },
     {
-        "name": "Champaqu\u00ed\u00a0. to Cerro El Plata\u00a0.",
-        "description": "View from Champaqu\u00ed\u00a0. to Cerro El Plata\u00a0.",
+        "name": "Champaquí . to Cerro El Plata .",
+        "isHidden": true,
+        "description": "View from Champaquí . to Cerro El Plata .",
         "observerHeight": 2766,
         "distance": 437,
         "refractionFactor": 1.07,
@@ -405,17 +418,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Champaqu\u00ed\u00a0.",
+                    "name": "Champaquí .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Cerro El Plata\u00a0.",
+                    "name": "Cerro El Plata .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Champaqu\u00ed\u00a0. and Cerro El Plata\u00a0.",
+            "notes": "Line of sight between Champaquí . and Cerro El Plata .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -429,8 +442,9 @@
         }
     },
     {
-        "name": "Bastiments. to Doigt de Dieu\u00a0.",
-        "description": "View from Bastiments. to Doigt de Dieu\u00a0.",
+        "name": "Bastiments. to Doigt de Dieu .",
+        "isHidden": true,
+        "description": "View from Bastiments. to Doigt de Dieu .",
         "observerHeight": 2881,
         "distance": 436,
         "refractionFactor": 1.07,
@@ -443,12 +457,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Doigt de Dieu\u00a0.",
+                    "name": "Doigt de Dieu .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Bastiments. and Doigt de Dieu\u00a0.",
+            "notes": "Line of sight between Bastiments. and Doigt de Dieu .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -463,6 +477,7 @@
     },
     {
         "name": "Bastiments. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Bastiments. to Barre des Ecrins.",
         "observerHeight": 2881,
         "distance": 433,
@@ -496,6 +511,7 @@
     },
     {
         "name": "Bastiments. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Bastiments. to Barre des Ecrins.",
         "observerHeight": 2881,
         "distance": 432,
@@ -528,8 +544,9 @@
         }
     },
     {
-        "name": "Pic de la Dona\u00a0. to Barre des Ecrins.",
-        "description": "View from Pic de la Dona\u00a0. to Barre des Ecrins.",
+        "name": "Pic de la Dona . to Barre des Ecrins.",
+        "isHidden": true,
+        "description": "View from Pic de la Dona . to Barre des Ecrins.",
         "observerHeight": 2692,
         "distance": 430,
         "refractionFactor": 1.07,
@@ -537,7 +554,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Pic de la Dona\u00a0.",
+                    "name": "Pic de la Dona .",
                     "region": "",
                     "country": ""
                 },
@@ -547,7 +564,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Pic de la Dona\u00a0. and Barre des Ecrins.",
+            "notes": "Line of sight between Pic de la Dona . and Barre des Ecrins.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -561,8 +578,9 @@
         }
     },
     {
-        "name": "Denali\u00a0. to Atna Peaks\u00a0.",
-        "description": "View from Denali\u00a0. to Atna Peaks\u00a0.",
+        "name": "Denali . to Atna Peaks .",
+        "isHidden": true,
+        "description": "View from Denali . to Atna Peaks .",
         "observerHeight": 6194,
         "distance": 426,
         "refractionFactor": 1.07,
@@ -570,17 +588,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Denali\u00a0.",
+                    "name": "Denali .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Atna Peaks\u00a0.",
+                    "name": "Atna Peaks .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Denali\u00a0. and Atna Peaks\u00a0.",
+            "notes": "Line of sight between Denali . and Atna Peaks .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -594,8 +612,9 @@
         }
     },
     {
-        "name": "Kharkhiraa\u00a0. to N/N.",
-        "description": "View from Kharkhiraa\u00a0. to N/N.",
+        "name": "Kharkhiraa . to N/N.",
+        "isHidden": true,
+        "description": "View from Kharkhiraa . to N/N.",
         "observerHeight": 4037,
         "distance": 423,
         "refractionFactor": 1.07,
@@ -603,7 +622,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Kharkhiraa\u00a0.",
+                    "name": "Kharkhiraa .",
                     "region": "",
                     "country": ""
                 },
@@ -613,7 +632,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Kharkhiraa\u00a0. and N/N.",
+            "notes": "Line of sight between Kharkhiraa . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -627,8 +646,9 @@
         }
     },
     {
-        "name": "Canigou. to Pic Gaspard\u00a0.",
-        "description": "View from Canigou. to Pic Gaspard\u00a0.",
+        "name": "Canigou. to Pic Gaspard .",
+        "isHidden": true,
+        "description": "View from Canigou. to Pic Gaspard .",
         "observerHeight": 2786,
         "distance": 416,
         "refractionFactor": 1.07,
@@ -641,12 +661,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pic Gaspard\u00a0.",
+                    "name": "Pic Gaspard .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Canigou. and Pic Gaspard\u00a0.",
+            "notes": "Line of sight between Canigou. and Pic Gaspard .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -661,6 +681,7 @@
     },
     {
         "name": "Canigou. to Pic Gaspard.",
+        "isHidden": true,
         "description": "View from Canigou. to Pic Gaspard.",
         "observerHeight": 2786,
         "distance": 416,
@@ -693,8 +714,9 @@
         }
     },
     {
-        "name": "Cerro El Plata\u00a0. to Sa\u00f1ogasta\u00a0.",
-        "description": "View from Cerro El Plata\u00a0. to Sa\u00f1ogasta\u00a0.",
+        "name": "Cerro El Plata . to Sañogasta .",
+        "isHidden": true,
+        "description": "View from Cerro El Plata . to Sañogasta .",
         "observerHeight": 5968,
         "distance": 415,
         "refractionFactor": 1.07,
@@ -702,17 +724,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cerro El Plata\u00a0.",
+                    "name": "Cerro El Plata .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Sa\u00f1ogasta\u00a0.",
+                    "name": "Sañogasta .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cerro El Plata\u00a0. and Sa\u00f1ogasta\u00a0.",
+            "notes": "Line of sight between Cerro El Plata . and Sañogasta .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -727,6 +749,7 @@
     },
     {
         "name": "Canigou. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Canigou. to Barre des Ecrins.",
         "observerHeight": 2786,
         "distance": 412,
@@ -760,6 +783,7 @@
     },
     {
         "name": "Canigou. to Grand Ferrand.",
+        "isHidden": true,
         "description": "View from Canigou. to Grand Ferrand.",
         "observerHeight": 2786,
         "distance": 412,
@@ -793,6 +817,7 @@
     },
     {
         "name": "Canigou. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Canigou. to Barre des Ecrins.",
         "observerHeight": 2786,
         "distance": 412,
@@ -825,8 +850,9 @@
         }
     },
     {
-        "name": "Noufonts. to Tete de l\u2019Estrop.",
-        "description": "View from Noufonts. to Tete de l\u2019Estrop.",
+        "name": "Noufonts. to Tete de l’Estrop.",
+        "isHidden": true,
+        "description": "View from Noufonts. to Tete de l’Estrop.",
         "observerHeight": 2851,
         "distance": 408,
         "refractionFactor": 1.07,
@@ -839,12 +865,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Tete de l\u2019Estrop.",
+                    "name": "Tete de l’Estrop.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Noufonts. and Tete de l\u2019Estrop.",
+            "notes": "Line of sight between Noufonts. and Tete de l’Estrop.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -858,8 +884,9 @@
         }
     },
     {
-        "name": "Champaqu\u00ed\u00a0. to El Mela\u00a0.",
-        "description": "View from Champaqu\u00ed\u00a0. to El Mela\u00a0.",
+        "name": "Champaquí . to El Mela .",
+        "isHidden": true,
+        "description": "View from Champaquí . to El Mela .",
         "observerHeight": 2766,
         "distance": 405,
         "refractionFactor": 1.07,
@@ -867,17 +894,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Champaqu\u00ed\u00a0.",
+                    "name": "Champaquí .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "El Mela\u00a0.",
+                    "name": "El Mela .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Champaqu\u00ed\u00a0. and El Mela\u00a0.",
+            "notes": "Line of sight between Champaquí . and El Mela .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -891,8 +918,9 @@
         }
     },
     {
-        "name": "Mt. Cinto\u00a0. to Dufourspitze\u00a0.",
-        "description": "View from Mt. Cinto\u00a0. to Dufourspitze\u00a0.",
+        "name": "Mt. Cinto . to Dufourspitze .",
+        "isHidden": true,
+        "description": "View from Mt. Cinto . to Dufourspitze .",
         "observerHeight": 2706,
         "distance": 405,
         "refractionFactor": 1.07,
@@ -900,17 +928,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Cinto\u00a0.",
+                    "name": "Mt. Cinto .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Dufourspitze\u00a0.",
+                    "name": "Dufourspitze .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Cinto\u00a0. and Dufourspitze\u00a0.",
+            "notes": "Line of sight between Mt. Cinto . and Dufourspitze .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -924,8 +952,9 @@
         }
     },
     {
-        "name": "Puy de la Seche. to Pic de l\u2019Infern.",
-        "description": "View from Puy de la Seche. to Pic de l\u2019Infern.",
+        "name": "Puy de la Seche. to Pic de l’Infern.",
+        "isHidden": true,
+        "description": "View from Puy de la Seche. to Pic de l’Infern.",
         "observerHeight": 2820,
         "distance": 403,
         "refractionFactor": 1.07,
@@ -938,12 +967,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pic de l\u2019Infern.",
+                    "name": "Pic de l’Infern.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puy de la Seche. and Pic de l\u2019Infern.",
+            "notes": "Line of sight between Puy de la Seche. and Pic de l’Infern.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -957,8 +986,9 @@
         }
     },
     {
-        "name": "Dhaulagiri\u00a0. to Trishul I\u00a0.",
-        "description": "View from Dhaulagiri\u00a0. to Trishul I\u00a0.",
+        "name": "Dhaulagiri . to Trishul I .",
+        "isHidden": true,
+        "description": "View from Dhaulagiri . to Trishul I .",
         "observerHeight": 8167,
         "distance": 402,
         "refractionFactor": 1.07,
@@ -966,17 +996,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Dhaulagiri\u00a0.",
+                    "name": "Dhaulagiri .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Trishul I\u00a0.",
+                    "name": "Trishul I .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Dhaulagiri\u00a0. and Trishul I\u00a0.",
+            "notes": "Line of sight between Dhaulagiri . and Trishul I .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -990,8 +1020,9 @@
         }
     },
     {
-        "name": "Cerro Retama\u00a0. to Risco Plateado\u00a0.",
-        "description": "View from Cerro Retama\u00a0. to Risco Plateado\u00a0.",
+        "name": "Cerro Retama . to Risco Plateado .",
+        "isHidden": true,
+        "description": "View from Cerro Retama . to Risco Plateado .",
         "observerHeight": 2213,
         "distance": 401,
         "refractionFactor": 1.07,
@@ -999,17 +1030,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cerro Retama\u00a0.",
+                    "name": "Cerro Retama .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Risco Plateado\u00a0.",
+                    "name": "Risco Plateado .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cerro Retama\u00a0. and Risco Plateado\u00a0.",
+            "notes": "Line of sight between Cerro Retama . and Risco Plateado .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1023,8 +1054,9 @@
         }
     },
     {
-        "name": "Carlit. to N/A \u2013 m.",
-        "description": "View from Carlit. to N/A \u2013 m.",
+        "name": "Carlit. to N/A – m.",
+        "isHidden": true,
+        "description": "View from Carlit. to N/A – m.",
         "observerHeight": 2921,
         "distance": 395,
         "refractionFactor": 1.07,
@@ -1037,12 +1069,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "N/A \u2013 m.",
+                    "name": "N/A – m.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Carlit. and N/A \u2013 m.",
+            "notes": "Line of sight between Carlit. and N/A – m.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1056,8 +1088,9 @@
         }
     },
     {
-        "name": "Canigou. to St. de la Fremma\u00a0.",
-        "description": "View from Canigou. to St. de la Fremma\u00a0.",
+        "name": "Canigou. to St. de la Fremma .",
+        "isHidden": true,
+        "description": "View from Canigou. to St. de la Fremma .",
         "observerHeight": 2786,
         "distance": 388,
         "refractionFactor": 1.07,
@@ -1070,12 +1103,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "St. de la Fremma\u00a0.",
+                    "name": "St. de la Fremma .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Canigou. and St. de la Fremma\u00a0.",
+            "notes": "Line of sight between Canigou. and St. de la Fremma .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1090,6 +1123,7 @@
     },
     {
         "name": "Monte Bove. to Monte Rosa.",
+        "isHidden": true,
         "description": "View from Monte Bove. to Monte Rosa.",
         "observerHeight": 2169,
         "distance": 388,
@@ -1122,8 +1156,9 @@
         }
     },
     {
-        "name": "Sierra de San Luis\u00a0. to Cerro Mercedario\u00a0.",
-        "description": "View from Sierra de San Luis\u00a0. to Cerro Mercedario\u00a0.",
+        "name": "Sierra de San Luis . to Cerro Mercedario .",
+        "isHidden": true,
+        "description": "View from Sierra de San Luis . to Cerro Mercedario .",
         "observerHeight": 2158,
         "distance": 384,
         "refractionFactor": 1.07,
@@ -1131,17 +1166,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Sierra de San Luis\u00a0.",
+                    "name": "Sierra de San Luis .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Cerro Mercedario\u00a0.",
+                    "name": "Cerro Mercedario .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Sierra de San Luis\u00a0. and Cerro Mercedario\u00a0.",
+            "notes": "Line of sight between Sierra de San Luis . and Cerro Mercedario .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1155,8 +1190,9 @@
         }
     },
     {
-        "name": "Canigou. to Tete de l\u2019Estrop\u00a0.",
-        "description": "View from Canigou. to Tete de l\u2019Estrop\u00a0.",
+        "name": "Canigou. to Tete de l’Estrop .",
+        "isHidden": true,
+        "description": "View from Canigou. to Tete de l’Estrop .",
         "observerHeight": 2786,
         "distance": 381,
         "refractionFactor": 1.07,
@@ -1169,12 +1205,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Tete de l\u2019Estrop\u00a0.",
+                    "name": "Tete de l’Estrop .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Canigou. and Tete de l\u2019Estrop\u00a0.",
+            "notes": "Line of sight between Canigou. and Tete de l’Estrop .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1188,8 +1224,9 @@
         }
     },
     {
-        "name": "Chimborazo\u00a0. to N/N.",
-        "description": "View from Chimborazo\u00a0. to N/N.",
+        "name": "Chimborazo . to N/N.",
+        "isHidden": true,
+        "description": "View from Chimborazo . to N/N.",
         "observerHeight": 6268,
         "distance": 375,
         "refractionFactor": 1.07,
@@ -1197,7 +1234,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Chimborazo\u00a0.",
+                    "name": "Chimborazo .",
                     "region": "",
                     "country": ""
                 },
@@ -1207,7 +1244,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Chimborazo\u00a0. and N/N.",
+            "notes": "Line of sight between Chimborazo . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1221,8 +1258,9 @@
         }
     },
     {
-        "name": "Kilimanjaro\u00a0. to Nyambene\u00a0.",
-        "description": "View from Kilimanjaro\u00a0. to Nyambene\u00a0.",
+        "name": "Kilimanjaro . to Nyambene .",
+        "isHidden": true,
+        "description": "View from Kilimanjaro . to Nyambene .",
         "observerHeight": 5895,
         "distance": 373,
         "refractionFactor": 1.07,
@@ -1230,17 +1268,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Kilimanjaro\u00a0.",
+                    "name": "Kilimanjaro .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Nyambene\u00a0.",
+                    "name": "Nyambene .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Kilimanjaro\u00a0. and Nyambene\u00a0.",
+            "notes": "Line of sight between Kilimanjaro . and Nyambene .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1254,8 +1292,9 @@
         }
     },
     {
-        "name": "Mt. Alt. de Nago\u00a0. to Barre des Ecrins.",
-        "description": "View from Mt. Alt. de Nago\u00a0. to Barre des Ecrins.",
+        "name": "Mt. Alt. de Nago . to Barre des Ecrins.",
+        "isHidden": true,
+        "description": "View from Mt. Alt. de Nago . to Barre des Ecrins.",
         "observerHeight": 2079,
         "distance": 368,
         "refractionFactor": 1.07,
@@ -1263,7 +1302,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Alt. de Nago\u00a0.",
+                    "name": "Mt. Alt. de Nago .",
                     "region": "",
                     "country": ""
                 },
@@ -1273,7 +1312,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Alt. de Nago\u00a0. and Barre des Ecrins.",
+            "notes": "Line of sight between Mt. Alt. de Nago . and Barre des Ecrins.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1288,6 +1327,7 @@
     },
     {
         "name": "Mt. Baldo. to Barre des Ecrins.",
+        "isHidden": true,
         "description": "View from Mt. Baldo. to Barre des Ecrins.",
         "observerHeight": 2218,
         "distance": 368,
@@ -1321,6 +1361,7 @@
     },
     {
         "name": "Mt. Baldo I. to La Grande Ruine.",
+        "isHidden": true,
         "description": "View from Mt. Baldo I. to La Grande Ruine.",
         "observerHeight": 2116,
         "distance": 368,
@@ -1354,6 +1395,7 @@
     },
     {
         "name": "Mt. Baldo II. to La Grande Ruine.",
+        "isHidden": true,
         "description": "View from Mt. Baldo II. to La Grande Ruine.",
         "observerHeight": 2200,
         "distance": 368,
@@ -1386,8 +1428,9 @@
         }
     },
     {
-        "name": "Mt. Cinto\u00a0. to Mt. Velino\u00a0.",
-        "description": "View from Mt. Cinto\u00a0. to Mt. Velino\u00a0.",
+        "name": "Mt. Cinto . to Mt. Velino .",
+        "isHidden": true,
+        "description": "View from Mt. Cinto . to Mt. Velino .",
         "observerHeight": 2706,
         "distance": 366,
         "refractionFactor": 1.07,
@@ -1395,17 +1438,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Cinto\u00a0.",
+                    "name": "Mt. Cinto .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mt. Velino\u00a0.",
+                    "name": "Mt. Velino .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Cinto\u00a0. and Mt. Velino\u00a0.",
+            "notes": "Line of sight between Mt. Cinto . and Mt. Velino .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1419,8 +1462,9 @@
         }
     },
     {
-        "name": "Mt. Sanford\u00a0. to Denali.",
-        "description": "View from Mt. Sanford\u00a0. to Denali.",
+        "name": "Mt. Sanford . to Denali.",
+        "isHidden": true,
+        "description": "View from Mt. Sanford . to Denali.",
         "observerHeight": 4949,
         "distance": 365,
         "refractionFactor": 1.07,
@@ -1428,7 +1472,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Sanford\u00a0.",
+                    "name": "Mt. Sanford .",
                     "region": "",
                     "country": ""
                 },
@@ -1438,7 +1482,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Sanford\u00a0. and Denali.",
+            "notes": "Line of sight between Mt. Sanford . and Denali.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1453,6 +1497,7 @@
     },
     {
         "name": "Etna. to N/A.",
+        "isHidden": true,
         "description": "View from Etna. to N/A.",
         "observerHeight": 3344,
         "distance": 361,
@@ -1486,6 +1531,7 @@
     },
     {
         "name": "Mt. Baldo III. to La Grande Ruine.",
+        "isHidden": true,
         "description": "View from Mt. Baldo III. to La Grande Ruine.",
         "observerHeight": 2041,
         "distance": 360,
@@ -1518,8 +1564,9 @@
         }
     },
     {
-        "name": "Triglav\u00a0. to Mt. Vecchio\u00a0.",
-        "description": "View from Triglav\u00a0. to Mt. Vecchio\u00a0.",
+        "name": "Triglav . to Mt. Vecchio .",
+        "isHidden": true,
+        "description": "View from Triglav . to Mt. Vecchio .",
         "observerHeight": 2864,
         "distance": 358,
         "refractionFactor": 1.07,
@@ -1527,17 +1574,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Triglav\u00a0.",
+                    "name": "Triglav .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mt. Vecchio\u00a0.",
+                    "name": "Mt. Vecchio .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Triglav\u00a0. and Mt. Vecchio\u00a0.",
+            "notes": "Line of sight between Triglav . and Mt. Vecchio .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1551,8 +1598,9 @@
         }
     },
     {
-        "name": "Cerro Yerba Buena\u00a0. to Nevado de Famatina\u00a0.",
-        "description": "View from Cerro Yerba Buena\u00a0. to Nevado de Famatina\u00a0.",
+        "name": "Cerro Yerba Buena . to Nevado de Famatina .",
+        "isHidden": true,
+        "description": "View from Cerro Yerba Buena . to Nevado de Famatina .",
         "observerHeight": 1650,
         "distance": 355,
         "refractionFactor": 1.07,
@@ -1560,17 +1608,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cerro Yerba Buena\u00a0.",
+                    "name": "Cerro Yerba Buena .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Nevado de Famatina\u00a0.",
+                    "name": "Nevado de Famatina .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cerro Yerba Buena\u00a0. and Nevado de Famatina\u00a0.",
+            "notes": "Line of sight between Cerro Yerba Buena . and Nevado de Famatina .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1584,8 +1632,9 @@
         }
     },
     {
-        "name": "Pica d\u2019Estats. to Massif Central.",
-        "description": "View from Pica d\u2019Estats. to Massif Central.",
+        "name": "Pica d’Estats. to Massif Central.",
+        "isHidden": true,
+        "description": "View from Pica d’Estats. to Massif Central.",
         "observerHeight": 3143,
         "distance": 355,
         "refractionFactor": 1.07,
@@ -1593,7 +1642,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Pica d\u2019Estats.",
+                    "name": "Pica d’Estats.",
                     "region": "",
                     "country": ""
                 },
@@ -1603,7 +1652,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Pica d\u2019Estats. and Massif Central.",
+            "notes": "Line of sight between Pica d’Estats. and Massif Central.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1617,8 +1666,9 @@
         }
     },
     {
-        "name": "Mt. Olympus\u00a0. to N/N.",
-        "description": "View from Mt. Olympus\u00a0. to N/N.",
+        "name": "Mt. Olympus . to N/N.",
+        "isHidden": true,
+        "description": "View from Mt. Olympus . to N/N.",
         "observerHeight": 1952,
         "distance": 354,
         "refractionFactor": 1.07,
@@ -1626,7 +1676,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Olympus\u00a0.",
+                    "name": "Mt. Olympus .",
                     "region": "",
                     "country": ""
                 },
@@ -1636,7 +1686,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Olympus\u00a0. and N/N.",
+            "notes": "Line of sight between Mt. Olympus . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1650,8 +1700,9 @@
         }
     },
     {
-        "name": "Gran Sasso. to N/A \u2013 m.",
-        "description": "View from Gran Sasso. to N/A \u2013 m.",
+        "name": "Gran Sasso. to N/A – m.",
+        "isHidden": true,
+        "description": "View from Gran Sasso. to N/A – m.",
         "observerHeight": 2476,
         "distance": 353,
         "refractionFactor": 1.07,
@@ -1664,12 +1715,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "N/A \u2013 m.",
+                    "name": "N/A – m.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Gran Sasso. and N/A \u2013 m.",
+            "notes": "Line of sight between Gran Sasso. and N/A – m.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1683,8 +1734,9 @@
         }
     },
     {
-        "name": "K2\u00a0. to N/N.",
-        "description": "View from K2\u00a0. to N/N.",
+        "name": "K2 . to N/N.",
+        "isHidden": true,
+        "description": "View from K2 . to N/N.",
         "observerHeight": 8611,
         "distance": 347,
         "refractionFactor": 1.07,
@@ -1692,7 +1744,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "K2\u00a0.",
+                    "name": "K2 .",
                     "region": "",
                     "country": ""
                 },
@@ -1702,7 +1754,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between K2\u00a0. and N/N.",
+            "notes": "Line of sight between K2 . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1716,8 +1768,9 @@
         }
     },
     {
-        "name": "Emily Peaks\u00a0. to Mt. Taranaki\u00a0.",
-        "description": "View from Emily Peaks\u00a0. to Mt. Taranaki\u00a0.",
+        "name": "Emily Peaks . to Mt. Taranaki .",
+        "isHidden": true,
+        "description": "View from Emily Peaks . to Mt. Taranaki .",
         "observerHeight": 2038,
         "distance": 345,
         "refractionFactor": 1.07,
@@ -1725,17 +1778,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Emily Peaks\u00a0.",
+                    "name": "Emily Peaks .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mt. Taranaki\u00a0.",
+                    "name": "Mt. Taranaki .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Emily Peaks\u00a0. and Mt. Taranaki\u00a0.",
+            "notes": "Line of sight between Emily Peaks . and Mt. Taranaki .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1749,8 +1802,9 @@
         }
     },
     {
-        "name": "Mt. Cimone\u00a0. to Triglav\u00a0.",
-        "description": "View from Mt. Cimone\u00a0. to Triglav\u00a0.",
+        "name": "Mt. Cimone . to Triglav .",
+        "isHidden": true,
+        "description": "View from Mt. Cimone . to Triglav .",
         "observerHeight": 2165,
         "distance": 345,
         "refractionFactor": 1.07,
@@ -1758,17 +1812,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Cimone\u00a0.",
+                    "name": "Mt. Cimone .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Triglav\u00a0.",
+                    "name": "Triglav .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Cimone\u00a0. and Triglav\u00a0.",
+            "notes": "Line of sight between Mt. Cimone . and Triglav .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1782,8 +1836,9 @@
         }
     },
     {
-        "name": "Mt. Ventoux\u00a0. to P. de Serr\u00e8re\u00a0.",
-        "description": "View from Mt. Ventoux\u00a0. to P. de Serr\u00e8re\u00a0.",
+        "name": "Mt. Ventoux . to P. de Serrère .",
+        "isHidden": true,
+        "description": "View from Mt. Ventoux . to P. de Serrère .",
         "observerHeight": 1909,
         "distance": 343,
         "refractionFactor": 1.07,
@@ -1791,17 +1846,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Ventoux\u00a0.",
+                    "name": "Mt. Ventoux .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "P. de Serr\u00e8re\u00a0.",
+                    "name": "P. de Serrère .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Ventoux\u00a0. and P. de Serr\u00e8re\u00a0.",
+            "notes": "Line of sight between Mt. Ventoux . and P. de Serrère .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1815,8 +1870,9 @@
         }
     },
     {
-        "name": "V\u00e2rful Peleaga\u00a0. to Botev Peak\u00a0.",
-        "description": "View from V\u00e2rful Peleaga\u00a0. to Botev Peak\u00a0.",
+        "name": "Vârful Peleaga . to Botev Peak .",
+        "isHidden": true,
+        "description": "View from Vârful Peleaga . to Botev Peak .",
         "observerHeight": 2509,
         "distance": 341,
         "refractionFactor": 1.07,
@@ -1824,17 +1880,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "V\u00e2rful Peleaga\u00a0.",
+                    "name": "Vârful Peleaga .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Botev Peak\u00a0.",
+                    "name": "Botev Peak .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between V\u00e2rful Peleaga\u00a0. and Botev Peak\u00a0.",
+            "notes": "Line of sight between Vârful Peleaga . and Botev Peak .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1848,8 +1904,9 @@
         }
     },
     {
-        "name": "Aconcagua. to Cerro Vizcacha\u00a0.",
-        "description": "View from Aconcagua. to Cerro Vizcacha\u00a0.",
+        "name": "Aconcagua. to Cerro Vizcacha .",
+        "isHidden": true,
+        "description": "View from Aconcagua. to Cerro Vizcacha .",
         "observerHeight": 6962,
         "distance": 340,
         "refractionFactor": 1.07,
@@ -1862,12 +1919,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Cerro Vizcacha\u00a0.",
+                    "name": "Cerro Vizcacha .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Aconcagua. and Cerro Vizcacha\u00a0.",
+            "notes": "Line of sight between Aconcagua. and Cerro Vizcacha .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1881,8 +1938,9 @@
         }
     },
     {
-        "name": "Mt. Laghetto\u00a0. to Monviso\u00a0.",
-        "description": "View from Mt. Laghetto\u00a0. to Monviso\u00a0.",
+        "name": "Mt. Laghetto . to Monviso .",
+        "isHidden": true,
+        "description": "View from Mt. Laghetto . to Monviso .",
         "observerHeight": 1969,
         "distance": 337,
         "refractionFactor": 1.07,
@@ -1890,17 +1948,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Laghetto\u00a0.",
+                    "name": "Mt. Laghetto .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Monviso\u00a0.",
+                    "name": "Monviso .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Laghetto\u00a0. and Monviso\u00a0.",
+            "notes": "Line of sight between Mt. Laghetto . and Monviso .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1914,8 +1972,9 @@
         }
     },
     {
-        "name": "Mt. Cinto\u00a0. to Mt. Terminillo\u00a0.",
-        "description": "View from Mt. Cinto\u00a0. to Mt. Terminillo\u00a0.",
+        "name": "Mt. Cinto . to Mt. Terminillo .",
+        "isHidden": true,
+        "description": "View from Mt. Cinto . to Mt. Terminillo .",
         "observerHeight": 2706,
         "distance": 333,
         "refractionFactor": 1.07,
@@ -1923,17 +1982,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. Cinto\u00a0.",
+                    "name": "Mt. Cinto .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mt. Terminillo\u00a0.",
+                    "name": "Mt. Terminillo .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. Cinto\u00a0. and Mt. Terminillo\u00a0.",
+            "notes": "Line of sight between Mt. Cinto . and Mt. Terminillo .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -1948,6 +2007,7 @@
     },
     {
         "name": "Puig Major. to Montsent de Pallars.",
+        "isHidden": true,
         "description": "View from Puig Major. to Montsent de Pallars.",
         "observerHeight": 1436,
         "distance": 333,
@@ -1981,6 +2041,7 @@
     },
     {
         "name": "Plomb du Cantal. to Mont Blanc.",
+        "isHidden": true,
         "description": "View from Plomb du Cantal. to Mont Blanc.",
         "observerHeight": 1855,
         "distance": 332,
@@ -2013,8 +2074,9 @@
         }
     },
     {
-        "name": "Nevado Sajama\u00a0. to N/N.",
-        "description": "View from Nevado Sajama\u00a0. to N/N.",
+        "name": "Nevado Sajama . to N/N.",
+        "isHidden": true,
+        "description": "View from Nevado Sajama . to N/N.",
         "observerHeight": 6542,
         "distance": 329,
         "refractionFactor": 1.07,
@@ -2022,7 +2084,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Nevado Sajama\u00a0.",
+                    "name": "Nevado Sajama .",
                     "region": "",
                     "country": ""
                 },
@@ -2032,7 +2094,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Nevado Sajama\u00a0. and N/N.",
+            "notes": "Line of sight between Nevado Sajama . and N/N.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2047,6 +2109,7 @@
     },
     {
         "name": "Bastiments. to Valdelinares.",
+        "isHidden": true,
         "description": "View from Bastiments. to Valdelinares.",
         "observerHeight": 2881,
         "distance": 326,
@@ -2079,8 +2142,9 @@
         }
     },
     {
-        "name": "M. St. \u00c1ngelo\u00a0. to Etna\u00a0.",
-        "description": "View from M. St. \u00c1ngelo\u00a0. to Etna\u00a0.",
+        "name": "M. St. Ángelo . to Etna .",
+        "isHidden": true,
+        "description": "View from M. St. Ángelo . to Etna .",
         "observerHeight": 1289,
         "distance": 325,
         "refractionFactor": 1.07,
@@ -2088,17 +2152,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "M. St. \u00c1ngelo\u00a0.",
+                    "name": "M. St. Ángelo .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Etna\u00a0.",
+                    "name": "Etna .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between M. St. \u00c1ngelo\u00a0. and Etna\u00a0.",
+            "notes": "Line of sight between M. St. Ángelo . and Etna .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2112,8 +2176,9 @@
         }
     },
     {
-        "name": "Mt. St. \u2018Angelo. to Etna.",
-        "description": "View from Mt. St. \u2018Angelo. to Etna.",
+        "name": "Mt. St. ‘Angelo. to Etna.",
+        "isHidden": true,
+        "description": "View from Mt. St. ‘Angelo. to Etna.",
         "observerHeight": 1444,
         "distance": 325,
         "refractionFactor": 1.07,
@@ -2121,7 +2186,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Mt. St. \u2018Angelo.",
+                    "name": "Mt. St. ‘Angelo.",
                     "region": "",
                     "country": ""
                 },
@@ -2131,7 +2196,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mt. St. \u2018Angelo. and Etna.",
+            "notes": "Line of sight between Mt. St. ‘Angelo. and Etna.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2146,6 +2211,7 @@
     },
     {
         "name": "Puigmal. to Mont Ventoux.",
+        "isHidden": true,
         "description": "View from Puigmal. to Mont Ventoux.",
         "observerHeight": 2913,
         "distance": 325,
@@ -2178,8 +2244,9 @@
         }
     },
     {
-        "name": "Puig d\u2019En Galileu. to Saloria.",
-        "description": "View from Puig d\u2019En Galileu. to Saloria.",
+        "name": "Puig d’En Galileu. to Saloria.",
+        "isHidden": true,
+        "description": "View from Puig d’En Galileu. to Saloria.",
         "observerHeight": 1180,
         "distance": 324,
         "refractionFactor": 1.07,
@@ -2187,7 +2254,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig d\u2019En Galileu.",
+                    "name": "Puig d’En Galileu.",
                     "region": "",
                     "country": ""
                 },
@@ -2197,7 +2264,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig d\u2019En Galileu. and Saloria.",
+            "notes": "Line of sight between Puig d’En Galileu. and Saloria.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2212,6 +2279,7 @@
     },
     {
         "name": "Puig Major. to Saloria.",
+        "isHidden": true,
         "description": "View from Puig Major. to Saloria.",
         "observerHeight": 1436,
         "distance": 324,
@@ -2245,6 +2313,7 @@
     },
     {
         "name": "Carlit. to Puig Major.",
+        "isHidden": true,
         "description": "View from Carlit. to Puig Major.",
         "observerHeight": 2921,
         "distance": 322,
@@ -2278,6 +2347,7 @@
     },
     {
         "name": "Guadagnolo. to Monte Renoso.",
+        "isHidden": true,
         "description": "View from Guadagnolo. to Monte Renoso.",
         "observerHeight": 1181,
         "distance": 314,
@@ -2310,8 +2380,9 @@
         }
     },
     {
-        "name": "Bastiments. to Moleta de S\u2019Esclop\u00a0.",
-        "description": "View from Bastiments. to Moleta de S\u2019Esclop\u00a0.",
+        "name": "Bastiments. to Moleta de S’Esclop .",
+        "isHidden": true,
+        "description": "View from Bastiments. to Moleta de S’Esclop .",
         "observerHeight": 2881,
         "distance": 312,
         "refractionFactor": 1.07,
@@ -2324,12 +2395,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Moleta de S\u2019Esclop\u00a0.",
+                    "name": "Moleta de S’Esclop .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Bastiments. and Moleta de S\u2019Esclop\u00a0.",
+            "notes": "Line of sight between Bastiments. and Moleta de S’Esclop .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2344,6 +2415,7 @@
     },
     {
         "name": "Canigou. to Puig Major.",
+        "isHidden": true,
         "description": "View from Canigou. to Puig Major.",
         "observerHeight": 2786,
         "distance": 311,
@@ -2377,6 +2449,7 @@
     },
     {
         "name": "Finestrelles. to Puig Major.",
+        "isHidden": true,
         "description": "View from Finestrelles. to Puig Major.",
         "observerHeight": 2828,
         "distance": 311,
@@ -2409,8 +2482,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Bastiments\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Bastiments\u00a0.",
+        "name": "Cantavieja . to Bastiments .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Bastiments .",
         "observerHeight": 1700,
         "distance": 309,
         "refractionFactor": 1.07,
@@ -2418,17 +2492,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Bastiments\u00a0.",
+                    "name": "Bastiments .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Bastiments\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Bastiments .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2442,8 +2516,9 @@
         }
     },
     {
-        "name": "Casta\u00f1o\u00a0. to Veleta\u00a0.",
-        "description": "View from Casta\u00f1o\u00a0. to Veleta\u00a0.",
+        "name": "Castaño . to Veleta .",
+        "isHidden": true,
+        "description": "View from Castaño . to Veleta .",
         "observerHeight": 960,
         "distance": 308,
         "refractionFactor": 1.07,
@@ -2451,17 +2526,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Casta\u00f1o\u00a0.",
+                    "name": "Castaño .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Veleta\u00a0.",
+                    "name": "Veleta .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Casta\u00f1o\u00a0. and Veleta\u00a0.",
+            "notes": "Line of sight between Castaño . and Veleta .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2475,8 +2550,9 @@
         }
     },
     {
-        "name": "Puig Roig\u00a0. to Tossal de la Muga\u00a0.",
-        "description": "View from Puig Roig\u00a0. to Tossal de la Muga\u00a0.",
+        "name": "Puig Roig . to Tossal de la Muga .",
+        "isHidden": true,
+        "description": "View from Puig Roig . to Tossal de la Muga .",
         "observerHeight": 1002,
         "distance": 307,
         "refractionFactor": 1.07,
@@ -2484,17 +2560,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig Roig\u00a0.",
+                    "name": "Puig Roig .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Tossal de la Muga\u00a0.",
+                    "name": "Tossal de la Muga .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig Roig\u00a0. and Tossal de la Muga\u00a0.",
+            "notes": "Line of sight between Puig Roig . and Tossal de la Muga .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2508,8 +2584,9 @@
         }
     },
     {
-        "name": "Kanchenjunga\u00a0. to Qungmoganze\u00a0.",
-        "description": "View from Kanchenjunga\u00a0. to Qungmoganze\u00a0.",
+        "name": "Kanchenjunga . to Qungmoganze .",
+        "isHidden": true,
+        "description": "View from Kanchenjunga . to Qungmoganze .",
         "observerHeight": 8586,
         "distance": 305,
         "refractionFactor": 1.07,
@@ -2517,17 +2594,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Kanchenjunga\u00a0.",
+                    "name": "Kanchenjunga .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Qungmoganze\u00a0.",
+                    "name": "Qungmoganze .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Kanchenjunga\u00a0. and Qungmoganze\u00a0.",
+            "notes": "Line of sight between Kanchenjunga . and Qungmoganze .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2541,8 +2618,9 @@
         }
     },
     {
-        "name": "Almanzor\u00a0. to Espiguete\u00a0.",
-        "description": "View from Almanzor\u00a0. to Espiguete\u00a0.",
+        "name": "Almanzor . to Espiguete .",
+        "isHidden": true,
+        "description": "View from Almanzor . to Espiguete .",
         "observerHeight": 2592,
         "distance": 302,
         "refractionFactor": 1.07,
@@ -2550,17 +2628,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Almanzor\u00a0.",
+                    "name": "Almanzor .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Espiguete\u00a0.",
+                    "name": "Espiguete .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Almanzor\u00a0. and Espiguete\u00a0.",
+            "notes": "Line of sight between Almanzor . and Espiguete .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2574,8 +2652,9 @@
         }
     },
     {
-        "name": "St. Beaume\u00a0. to Canigo.",
-        "description": "View from St. Beaume\u00a0. to Canigo.",
+        "name": "St. Beaume . to Canigo.",
+        "isHidden": true,
+        "description": "View from St. Beaume . to Canigo.",
         "observerHeight": 1148,
         "distance": 302,
         "refractionFactor": 1.07,
@@ -2583,7 +2662,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "St. Beaume\u00a0.",
+                    "name": "St. Beaume .",
                     "region": "",
                     "country": ""
                 },
@@ -2593,7 +2672,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between St. Beaume\u00a0. and Canigo.",
+            "notes": "Line of sight between St. Beaume . and Canigo.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2607,8 +2686,9 @@
         }
     },
     {
-        "name": "Bastiments. to Puig d\u2019Alfabia.",
-        "description": "View from Bastiments. to Puig d\u2019Alfabia.",
+        "name": "Bastiments. to Puig d’Alfabia.",
+        "isHidden": true,
+        "description": "View from Bastiments. to Puig d’Alfabia.",
         "observerHeight": 2881,
         "distance": 301,
         "refractionFactor": 1.07,
@@ -2621,12 +2701,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Puig d\u2019Alfabia.",
+                    "name": "Puig d’Alfabia.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Bastiments. and Puig d\u2019Alfabia.",
+            "notes": "Line of sight between Bastiments. and Puig d’Alfabia.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2641,6 +2721,7 @@
     },
     {
         "name": "Puig Major. to Valdelinares.",
+        "isHidden": true,
         "description": "View from Puig Major. to Valdelinares.",
         "observerHeight": 1436,
         "distance": 298,
@@ -2674,6 +2755,7 @@
     },
     {
         "name": "Canigou. to Mont Ventoux.",
+        "isHidden": true,
         "description": "View from Canigou. to Mont Ventoux.",
         "observerHeight": 2786,
         "distance": 294,
@@ -2707,6 +2789,7 @@
     },
     {
         "name": "Puig Major. to Aitana.",
+        "isHidden": true,
         "description": "View from Puig Major. to Aitana.",
         "observerHeight": 1436,
         "distance": 294,
@@ -2739,8 +2822,9 @@
         }
     },
     {
-        "name": "P. de Padre Caro\u00a0. to Mulhacen\u00a0.",
-        "description": "View from P. de Padre Caro\u00a0. to Mulhacen\u00a0.",
+        "name": "P. de Padre Caro . to Mulhacen .",
+        "isHidden": true,
+        "description": "View from P. de Padre Caro . to Mulhacen .",
         "observerHeight": 653,
         "distance": 292,
         "refractionFactor": 1.07,
@@ -2748,17 +2832,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "P. de Padre Caro\u00a0.",
+                    "name": "P. de Padre Caro .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mulhacen\u00a0.",
+                    "name": "Mulhacen .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between P. de Padre Caro\u00a0. and Mulhacen\u00a0.",
+            "notes": "Line of sight between P. de Padre Caro . and Mulhacen .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2772,8 +2856,9 @@
         }
     },
     {
-        "name": "P\u00ba cerca de Nerva. to Mulhacen\u00a0.",
-        "description": "View from P\u00ba cerca de Nerva. to Mulhacen\u00a0.",
+        "name": "Pº cerca de Nerva. to Mulhacen .",
+        "isHidden": true,
+        "description": "View from Pº cerca de Nerva. to Mulhacen .",
         "observerHeight": 500,
         "distance": 292,
         "refractionFactor": 1.07,
@@ -2781,17 +2866,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "P\u00ba cerca de Nerva.",
+                    "name": "Pº cerca de Nerva.",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mulhacen\u00a0.",
+                    "name": "Mulhacen .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between P\u00ba cerca de Nerva. and Mulhacen\u00a0.",
+            "notes": "Line of sight between Pº cerca de Nerva. and Mulhacen .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2805,8 +2890,9 @@
         }
     },
     {
-        "name": "Puig d\u2019En Galileu. to Puigmal.",
-        "description": "View from Puig d\u2019En Galileu. to Puigmal.",
+        "name": "Puig d’En Galileu. to Puigmal.",
+        "isHidden": true,
+        "description": "View from Puig d’En Galileu. to Puigmal.",
         "observerHeight": 1180,
         "distance": 292,
         "refractionFactor": 1.07,
@@ -2814,7 +2900,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig d\u2019En Galileu.",
+                    "name": "Puig d’En Galileu.",
                     "region": "",
                     "country": ""
                 },
@@ -2824,7 +2910,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig d\u2019En Galileu. and Puigmal.",
+            "notes": "Line of sight between Puig d’En Galileu. and Puigmal.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2839,6 +2925,7 @@
     },
     {
         "name": "Carlit. to Pico Ejulve.",
+        "isHidden": true,
         "description": "View from Carlit. to Pico Ejulve.",
         "observerHeight": 2921,
         "distance": 291,
@@ -2871,8 +2958,9 @@
         }
     },
     {
-        "name": "Turo del Home. to Penyagolosa\u00a0.",
-        "description": "View from Turo del Home. to Penyagolosa\u00a0.",
+        "name": "Turo del Home. to Penyagolosa .",
+        "isHidden": true,
+        "description": "View from Turo del Home. to Penyagolosa .",
         "observerHeight": 1708,
         "distance": 291,
         "refractionFactor": 1.07,
@@ -2885,12 +2973,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Penyagolosa\u00a0.",
+                    "name": "Penyagolosa .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Turo del Home. and Penyagolosa\u00a0.",
+            "notes": "Line of sight between Turo del Home. and Penyagolosa .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2904,8 +2992,9 @@
         }
     },
     {
-        "name": "Puig Roig\u00a0. to Torreta del Cadi.",
-        "description": "View from Puig Roig\u00a0. to Torreta del Cadi.",
+        "name": "Puig Roig . to Torreta del Cadi.",
+        "isHidden": true,
+        "description": "View from Puig Roig . to Torreta del Cadi.",
         "observerHeight": 1002,
         "distance": 290,
         "refractionFactor": 1.07,
@@ -2913,7 +3002,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig Roig\u00a0.",
+                    "name": "Puig Roig .",
                     "region": "",
                     "country": ""
                 },
@@ -2923,7 +3012,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig Roig\u00a0. and Torreta del Cadi.",
+            "notes": "Line of sight between Puig Roig . and Torreta del Cadi.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2937,8 +3026,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Pic Long\u00a0.",
-        "description": "View from Penyagolosa. to Pic Long\u00a0.",
+        "name": "Penyagolosa. to Pic Long .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Pic Long .",
         "observerHeight": 1812,
         "distance": 289,
         "refractionFactor": 1.07,
@@ -2951,12 +3041,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pic Long\u00a0.",
+                    "name": "Pic Long .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Pic Long\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Pic Long .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -2971,6 +3061,7 @@
     },
     {
         "name": "Penyagolosa. to Pic Long.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Pic Long.",
         "observerHeight": 1812,
         "distance": 289,
@@ -3003,8 +3094,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
+        "name": "Cantavieja . to Pica d’Estats .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pica d’Estats .",
         "observerHeight": 1700,
         "distance": 285,
         "refractionFactor": 1.07,
@@ -3012,17 +3104,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Pica d\u2019Estats\u00a0.",
+                    "name": "Pica d’Estats .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pica d\u2019Estats\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Pica d’Estats .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3036,8 +3128,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
+        "name": "Cantavieja . to Pica d’Estats .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pica d’Estats .",
         "observerHeight": 1700,
         "distance": 285,
         "refractionFactor": 1.07,
@@ -3045,17 +3138,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Pica d\u2019Estats\u00a0.",
+                    "name": "Pica d’Estats .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pica d\u2019Estats\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Pica d’Estats .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3069,8 +3162,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Pica d\u2019Estats\u00a0.",
+        "name": "Cantavieja . to Pica d’Estats .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pica d’Estats .",
         "observerHeight": 1700,
         "distance": 285,
         "refractionFactor": 1.07,
@@ -3078,17 +3172,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Pica d\u2019Estats\u00a0.",
+                    "name": "Pica d’Estats .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pica d\u2019Estats\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Pica d’Estats .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3102,8 +3196,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Puig Major\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Puig Major\u00a0.",
+        "name": "Cantavieja . to Puig Major .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Puig Major .",
         "observerHeight": 1700,
         "distance": 284,
         "refractionFactor": 1.07,
@@ -3111,17 +3206,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Puig Major\u00a0.",
+                    "name": "Puig Major .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Puig Major\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Puig Major .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3136,6 +3231,7 @@
     },
     {
         "name": "Penyagolosa. to Garlitz.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Garlitz.",
         "observerHeight": 1812,
         "distance": 284,
@@ -3169,6 +3265,7 @@
     },
     {
         "name": "Canigou. to Pic des Mouches.",
+        "isHidden": true,
         "description": "View from Canigou. to Pic des Mouches.",
         "observerHeight": 2786,
         "distance": 283,
@@ -3202,6 +3299,7 @@
     },
     {
         "name": "Poqueira. to Jebel Sougna.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jebel Sougna.",
         "observerHeight": 2500,
         "distance": 283,
@@ -3235,6 +3333,7 @@
     },
     {
         "name": "Poqueira. to Jebel Sougna.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jebel Sougna.",
         "observerHeight": 2500,
         "distance": 283,
@@ -3267,8 +3366,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Aneto\u00a0.",
-        "description": "View from Penyagolosa. to Aneto\u00a0.",
+        "name": "Penyagolosa. to Aneto .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Aneto .",
         "observerHeight": 1812,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3281,12 +3381,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Aneto\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3300,8 +3400,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Aneto\u00a0.",
-        "description": "View from Penyagolosa. to Aneto\u00a0.",
+        "name": "Penyagolosa. to Aneto .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Aneto .",
         "observerHeight": 1812,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3314,12 +3415,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Aneto\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3333,8 +3434,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Aneto\u00a0.",
-        "description": "View from Penyagolosa. to Aneto\u00a0.",
+        "name": "Penyagolosa. to Aneto .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Aneto .",
         "observerHeight": 1812,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3347,12 +3449,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Aneto\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3366,8 +3468,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Aneto\u00a0.",
-        "description": "View from Penyagolosa. to Aneto\u00a0.",
+        "name": "Penyagolosa. to Aneto .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Aneto .",
         "observerHeight": 1812,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3380,12 +3483,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Aneto\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3399,8 +3502,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Aneto\u00a0.",
-        "description": "View from Penyagolosa. to Aneto\u00a0.",
+        "name": "Penyagolosa. to Aneto .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Aneto .",
         "observerHeight": 1812,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3413,12 +3517,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Aneto\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3433,6 +3537,7 @@
     },
     {
         "name": "Penyagolosa. to Aneto.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Aneto.",
         "observerHeight": 1812,
         "distance": 281,
@@ -3465,8 +3570,9 @@
         }
     },
     {
-        "name": "Puig Roig\u00a0. to Pedraforca.",
-        "description": "View from Puig Roig\u00a0. to Pedraforca.",
+        "name": "Puig Roig . to Pedraforca.",
+        "isHidden": true,
+        "description": "View from Puig Roig . to Pedraforca.",
         "observerHeight": 1002,
         "distance": 281,
         "refractionFactor": 1.07,
@@ -3474,7 +3580,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig Roig\u00a0.",
+                    "name": "Puig Roig .",
                     "region": "",
                     "country": ""
                 },
@@ -3484,7 +3590,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig Roig\u00a0. and Pedraforca.",
+            "notes": "Line of sight between Puig Roig . and Pedraforca.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3499,6 +3605,7 @@
     },
     {
         "name": "Penyagolosa. to La Munia.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to La Munia.",
         "observerHeight": 1812,
         "distance": 280,
@@ -3531,8 +3638,9 @@
         }
     },
     {
-        "name": "Pe\u00f1arroya\u00a0. to Montardo\u00a0.",
-        "description": "View from Pe\u00f1arroya\u00a0. to Montardo\u00a0.",
+        "name": "Peñarroya . to Montardo .",
+        "isHidden": true,
+        "description": "View from Peñarroya . to Montardo .",
         "observerHeight": 2028,
         "distance": 280,
         "refractionFactor": 1.07,
@@ -3540,17 +3648,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Pe\u00f1arroya\u00a0.",
+                    "name": "Peñarroya .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Montardo\u00a0.",
+                    "name": "Montardo .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Pe\u00f1arroya\u00a0. and Montardo\u00a0.",
+            "notes": "Line of sight between Peñarroya . and Montardo .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3565,6 +3673,7 @@
     },
     {
         "name": "Canigou. to Bertagne.",
+        "isHidden": true,
         "description": "View from Canigou. to Bertagne.",
         "observerHeight": 2786,
         "distance": 278,
@@ -3597,8 +3706,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Posets\u00a0.",
-        "description": "View from Penyagolosa. to Posets\u00a0.",
+        "name": "Penyagolosa. to Posets .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Posets .",
         "observerHeight": 1812,
         "distance": 278,
         "refractionFactor": 1.07,
@@ -3611,12 +3721,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Posets\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3631,6 +3741,7 @@
     },
     {
         "name": "Le Cengle. to Canigo.",
+        "isHidden": true,
         "description": "View from Le Cengle. to Canigo.",
         "observerHeight": 509,
         "distance": 276,
@@ -3663,8 +3774,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Monte Perdido\u00a0.",
-        "description": "View from Penyagolosa. to Monte Perdido\u00a0.",
+        "name": "Penyagolosa. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Monte Perdido .",
         "observerHeight": 1812,
         "distance": 275,
         "refractionFactor": 1.07,
@@ -3677,12 +3789,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3696,8 +3808,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Monte Perdido\u00a0.",
-        "description": "View from Penyagolosa. to Monte Perdido\u00a0.",
+        "name": "Penyagolosa. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Monte Perdido .",
         "observerHeight": 1812,
         "distance": 275,
         "refractionFactor": 1.07,
@@ -3710,12 +3823,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3729,8 +3842,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Monte Perdido\u00a0.",
-        "description": "View from Penyagolosa. to Monte Perdido\u00a0.",
+        "name": "Penyagolosa. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Monte Perdido .",
         "observerHeight": 1812,
         "distance": 275,
         "refractionFactor": 1.07,
@@ -3743,12 +3857,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3762,8 +3876,9 @@
         }
     },
     {
-        "name": "Penyagolosa. to Puig Major\u00a0.",
-        "description": "View from Penyagolosa. to Puig Major\u00a0.",
+        "name": "Penyagolosa. to Puig Major .",
+        "isHidden": true,
+        "description": "View from Penyagolosa. to Puig Major .",
         "observerHeight": 1812,
         "distance": 272,
         "refractionFactor": 1.07,
@@ -3776,12 +3891,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Puig Major\u00a0.",
+                    "name": "Puig Major .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Penyagolosa. and Puig Major\u00a0.",
+            "notes": "Line of sight between Penyagolosa. and Puig Major .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3796,6 +3911,7 @@
     },
     {
         "name": "Canigou. to Tete du Grand Puech.",
+        "isHidden": true,
         "description": "View from Canigou. to Tete du Grand Puech.",
         "observerHeight": 2786,
         "distance": 268,
@@ -3829,6 +3945,7 @@
     },
     {
         "name": "Poqueira. to Jebel Tisouka.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jebel Tisouka.",
         "observerHeight": 2500,
         "distance": 268,
@@ -3862,6 +3979,7 @@
     },
     {
         "name": "Poqueira. to Jebel Afestal.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jebel Afestal.",
         "observerHeight": 2500,
         "distance": 267,
@@ -3894,8 +4012,9 @@
         }
     },
     {
-        "name": "Puig de Galatz\u00f3\u00a0. to Puntal del Tamborero.",
-        "description": "View from Puig de Galatz\u00f3\u00a0. to Puntal del Tamborero.",
+        "name": "Puig de Galatzó . to Puntal del Tamborero.",
+        "isHidden": true,
+        "description": "View from Puig de Galatzó . to Puntal del Tamborero.",
         "observerHeight": 1026,
         "distance": 266,
         "refractionFactor": 1.07,
@@ -3903,7 +4022,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig de Galatz\u00f3\u00a0.",
+                    "name": "Puig de Galatzó .",
                     "region": "",
                     "country": ""
                 },
@@ -3913,7 +4032,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig de Galatz\u00f3\u00a0. and Puntal del Tamborero.",
+            "notes": "Line of sight between Puig de Galatzó . and Puntal del Tamborero.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3927,8 +4046,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Collarada.",
-        "description": "View from Cantavieja\u00a0. to Collarada.",
+        "name": "Cantavieja . to Collarada.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Collarada.",
         "observerHeight": 1700,
         "distance": 264,
         "refractionFactor": 1.07,
@@ -3936,7 +4056,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -3946,7 +4066,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Collarada.",
+            "notes": "Line of sight between Cantavieja . and Collarada.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3960,8 +4080,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Ezkaurre.",
-        "description": "View from Cantavieja\u00a0. to Ezkaurre.",
+        "name": "Cantavieja . to Ezkaurre.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Ezkaurre.",
         "observerHeight": 1700,
         "distance": 264,
         "refractionFactor": 1.07,
@@ -3969,7 +4090,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -3979,7 +4100,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Ezkaurre.",
+            "notes": "Line of sight between Cantavieja . and Ezkaurre.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -3993,8 +4114,9 @@
         }
     },
     {
-        "name": "Marseille\u00a0. to Canigou\u00a0.",
-        "description": "View from Marseille\u00a0. to Canigou\u00a0.",
+        "name": "Marseille . to Canigou .",
+        "isHidden": true,
+        "description": "View from Marseille . to Canigou .",
         "observerHeight": 420,
         "distance": 264,
         "refractionFactor": 1.07,
@@ -4002,17 +4124,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Marseille\u00a0.",
+                    "name": "Marseille .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Canigou\u00a0.",
+                    "name": "Canigou .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Marseille\u00a0. and Canigou\u00a0.",
+            "notes": "Line of sight between Marseille . and Canigou .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4026,8 +4148,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pedraforca.",
-        "description": "View from Cantavieja\u00a0. to Pedraforca.",
+        "name": "Cantavieja . to Pedraforca.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pedraforca.",
         "observerHeight": 1700,
         "distance": 263,
         "refractionFactor": 1.07,
@@ -4035,7 +4158,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4045,7 +4168,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pedraforca.",
+            "notes": "Line of sight between Cantavieja . and Pedraforca.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4059,8 +4182,9 @@
         }
     },
     {
-        "name": "Teleno\u00a0. to San Mill\u00e1n\u00a0.",
-        "description": "View from Teleno\u00a0. to San Mill\u00e1n\u00a0.",
+        "name": "Teleno . to San Millán .",
+        "isHidden": true,
+        "description": "View from Teleno . to San Millán .",
         "observerHeight": 2183,
         "distance": 262,
         "refractionFactor": 1.07,
@@ -4068,17 +4192,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Teleno\u00a0.",
+                    "name": "Teleno .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "San Mill\u00e1n\u00a0.",
+                    "name": "San Millán .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Teleno\u00a0. and San Mill\u00e1n\u00a0.",
+            "notes": "Line of sight between Teleno . and San Millán .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4092,8 +4216,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Balaitous.",
-        "description": "View from Cantavieja\u00a0. to Balaitous.",
+        "name": "Cantavieja . to Balaitous.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Balaitous.",
         "observerHeight": 1700,
         "distance": 261,
         "refractionFactor": 1.07,
@@ -4101,7 +4226,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4111,7 +4236,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Balaitous.",
+            "notes": "Line of sight between Cantavieja . and Balaitous.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4125,8 +4250,9 @@
         }
     },
     {
-        "name": "Puig de Galatz\u00f3\u00a0. to Aitana.",
-        "description": "View from Puig de Galatz\u00f3\u00a0. to Aitana.",
+        "name": "Puig de Galatzó . to Aitana.",
+        "isHidden": true,
+        "description": "View from Puig de Galatzó . to Aitana.",
         "observerHeight": 1026,
         "distance": 261,
         "refractionFactor": 1.07,
@@ -4134,7 +4260,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig de Galatz\u00f3\u00a0.",
+                    "name": "Puig de Galatzó .",
                     "region": "",
                     "country": ""
                 },
@@ -4144,7 +4270,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig de Galatz\u00f3\u00a0. and Aitana.",
+            "notes": "Line of sight between Puig de Galatzó . and Aitana.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4158,8 +4284,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to El Cadi.",
-        "description": "View from Cantavieja\u00a0. to El Cadi.",
+        "name": "Cantavieja . to El Cadi.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to El Cadi.",
         "observerHeight": 1700,
         "distance": 260,
         "refractionFactor": 1.07,
@@ -4167,7 +4294,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4177,7 +4304,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and El Cadi.",
+            "notes": "Line of sight between Cantavieja . and El Cadi.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4191,8 +4318,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pic Long\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Pic Long\u00a0.",
+        "name": "Cantavieja . to Pic Long .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pic Long .",
         "observerHeight": 1700,
         "distance": 260,
         "refractionFactor": 1.07,
@@ -4200,17 +4328,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Pic Long\u00a0.",
+                    "name": "Pic Long .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pic Long\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Pic Long .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4224,8 +4352,9 @@
         }
     },
     {
-        "name": "Manaslu\u00a0. to Everest\u00a0.",
-        "description": "View from Manaslu\u00a0. to Everest\u00a0.",
+        "name": "Manaslu . to Everest .",
+        "isHidden": true,
+        "description": "View from Manaslu . to Everest .",
         "observerHeight": 8156,
         "distance": 260,
         "refractionFactor": 1.07,
@@ -4233,17 +4362,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Manaslu\u00a0.",
+                    "name": "Manaslu .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Everest\u00a0.",
+                    "name": "Everest .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Manaslu\u00a0. and Everest\u00a0.",
+            "notes": "Line of sight between Manaslu . and Everest .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4258,6 +4387,7 @@
     },
     {
         "name": "Paglia Orba. to Mt. Toulounaiss.",
+        "isHidden": true,
         "description": "View from Paglia Orba. to Mt. Toulounaiss.",
         "observerHeight": 2525,
         "distance": 260,
@@ -4291,6 +4421,7 @@
     },
     {
         "name": "Penyagolosa. to Cotiella.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Cotiella.",
         "observerHeight": 1812,
         "distance": 260,
@@ -4324,6 +4455,7 @@
     },
     {
         "name": "Penyagolosa. to Cotiella.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Cotiella.",
         "observerHeight": 1812,
         "distance": 260,
@@ -4356,8 +4488,9 @@
         }
     },
     {
-        "name": "Puig de Galatz\u00f3\u00a0. to Puig Campana.",
-        "description": "View from Puig de Galatz\u00f3\u00a0. to Puig Campana.",
+        "name": "Puig de Galatzó . to Puig Campana.",
+        "isHidden": true,
+        "description": "View from Puig de Galatzó . to Puig Campana.",
         "observerHeight": 1026,
         "distance": 259,
         "refractionFactor": 1.07,
@@ -4365,7 +4498,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig de Galatz\u00f3\u00a0.",
+                    "name": "Puig de Galatzó .",
                     "region": "",
                     "country": ""
                 },
@@ -4375,7 +4508,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig de Galatz\u00f3\u00a0. and Puig Campana.",
+            "notes": "Line of sight between Puig de Galatzó . and Puig Campana.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4389,8 +4522,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pic de Peguera.",
-        "description": "View from Cantavieja\u00a0. to Pic de Peguera.",
+        "name": "Cantavieja . to Pic de Peguera.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pic de Peguera.",
         "observerHeight": 1700,
         "distance": 257,
         "refractionFactor": 1.07,
@@ -4398,7 +4532,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4408,7 +4542,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pic de Peguera.",
+            "notes": "Line of sight between Cantavieja . and Pic de Peguera.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4422,8 +4556,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Perdiguero.",
-        "description": "View from Cantavieja\u00a0. to Perdiguero.",
+        "name": "Cantavieja . to Perdiguero.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Perdiguero.",
         "observerHeight": 1700,
         "distance": 256,
         "refractionFactor": 1.07,
@@ -4431,7 +4566,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4441,7 +4576,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Perdiguero.",
+            "notes": "Line of sight between Cantavieja . and Perdiguero.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4455,8 +4590,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Perdiguero.",
-        "description": "View from Cantavieja\u00a0. to Perdiguero.",
+        "name": "Cantavieja . to Perdiguero.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Perdiguero.",
         "observerHeight": 1700,
         "distance": 256,
         "refractionFactor": 1.07,
@@ -4464,7 +4600,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4474,7 +4610,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Perdiguero.",
+            "notes": "Line of sight between Cantavieja . and Perdiguero.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4488,8 +4624,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Picos del Infierno.",
-        "description": "View from Cantavieja\u00a0. to Picos del Infierno.",
+        "name": "Cantavieja . to Picos del Infierno.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Picos del Infierno.",
         "observerHeight": 1700,
         "distance": 255,
         "refractionFactor": 1.07,
@@ -4497,7 +4634,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4507,7 +4644,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Picos del Infierno.",
+            "notes": "Line of sight between Cantavieja . and Picos del Infierno.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4521,8 +4658,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Bisaurin.",
-        "description": "View from Cantavieja\u00a0. to Bisaurin.",
+        "name": "Cantavieja . to Bisaurin.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Bisaurin.",
         "observerHeight": 1700,
         "distance": 255,
         "refractionFactor": 1.07,
@@ -4530,7 +4668,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4540,7 +4678,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Bisaurin.",
+            "notes": "Line of sight between Cantavieja . and Bisaurin.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4554,8 +4692,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Comaloforno.",
-        "description": "View from Cantavieja\u00a0. to Comaloforno.",
+        "name": "Cantavieja . to Comaloforno.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Comaloforno.",
         "observerHeight": 1700,
         "distance": 255,
         "refractionFactor": 1.07,
@@ -4563,7 +4702,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4573,7 +4712,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Comaloforno.",
+            "notes": "Line of sight between Cantavieja . and Comaloforno.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4588,6 +4727,7 @@
     },
     {
         "name": "Poqueira. to Jbel Kelti.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jbel Kelti.",
         "observerHeight": 2500,
         "distance": 255,
@@ -4621,6 +4761,7 @@
     },
     {
         "name": "Poqueira. to Jbel Kelti.",
+        "isHidden": true,
         "description": "View from Poqueira. to Jbel Kelti.",
         "observerHeight": 2500,
         "distance": 255,
@@ -4653,8 +4794,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Aneto\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Aneto\u00a0.",
+        "name": "Cantavieja . to Aneto .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Aneto .",
         "observerHeight": 1700,
         "distance": 254,
         "refractionFactor": 1.07,
@@ -4662,17 +4804,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Aneto\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4686,8 +4828,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Aneto\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Aneto\u00a0.",
+        "name": "Cantavieja . to Aneto .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Aneto .",
         "observerHeight": 1700,
         "distance": 254,
         "refractionFactor": 1.07,
@@ -4695,17 +4838,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Aneto\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4719,8 +4862,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Vignemale.",
-        "description": "View from Cantavieja\u00a0. to Vignemale.",
+        "name": "Cantavieja . to Vignemale.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Vignemale.",
         "observerHeight": 1700,
         "distance": 254,
         "refractionFactor": 1.07,
@@ -4728,7 +4872,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4738,7 +4882,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Vignemale.",
+            "notes": "Line of sight between Cantavieja . and Vignemale.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4752,8 +4896,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Aneto\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Aneto\u00a0.",
+        "name": "Cantavieja . to Aneto .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Aneto .",
         "observerHeight": 1700,
         "distance": 254,
         "refractionFactor": 1.07,
@@ -4761,17 +4906,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Aneto\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4785,8 +4930,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Vignemale.",
-        "description": "View from Cantavieja\u00a0. to Vignemale.",
+        "name": "Cantavieja . to Vignemale.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Vignemale.",
         "observerHeight": 1700,
         "distance": 254,
         "refractionFactor": 1.07,
@@ -4794,7 +4940,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4804,7 +4950,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Vignemale.",
+            "notes": "Line of sight between Cantavieja . and Vignemale.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4819,6 +4965,7 @@
     },
     {
         "name": "Canigou. to Marsella.",
+        "isHidden": true,
         "description": "View from Canigou. to Marsella.",
         "observerHeight": 2786,
         "distance": 252,
@@ -4851,8 +4998,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Pico de Aspe.",
-        "description": "View from Cantavieja\u00a0. to Pico de Aspe.",
+        "name": "Cantavieja . to Pico de Aspe.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Pico de Aspe.",
         "observerHeight": 1700,
         "distance": 252,
         "refractionFactor": 1.07,
@@ -4860,7 +5008,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4870,7 +5018,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Pico de Aspe.",
+            "notes": "Line of sight between Cantavieja . and Pico de Aspe.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4884,8 +5032,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Posets\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Posets\u00a0.",
+        "name": "Cantavieja . to Posets .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Posets .",
         "observerHeight": 1700,
         "distance": 251,
         "refractionFactor": 1.07,
@@ -4893,17 +5042,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Posets\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4917,8 +5066,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Posets.",
-        "description": "View from Cantavieja\u00a0. to Posets.",
+        "name": "Cantavieja . to Posets.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Posets.",
         "observerHeight": 1700,
         "distance": 251,
         "refractionFactor": 1.07,
@@ -4926,7 +5076,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4936,7 +5086,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Posets.",
+            "notes": "Line of sight between Cantavieja . and Posets.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4950,8 +5100,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to La Munia.",
-        "description": "View from Cantavieja\u00a0. to La Munia.",
+        "name": "Cantavieja . to La Munia.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to La Munia.",
         "observerHeight": 1700,
         "distance": 251,
         "refractionFactor": 1.07,
@@ -4959,7 +5110,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -4969,7 +5120,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and La Munia.",
+            "notes": "Line of sight between Cantavieja . and La Munia.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -4983,8 +5134,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Posets\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Posets\u00a0.",
+        "name": "Cantavieja . to Posets .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Posets .",
         "observerHeight": 1700,
         "distance": 251,
         "refractionFactor": 1.07,
@@ -4992,17 +5144,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Posets\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5016,8 +5168,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to La Munia.",
-        "description": "View from Cantavieja\u00a0. to La Munia.",
+        "name": "Cantavieja . to La Munia.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to La Munia.",
         "observerHeight": 1700,
         "distance": 251,
         "refractionFactor": 1.07,
@@ -5025,7 +5178,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -5035,7 +5188,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and La Munia.",
+            "notes": "Line of sight between Cantavieja . and La Munia.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5050,6 +5203,7 @@
     },
     {
         "name": "Penyagolosa. to Galatzo.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Galatzo.",
         "observerHeight": 1812,
         "distance": 251,
@@ -5082,8 +5236,9 @@
         }
     },
     {
-        "name": "Cap Corse\u00a0. to Le Grand Coyer\u00a0.",
-        "description": "View from Cap Corse\u00a0. to Le Grand Coyer\u00a0.",
+        "name": "Cap Corse . to Le Grand Coyer .",
+        "isHidden": true,
+        "description": "View from Cap Corse . to Le Grand Coyer .",
         "observerHeight": 392,
         "distance": 249,
         "refractionFactor": 1.07,
@@ -5091,17 +5246,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cap Corse\u00a0.",
+                    "name": "Cap Corse .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Le Grand Coyer\u00a0.",
+                    "name": "Le Grand Coyer .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cap Corse\u00a0. and Le Grand Coyer\u00a0.",
+            "notes": "Line of sight between Cap Corse . and Le Grand Coyer .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5115,8 +5270,9 @@
         }
     },
     {
-        "name": "Pto. Navacerrada. to Pe\u00f1a Prieta.",
-        "description": "View from Pto. Navacerrada. to Pe\u00f1a Prieta.",
+        "name": "Pto. Navacerrada. to Peña Prieta.",
+        "isHidden": true,
+        "description": "View from Pto. Navacerrada. to Peña Prieta.",
         "observerHeight": 1860,
         "distance": 249,
         "refractionFactor": 1.07,
@@ -5129,12 +5285,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pe\u00f1a Prieta.",
+                    "name": "Peña Prieta.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Pto. Navacerrada. and Pe\u00f1a Prieta.",
+            "notes": "Line of sight between Pto. Navacerrada. and Peña Prieta.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5148,8 +5304,9 @@
         }
     },
     {
-        "name": "Pto. Navacerrada. to Espiguete\u00a0.",
-        "description": "View from Pto. Navacerrada. to Espiguete\u00a0.",
+        "name": "Pto. Navacerrada. to Espiguete .",
+        "isHidden": true,
+        "description": "View from Pto. Navacerrada. to Espiguete .",
         "observerHeight": 1860,
         "distance": 249,
         "refractionFactor": 1.07,
@@ -5162,12 +5319,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Espiguete\u00a0.",
+                    "name": "Espiguete .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Pto. Navacerrada. and Espiguete\u00a0.",
+            "notes": "Line of sight between Pto. Navacerrada. and Espiguete .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5181,8 +5338,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Monte Perdido\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Monte Perdido\u00a0.",
+        "name": "Cantavieja . to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Monte Perdido .",
         "observerHeight": 1700,
         "distance": 246,
         "refractionFactor": 1.07,
@@ -5190,17 +5348,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5214,8 +5372,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Monte Perdido\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Monte Perdido\u00a0.",
+        "name": "Cantavieja . to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Monte Perdido .",
         "observerHeight": 1700,
         "distance": 246,
         "refractionFactor": 1.07,
@@ -5223,17 +5382,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5247,8 +5406,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to El Taillon.",
-        "description": "View from Cantavieja\u00a0. to El Taillon.",
+        "name": "Cantavieja . to El Taillon.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to El Taillon.",
         "observerHeight": 1700,
         "distance": 246,
         "refractionFactor": 1.07,
@@ -5256,7 +5416,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -5266,7 +5426,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and El Taillon.",
+            "notes": "Line of sight between Cantavieja . and El Taillon.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5280,8 +5440,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Monte Perdido\u00a0.",
-        "description": "View from Cantavieja\u00a0. to Monte Perdido\u00a0.",
+        "name": "Cantavieja . to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Monte Perdido .",
         "observerHeight": 1700,
         "distance": 246,
         "refractionFactor": 1.07,
@@ -5289,17 +5450,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Cantavieja . and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5313,8 +5474,9 @@
         }
     },
     {
-        "name": "La Friolera\u00a0. to Mulhacen\u00a0.",
-        "description": "View from La Friolera\u00a0. to Mulhacen\u00a0.",
+        "name": "La Friolera . to Mulhacen .",
+        "isHidden": true,
+        "description": "View from La Friolera . to Mulhacen .",
         "observerHeight": 1130,
         "distance": 245,
         "refractionFactor": 1.07,
@@ -5322,17 +5484,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "La Friolera\u00a0.",
+                    "name": "La Friolera .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mulhacen\u00a0.",
+                    "name": "Mulhacen .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between La Friolera\u00a0. and Mulhacen\u00a0.",
+            "notes": "Line of sight between La Friolera . and Mulhacen .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5346,8 +5508,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Puig Major\u00a0.",
-        "description": "View from Mont Caro. to Puig Major\u00a0.",
+        "name": "Mont Caro. to Puig Major .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Puig Major .",
         "observerHeight": 1441,
         "distance": 240,
         "refractionFactor": 1.07,
@@ -5360,12 +5523,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Puig Major\u00a0.",
+                    "name": "Puig Major .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Puig Major\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Puig Major .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5379,8 +5542,9 @@
         }
     },
     {
-        "name": "Tur\u00f3 Gros. to Puig Major.",
-        "description": "View from Tur\u00f3 Gros. to Puig Major.",
+        "name": "Turó Gros. to Puig Major.",
+        "isHidden": true,
+        "description": "View from Turó Gros. to Puig Major.",
         "observerHeight": 1644,
         "distance": 239,
         "refractionFactor": 1.07,
@@ -5388,7 +5552,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Tur\u00f3 Gros.",
+                    "name": "Turó Gros.",
                     "region": "",
                     "country": ""
                 },
@@ -5398,7 +5562,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Tur\u00f3 Gros. and Puig Major.",
+            "notes": "Line of sight between Turó Gros. and Puig Major.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5412,8 +5576,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Cotiella.",
-        "description": "View from Cantavieja\u00a0. to Cotiella.",
+        "name": "Cantavieja . to Cotiella.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Cotiella.",
         "observerHeight": 1700,
         "distance": 233,
         "refractionFactor": 1.07,
@@ -5421,7 +5586,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -5431,7 +5596,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Cotiella.",
+            "notes": "Line of sight between Cantavieja . and Cotiella.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5445,8 +5610,9 @@
         }
     },
     {
-        "name": "Cantavieja\u00a0. to Cotiella.",
-        "description": "View from Cantavieja\u00a0. to Cotiella.",
+        "name": "Cantavieja . to Cotiella.",
+        "isHidden": true,
+        "description": "View from Cantavieja . to Cotiella.",
         "observerHeight": 1700,
         "distance": 233,
         "refractionFactor": 1.07,
@@ -5454,7 +5620,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Cantavieja\u00a0.",
+                    "name": "Cantavieja .",
                     "region": "",
                     "country": ""
                 },
@@ -5464,7 +5630,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Cantavieja\u00a0. and Cotiella.",
+            "notes": "Line of sight between Cantavieja . and Cotiella.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5479,6 +5645,7 @@
     },
     {
         "name": "Valdemadera. to Pta. Alta Comalesbienes.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Pta. Alta Comalesbienes.",
         "observerHeight": 1273,
         "distance": 231,
@@ -5512,6 +5679,7 @@
     },
     {
         "name": "Gran Ballon. to Mont Blanc.",
+        "isHidden": true,
         "description": "View from Gran Ballon. to Mont Blanc.",
         "observerHeight": 1424,
         "distance": 230,
@@ -5544,8 +5712,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Pica d\u2019Estats\u00a0.",
-        "description": "View from Mont Caro. to Pica d\u2019Estats\u00a0.",
+        "name": "Mont Caro. to Pica d’Estats .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Pica d’Estats .",
         "observerHeight": 1441,
         "distance": 225,
         "refractionFactor": 1.07,
@@ -5558,12 +5727,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Pica d\u2019Estats\u00a0.",
+                    "name": "Pica d’Estats .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Pica d\u2019Estats\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Pica d’Estats .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5578,6 +5747,7 @@
     },
     {
         "name": "Mont Caro. to Vignemale.",
+        "isHidden": true,
         "description": "View from Mont Caro. to Vignemale.",
         "observerHeight": 1441,
         "distance": 223,
@@ -5611,6 +5781,7 @@
     },
     {
         "name": "Mont Caro. to Vignemale.",
+        "isHidden": true,
         "description": "View from Mont Caro. to Vignemale.",
         "observerHeight": 1441,
         "distance": 223,
@@ -5644,6 +5815,7 @@
     },
     {
         "name": "Veleta. to Sierra de Ojen.",
+        "isHidden": true,
         "description": "View from Veleta. to Sierra de Ojen.",
         "observerHeight": 3398,
         "distance": 222,
@@ -5676,8 +5848,9 @@
         }
     },
     {
-        "name": "Puig d\u2019En Galileu. to Tur\u00f3 del Home.",
-        "description": "View from Puig d\u2019En Galileu. to Tur\u00f3 del Home.",
+        "name": "Puig d’En Galileu. to Turó del Home.",
+        "isHidden": true,
+        "description": "View from Puig d’En Galileu. to Turó del Home.",
         "observerHeight": 1180,
         "distance": 221,
         "refractionFactor": 1.07,
@@ -5685,17 +5858,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig d\u2019En Galileu.",
+                    "name": "Puig d’En Galileu.",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Tur\u00f3 del Home.",
+                    "name": "Turó del Home.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig d\u2019En Galileu. and Tur\u00f3 del Home.",
+            "notes": "Line of sight between Puig d’En Galileu. and Turó del Home.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5710,6 +5883,7 @@
     },
     {
         "name": "Valdemadera. to Aneto.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Aneto.",
         "observerHeight": 1273,
         "distance": 220,
@@ -5743,6 +5917,7 @@
     },
     {
         "name": "Anchorage. to Denali.",
+        "isHidden": true,
         "description": "View from Anchorage. to Denali.",
         "observerHeight": 0,
         "distance": 218,
@@ -5775,8 +5950,9 @@
         }
     },
     {
-        "name": "Montsec d\u2019Ares. to Moncayo.",
-        "description": "View from Montsec d\u2019Ares. to Moncayo.",
+        "name": "Montsec d’Ares. to Moncayo.",
+        "isHidden": true,
+        "description": "View from Montsec d’Ares. to Moncayo.",
         "observerHeight": 500,
         "distance": 218,
         "refractionFactor": 1.07,
@@ -5784,7 +5960,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Montsec d\u2019Ares.",
+                    "name": "Montsec d’Ares.",
                     "region": "",
                     "country": ""
                 },
@@ -5794,7 +5970,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Montsec d\u2019Ares. and Moncayo.",
+            "notes": "Line of sight between Montsec d’Ares. and Moncayo.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5809,6 +5985,7 @@
     },
     {
         "name": "Bieszczady. to Pietrosul Rodney.",
+        "isHidden": true,
         "description": "View from Bieszczady. to Pietrosul Rodney.",
         "observerHeight": 1405,
         "distance": 216,
@@ -5841,8 +6018,9 @@
         }
     },
     {
-        "name": "Puig Roig\u00a0. to Montserrat.",
-        "description": "View from Puig Roig\u00a0. to Montserrat.",
+        "name": "Puig Roig . to Montserrat.",
+        "isHidden": true,
+        "description": "View from Puig Roig . to Montserrat.",
         "observerHeight": 1002,
         "distance": 215,
         "refractionFactor": 1.07,
@@ -5850,7 +6028,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig Roig\u00a0.",
+                    "name": "Puig Roig .",
                     "region": "",
                     "country": ""
                 },
@@ -5860,7 +6038,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig Roig\u00a0. and Montserrat.",
+            "notes": "Line of sight between Puig Roig . and Montserrat.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5874,8 +6052,9 @@
         }
     },
     {
-        "name": "Puig Roig\u00a0. to Montserrat.",
-        "description": "View from Puig Roig\u00a0. to Montserrat.",
+        "name": "Puig Roig . to Montserrat.",
+        "isHidden": true,
+        "description": "View from Puig Roig . to Montserrat.",
         "observerHeight": 1002,
         "distance": 215,
         "refractionFactor": 1.07,
@@ -5883,7 +6062,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Puig Roig\u00a0.",
+                    "name": "Puig Roig .",
                     "region": "",
                     "country": ""
                 },
@@ -5893,7 +6072,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Puig Roig\u00a0. and Montserrat.",
+            "notes": "Line of sight between Puig Roig . and Montserrat.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5907,8 +6086,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Monte Perdido\u00a0.",
-        "description": "View from Mont Caro. to Monte Perdido\u00a0.",
+        "name": "Mont Caro. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Monte Perdido .",
         "observerHeight": 1441,
         "distance": 210,
         "refractionFactor": 1.07,
@@ -5921,12 +6101,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5940,8 +6120,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Monte Perdido\u00a0.",
-        "description": "View from Mont Caro. to Monte Perdido\u00a0.",
+        "name": "Mont Caro. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Monte Perdido .",
         "observerHeight": 1441,
         "distance": 210,
         "refractionFactor": 1.07,
@@ -5954,12 +6135,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -5974,6 +6155,7 @@
     },
     {
         "name": "Mont Caro. to Perdiguero.",
+        "isHidden": true,
         "description": "View from Mont Caro. to Perdiguero.",
         "observerHeight": 1441,
         "distance": 210,
@@ -6006,8 +6188,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Monte Perdido\u00a0.",
-        "description": "View from Mont Caro. to Monte Perdido\u00a0.",
+        "name": "Mont Caro. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Monte Perdido .",
         "observerHeight": 1441,
         "distance": 210,
         "refractionFactor": 1.07,
@@ -6020,12 +6203,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6040,6 +6223,7 @@
     },
     {
         "name": "Valdemadera. to Posets.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Posets.",
         "observerHeight": 1273,
         "distance": 208,
@@ -6073,6 +6257,7 @@
     },
     {
         "name": "Valdemadera. to Batoua.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Batoua.",
         "observerHeight": 1273,
         "distance": 207,
@@ -6105,8 +6290,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Posets\u00a0.",
-        "description": "View from Mont Caro. to Posets\u00a0.",
+        "name": "Mont Caro. to Posets .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Posets .",
         "observerHeight": 1441,
         "distance": 206,
         "refractionFactor": 1.07,
@@ -6119,12 +6305,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Posets\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6138,8 +6324,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Posets\u00a0.",
-        "description": "View from Mont Caro. to Posets\u00a0.",
+        "name": "Mont Caro. to Posets .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Posets .",
         "observerHeight": 1441,
         "distance": 206,
         "refractionFactor": 1.07,
@@ -6152,12 +6339,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Posets\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6171,8 +6358,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Aneto\u00a0.",
-        "description": "View from Mont Caro. to Aneto\u00a0.",
+        "name": "Mont Caro. to Aneto .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Aneto .",
         "observerHeight": 1441,
         "distance": 205,
         "refractionFactor": 1.07,
@@ -6185,12 +6373,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Aneto\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6204,8 +6392,9 @@
         }
     },
     {
-        "name": "Mont Caro. to Aneto\u00a0.",
-        "description": "View from Mont Caro. to Aneto\u00a0.",
+        "name": "Mont Caro. to Aneto .",
+        "isHidden": true,
+        "description": "View from Mont Caro. to Aneto .",
         "observerHeight": 1441,
         "distance": 205,
         "refractionFactor": 1.07,
@@ -6218,12 +6407,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Aneto\u00a0.",
+                    "name": "Aneto .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Mont Caro. and Aneto\u00a0.",
+            "notes": "Line of sight between Mont Caro. and Aneto .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6237,8 +6426,9 @@
         }
     },
     {
-        "name": "Juego de Bolos I\u00a0. to Veleta\u00a0.",
-        "description": "View from Juego de Bolos I\u00a0. to Veleta\u00a0.",
+        "name": "Juego de Bolos I . to Veleta .",
+        "isHidden": true,
+        "description": "View from Juego de Bolos I . to Veleta .",
         "observerHeight": 1088,
         "distance": 203,
         "refractionFactor": 1.07,
@@ -6246,17 +6436,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Juego de Bolos I\u00a0.",
+                    "name": "Juego de Bolos I .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Veleta\u00a0.",
+                    "name": "Veleta .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Juego de Bolos I\u00a0. and Veleta\u00a0.",
+            "notes": "Line of sight between Juego de Bolos I . and Veleta .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6271,6 +6461,7 @@
     },
     {
         "name": "Mont Caro. to Comaloforno.",
+        "isHidden": true,
         "description": "View from Mont Caro. to Comaloforno.",
         "observerHeight": 1441,
         "distance": 203,
@@ -6303,8 +6494,9 @@
         }
     },
     {
-        "name": "Carrascoy\u00a0. to Mulhacen\u00a0.",
-        "description": "View from Carrascoy\u00a0. to Mulhacen\u00a0.",
+        "name": "Carrascoy . to Mulhacen .",
+        "isHidden": true,
+        "description": "View from Carrascoy . to Mulhacen .",
         "observerHeight": 2257,
         "distance": 201,
         "refractionFactor": 1.07,
@@ -6312,17 +6504,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Carrascoy\u00a0.",
+                    "name": "Carrascoy .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mulhacen\u00a0.",
+                    "name": "Mulhacen .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Carrascoy\u00a0. and Mulhacen\u00a0.",
+            "notes": "Line of sight between Carrascoy . and Mulhacen .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6337,6 +6529,7 @@
     },
     {
         "name": "Monteburo. to Vaganski Vrh.",
+        "isHidden": true,
         "description": "View from Monteburo. to Vaganski Vrh.",
         "observerHeight": 189,
         "distance": 201,
@@ -6370,6 +6563,7 @@
     },
     {
         "name": "Grignetta. to Mont Blanc.",
+        "isHidden": true,
         "description": "View from Grignetta. to Mont Blanc.",
         "observerHeight": 2177,
         "distance": 196,
@@ -6403,6 +6597,7 @@
     },
     {
         "name": "Tibidabo. to Puig Major.",
+        "isHidden": true,
         "description": "View from Tibidabo. to Puig Major.",
         "observerHeight": 512,
         "distance": 193,
@@ -6436,6 +6631,7 @@
     },
     {
         "name": "Valdemadera. to Cotiella.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Cotiella.",
         "observerHeight": 1273,
         "distance": 191,
@@ -6469,6 +6665,7 @@
     },
     {
         "name": "Mont Caro. to Cotiella.",
+        "isHidden": true,
         "description": "View from Mont Caro. to Cotiella.",
         "observerHeight": 1441,
         "distance": 190,
@@ -6502,6 +6699,7 @@
     },
     {
         "name": "Valdemadera. to Balaitous.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Balaitous.",
         "observerHeight": 1273,
         "distance": 189,
@@ -6535,6 +6733,7 @@
     },
     {
         "name": "Valdemadera. to Vignemale.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Vignemale.",
         "observerHeight": 1273,
         "distance": 189,
@@ -6567,8 +6766,9 @@
         }
     },
     {
-        "name": "Valdemadera. to Monte Perdido\u00a0.",
-        "description": "View from Valdemadera. to Monte Perdido\u00a0.",
+        "name": "Valdemadera. to Monte Perdido .",
+        "isHidden": true,
+        "description": "View from Valdemadera. to Monte Perdido .",
         "observerHeight": 1273,
         "distance": 188,
         "refractionFactor": 1.07,
@@ -6581,12 +6781,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Monte Perdido\u00a0.",
+                    "name": "Monte Perdido .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Valdemadera. and Monte Perdido\u00a0.",
+            "notes": "Line of sight between Valdemadera. and Monte Perdido .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6601,6 +6801,7 @@
     },
     {
         "name": "Valdemadera. to Orhi.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Orhi.",
         "observerHeight": 1273,
         "distance": 186,
@@ -6634,6 +6835,7 @@
     },
     {
         "name": "Valdemadera. to Infierno Central.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Infierno Central.",
         "observerHeight": 1273,
         "distance": 185,
@@ -6667,6 +6869,7 @@
     },
     {
         "name": "Valdemadera. to Lakartxela.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Lakartxela.",
         "observerHeight": 1273,
         "distance": 184,
@@ -6699,8 +6902,9 @@
         }
     },
     {
-        "name": "Valdemadera. to Midi d\u2019Ossau.",
-        "description": "View from Valdemadera. to Midi d\u2019Ossau.",
+        "name": "Valdemadera. to Midi d’Ossau.",
+        "isHidden": true,
+        "description": "View from Valdemadera. to Midi d’Ossau.",
         "observerHeight": 1273,
         "distance": 184,
         "refractionFactor": 1.07,
@@ -6713,12 +6917,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Midi d\u2019Ossau.",
+                    "name": "Midi d’Ossau.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Valdemadera. and Midi d\u2019Ossau.",
+            "notes": "Line of sight between Valdemadera. and Midi d’Ossau.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6733,6 +6937,7 @@
     },
     {
         "name": "Bieszczady. to Lomnica.",
+        "isHidden": true,
         "description": "View from Bieszczady. to Lomnica.",
         "observerHeight": 1405,
         "distance": 183,
@@ -6765,8 +6970,9 @@
         }
     },
     {
-        "name": "Piamonte. to Matterhorn\u00a0.",
-        "description": "View from Piamonte. to Matterhorn\u00a0.",
+        "name": "Piamonte. to Matterhorn .",
+        "isHidden": true,
+        "description": "View from Piamonte. to Matterhorn .",
         "observerHeight": 870,
         "distance": 183,
         "refractionFactor": 1.07,
@@ -6779,12 +6985,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Matterhorn\u00a0.",
+                    "name": "Matterhorn .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Piamonte. and Matterhorn\u00a0.",
+            "notes": "Line of sight between Piamonte. and Matterhorn .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6798,8 +7004,9 @@
         }
     },
     {
-        "name": "Piamonte. to Matterhorn\u00a0.",
-        "description": "View from Piamonte. to Matterhorn\u00a0.",
+        "name": "Piamonte. to Matterhorn .",
+        "isHidden": true,
+        "description": "View from Piamonte. to Matterhorn .",
         "observerHeight": 870,
         "distance": 183,
         "refractionFactor": 1.07,
@@ -6812,12 +7019,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Matterhorn\u00a0.",
+                    "name": "Matterhorn .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Piamonte. and Matterhorn\u00a0.",
+            "notes": "Line of sight between Piamonte. and Matterhorn .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6832,6 +7039,7 @@
     },
     {
         "name": "Penyagolosa. to Puig Campana.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Puig Campana.",
         "observerHeight": 1812,
         "distance": 181,
@@ -6865,6 +7073,7 @@
     },
     {
         "name": "Penyagolosa. to Puig Campana.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Puig Campana.",
         "observerHeight": 1812,
         "distance": 181,
@@ -6898,6 +7107,7 @@
     },
     {
         "name": "Westport. to Mt. Rainier.",
+        "isHidden": true,
         "description": "View from Westport. to Mt. Rainier.",
         "observerHeight": 7,
         "distance": 178,
@@ -6930,8 +7140,9 @@
         }
     },
     {
-        "name": "Izola. to Cima d\u2019Asta.",
-        "description": "View from Izola. to Cima d\u2019Asta.",
+        "name": "Izola. to Cima d’Asta.",
+        "isHidden": true,
+        "description": "View from Izola. to Cima d’Asta.",
         "observerHeight": 0,
         "distance": 174,
         "refractionFactor": 1.07,
@@ -6944,12 +7155,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Cima d\u2019Asta.",
+                    "name": "Cima d’Asta.",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Izola. and Cima d\u2019Asta.",
+            "notes": "Line of sight between Izola. and Cima d’Asta.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6963,8 +7174,9 @@
         }
     },
     {
-        "name": "Bastia\u00a0. to Mt. Tambura\u00a0.",
-        "description": "View from Bastia\u00a0. to Mt. Tambura\u00a0.",
+        "name": "Bastia . to Mt. Tambura .",
+        "isHidden": true,
+        "description": "View from Bastia . to Mt. Tambura .",
         "observerHeight": 62,
         "distance": 172,
         "refractionFactor": 1.07,
@@ -6972,17 +7184,17 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Bastia\u00a0.",
+                    "name": "Bastia .",
                     "region": "",
                     "country": ""
                 },
                 "target": {
-                    "name": "Mt. Tambura\u00a0.",
+                    "name": "Mt. Tambura .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Bastia\u00a0. and Mt. Tambura\u00a0.",
+            "notes": "Line of sight between Bastia . and Mt. Tambura .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -6997,6 +7209,7 @@
     },
     {
         "name": "Valdemadera. to Bisaurin.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Bisaurin.",
         "observerHeight": 1273,
         "distance": 172,
@@ -7030,6 +7243,7 @@
     },
     {
         "name": "Mt. Argentario. to Mt. Rotondo.",
+        "isHidden": true,
         "description": "View from Mt. Argentario. to Mt. Rotondo.",
         "observerHeight": 5,
         "distance": 170,
@@ -7063,6 +7277,7 @@
     },
     {
         "name": "Valdemadera. to Collarada.",
+        "isHidden": true,
         "description": "View from Valdemadera. to Collarada.",
         "observerHeight": 1273,
         "distance": 170,
@@ -7096,6 +7311,7 @@
     },
     {
         "name": "Penyagolosa. to Montgo.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Montgo.",
         "observerHeight": 1812,
         "distance": 163,
@@ -7129,6 +7345,7 @@
     },
     {
         "name": "Penyagolosa. to Montgo.",
+        "isHidden": true,
         "description": "View from Penyagolosa. to Montgo.",
         "observerHeight": 1812,
         "distance": 163,
@@ -7162,6 +7379,7 @@
     },
     {
         "name": "Serra del Monte. to Mont Viso.",
+        "isHidden": true,
         "description": "View from Serra del Monte. to Mont Viso.",
         "observerHeight": 300,
         "distance": 158,
@@ -7195,6 +7413,7 @@
     },
     {
         "name": "Breithorn. to Mont Viso.",
+        "isHidden": true,
         "description": "View from Breithorn. to Mont Viso.",
         "observerHeight": 4164,
         "distance": 155,
@@ -7228,6 +7447,7 @@
     },
     {
         "name": "Punta Arenas. to Mt. Sarmiento.",
+        "isHidden": true,
         "description": "View from Punta Arenas. to Mt. Sarmiento.",
         "observerHeight": 0,
         "distance": 145,
@@ -7261,6 +7481,7 @@
     },
     {
         "name": "El Hierro. to Teide.",
+        "isHidden": true,
         "description": "View from El Hierro. to Teide.",
         "observerHeight": 0,
         "distance": 144,
@@ -7293,8 +7514,9 @@
         }
     },
     {
-        "name": "La Almolda. to Posets\u00a0.",
-        "description": "View from La Almolda. to Posets\u00a0.",
+        "name": "La Almolda. to Posets .",
+        "isHidden": true,
+        "description": "View from La Almolda. to Posets .",
         "observerHeight": 590,
         "distance": 140,
         "refractionFactor": 1.07,
@@ -7307,12 +7529,12 @@
                     "country": ""
                 },
                 "target": {
-                    "name": "Posets\u00a0.",
+                    "name": "Posets .",
                     "region": "",
                     "country": ""
                 }
             },
-            "notes": "Line of sight between La Almolda. and Posets\u00a0.",
+            "notes": "Line of sight between La Almolda. and Posets .",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -7327,6 +7549,7 @@
     },
     {
         "name": "Pradollano. to La Sagra.",
+        "isHidden": true,
         "description": "View from Pradollano. to La Sagra.",
         "observerHeight": 2500,
         "distance": 120,
@@ -7360,6 +7583,7 @@
     },
     {
         "name": "Pradollano. to La Sagra.",
+        "isHidden": true,
         "description": "View from Pradollano. to La Sagra.",
         "observerHeight": 2500,
         "distance": 120,
@@ -7393,6 +7617,7 @@
     },
     {
         "name": "Teide (corona). to La Palma.",
+        "isHidden": true,
         "description": "View from Teide (corona). to La Palma.",
         "observerHeight": 3718,
         "distance": 120,
@@ -7426,6 +7651,7 @@
     },
     {
         "name": "Reikyavik. to SNAEFFELJOKULL.",
+        "isHidden": true,
         "description": "View from Reikyavik. to SNAEFFELJOKULL.",
         "observerHeight": 0,
         "distance": 117,
@@ -7459,6 +7685,7 @@
     },
     {
         "name": "Pico de las Nieves. to Teide.",
+        "isHidden": true,
         "description": "View from Pico de las Nieves. to Teide.",
         "observerHeight": 1949,
         "distance": 110,
@@ -7491,8 +7718,9 @@
         }
     },
     {
-        "name": "Teide\u00a0. to Pico de las Nieves.",
-        "description": "View from Teide\u00a0. to Pico de las Nieves.",
+        "name": "Teide . to Pico de las Nieves.",
+        "isHidden": true,
+        "description": "View from Teide . to Pico de las Nieves.",
         "observerHeight": 3718,
         "distance": 110,
         "refractionFactor": 1.07,
@@ -7500,7 +7728,7 @@
         "details": {
             "location": {
                 "observer": {
-                    "name": "Teide\u00a0.",
+                    "name": "Teide .",
                     "region": "",
                     "country": ""
                 },
@@ -7510,7 +7738,7 @@
                     "country": ""
                 }
             },
-            "notes": "Line of sight between Teide\u00a0. and Pico de las Nieves.",
+            "notes": "Line of sight between Teide . and Pico de las Nieves.",
             "bestViewingConditions": "Clear weather with average refraction",
             "imageURL_1": "",
             "imageURL_1_source": "",
@@ -7525,6 +7753,7 @@
     },
     {
         "name": "Abra Cuyuni. to Salkantay.",
+        "isHidden": true,
         "description": "View from Abra Cuyuni. to Salkantay.",
         "observerHeight": 4165,
         "distance": 109,
@@ -7558,6 +7787,7 @@
     },
     {
         "name": "Samatan. to Pic de Soularac.",
+        "isHidden": true,
         "description": "View from Samatan. to Pic de Soularac.",
         "observerHeight": 165,
         "distance": 101,
@@ -7591,6 +7821,7 @@
     },
     {
         "name": "Turo del Home. to Illes Medes.",
+        "isHidden": true,
         "description": "View from Turo del Home. to Illes Medes.",
         "observerHeight": 1708,
         "distance": 72,

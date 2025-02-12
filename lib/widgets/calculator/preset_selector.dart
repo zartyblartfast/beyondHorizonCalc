@@ -29,8 +29,9 @@ class _PresetSelectorState extends State<PresetSelector> {
 
   Future<void> _loadPresets() async {
     print('PresetSelector - Loading presets');
-    final presets = await LineOfSightPreset.loadPresets();
-    print('PresetSelector - Loaded ${presets.length} presets');
+    // Load only visible presets
+    final presets = await LineOfSightPreset.loadPresets(includeHidden: false);
+    print('PresetSelector - Loaded ${presets.length} visible presets');
     
     if (mounted) {
       setState(() {
