@@ -381,7 +381,7 @@
     },
     {
       "name": "Nanga Parbat to Tor Sar",
-      "isHidden": true,
+      "isHidden": false,
       "description": "View from Nanga Parbat to Tor Sar",
       "observerHeight": 8126,
       "distance": 443,
@@ -402,13 +402,13 @@
         },
         "notes": "Line of sight between Nanga Parbat and Tor Sar",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageURL_1": "",
-        "imageURL_1_source": "",
-        "imageURL_2": "",
+        "imageURL_1": "https://raw.githubusercontent.com/zartyblartfast/BeyondHorizonCalc/main/assets/images/presets/nanga_parbat_tor_sar/1_tor_sar.jpg",
+        "imageURL_1_source": "https://www.facebook.com/kiki.mathawan",
+        "imageURL_2": "https://raw.githubusercontent.com/zartyblartfast/BeyondHorizonCalc/main/assets/images/presets/nanga_parbat_tor_sar/2_nanga_parbat_tor_sar_map.jpg",
         "imageURL_2_source": "",
-        "imageURL_3": "",
+        "imageURL_3": "https://raw.githubusercontent.com/zartyblartfast/BeyondHorizonCalc/main/assets/images/presets/nanga_parbat_tor_sar/3_horizon_diagram.jpg",
         "imageURL_3_source": "",
-        "imageURL_4": "",
+        "imageURL_4": "https://raw.githubusercontent.com/zartyblartfast/BeyondHorizonCalc/main/assets/images/presets/nanga_parbat_tor_sar/4_mountain_diagram.jpg",
         "imageURL_4_source": "",
         "attribution": ""
       }
@@ -499,7 +499,7 @@
           "target": {
             "name": "Doigt de Dieu",
             "region": "",
-            "country": ""
+            "country": "France"
           }
         },
         "notes": "Line of sight between Bastiments and Doigt de Dieu",
