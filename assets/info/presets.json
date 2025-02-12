@@ -483,18 +483,18 @@
     },
     {
       "name": "Bastiments to Doigt de Dieu",
-      "isHidden": true,
+      "isHidden": false,
       "description": "View from Bastiments to Doigt de Dieu",
       "observerHeight": 2881,
       "distance": 436,
-      "refractionFactor": 1.07,
+      "refractionFactor": 1.10,
       "targetHeight": 4102,
       "details": {
         "location": {
           "observer": {
             "name": "Bastiments",
             "region": "",
-            "country": ""
+            "country": "Spain"
           },
           "target": {
             "name": "Doigt de Dieu",
@@ -504,8 +504,8 @@
         },
         "notes": "Line of sight between Bastiments and Doigt de Dieu",
         "bestViewingConditions": "Clear weather with average refraction",
-        "imageURL_1": "",
-        "imageURL_1_source": "",
+        "imageURL_1": "https://raw.githubusercontent.com/zartyblartfast/BeyondHorizonCalc/main/assets/images/presets/bastiments_doigt_de_dieu/1_Bastiments_Pyrenees-Doigt_de_Dieu.jpg",
+        "imageURL_1_source": "https://beyondrange.wordpress.com/2017/08/01/the-gulf-of-lion-alps-and-mont-ventoux-on-a-winter-morning-from-the-bastiments-peak-pyriness-436-km/",
         "imageURL_2": "",
         "imageURL_2_source": "",
         "imageURL_3": "",
