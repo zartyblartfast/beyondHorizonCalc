@@ -8,7 +8,6 @@
     {
       "name": "Mount Dankova to Hindu Tagh",
       "isHidden": false,
-      "imageDir": "dankova_hindu_tagh",
       "description": "View from Mount Dankova to Hindu Tagh peak",
       "observerHeight": 7015,
       "distance": 539,
@@ -43,7 +42,6 @@
     {
       "name": "HinduTagh to Kongur Tube",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from HinduTagh to Kongur Tube",
       "observerHeight": 5420,
       "distance": 506,
@@ -78,7 +76,6 @@
     {
       "name": "Alto Mora to Pico La Reina",
       "isHidden": false,
-      "imageDir": "alto_mora_la_reina",
       "description": "View from Alto Mora to Pico La Reina in Colombia",
       "observerHeight": 3367,
       "distance": 505,
@@ -113,7 +110,6 @@
     {
       "name": "Alto Mora to Pico Cristobal Colon",
       "isHidden": false,
-      "imageDir": "alto_mora_cristobal_colon",
       "description": "View from Alto Mora to Pico Cristobal Colon in Colombia",
       "observerHeight": 3367,
       "distance": 502,
@@ -148,7 +144,6 @@
     {
       "name": "Kongur Tagh to Hindu Kush Peak",
       "isHidden": false,
-      "imageDir": "kongur_tagh_hindu_kush",
       "description": "View from Kongur Tagh to an unnamed peak in the Hindu Kush",
       "observerHeight": 7649,
       "distance": 500,
@@ -183,7 +178,6 @@
     {
       "name": "Cerro Paramillo to Pico La Reina",
       "isHidden": false,
-      "imageDir": "paramillo_la_reina",
       "description": "View from Cerro Paramillo to Pico La Reina in Colombia",
       "observerHeight": 3724,
       "distance": 491,
@@ -218,7 +212,6 @@
     {
       "name": "Cerro Paramillo to Pico Cristobal Colon",
       "isHidden": false,
-      "imageDir": "paramillo_cristobal_colon",
       "description": "View from Cerro Paramillo to Pico Cristobal Colon in Colombia",
       "observerHeight": 3724,
       "distance": 484,
@@ -253,7 +246,6 @@
     {
       "name": "Kanchenjunga to Parasnath",
       "isHidden": false,
-      "imageDir": "kanchenjunga_parasnath",
       "description": "View from Kanchenjunga to Parasnath in India",
       "observerHeight": 8586,
       "distance": 462,
@@ -288,7 +280,6 @@
     {
       "name": "K2 to Broad Peak",
       "isHidden": false,
-      "imageDir": "k2_broad_peak",
       "description": "View from K2 to Broad Peak",
       "observerHeight": 8611,
       "distance": 458,
@@ -323,7 +314,6 @@
     {
       "name": "Mount Everest to Parasnath",
       "isHidden": false,
-      "imageDir": "everest_parasnath",
       "description": "View from Mount Everest to Parasnath in India",
       "observerHeight": 8848,
       "distance": 455,
@@ -358,7 +348,6 @@
     {
       "name": "Pic de Finstrelles to Pic Gaspard",
       "isHidden": true,
-      "imageDir": "finstrelles_gaspard",
       "description": "View from Pic de Finstrelles, Spain to Pic Gaspard, France (best visibility at sunrise with very high refraction)",
       "observerHeight": 2826,
       "distance": 443,
@@ -393,7 +382,6 @@
     {
       "name": "Nanga Parbat to Tor Sar",
       "isHidden": false,
-      "imageDir": "nanga_parbat_tor_sar",
       "description": "View from Nanga Parbat to Tor Sar",
       "observerHeight": 8126,
       "distance": 443,
@@ -428,7 +416,6 @@
     {
       "name": "Finestrelles to Barre des Ecrins",
       "isHidden": false,
-      "imageDir": "finestrelles_barre_des_ecrins",
       "description": "View from Finestrelles to Barre des Ecrins",
       "observerHeight": 2828,
       "distance": 440,
@@ -463,7 +450,6 @@
     {
       "name": "Champaquí to Cerro El Plata",
       "isHidden": false,
-      "imageDir": "champaqui_cerro_el_plata",
       "description": "View from Champaquí to Cerro El Plata",
       "observerHeight": 2766,
       "distance": 437,
@@ -498,11 +484,10 @@
     {
       "name": "Bastiments to Doigt de Dieu",
       "isHidden": false,
-      "imageDir": "bastiments_doigt_de_dieu",
       "description": "View from Bastiments to Doigt de Dieu",
       "observerHeight": 2881,
       "distance": 436,
-      "refractionFactor": 1.1,
+      "refractionFactor": 1.10,
       "targetHeight": 4102,
       "details": {
         "location": {
@@ -533,7 +518,6 @@
     {
       "name": "Bastiments to Barre des Ecrins",
       "isHidden": false,
-      "imageDir": "bastiments_barre_des_ecrins",
       "description": "View from Bastiments to Barre des Ecrins",
       "observerHeight": 2881,
       "distance": 433,
@@ -568,7 +552,6 @@
     {
       "name": "Pic de la Dona to Barre des Ecrins",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pic de la Dona to Barre des Ecrins",
       "observerHeight": 2692,
       "distance": 430,
@@ -603,7 +586,6 @@
     {
       "name": "Denali to Atna Peaks",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Denali to Atna Peaks",
       "observerHeight": 6194,
       "distance": 426,
@@ -638,7 +620,6 @@
     {
       "name": "Canigou to Pic Gaspard",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Pic Gaspard",
       "observerHeight": 2786,
       "distance": 416,
@@ -673,7 +654,6 @@
     {
       "name": "Cerro El Plata to Sañogasta",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cerro El Plata to Sañogasta",
       "observerHeight": 5968,
       "distance": 415,
@@ -708,7 +688,6 @@
     {
       "name": "Canigou to Barre des Ecrins",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Barre des Ecrins",
       "observerHeight": 2786,
       "distance": 412,
@@ -743,7 +722,6 @@
     {
       "name": "Canigou to Grand Ferrand",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Grand Ferrand",
       "observerHeight": 2786,
       "distance": 412,
@@ -778,7 +756,6 @@
     {
       "name": "Canigou to Barre des Ecrins",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Barre des Ecrins",
       "observerHeight": 2786,
       "distance": 412,
@@ -813,7 +790,6 @@
     {
       "name": "Noufonts to Tete de l'Estrop",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Noufonts to Tete de l'Estrop",
       "observerHeight": 2851,
       "distance": 408,
@@ -848,7 +824,6 @@
     {
       "name": "Champaquí to El Mela",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Champaquí to El Mela",
       "observerHeight": 2766,
       "distance": 405,
@@ -883,7 +858,6 @@
     {
       "name": "Mt. Cinto to Dufourspitze",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Cinto to Dufourspitze",
       "observerHeight": 2706,
       "distance": 405,
@@ -918,7 +892,6 @@
     {
       "name": "Puy de la Seche to Pic de l'Infern",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puy de la Seche to Pic de l'Infern",
       "observerHeight": 2820,
       "distance": 403,
@@ -953,7 +926,6 @@
     {
       "name": "Dhaulagiri to Trishul I",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Dhaulagiri to Trishul I",
       "observerHeight": 8167,
       "distance": 402,
@@ -988,7 +960,6 @@
     {
       "name": "Cerro Retama to Risco Plateado",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cerro Retama to Risco Plateado",
       "observerHeight": 2213,
       "distance": 401,
@@ -1023,7 +994,6 @@
     {
       "name": "Canigou to St. de la Fremma",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to St. de la Fremma",
       "observerHeight": 2786,
       "distance": 388,
@@ -1058,7 +1028,6 @@
     {
       "name": "Monte Bove to Monte Rosa",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Monte Bove to Monte Rosa",
       "observerHeight": 2169,
       "distance": 388,
@@ -1093,7 +1062,6 @@
     {
       "name": "Sierra de San Luis to Cerro Mercedario",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Sierra de San Luis to Cerro Mercedario",
       "observerHeight": 2158,
       "distance": 384,
@@ -1128,7 +1096,6 @@
     {
       "name": "Canigou to Tete de l'Estrop",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Tete de l'Estrop",
       "observerHeight": 2786,
       "distance": 381,
@@ -1163,7 +1130,6 @@
     {
       "name": "Mount Everest to Kanchenjunga",
       "isHidden": false,
-      "imageDir": "everest_kanchenjunga",
       "description": "View from Mount Everest to Kanchenjunga",
       "observerHeight": 8848,
       "distance": 380,
@@ -1198,7 +1164,6 @@
     {
       "name": "Kilimanjaro to Nyambene",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Kilimanjaro to Nyambene",
       "observerHeight": 5895,
       "distance": 373,
@@ -1233,7 +1198,6 @@
     {
       "name": "Mt. Alt. de Nago to Barre des Ecrins",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Alt. de Nago to Barre des Ecrins",
       "observerHeight": 2079,
       "distance": 368,
@@ -1268,7 +1232,6 @@
     {
       "name": "Mt. Baldo to Barre des Ecrins",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Baldo to Barre des Ecrins",
       "observerHeight": 2218,
       "distance": 368,
@@ -1303,7 +1266,6 @@
     {
       "name": "Mt. Baldo I to La Grande Ruine",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Baldo I to La Grande Ruine",
       "observerHeight": 2116,
       "distance": 368,
@@ -1338,7 +1300,6 @@
     {
       "name": "Mt. Baldo II to La Grande Ruine",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Baldo II to La Grande Ruine",
       "observerHeight": 2200,
       "distance": 368,
@@ -1373,7 +1334,6 @@
     {
       "name": "Mt. Cinto to Mt. Velino",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Cinto to Mt. Velino",
       "observerHeight": 2706,
       "distance": 366,
@@ -1408,7 +1368,6 @@
     {
       "name": "Mt. Sanford to Denali",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Sanford to Denali",
       "observerHeight": 4949,
       "distance": 365,
@@ -1443,7 +1402,6 @@
     {
       "name": "Mt. Baldo III to La Grande Ruine",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Baldo III to La Grande Ruine",
       "observerHeight": 2041,
       "distance": 360,
@@ -1478,7 +1436,6 @@
     {
       "name": "Triglav to Mt. Vecchio",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Triglav to Mt. Vecchio",
       "observerHeight": 2864,
       "distance": 358,
@@ -1513,7 +1470,6 @@
     {
       "name": "Cerro Yerba Buena to Nevado de Famatina",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cerro Yerba Buena to Nevado de Famatina",
       "observerHeight": 1650,
       "distance": 355,
@@ -1548,7 +1504,6 @@
     {
       "name": "Pica d'Estats to Massif Central",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pica d'Estats to Massif Central",
       "observerHeight": 3143,
       "distance": 355,
@@ -1583,7 +1538,6 @@
     {
       "name": "Emily Peaks to Mt. Taranaki",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Emily Peaks to Mt. Taranaki",
       "observerHeight": 2038,
       "distance": 345,
@@ -1618,7 +1572,6 @@
     {
       "name": "Mt. Cimone to Triglav",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Cimone to Triglav",
       "observerHeight": 2165,
       "distance": 345,
@@ -1653,7 +1606,6 @@
     {
       "name": "Mt. Ventoux to P. de Serrère",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Ventoux to P. de Serrère",
       "observerHeight": 1909,
       "distance": 343,
@@ -1688,7 +1640,6 @@
     {
       "name": "Vârful Peleaga to Botev Peak",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Vârful Peleaga to Botev Peak",
       "observerHeight": 2509,
       "distance": 341,
@@ -1723,7 +1674,6 @@
     {
       "name": "Aconcagua to Cerro Vizcacha",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Aconcagua to Cerro Vizcacha",
       "observerHeight": 6962,
       "distance": 340,
@@ -1758,7 +1708,6 @@
     {
       "name": "Mt. Laghetto to Monviso",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Laghetto to Monviso",
       "observerHeight": 1969,
       "distance": 337,
@@ -1793,7 +1742,6 @@
     {
       "name": "Mt. Cinto to Mt. Terminillo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Cinto to Mt. Terminillo",
       "observerHeight": 2706,
       "distance": 333,
@@ -1828,7 +1776,6 @@
     {
       "name": "Puig Major to Montsent de Pallars",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Major to Montsent de Pallars",
       "observerHeight": 1436,
       "distance": 333,
@@ -1863,7 +1810,6 @@
     {
       "name": "Plomb du Cantal to Mont Blanc",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Plomb du Cantal to Mont Blanc",
       "observerHeight": 1855,
       "distance": 332,
@@ -1898,7 +1844,6 @@
     {
       "name": "Bastiments to Valdelinares",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bastiments to Valdelinares",
       "observerHeight": 2881,
       "distance": 326,
@@ -1933,7 +1878,6 @@
     {
       "name": "Mt. St. 'Angelo to Etna",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. St. 'Angelo to Etna",
       "observerHeight": 1444,
       "distance": 325,
@@ -1968,7 +1912,6 @@
     {
       "name": "Puigmal to Mont Ventoux",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puigmal to Mont Ventoux",
       "observerHeight": 2913,
       "distance": 325,
@@ -2003,7 +1946,6 @@
     {
       "name": "Puig d'En Galileu to Saloria",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig d'En Galileu to Saloria",
       "observerHeight": 1180,
       "distance": 324,
@@ -2038,7 +1980,6 @@
     {
       "name": "Puig Major to Saloria",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Major to Saloria",
       "observerHeight": 1436,
       "distance": 324,
@@ -2073,7 +2014,6 @@
     {
       "name": "Carlit to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Carlit to Puig Major",
       "observerHeight": 2921,
       "distance": 322,
@@ -2108,7 +2048,6 @@
     {
       "name": "Guadagnolo to Monte Renoso",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Guadagnolo to Monte Renoso",
       "observerHeight": 1181,
       "distance": 314,
@@ -2143,7 +2082,6 @@
     {
       "name": "Bastiments to Moleta de S'Esclop",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bastiments to Moleta de S'Esclop",
       "observerHeight": 2881,
       "distance": 312,
@@ -2178,7 +2116,6 @@
     {
       "name": "Canigou to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Puig Major",
       "observerHeight": 2786,
       "distance": 311,
@@ -2213,7 +2150,6 @@
     {
       "name": "Finestrelles to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Finestrelles to Puig Major",
       "observerHeight": 2828,
       "distance": 311,
@@ -2248,7 +2184,6 @@
     {
       "name": "Cantavieja to Bastiments",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Bastiments",
       "observerHeight": 1700,
       "distance": 309,
@@ -2283,7 +2218,6 @@
     {
       "name": "Castaño to Veleta",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Castaño to Veleta",
       "observerHeight": 960,
       "distance": 308,
@@ -2318,7 +2252,6 @@
     {
       "name": "Puig Roig to Tossal de la Muga",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Roig to Tossal de la Muga",
       "observerHeight": 1002,
       "distance": 307,
@@ -2353,7 +2286,6 @@
     {
       "name": "Kanchenjunga to Qungmoganze",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Kanchenjunga to Qungmoganze",
       "observerHeight": 8586,
       "distance": 305,
@@ -2388,7 +2320,6 @@
     {
       "name": "Almanzor to Espiguete",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Almanzor to Espiguete",
       "observerHeight": 2592,
       "distance": 302,
@@ -2423,7 +2354,6 @@
     {
       "name": "St. Beaume to Canigo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from St. Beaume to Canigo",
       "observerHeight": 1148,
       "distance": 302,
@@ -2458,7 +2388,6 @@
     {
       "name": "Bastiments to Puig d'Alfabia",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bastiments to Puig d'Alfabia",
       "observerHeight": 2881,
       "distance": 301,
@@ -2493,7 +2422,6 @@
     {
       "name": "Puig Major to Valdelinares",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Major to Valdelinares",
       "observerHeight": 1436,
       "distance": 298,
@@ -2528,7 +2456,6 @@
     {
       "name": "Canigou to Mont Ventoux",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Mont Ventoux",
       "observerHeight": 2786,
       "distance": 294,
@@ -2563,7 +2490,6 @@
     {
       "name": "Puig Major to Aitana",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Major to Aitana",
       "observerHeight": 1436,
       "distance": 294,
@@ -2598,7 +2524,6 @@
     {
       "name": "P. de Padre Caro to Mulhacen",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from P. de Padre Caro to Mulhacen",
       "observerHeight": 653,
       "distance": 292,
@@ -2633,7 +2558,6 @@
     {
       "name": "P. cerca de Nerva to Mulhacen",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from P. cerca de Nerva to Mulhacen",
       "observerHeight": 500,
       "distance": 292,
@@ -2668,7 +2592,6 @@
     {
       "name": "Puig d'En Galileu to Puigmal",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig d'En Galileu to Puigmal",
       "observerHeight": 1180,
       "distance": 292,
@@ -2703,7 +2626,6 @@
     {
       "name": "Carlit to Pico Ejulve",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Carlit to Pico Ejulve",
       "observerHeight": 2921,
       "distance": 291,
@@ -2738,7 +2660,6 @@
     {
       "name": "Turo del Home to Penyagolosa",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Turo del Home to Penyagolosa",
       "observerHeight": 1708,
       "distance": 291,
@@ -2773,7 +2694,6 @@
     {
       "name": "Puig Roig to Torreta del Cadi",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Roig to Torreta del Cadi",
       "observerHeight": 1002,
       "distance": 290,
@@ -2808,7 +2728,6 @@
     {
       "name": "Penyagolosa to Pic Long",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Pic Long",
       "observerHeight": 1812,
       "distance": 289,
@@ -2843,7 +2762,6 @@
     {
       "name": "Cantavieja to Pica d'Estats",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Pica d'Estats",
       "observerHeight": 1700,
       "distance": 285,
@@ -2878,7 +2796,6 @@
     {
       "name": "Cantavieja to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Puig Major",
       "observerHeight": 1700,
       "distance": 284,
@@ -2913,7 +2830,6 @@
     {
       "name": "Penyagolosa to Garlitz",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Garlitz",
       "observerHeight": 1812,
       "distance": 284,
@@ -2948,7 +2864,6 @@
     {
       "name": "Canigou to Pic des Mouches",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Pic des Mouches",
       "observerHeight": 2786,
       "distance": 283,
@@ -2983,7 +2898,6 @@
     {
       "name": "Poqueira to Jebel Sougna",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Poqueira to Jebel Sougna",
       "observerHeight": 2500,
       "distance": 283,
@@ -3018,7 +2932,6 @@
     {
       "name": "Penyagolosa to Aneto",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Aneto",
       "observerHeight": 1812,
       "distance": 281,
@@ -3053,7 +2966,6 @@
     {
       "name": "Puig Roig to Pedraforca",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Roig to Pedraforca",
       "observerHeight": 1002,
       "distance": 281,
@@ -3088,7 +3000,6 @@
     {
       "name": "Burnaby to Mount Rainier",
       "isHidden": false,
-      "imageDir": "burnaby_rainier",
       "description": "View from Burnaby, BC to Mount Rainier, Washington",
       "observerHeight": 190,
       "distance": 280,
@@ -3123,7 +3034,6 @@
     {
       "name": "Penyagolosa to La Munia",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to La Munia",
       "observerHeight": 1812,
       "distance": 280,
@@ -3158,7 +3068,6 @@
     {
       "name": "Peñarroya to Montardo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Peñarroya to Montardo",
       "observerHeight": 2028,
       "distance": 280,
@@ -3193,7 +3102,6 @@
     {
       "name": "Canigou to Bertagne",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Bertagne",
       "observerHeight": 2786,
       "distance": 278,
@@ -3228,7 +3136,6 @@
     {
       "name": "Penyagolosa to Posets",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Posets",
       "observerHeight": 1812,
       "distance": 278,
@@ -3263,7 +3170,6 @@
     {
       "name": "Le Cengle to Canigo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Le Cengle to Canigo",
       "observerHeight": 509,
       "distance": 276,
@@ -3298,7 +3204,6 @@
     {
       "name": "Penyagolosa to Monte Perdido",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Monte Perdido",
       "observerHeight": 1812,
       "distance": 275,
@@ -3333,7 +3238,6 @@
     {
       "name": "Penyagolosa to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Puig Major",
       "observerHeight": 1812,
       "distance": 272,
@@ -3368,7 +3272,6 @@
     {
       "name": "Canigou to Tete du Grand Puech",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Tete du Grand Puech",
       "observerHeight": 2786,
       "distance": 268,
@@ -3403,7 +3306,6 @@
     {
       "name": "Poqueira to Jebel Tisouka",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Poqueira to Jebel Tisouka",
       "observerHeight": 2500,
       "distance": 268,
@@ -3438,7 +3340,6 @@
     {
       "name": "Poqueira to Jebel Afestal",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Poqueira to Jebel Afestal",
       "observerHeight": 2500,
       "distance": 267,
@@ -3473,7 +3374,6 @@
     {
       "name": "Puig de Galatzó to Puntal del Tamborero",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig de Galatzó to Puntal del Tamborero",
       "observerHeight": 1026,
       "distance": 266,
@@ -3508,7 +3408,6 @@
     {
       "name": "Cantavieja to Collarada",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Collarada",
       "observerHeight": 1700,
       "distance": 264,
@@ -3543,7 +3442,6 @@
     {
       "name": "Cantavieja to Ezkaurre",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Ezkaurre",
       "observerHeight": 1700,
       "distance": 264,
@@ -3578,7 +3476,6 @@
     {
       "name": "Marseille to Canigou",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Marseille to Canigou",
       "observerHeight": 420,
       "distance": 264,
@@ -3613,7 +3510,6 @@
     {
       "name": "Cantavieja to Pedraforca",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Pedraforca",
       "observerHeight": 1700,
       "distance": 263,
@@ -3648,7 +3544,6 @@
     {
       "name": "Teleno to San Millán",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Teleno to San Millán",
       "observerHeight": 2183,
       "distance": 262,
@@ -3683,7 +3578,6 @@
     {
       "name": "Cantavieja to Balaitous",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Balaitous",
       "observerHeight": 1700,
       "distance": 261,
@@ -3718,7 +3612,6 @@
     {
       "name": "Puig de Galatzó to Aitana",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig de Galatzó to Aitana",
       "observerHeight": 1026,
       "distance": 261,
@@ -3753,7 +3646,6 @@
     {
       "name": "Cantavieja to El Cadi",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to El Cadi",
       "observerHeight": 1700,
       "distance": 260,
@@ -3788,7 +3680,6 @@
     {
       "name": "Cantavieja to Pic Long",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Pic Long",
       "observerHeight": 1700,
       "distance": 260,
@@ -3823,7 +3714,6 @@
     {
       "name": "Manaslu to Everest",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Manaslu to Everest",
       "observerHeight": 8156,
       "distance": 260,
@@ -3858,7 +3748,6 @@
     {
       "name": "Paglia Orba to Mt. Toulounaiss",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Paglia Orba to Mt. Toulounaiss",
       "observerHeight": 2525,
       "distance": 260,
@@ -3893,7 +3782,6 @@
     {
       "name": "Penyagolosa to Cotiella",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Cotiella",
       "observerHeight": 1812,
       "distance": 260,
@@ -3928,7 +3816,6 @@
     {
       "name": "Puig de Galatzó to Puig Campana",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig de Galatzó to Puig Campana",
       "observerHeight": 1026,
       "distance": 259,
@@ -3963,7 +3850,6 @@
     {
       "name": "Cantavieja to Pic de Peguera",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Pic de Peguera",
       "observerHeight": 1700,
       "distance": 257,
@@ -3998,7 +3884,6 @@
     {
       "name": "Cantavieja to Picos del Infierno",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Picos del Infierno",
       "observerHeight": 1700,
       "distance": 255,
@@ -4033,7 +3918,6 @@
     {
       "name": "Cantavieja to Bisaurin",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Bisaurin",
       "observerHeight": 1700,
       "distance": 255,
@@ -4068,7 +3952,6 @@
     {
       "name": "Cantavieja to Comaloforno",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Comaloforno",
       "observerHeight": 1700,
       "distance": 255,
@@ -4103,7 +3986,6 @@
     {
       "name": "Poqueira to Jbel Kelti",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Poqueira to Jbel Kelti",
       "observerHeight": 2500,
       "distance": 255,
@@ -4138,7 +4020,6 @@
     {
       "name": "Cantavieja to Vignemale",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Vignemale",
       "observerHeight": 1700,
       "distance": 254,
@@ -4173,7 +4054,6 @@
     {
       "name": "Cantavieja to Aneto",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Aneto",
       "observerHeight": 1700,
       "distance": 254,
@@ -4208,7 +4088,6 @@
     {
       "name": "Canigou to Marsella",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Canigou to Marsella",
       "observerHeight": 2786,
       "distance": 252,
@@ -4243,7 +4122,6 @@
     {
       "name": "Cantavieja to Pico de Aspe",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Pico de Aspe",
       "observerHeight": 1700,
       "distance": 252,
@@ -4278,7 +4156,6 @@
     {
       "name": "Cantavieja to Posets",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Posets",
       "observerHeight": 1700,
       "distance": 251,
@@ -4313,7 +4190,6 @@
     {
       "name": "Cantavieja to La Munia",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to La Munia",
       "observerHeight": 1700,
       "distance": 251,
@@ -4348,7 +4224,6 @@
     {
       "name": "Penyagolosa to Galatzo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Galatzo",
       "observerHeight": 1812,
       "distance": 251,
@@ -4383,7 +4258,6 @@
     {
       "name": "Cap Corse to Le Grand Coyer",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cap Corse to Le Grand Coyer",
       "observerHeight": 392,
       "distance": 249,
@@ -4418,7 +4292,6 @@
     {
       "name": "Pto. Navacerrada to Peña Prieta",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pto. Navacerrada to Peña Prieta",
       "observerHeight": 1860,
       "distance": 249,
@@ -4453,7 +4326,6 @@
     {
       "name": "Pto. Navacerrada to Espiguete",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pto. Navacerrada to Espiguete",
       "observerHeight": 1860,
       "distance": 249,
@@ -4488,7 +4360,6 @@
     {
       "name": "Cantavieja to Monte Perdido",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Monte Perdido",
       "observerHeight": 1700,
       "distance": 246,
@@ -4523,7 +4394,6 @@
     {
       "name": "Cantavieja to El Taillon",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to El Taillon",
       "observerHeight": 1700,
       "distance": 246,
@@ -4558,7 +4428,6 @@
     {
       "name": "La Friolera to Mulhacen",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from La Friolera to Mulhacen",
       "observerHeight": 1130,
       "distance": 245,
@@ -4593,7 +4462,6 @@
     {
       "name": "Mont Caro to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Puig Major",
       "observerHeight": 1441,
       "distance": 240,
@@ -4628,7 +4496,6 @@
     {
       "name": "Turó Gros to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Turó Gros to Puig Major",
       "observerHeight": 1644,
       "distance": 239,
@@ -4663,7 +4530,6 @@
     {
       "name": "Cantavieja to Cotiella",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Cantavieja to Cotiella",
       "observerHeight": 1700,
       "distance": 233,
@@ -4698,7 +4564,6 @@
     {
       "name": "Valdemadera to Pta. Alta Comalesbienes",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Pta. Alta Comalesbienes",
       "observerHeight": 1273,
       "distance": 231,
@@ -4733,7 +4598,6 @@
     {
       "name": "Gran Ballon to Mont Blanc",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Gran Ballon to Mont Blanc",
       "observerHeight": 1424,
       "distance": 230,
@@ -4768,7 +4632,6 @@
     {
       "name": "Mont Caro to Pica d'Estats",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Pica d'Estats",
       "observerHeight": 1441,
       "distance": 225,
@@ -4803,7 +4666,6 @@
     {
       "name": "Mont Caro to Vignemale",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Vignemale",
       "observerHeight": 1441,
       "distance": 223,
@@ -4838,7 +4700,6 @@
     {
       "name": "Veleta to Sierra de Ojen",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Veleta to Sierra de Ojen",
       "observerHeight": 3398,
       "distance": 222,
@@ -4873,7 +4734,6 @@
     {
       "name": "Puig d'En Galileu to Turó del Home",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig d'En Galileu to Turó del Home",
       "observerHeight": 1180,
       "distance": 221,
@@ -4908,7 +4768,6 @@
     {
       "name": "Valdemadera to Aneto",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Aneto",
       "observerHeight": 1273,
       "distance": 220,
@@ -4943,7 +4802,6 @@
     {
       "name": "Anchorage to Denali",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Anchorage to Denali",
       "observerHeight": 0,
       "distance": 218,
@@ -4978,7 +4836,6 @@
     {
       "name": "Montsec d'Ares to Moncayo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Montsec d'Ares to Moncayo",
       "observerHeight": 500,
       "distance": 218,
@@ -5013,7 +4870,6 @@
     {
       "name": "Bieszczady to Pietrosul Rodney",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bieszczady to Pietrosul Rodney",
       "observerHeight": 1405,
       "distance": 216,
@@ -5048,7 +4904,6 @@
     {
       "name": "Puig Roig to Montserrat",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Puig Roig to Montserrat",
       "observerHeight": 1002,
       "distance": 215,
@@ -5083,7 +4938,6 @@
     {
       "name": "Mont Caro to Monte Perdido",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Monte Perdido",
       "observerHeight": 1441,
       "distance": 210,
@@ -5118,7 +4972,6 @@
     {
       "name": "Mont Caro to Perdiguero",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Perdiguero",
       "observerHeight": 1441,
       "distance": 210,
@@ -5153,7 +5006,6 @@
     {
       "name": "Valdemadera to Posets",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Posets",
       "observerHeight": 1273,
       "distance": 208,
@@ -5188,7 +5040,6 @@
     {
       "name": "Valdemadera to Batoua",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Batoua",
       "observerHeight": 1273,
       "distance": 207,
@@ -5223,7 +5074,6 @@
     {
       "name": "Mont Caro to Posets",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Posets",
       "observerHeight": 1441,
       "distance": 206,
@@ -5258,7 +5108,6 @@
     {
       "name": "Mont Caro to Aneto",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Aneto",
       "observerHeight": 1441,
       "distance": 205,
@@ -5293,7 +5142,6 @@
     {
       "name": "Juego de Bolos I to Veleta",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Juego de Bolos I to Veleta",
       "observerHeight": 1088,
       "distance": 203,
@@ -5328,7 +5176,6 @@
     {
       "name": "Mont Caro to Comaloforno",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Comaloforno",
       "observerHeight": 1441,
       "distance": 203,
@@ -5363,7 +5210,6 @@
     {
       "name": "Carrascoy to Mulhacen",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Carrascoy to Mulhacen",
       "observerHeight": 2257,
       "distance": 201,
@@ -5398,7 +5244,6 @@
     {
       "name": "Monteburo to Vaganski Vrh",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Monteburo to Vaganski Vrh",
       "observerHeight": 189,
       "distance": 201,
@@ -5433,7 +5278,6 @@
     {
       "name": "Grignetta to Mont Blanc",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Grignetta to Mont Blanc",
       "observerHeight": 2177,
       "distance": 196,
@@ -5468,7 +5312,6 @@
     {
       "name": "Tibidabo to Puig Major",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Tibidabo to Puig Major",
       "observerHeight": 512,
       "distance": 193,
@@ -5503,7 +5346,6 @@
     {
       "name": "Valdemadera to Cotiella",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Cotiella",
       "observerHeight": 1273,
       "distance": 191,
@@ -5538,7 +5380,6 @@
     {
       "name": "Mont Caro to Cotiella",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mont Caro to Cotiella",
       "observerHeight": 1441,
       "distance": 190,
@@ -5573,7 +5414,6 @@
     {
       "name": "Valdemadera to Balaitous",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Balaitous",
       "observerHeight": 1273,
       "distance": 189,
@@ -5608,7 +5448,6 @@
     {
       "name": "Valdemadera to Vignemale",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Vignemale",
       "observerHeight": 1273,
       "distance": 189,
@@ -5643,7 +5482,6 @@
     {
       "name": "Valdemadera to Monte Perdido",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Monte Perdido",
       "observerHeight": 1273,
       "distance": 188,
@@ -5678,7 +5516,6 @@
     {
       "name": "Valdemadera to Orhi",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Orhi",
       "observerHeight": 1273,
       "distance": 186,
@@ -5713,7 +5550,6 @@
     {
       "name": "Valdemadera to Infierno Central",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Infierno Central",
       "observerHeight": 1273,
       "distance": 185,
@@ -5748,7 +5584,6 @@
     {
       "name": "Valdemadera to Lakartxela",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Lakartxela",
       "observerHeight": 1273,
       "distance": 184,
@@ -5783,7 +5618,6 @@
     {
       "name": "Valdemadera to Midi d'Ossau",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Midi d'Ossau",
       "observerHeight": 1273,
       "distance": 184,
@@ -5818,7 +5652,6 @@
     {
       "name": "Bieszczady to Lomnica",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bieszczady to Lomnica",
       "observerHeight": 1405,
       "distance": 183,
@@ -5853,7 +5686,6 @@
     {
       "name": "Piamonte to Matterhorn",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Piamonte to Matterhorn",
       "observerHeight": 870,
       "distance": 183,
@@ -5888,7 +5720,6 @@
     {
       "name": "Penyagolosa to Puig Campana",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Puig Campana",
       "observerHeight": 1812,
       "distance": 181,
@@ -5923,7 +5754,6 @@
     {
       "name": "Westport to Mt. Rainier",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Westport to Mt. Rainier",
       "observerHeight": 7,
       "distance": 178,
@@ -5958,7 +5788,6 @@
     {
       "name": "Izola to Cima d'Asta",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Izola to Cima d'Asta",
       "observerHeight": 0,
       "distance": 174,
@@ -5993,7 +5822,6 @@
     {
       "name": "Bastia to Mt. Tambura",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Bastia to Mt. Tambura",
       "observerHeight": 62,
       "distance": 172,
@@ -6028,7 +5856,6 @@
     {
       "name": "Valdemadera to Bisaurin",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Bisaurin",
       "observerHeight": 1273,
       "distance": 172,
@@ -6063,7 +5890,6 @@
     {
       "name": "Mt. Argentario to Mt. Rotondo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Mt. Argentario to Mt. Rotondo",
       "observerHeight": 5,
       "distance": 170,
@@ -6098,7 +5924,6 @@
     {
       "name": "Valdemadera to Collarada",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Valdemadera to Collarada",
       "observerHeight": 1273,
       "distance": 170,
@@ -6133,7 +5958,6 @@
     {
       "name": "Penyagolosa to Montgo",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Penyagolosa to Montgo",
       "observerHeight": 1812,
       "distance": 163,
@@ -6168,7 +5992,6 @@
     {
       "name": "Serra del Monte to Mont Viso",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Serra del Monte to Mont Viso",
       "observerHeight": 300,
       "distance": 158,
@@ -6203,7 +6026,6 @@
     {
       "name": "Breithorn to Mont Viso",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Breithorn to Mont Viso",
       "observerHeight": 4164,
       "distance": 155,
@@ -6238,7 +6060,6 @@
     {
       "name": "Punta Arenas to Mt. Sarmiento",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Punta Arenas to Mt. Sarmiento",
       "observerHeight": 0,
       "distance": 145,
@@ -6273,7 +6094,6 @@
     {
       "name": "El Hierro to Teide",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from El Hierro to Teide",
       "observerHeight": 0,
       "distance": 144,
@@ -6308,7 +6128,6 @@
     {
       "name": "La Almolda to Posets",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from La Almolda to Posets",
       "observerHeight": 590,
       "distance": 140,
@@ -6343,7 +6162,6 @@
     {
       "name": "Pradollano to La Sagra",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pradollano to La Sagra",
       "observerHeight": 2500,
       "distance": 120,
@@ -6378,7 +6196,6 @@
     {
       "name": "Teide (corona) to La Palma",
       "isHidden": true,
-      "imageDir": "teide_corona_la_palma",
       "description": "View from Teide (corona) to La Palma",
       "observerHeight": 3718,
       "distance": 120,
@@ -6413,7 +6230,6 @@
     {
       "name": "Reikyavik to SNAEFFELJOKULL",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Reikyavik to SNAEFFELJOKULL",
       "observerHeight": 0,
       "distance": 117,
@@ -6448,7 +6264,6 @@
     {
       "name": "Pico de las Nieves to Teide",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Pico de las Nieves to Teide",
       "observerHeight": 1949,
       "distance": 110,
@@ -6483,7 +6298,6 @@
     {
       "name": "Teide to Pico de las Nieves",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Teide to Pico de las Nieves",
       "observerHeight": 3718,
       "distance": 110,
@@ -6518,7 +6332,6 @@
     {
       "name": "Abra Cuyuni to Salkantay",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Abra Cuyuni to Salkantay",
       "observerHeight": 4165,
       "distance": 109,
@@ -6553,7 +6366,6 @@
     {
       "name": "Samatan to Pic de Soularac",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Samatan to Pic de Soularac",
       "observerHeight": 165,
       "distance": 101,
@@ -6588,7 +6400,6 @@
     {
       "name": "Turo del Home to Illes Medes",
       "isHidden": true,
-      "imageDir": "",
       "description": "View from Turo del Home to Illes Medes",
       "observerHeight": 1708,
       "distance": 72,
@@ -6623,7 +6434,6 @@
     {
       "name": "Fort Niagara State Park to Toronto",
       "isHidden": false,
-      "imageDir": "niagara_toronto",
       "description": "View from Fort Niagra State Park, NY to the CN Tower in Toronto",
       "observerHeight": 2,
       "distance": 51,
