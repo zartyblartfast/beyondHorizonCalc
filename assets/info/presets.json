@@ -6378,7 +6378,7 @@
     {
       "name": "Teide (corona) to La Palma",
       "isHidden": true,
-      "imageDir": "",
+      "imageDir": "teide_corona_la_palma",
       "description": "View from Teide (corona) to La Palma",
       "observerHeight": 3718,
       "distance": 120,
