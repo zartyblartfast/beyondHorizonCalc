@@ -118,16 +118,17 @@ class CurvatureCalculator {
         visibleTargetHeight = targetHeightMeters - (hiddenHeight * 1000);
         visibleTargetHeight = visibleTargetHeight < 0 ? 0 : visibleTargetHeight;
 
-        // Calculate apparent visible height
+        // For 'beyond the horizon' cases, use the arc length from the horizon to the target (l2) for angle and perspective calculations
         if (visibleTargetHeight > 0) {
-          // CD = CZ * cos(angle) - Angle should probably be BOX_angle or related?
-          // Let's stick with the original angle calc for now, but this might need review.
-          final double angle = distanceMeters / effectiveRadius; // Original calculation used total distance
+          // Angle subtended by l2 at Earth's center
+          final double angle = l2 / effectiveRadius;
           apparentVisibleHeight = visibleTargetHeight * math.cos(angle);
 
-          // Calculate perspective scaled height using pinhole camera model
+          // Perspective scaled height uses l2, not full distance
           const double FOCAL_LENGTH = 1000.0; // 1km focal length
-          perspectiveScaledHeight = FOCAL_LENGTH * apparentVisibleHeight / distanceMeters;
+          perspectiveScaledHeight = l2 > 0
+              ? FOCAL_LENGTH * apparentVisibleHeight / l2
+              : 0;
           perspectiveScaledHeight = perspectiveScaledHeight < 0 ? 0 : perspectiveScaledHeight;
         }
       }
