@@ -15,17 +15,12 @@ class CurvatureCalculator {
   /// Returns [CalculationResult] containing all calculated values in meters and kilometers
   static CalculationResult calculate({
   required double observerHeight,
-  required double distance,
-  required double refractionFactor,
-  required bool isMetric,
-  double? targetHeight,
-}) {
-  print('CurvatureCalculator.calculate CALLED');
     required double distance,
     required double refractionFactor,
     required bool isMetric,
     double? targetHeight,
   }) {
+    print('CurvatureCalculator.calculate CALLED');
     final double effectiveRadius = EARTH_RADIUS_METERS * refractionFactor;
 
     // Convert all inputs to meters for calculation
