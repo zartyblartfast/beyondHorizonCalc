@@ -20,33 +20,33 @@ class CurvatureCalculator {
     required bool isMetric,
     double? targetHeight,
   }) {
-    print('CurvatureCalculator.calculate CALLED');
-    final double effectiveRadius = EARTH_RADIUS_METERS * refractionFactor;
+    // VERSION TAG
+    print('CALCULATION VERSION: 2025-05-15-01');
 
-    // Convert all inputs to meters for calculation
+    // INPUTS
+    print('Inputs: observerHeight=$observerHeight, distance=$distance, refractionFactor=$refractionFactor, isMetric=$isMetric, targetHeight=$targetHeight');
+
+    final double effectiveRadius = EARTH_RADIUS_METERS * refractionFactor;
     final double heightMeters = isMetric ? observerHeight : observerHeight * 0.3048;
     final double distanceMeters = isMetric ? distance * 1000 : distance * 1609.34;
     final double? targetHeightMeters = targetHeight == null 
         ? null 
         : (isMetric ? targetHeight : targetHeight * 0.3048);
 
-    // Print intermediate values for debugging
-    print('Input distance: $distance km');
-    print('Distance in meters: $distanceMeters m');
-    print('Effective radius: $effectiveRadius m');
+    // INTERMEDIATES
+    print('Converted: heightMeters=$heightMeters, distanceMeters=$distanceMeters, targetHeightMeters=$targetHeightMeters');
+    print('Effective radius: $effectiveRadius');
 
-    // Calculate using the same method as legacy JavaScript
     final double R = EARTH_RADIUS_METERS * refractionFactor;
     final double C = 2 * math.pi * R;  // Earth's circumference
-    
-    // Calculate d1 (distance to horizon)
     final double d1 = math.sqrt(2 * heightMeters * R);
-
-    // Calculate geometric dip angle (can be calculated regardless of visibility)
+    print('Horizon distance (d1): $d1');
     final double dipAngle = math.acos(R / (R + heightMeters)) * (180 / math.pi);
+    print('Geometric dip angle: $dipAngle');
 
-    // Check if the horizon extends beyond the object
+    // BRANCHING
     if (d1 >= distanceMeters) {
+      print('Branch: Object is fully visible (before or at horizon)');
       // Object is fully visible
       double visibleTargetHeight = targetHeightMeters ?? 0; // Use full target height if available
       double apparentVisibleHeight = 0;
