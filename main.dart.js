@@ -28881,31 +28881,32 @@ r.toString
 if(!r){r=s===null
 r.toString}else r=!0
 return r},
-aTf(a,b,c,d,e){var s,r,q,p,o,n,m,l,k,j,i=6371e3*d,h=b?c:c*0.3048,g=b?a*1000:a*1609.34
+aTf(a,b,c,d,e){var s,r,q,p,o,n,m,l,k,j,i,h=6371e3*d,g=b?c:c*0.3048,f=b?a*1000:a*1609.34
 if(e==null)s=null
 else s=b?e:e*0.3048
 A.aI("Input distance: "+A.f(a)+" km")
-A.aI("Distance in meters: "+A.f(g)+" m")
-A.aI("Effective radius: "+A.f(i)+" m")
-r=Math.sqrt(2*h*i)
-q=Math.acos(i/(i+h))*57.29577951308232
-if(r>=g){p=s==null?0:s
-if(p>0){o=p*Math.cos(g/i)
-n=1000*o/g
+A.aI("Distance in meters: "+A.f(f)+" m")
+A.aI("Effective radius: "+A.f(h)+" m")
+r=Math.sqrt(2*g*h)
+q=Math.acos(h/(h+g))*57.29577951308232
+if(r>=f){p=s==null?0:s
+if(p>0){o=p*Math.cos(f/h)
+n=1000*o/f
 if(n<0)n=0}else{o=0
-n=0}return new A.uQ(r/1000,0,g/1000,0,p/1000,o/1000,n/1000,a,c,q)}else{m=6.283185307179586*((g-r)/(6.283185307179586*i))
-l=(i/Math.cos(m)-i)/1000
-k=i*Math.sin(m)
-j=r+k
-if(s==null)return new A.uQ(r/1000,l,j/1000,k/1000,0,0,0,a,c,q)
+n=0}return new A.uQ(r/1000,0,f/1000,0,p/1000,o/1000,n/1000,a,c,q)}else{m=f-r
+l=6.283185307179586*(m/(6.283185307179586*h))
+k=(h/Math.cos(l)-h)/1000
+j=h*Math.sin(l)
+i=r+j
+if(s==null)return new A.uQ(r/1000,k,i/1000,j/1000,0,0,0,a,c,q)
 o=0
 n=0
-if(s>0){p=s-l*1000
+if(s>0){p=s-k*1000
 if(p<0)p=0
-if(p>0){o=p*Math.cos(g/i)
-n=1000*o/g
+if(p>0){o=p*Math.cos(m/h)
+n=m>0?1000*o/m:0
 if(n<0)n=0}}else p=0
-return new A.uQ(r/1000,l,j/1000,k/1000,p/1000,o/1000,n/1000,a,c,q)}},
+return new A.uQ(r/1000,k,i/1000,j/1000,p/1000,o/1000,n/1000,a,c,q)}},
 OV(){var s=0,r=A.S(t.H),q,p=2,o,n,m,l,k,j,i,h
 var $async$OV=A.T(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:if($.OU!=null){s=1
