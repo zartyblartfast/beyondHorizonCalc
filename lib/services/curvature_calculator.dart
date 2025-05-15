@@ -14,6 +14,7 @@ class CurvatureCalculator {
   /// 
   /// Returns [CalculationResult] containing all calculated values in meters and kilometers
   static CalculationResult calculate({
+    print('SERVICE: Entered CurvatureCalculator.calculate');
   required double observerHeight,
     required double distance,
     required double refractionFactor,

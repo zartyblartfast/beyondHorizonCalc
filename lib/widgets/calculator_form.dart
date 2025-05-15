@@ -145,6 +145,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handleCalculate() {
+    print('UI: About to call CurvatureCalculator.calculate');
     print('CalculatorForm - _handleCalculate called');
     if (!_formKey.currentState!.validate()) {
       print('CalculatorForm - Form validation failed');
@@ -176,6 +177,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
       isMetric: _isMetric,
     );
 
+    print('UI: Returned from CurvatureCalculator.calculate');
     print('CalculatorForm - Calculation result: $result');
 
     setState(() {
