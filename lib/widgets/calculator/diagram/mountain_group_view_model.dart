@@ -15,23 +15,23 @@ class MountainGroupViewModel extends DiagramViewModel {
   // Get viewBox height from config or use default
   double get _maxViewBoxHeight {
     try {
-      print('MountainGroupViewModel - Getting viewBox height');
-      print('MountainGroupViewModel - Config structure: ${config.toString()}');
+      // print('MountainGroupViewModel - Getting viewBox height');
+      // print('MountainGroupViewModel - Config structure: ${config.toString()}');
       final metadata = config['metadata'];
-      print('MountainGroupViewModel - Metadata: ${metadata?.toString() ?? "null"}');
+      // print('MountainGroupViewModel - Metadata: ${metadata?.toString() ?? "null"}');
       final svgSpec = metadata?['svgSpec'];
-      print('MountainGroupViewModel - SvgSpec: ${svgSpec?.toString() ?? "null"}');
+      // print('MountainGroupViewModel - SvgSpec: ${svgSpec?.toString() ?? "null"}');
       final viewBox = svgSpec?['viewBox'];
-      print('MountainGroupViewModel - ViewBox: ${viewBox?.toString() ?? "null"}');
+      // print('MountainGroupViewModel - ViewBox: ${viewBox?.toString() ?? "null"}');
       final height = viewBox?['height'];
-      print('MountainGroupViewModel - ViewBox height: ${height?.toString() ?? "null"}');
+      // print('MountainGroupViewModel - ViewBox height: ${height?.toString() ?? "null"}');
       
       final result = (height as num?)?.toDouble() ?? 1400.0;
-      print('MountainGroupViewModel - Using viewBox height: $result');
+      // print('MountainGroupViewModel - Using viewBox height: $result');
       return result;
     } catch (e, stackTrace) {
-      print('MountainGroupViewModel - Error getting viewBox height: $e');
-      print('MountainGroupViewModel - Stack trace: $stackTrace');
+      // print('MountainGroupViewModel - Error getting viewBox height: $e');
+      // print('MountainGroupViewModel - Stack trace: $stackTrace');
       return 1400.0; // Default value if config is invalid
     }
   }
@@ -68,10 +68,10 @@ class MountainGroupViewModel extends DiagramViewModel {
     isMetric: isMetric,
     presetName: presetName,
   ) {
-    print('MountainGroupViewModel - Constructor');
-    print('MountainGroupViewModel - Config: $config');
+    // print('MountainGroupViewModel - Constructor');
+    // print('MountainGroupViewModel - Config: $config');
     if (config.isEmpty) {
-      print('MountainGroupViewModel - Warning: Config is empty');
+      // print('MountainGroupViewModel - Warning: Config is empty');
     }
   }
 
@@ -79,8 +79,8 @@ class MountainGroupViewModel extends DiagramViewModel {
   Map<String, String> getLabelValues() {
     final Map<String, String> labels = {};
     
-    print('Mountain Group Config: ${config['mountain']?.toString() ?? 'null'}');
-    print('Mountain Base Range: ${config['coordinateMapping']?['mountain']?['baseRange']?.toString() ?? 'null'}');
+    // print('Mountain Group Config: ${config['mountain']?.toString() ?? 'null'}');
+    // print('Mountain Base Range: ${config['coordinateMapping']?['mountain']?['baseRange']?.toString() ?? 'null'}');
     
     final currentResult = result;
     if (currentResult != null) {
@@ -97,7 +97,7 @@ class MountainGroupViewModel extends DiagramViewModel {
         // Convert from km to current units (meters or feet)
         final heightInUnits = convertFromKm(visibleHeight);
         labels['1_2_Visible_Height_Height'] = '$prefix${formatHeight(heightInUnits)}';
-        print('Visible Height: $visibleHeight, Units: $heightInUnits');
+        // print('Visible Height: $visibleHeight, Units: $heightInUnits');
       }
 
       // Add Hidden Height (h2) label
@@ -107,7 +107,7 @@ class MountainGroupViewModel extends DiagramViewModel {
         // Convert from km to current units (meters or feet)
         final heightInUnits = convertFromKm(hiddenHeight);
         labels['5_2_Hidden_Height_Height'] = '$prefix${formatHeight(heightInUnits)}';
-        print('Hidden Height: $hiddenHeight, Units: $heightInUnits');
+        // print('Hidden Height: $hiddenHeight, Units: $heightInUnits');
       }
     }
 
@@ -136,7 +136,7 @@ class MountainGroupViewModel extends DiagramViewModel {
 
   /// Updates all Mountain group elements in the SVG
   String updateMountainGroup(String svgContent, double observerLevel) {
-    print('Mountain Group - Observer Level: $observerLevel');
+    // print('Mountain Group - Observer Level: $observerLevel');
     
     // Calculate and log actual used heights
     final currentResult = result;
@@ -144,8 +144,8 @@ class MountainGroupViewModel extends DiagramViewModel {
       final visibleHeight = currentResult.visibleTargetHeight;
       final hiddenHeight = currentResult.hiddenHeight;
       final totalHeight = (visibleHeight ?? 0) + (hiddenHeight ?? 0);
-      print('Mountain Group - Heights (km): visible=$visibleHeight, hidden=$hiddenHeight, total=$totalHeight');
-      print('Mountain Group - Heights (viewbox units): total=${totalHeight * _viewboxScale}');
+      // print('Mountain Group - Heights (km): visible=$visibleHeight, hidden=$hiddenHeight, total=$totalHeight');
+      // print('Mountain Group - Heights (viewbox units): total=${totalHeight * _viewboxScale}');
     }
     
     var updatedSvg = svgContent;
@@ -191,8 +191,8 @@ class MountainGroupViewModel extends DiagramViewModel {
 
     // Update Beyond_Horizon_Hidden rectangle to extend from C_Point_Line to bottom of viewBox
     final maxHeight = _maxViewBoxHeight;
-    print('MountainGroupViewModel - Using maxHeight: $maxHeight for Beyond_Horizon_Hidden');
-    print('MountainGroupViewModel - Observer level: $observerLevel');
+    // print('MountainGroupViewModel - Using maxHeight: $maxHeight for Beyond_Horizon_Hidden');
+    // print('MountainGroupViewModel - Observer level: $observerLevel');
     
     updatedSvg = SvgElementUpdater.updateRectElement(
       updatedSvg,

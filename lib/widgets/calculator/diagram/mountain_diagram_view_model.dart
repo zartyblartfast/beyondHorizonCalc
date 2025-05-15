@@ -53,12 +53,12 @@ class MountainDiagramViewModel extends DiagramViewModel {
          isMetric: isMetric,
          presetName: presetName,
        ) {
-    print('MountainDiagramViewModel - Constructor');
-    print('MountainDiagramViewModel - DiagramSpec: $diagramSpec');
+    // print('MountainDiagramViewModel - Constructor');
+    // print('MountainDiagramViewModel - DiagramSpec: $diagramSpec');
     if (diagramSpec.isEmpty) {
-      print('MountainDiagramViewModel - Warning: DiagramSpec is empty');
+      // print('MountainDiagramViewModel - Warning: DiagramSpec is empty');
     }
-    print('MountainDiagramViewModel - ViewBox height: ${diagramSpec['metadata']?['svgSpec']?['viewBox']?['height']}');
+    // print('MountainDiagramViewModel - ViewBox height: ${diagramSpec['metadata']?['svgSpec']?['viewBox']?['height']}');
   }
 
   /// Gets all label values for the mountain diagram
