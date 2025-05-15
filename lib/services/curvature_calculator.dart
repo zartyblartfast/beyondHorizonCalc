@@ -21,12 +21,6 @@ class CurvatureCalculator {
   double? targetHeight,
 }) {
   print('SERVICE: Entered CurvatureCalculator.calculate');
-  required double observerHeight,
-    required double distance,
-    required double refractionFactor,
-    required bool isMetric,
-    double? targetHeight,
-  }) {
     // VERSION TAG
     print('CALCULATION VERSION: 2025-05-15-01');
 
