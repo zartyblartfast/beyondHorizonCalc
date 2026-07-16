@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:BeyondHorizonCalc/services/curvature_calculator.dart';
-import 'package:BeyondHorizonCalc/services/models/calculation_result.dart';
+
 import 'dart:math' as math;
 
 void main() {
@@ -138,6 +138,86 @@ void main() {
       expect(result.totalDistance, closeTo(distance, delta));
       expect(result.visibleDistance, equals(0));
       expect(result.hiddenHeight, equals(0));
+    });
+
+    test('reports portions of a structure above its elevated base', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 2,
+        distance: 50,
+        refractionFactor: 1.07,
+        isMetric: true,
+        targetHeight: 200,
+        targetBaseElevation: 100,
+      );
+
+      expect(result.hiddenHeight, greaterThan(0));
+      expect(result.hiddenHeight, lessThan(0.1));
+      expect(result.visibleTargetHeight, greaterThan(0));
+      expect(result.visibleTargetHeight, lessThan(0.1));
+      expect(
+        result.hiddenHeight! + result.visibleTargetHeight!,
+        closeTo(0.1, delta),
+      );
+    });
+
+    test('reports the physical structure height when fully visible', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 100,
+        distance: 5,
+        refractionFactor: 1.07,
+        isMetric: true,
+        targetHeight: 200,
+        targetBaseElevation: 100,
+      );
+
+      expect(result.hiddenHeight, 0);
+      expect(result.visibleTargetHeight, closeTo(0.1, delta));
+    });
+
+    test('clamps the hidden portion to the physical structure height', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 2,
+        distance: 100,
+        refractionFactor: 1.07,
+        isMetric: true,
+        targetHeight: 200,
+        targetBaseElevation: 100,
+      );
+
+      expect(result.hiddenHeight, closeTo(0.1, delta));
+      expect(result.visibleTargetHeight, 0);
+      expect(result.cutoffElevation, greaterThan(result.hiddenHeight!));
+    });
+
+    test('keeps elevation targets backward compatible', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 2,
+        distance: 50,
+        refractionFactor: 1.07,
+        isMetric: true,
+        targetHeight: 200,
+      );
+
+      expect(
+        result.hiddenHeight! + result.visibleTargetHeight!,
+        closeTo(0.2, delta),
+      );
+    });
+
+    test('converts imperial structure elevations before calculating', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 6.56168,
+        distance: 31.06855,
+        refractionFactor: 1.07,
+        isMetric: false,
+        targetHeight: 656.168,
+        targetBaseElevation: 328.084,
+      );
+
+      expect(
+        result.hiddenHeight! + result.visibleTargetHeight!,
+        closeTo(0.1, delta),
+      );
     });
   });
 }

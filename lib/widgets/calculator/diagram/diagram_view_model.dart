@@ -41,17 +41,19 @@ abstract class DiagramViewModel {
     return convertFromKm(result!.hiddenHeight!);
   }
 
-  /// Determines the visibility state based on target height comparison
+  /// Determines visibility from the clamped physical target portions.
   String getVisibilityState() {
-    if (targetHeight == null || targetHeight == 0 || h2InUnits == null) {
+    if (targetHeight == null || targetHeight == 0 || result == null) {
       return '';
     }
 
-    if (targetHeight! < h2InUnits!) {
+    final visibleHeight = result!.visibleTargetHeight ?? 0;
+    final hiddenHeight = result!.hiddenHeight ?? 0;
+    if (visibleHeight <= 0 && hiddenHeight > 0) {
       return 'Hidden';
-    } else {
-      return 'Partially Visible';  // If target height > h2, it's always partially visible
     }
+    if (hiddenHeight <= 0 && visibleHeight > 0) return 'Visible';
+    return 'Partially Visible';
   }
 
   /// Gets the earth radius text with appropriate units

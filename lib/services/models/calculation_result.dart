@@ -1,18 +1,21 @@
 class CalculationResult {
-  final double? horizonDistance;    // in kilometers
-  final double? hiddenHeight;       // in kilometers
-  final double? totalDistance;      // in kilometers
-  final double? visibleDistance;    // in kilometers
-  final double? visibleTargetHeight;// in kilometers
+  final double? horizonDistance; // in kilometers
+  final double? hiddenHeight; // in kilometers
+  final double?
+      cutoffElevation; // line-of-sight cutoff above sea level, in kilometers
+  final double? totalDistance; // in kilometers
+  final double? visibleDistance; // in kilometers
+  final double? visibleTargetHeight; // in kilometers
   final double? apparentVisibleHeight; // in kilometers
   final double? perspectiveScaledHeight; // in kilometers
-  final double? inputDistance;      // in kilometers/miles based on isMetric
-  final double? h1;                 // observer height in meters/feet based on isMetric
-  final double? dipAngle;          // angle in degrees to look down to horizon
+  final double? inputDistance; // in kilometers/miles based on isMetric
+  final double? h1; // observer height in meters/feet based on isMetric
+  final double? dipAngle; // angle in degrees to look down to horizon
 
   const CalculationResult({
     this.horizonDistance = 0,
     this.hiddenHeight = 0,
+    this.cutoffElevation = 0,
     this.totalDistance = 0,
     this.visibleDistance = 0,
     this.visibleTargetHeight = 0,
@@ -28,6 +31,7 @@ class CalculationResult {
     return {
       'horizonDistance': horizonDistance,
       'hiddenHeight': hiddenHeight,
+      'cutoffElevation': cutoffElevation,
       'totalDistance': totalDistance,
       'visibleDistance': visibleDistance,
       'visibleTargetHeight': visibleTargetHeight,
@@ -44,6 +48,7 @@ class CalculationResult {
     return CalculationResult(
       horizonDistance: map['horizonDistance'] as double?,
       hiddenHeight: map['hiddenHeight'] as double?,
+      cutoffElevation: map['cutoffElevation'] as double?,
       totalDistance: map['totalDistance'] as double?,
       visibleDistance: map['visibleDistance'] as double?,
       visibleTargetHeight: map['visibleTargetHeight'] as double?,

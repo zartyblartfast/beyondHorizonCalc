@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/range_limits.dart';
+import '../../models/line_of_sight_preset.dart';
 import '../common/info_icon.dart';
 
 class InputFields extends StatelessWidget {
@@ -8,8 +9,11 @@ class InputFields extends StatelessWidget {
   final TextEditingController distanceController;
   final TextEditingController refractionFactorController;
   final TextEditingController targetHeightController;
+  final TextEditingController targetBaseElevationController;
+  final TargetInputType targetInputType;
   final bool isMetric;
   final ValueChanged<bool> onMetricChanged;
+  final ValueChanged<TargetInputType> onTargetInputTypeChanged;
   final VoidCallback onCalculate;
   final bool showCalculateButton;
   final bool isCustomPreset;
@@ -20,8 +24,11 @@ class InputFields extends StatelessWidget {
     required this.distanceController,
     required this.refractionFactorController,
     required this.targetHeightController,
+    required this.targetBaseElevationController,
+    required this.targetInputType,
     required this.isMetric,
     required this.onMetricChanged,
+    required this.onTargetInputTypeChanged,
     required this.onCalculate,
     this.showCalculateButton = false,
     this.isCustomPreset = true,
@@ -32,9 +39,8 @@ class InputFields extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isNarrow = constraints.maxWidth < 600;
-        final contentPadding = isNarrow 
-            ? const EdgeInsets.all(4.0)
-            : const EdgeInsets.all(16.0);
+        final contentPadding =
+            isNarrow ? const EdgeInsets.all(4.0) : const EdgeInsets.all(16.0);
 
         return SingleChildScrollView(
           child: Card(
@@ -44,16 +50,15 @@ class InputFields extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (isNarrow) ...[
-                    // Vertical layout for narrow screens
                     _buildInputField(
                       controller: observerHeightController,
-                      label: 'Observer Height (h1)',
-                      suffix: isMetric ? 'm' : 'ft',
+                      label: 'Observer eye elevation (h1)',
+                      suffix: isMetric ? 'm AMSL' : 'ft AMSL',
                       validator: _validateObserverHeight,
                       enabled: isCustomPreset,
                       infoKey: 'observer_height',
                     ),
-                    SizedBox(height: isNarrow ? 8 : 16),
+                    const SizedBox(height: 8),
                     _buildInputField(
                       controller: distanceController,
                       label: 'Distance (L0)',
@@ -62,26 +67,24 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'distance',
                     ),
-                    SizedBox(height: isNarrow ? 8 : 16),
+                    const SizedBox(height: 8),
                     _buildRefractionDropdown(),
-                    SizedBox(height: isNarrow ? 8 : 16),
-                    _buildInputField(
-                      controller: targetHeightController,
-                      label: 'Target height - optional (XZ)',
-                      suffix: isMetric ? 'm' : 'ft',
-                      validator: _validateTargetHeight,
-                      enabled: isCustomPreset,
-                      infoKey: 'target_height',
-                    ),
+                    const SizedBox(height: 8),
+                    _buildTargetInputTypeSelector(),
+                    const SizedBox(height: 8),
+                    _buildTargetHeightField(),
+                    if (targetInputType == TargetInputType.structure) ...[
+                      const SizedBox(height: 8),
+                      _buildTargetBaseElevationField(),
+                    ],
                   ] else ...[
-                    // Horizontal layout for wider screens
                     Row(
                       children: [
                         Expanded(
                           child: _buildInputField(
                             controller: observerHeightController,
-                            label: 'Observer Height (h1)',
-                            suffix: isMetric ? 'm' : 'ft',
+                            label: 'Observer eye elevation (h1)',
+                            suffix: isMetric ? 'm AMSL' : 'ft AMSL',
                             validator: _validateObserverHeight,
                             enabled: isCustomPreset,
                             infoKey: 'observer_height',
@@ -103,20 +106,20 @@ class InputFields extends StatelessWidget {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(
-                          child: _buildRefractionDropdown(),
-                        ),
+                        Expanded(child: _buildRefractionDropdown()),
                         const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildInputField(
-                            controller: targetHeightController,
-                            label: 'Target height - optional (XZ)',
-                            suffix: isMetric ? 'm' : 'ft',
-                            validator: _validateTargetHeight,
-                            enabled: isCustomPreset,
-                            infoKey: 'target_height',
-                          ),
-                        ),
+                        Expanded(child: _buildTargetInputTypeSelector()),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(child: _buildTargetHeightField()),
+                        if (targetInputType == TargetInputType.structure) ...[
+                          const SizedBox(width: 16),
+                          Expanded(child: _buildTargetBaseElevationField()),
+                        ] else
+                          const Spacer(),
                       ],
                     ),
                   ],
@@ -163,7 +166,7 @@ class InputFields extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
-        
+
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -175,11 +178,13 @@ class InputFields extends StatelessWidget {
                   suffixText: suffix,
                   border: const OutlineInputBorder(),
                   enabled: enabled,
-                  contentPadding: isMobile 
+                  contentPadding: isMobile
                       ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                      : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                      : const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 16),
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
                 ],
@@ -187,7 +192,7 @@ class InputFields extends StatelessWidget {
                 onFieldSubmitted: (_) => onCalculate(),
               ),
             ),
-            const SizedBox(width: 8),  
+            const SizedBox(width: 8),
             SizedBox(
               width: 24,
               height: isMobile ? 40 : 48,
@@ -204,11 +209,64 @@ class InputFields extends StatelessWidget {
     );
   }
 
+  Widget _buildTargetHeightField() {
+    return _buildInputField(
+      controller: targetHeightController,
+      label: targetInputType == TargetInputType.elevation
+          ? 'Target elevation - optional (XZ)'
+          : 'Structure height - optional',
+      suffix: targetInputType == TargetInputType.elevation
+          ? (isMetric ? 'm AMSL' : 'ft AMSL')
+          : (isMetric ? 'm' : 'ft'),
+      validator: _validateTargetHeight,
+      enabled: isCustomPreset,
+      infoKey: 'target_height',
+    );
+  }
+
+  Widget _buildTargetBaseElevationField() {
+    return _buildInputField(
+      controller: targetBaseElevationController,
+      label: 'Ground/base elevation',
+      suffix: isMetric ? 'm AMSL' : 'ft AMSL',
+      validator: _validateTargetBaseElevation,
+      enabled: isCustomPreset,
+      infoKey: 'target_base_elevation',
+    );
+  }
+
+  Widget _buildTargetInputTypeSelector() {
+    return DropdownButtonFormField<TargetInputType>(
+      key: const ValueKey('target_input_type'),
+      isExpanded: true,
+      value: targetInputType,
+      decoration: const InputDecoration(
+        labelText: 'Target measurement',
+        border: OutlineInputBorder(),
+      ),
+      items: const [
+        DropdownMenuItem(
+          value: TargetInputType.elevation,
+          child: Text('Elevation above sea level'),
+        ),
+        DropdownMenuItem(
+          value: TargetInputType.structure,
+          child: Text('Structure height'),
+        ),
+      ],
+      onChanged: isCustomPreset
+          ? (value) {
+              if (value != null) onTargetInputTypeChanged(value);
+            }
+          : null,
+    );
+  }
+
   Widget _buildRefractionDropdown() {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
-        
+
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -221,23 +279,34 @@ class InputFields extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Refraction Factor',
                     border: const OutlineInputBorder(),
-                    contentPadding: isMobile 
-                        ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                        : const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    contentPadding: isMobile
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 12)
+                        : const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 16),
                   ),
                   items: const [
                     DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
                     DropdownMenuItem(value: 'low', child: Text('Low (1.02)')),
-                    DropdownMenuItem(value: 'below_average', child: Text('Below Avg (1.04)')),
-                    DropdownMenuItem(value: 'average', child: Text('Avg (1.07)')),
-                    DropdownMenuItem(value: 'above_average', child: Text('Above Avg (1.10)')),
+                    DropdownMenuItem(
+                        value: 'below_average',
+                        child: Text('Below Avg (1.04)')),
+                    DropdownMenuItem(
+                        value: 'average', child: Text('Avg (1.07)')),
+                    DropdownMenuItem(
+                        value: 'above_average',
+                        child: Text('Above Avg (1.10)')),
                     DropdownMenuItem(value: 'high', child: Text('High (1.15)')),
-                    DropdownMenuItem(value: 'very_high', child: Text('Very High (1.20)')),
-                    DropdownMenuItem(value: 'extremely_high', child: Text('Extremely High (1.25)')),
+                    DropdownMenuItem(
+                        value: 'very_high', child: Text('Very High (1.20)')),
+                    DropdownMenuItem(
+                        value: 'extremely_high',
+                        child: Text('Extremely High (1.25)')),
                   ],
                   onChanged: (value) {
                     if (value != null) {
-                      refractionFactorController.text = _getRefractionValue(value);
+                      refractionFactorController.text =
+                          _getRefractionValue(value);
                     }
                   },
                 ),
@@ -258,29 +327,6 @@ class InputFields extends StatelessWidget {
         );
       },
     );
-  }
-
-  String _getRefractionLabel(String value) {
-    switch (value) {
-      case '1.00':
-        return 'none';
-      case '1.02':
-        return 'low';
-      case '1.04':
-        return 'below_average';
-      case '1.07':
-        return 'average';
-      case '1.10':
-        return 'above_average';
-      case '1.15':
-        return 'high';
-      case '1.20':
-        return 'very_high';
-      case '1.25':
-        return 'extremely_high';
-      default:
-        return 'average';
-    }
   }
 
   String _getRefractionKey(String value) {
@@ -304,9 +350,18 @@ class InputFields extends StatelessWidget {
         return 'extremely_high';
       default:
         // Find closest match
-        final List<double> values = [1.00, 1.02, 1.04, 1.07, 1.10, 1.15, 1.20, 1.25];
-        double closest = values.reduce((a, b) => 
-          (a - refraction).abs() < (b - refraction).abs() ? a : b);
+        final List<double> values = [
+          1.00,
+          1.02,
+          1.04,
+          1.07,
+          1.10,
+          1.15,
+          1.20,
+          1.25
+        ];
+        double closest = values.reduce(
+            (a, b) => (a - refraction).abs() < (b - refraction).abs() ? a : b);
         return _getRefractionKey(closest.toString());
     }
   }
@@ -393,6 +448,26 @@ class InputFields extends StatelessWidget {
           ? RangeLimits.maxTargetHeight
           : RangeLimits.maxTargetHeight * 3.28084;
       return 'Height must be less than ${maxDisplay.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
+    }
+    return null;
+  }
+
+  String? _validateTargetBaseElevation(String? value) {
+    if (targetInputType != TargetInputType.structure) return null;
+    if (targetHeightController.text.isEmpty) return null;
+    if (value == null || value.isEmpty) {
+      return 'Please enter the ground/base elevation';
+    }
+    final elevation = double.tryParse(value);
+    if (elevation == null) return 'Please enter a valid number';
+    if (elevation < 0) return 'Elevation cannot be negative';
+
+    final elevationInMeters = isMetric ? elevation : elevation / 3.28084;
+    if (elevationInMeters > RangeLimits.maxTargetHeight) {
+      final maxDisplay = isMetric
+          ? RangeLimits.maxTargetHeight
+          : RangeLimits.maxTargetHeight * 3.28084;
+      return 'Elevation must be less than ${maxDisplay.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
     }
     return null;
   }

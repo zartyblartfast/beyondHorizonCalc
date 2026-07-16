@@ -1,27 +1,24 @@
+import 'package:BeyondHorizonCalc/services/models/calculation_result.dart';
+import 'package:BeyondHorizonCalc/widgets/calculator/results_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:BeyondHorizonCalc/widgets/calculator/results_display.dart';
-import 'package:BeyondHorizonCalc/services/models/calculation_result.dart';
 
 void main() {
   group('ResultsDisplay', () {
-    final testResult = CalculationResult(
-      horizonDistance: 10.0,
-      hiddenHeight: 20.0,
-      totalDistance: 30.0,
-      visibleDistance: 40.0,
-      visibleTargetHeight: 50.0,
-      apparentVisibleHeight: 45.0,
+    const testResult = CalculationResult(
+      horizonDistance: 10,
+      hiddenHeight: 0.02,
+      visibleTargetHeight: 0.05,
+      apparentVisibleHeight: 0.045,
+      perspectiveScaledHeight: 0.0015,
+      dipAngle: 1.23,
     );
 
-    testWidgets('shows nothing when result is null', (WidgetTester tester) async {
+    testWidgets('shows nothing when result is null', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: ResultsDisplay(
-              result: null,
-              isMetric: true,
-            ),
+            body: ResultsDisplay(result: null, isMetric: true),
           ),
         ),
       );
@@ -29,67 +26,65 @@ void main() {
       expect(find.byType(Card), findsNothing);
     });
 
-    testWidgets('shows all results in metric units', (WidgetTester tester) async {
+    testWidgets('shows target portions in metric units', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResultsDisplay(
               result: testResult,
               isMetric: true,
+              targetHeight: 70,
             ),
           ),
         ),
       );
 
-      expect(find.text('10.00 km'), findsOneWidget);  // Horizon Distance
-      expect(find.text('30.00 km'), findsOneWidget);  // Total Distance
-      expect(find.text('20.00 m'), findsOneWidget);   // Hidden Height
-      expect(find.text('50.00 m'), findsOneWidget);   // Visible Target Height
-      expect(find.text('45.00 m'), findsOneWidget);   // Apparent Visible Height
+      expect(find.text('10.00 km'), findsOneWidget);
+      expect(find.text('20.0 m'), findsOneWidget);
+      expect(find.text('50.0 m'), findsOneWidget);
+      expect(find.text('45.0 m'), findsOneWidget);
+      expect(find.text('1.5 m'), findsOneWidget);
+      expect(find.text('1.23°'), findsOneWidget);
     });
 
-    testWidgets('shows all results in imperial units', (WidgetTester tester) async {
+    testWidgets('shows target portions in imperial units', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: ResultsDisplay(
               result: testResult,
               isMetric: false,
+              targetHeight: 230,
             ),
           ),
         ),
       );
 
-      expect(find.text('6.21 mi'), findsOneWidget);    // Horizon Distance
-      expect(find.text('18.64 mi'), findsOneWidget);   // Total Distance
-      expect(find.text('65.62 ft'), findsOneWidget);   // Hidden Height
-      expect(find.text('164.04 ft'), findsOneWidget);  // Visible Target Height
-      expect(find.text('147.64 ft'), findsOneWidget);  // Apparent Visible Height
+      expect(find.text('6.21 mi'), findsOneWidget);
+      expect(find.text('65.6 ft'), findsOneWidget);
+      expect(find.text('164.0 ft'), findsOneWidget);
+      expect(find.text('147.6 ft'), findsOneWidget);
+      expect(find.text('4.9 ft'), findsOneWidget);
     });
 
-    testWidgets('shows N/A for null values', (WidgetTester tester) async {
-      final nullResult = CalculationResult(
+    testWidgets('shows N/A for null distance and hidden height',
+        (tester) async {
+      const nullResult = CalculationResult(
         horizonDistance: null,
         hiddenHeight: null,
-        totalDistance: null,
-        visibleDistance: null,
-        visibleTargetHeight: null,
-        apparentVisibleHeight: null,
+        dipAngle: null,
       );
 
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: ResultsDisplay(
-              result: nullResult,
-              isMetric: true,
-            ),
+            body: ResultsDisplay(result: nullResult, isMetric: true),
           ),
         ),
       );
 
-      // Verify all result fields show N/A
-      expect(find.text('N/A'), findsNWidgets(3)); // Only visible fields when no target height
+      expect(find.text('N/A'), findsNWidgets(2));
+      expect(find.text('N/A°'), findsOneWidget);
     });
   });
 }

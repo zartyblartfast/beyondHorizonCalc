@@ -6,7 +6,6 @@ import 'calculator/preset_selector.dart';
 import 'calculator/input_fields.dart';
 import 'calculator/results_display.dart';
 import 'calculator/diagram_display.dart';
-import 'long_line_info_dialog.dart';
 
 class CalculatorForm extends StatefulWidget {
   const CalculatorForm({super.key});
@@ -21,9 +20,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
   final _distanceController = TextEditingController();
   final _refractionFactorController = TextEditingController(text: '1.07');
   final _targetHeightController = TextEditingController();
+  final _targetBaseElevationController = TextEditingController(text: '0');
   final _presetSelectorKey = GlobalKey();
 
   bool _isMetric = true;
+  TargetInputType _targetInputType = TargetInputType.elevation;
   LineOfSightPreset? _selectedPreset;
   CalculationResult? _result;
   PresetSelector? _presetSelector;
@@ -31,50 +32,53 @@ class _CalculatorFormState extends State<CalculatorForm> {
   @override
   void initState() {
     super.initState();
-    print('CalculatorForm - initState called');
     _initializeForm();
   }
 
   Future<void> _initializeForm() async {
-    print('CalculatorForm - _initializeForm started');
     // Initialize with empty result to avoid null errors
     _result = const CalculationResult();
 
     // Load presets first
     final presets = await LineOfSightPreset.loadPresets();
-    print('CalculatorForm - Loaded ${presets.length} presets');
-    
+
     if (presets.isNotEmpty && mounted) {
       // Set initial preset
       _selectedPreset = presets.first;
-      print('CalculatorForm - Setting initial preset: ${_selectedPreset?.name}');
 
       setState(() {
         // Initialize controllers with preset values
-        final observerHeight =
-            _isMetric ? _selectedPreset!.observerHeight : _selectedPreset!.observerHeight * 3.28084;
-        final distance =
-            _isMetric ? _selectedPreset!.distance : _selectedPreset!.distance * 0.621371;
+        final observerHeight = _isMetric
+            ? _selectedPreset!.observerHeight
+            : _selectedPreset!.observerHeight * 3.28084;
+        final distance = _isMetric
+            ? _selectedPreset!.distance
+            : _selectedPreset!.distance * 0.621371;
         _observerHeightController.text = observerHeight.toStringAsFixed(1);
         _distanceController.text = distance.toStringAsFixed(1);
         _refractionFactorController.text =
             _selectedPreset!.refractionFactor.toStringAsFixed(2);
-        _targetHeightController.text =
-            _selectedPreset!.targetHeight?.toString() ?? '';
-
-        print('CalculatorForm - Controllers initialized with preset values');
+        _targetInputType = _selectedPreset!.targetInputType;
+        final targetHeight = _selectedPreset!.targetHeight;
+        _targetHeightController.text = targetHeight == null
+            ? ''
+            : (_isMetric ? targetHeight : targetHeight * 3.28084)
+                .toStringAsFixed(1);
+        final baseElevation = _selectedPreset!.targetBaseElevation;
+        _targetBaseElevationController.text =
+            (_isMetric ? baseElevation : baseElevation * 3.28084)
+                .toStringAsFixed(1);
       });
 
       // Create PresetSelector with initial preset
       _presetSelector = PresetSelector(
         key: _presetSelectorKey,
-        selectedPreset: _selectedPreset,  // Now this has the first preset
+        selectedPreset: _selectedPreset, // Now this has the first preset
         onPresetChanged: _handlePresetChanged,
       );
 
       // Calculate initial results
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        print('CalculatorForm - Post-frame callback triggered');
         _handleCalculate();
       });
     } else {
@@ -88,30 +92,32 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handlePresetChanged(LineOfSightPreset? preset) {
-    print('CalculatorForm - Preset changed to: ${preset?.name ?? "Custom Values"}');
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
         final observerHeight =
             _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
-        final distance = _isMetric ? preset.distance : preset.distance * 0.621371;
+        final distance =
+            _isMetric ? preset.distance : preset.distance * 0.621371;
         _observerHeightController.text = observerHeight.toStringAsFixed(1);
         _distanceController.text = distance.toStringAsFixed(1);
         _refractionFactorController.text =
             preset.refractionFactor.toStringAsFixed(2);
-        _targetHeightController.text = preset.targetHeight?.toString() ?? '';
-        
-        print('CalculatorForm - Updated controller values:');
-        print('Observer Height: ${_observerHeightController.text}');
-        print('Distance: ${_distanceController.text}');
-        print('Refraction Factor: ${_refractionFactorController.text}');
-        print('Target Height: ${_targetHeightController.text}');
+        _targetInputType = preset.targetInputType;
+        final targetHeight = preset.targetHeight;
+        _targetHeightController.text = targetHeight == null
+            ? ''
+            : (_isMetric ? targetHeight : targetHeight * 3.28084)
+                .toStringAsFixed(1);
+        _targetBaseElevationController.text = (_isMetric
+                ? preset.targetBaseElevation
+                : preset.targetBaseElevation * 3.28084)
+            .toStringAsFixed(1);
       }
     });
-    
+
     // Always calculate, even for Custom Values
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      print('CalculatorForm - Calling _handleCalculate after preset change');
       _handleCalculate();
     });
   }
@@ -137,6 +143,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
         final double converted = isMetric ? value * 0.3048 : value * 3.28084;
         _targetHeightController.text = converted.toStringAsFixed(1);
       }
+      if (_targetBaseElevationController.text.isNotEmpty) {
+        final double value = double.parse(_targetBaseElevationController.text);
+        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
+        _targetBaseElevationController.text = converted.toStringAsFixed(1);
+      }
       // Automatically calculate when units change
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _handleCalculate();
@@ -144,11 +155,18 @@ class _CalculatorFormState extends State<CalculatorForm> {
     });
   }
 
+  void _handleTargetInputTypeChanged(TargetInputType inputType) {
+    setState(() {
+      _targetInputType = inputType;
+      if (inputType == TargetInputType.structure &&
+          _targetBaseElevationController.text.isEmpty) {
+        _targetBaseElevationController.text = '0';
+      }
+    });
+  }
+
   void _handleCalculate() {
-    print('UI: About to call CurvatureCalculator.calculate');
-    print('CalculatorForm - _handleCalculate called');
     if (!_formKey.currentState!.validate()) {
-      print('CalculatorForm - Form validation failed');
       return;
     }
 
@@ -157,28 +175,28 @@ class _CalculatorFormState extends State<CalculatorForm> {
     final double distance = double.parse(_distanceController.text);
     final double refractionFactor =
         double.parse(_refractionFactorController.text);
-    final double? targetHeight = _targetHeightController.text.isEmpty
+    final double? enteredTargetHeight = _targetHeightController.text.isEmpty
         ? null
         : double.parse(_targetHeightController.text);
-
-    print('CalculatorForm - Calculation inputs:');
-    print('Observer Height: $observerHeight');
-    print('Distance: $distance');
-    print('Refraction Factor: $refractionFactor');
-    print('Target Height: $targetHeight');
-    print('Is Metric: $_isMetric');
+    final double targetBaseElevation = enteredTargetHeight != null &&
+            _targetInputType == TargetInputType.structure
+        ? double.tryParse(_targetBaseElevationController.text) ?? 0
+        : 0;
+    final double? targetTopElevation = enteredTargetHeight == null
+        ? null
+        : _targetInputType == TargetInputType.structure
+            ? targetBaseElevation + enteredTargetHeight
+            : enteredTargetHeight;
 
     // Pass values in their original units (meters/feet and km/miles)
     final result = CurvatureCalculator.calculate(
       observerHeight: observerHeight,
       distance: distance,
       refractionFactor: refractionFactor,
-      targetHeight: targetHeight,
+      targetHeight: targetTopElevation,
+      targetBaseElevation: targetBaseElevation,
       isMetric: _isMetric,
     );
-
-    print('UI: Returned from CurvatureCalculator.calculate');
-    print('CalculatorForm - Calculation result: $result');
 
     setState(() {
       _result = result;
@@ -191,6 +209,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
     _distanceController.dispose();
     _refractionFactorController.dispose();
     _targetHeightController.dispose();
+    _targetBaseElevationController.dispose();
     super.dispose();
   }
 
@@ -200,13 +219,14 @@ class _CalculatorFormState extends State<CalculatorForm> {
       key: _formKey,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide = constraints.maxWidth > 900; // Breakpoint for wide screens
+          final isWide =
+              constraints.maxWidth > 900; // Breakpoint for wide screens
           final isMobile = constraints.maxWidth < 600; // Mobile breakpoint
+          final targetHeight = double.tryParse(_targetHeightController.text);
 
           // Adjust padding based on screen size
-          final contentPadding = isMobile
-              ? const EdgeInsets.all(8.0)
-              : const EdgeInsets.all(16.0);
+          final contentPadding =
+              isMobile ? const EdgeInsets.all(8.0) : const EdgeInsets.all(16.0);
 
           // Create a single instance of InputFields
           final inputFields = InputFields(
@@ -214,8 +234,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
             distanceController: _distanceController,
             refractionFactorController: _refractionFactorController,
             targetHeightController: _targetHeightController,
+            targetBaseElevationController: _targetBaseElevationController,
+            targetInputType: _targetInputType,
             isMetric: _isMetric,
             onMetricChanged: _handleMetricChanged,
+            onTargetInputTypeChanged: _handleTargetInputTypeChanged,
             onCalculate: _handleCalculate,
             showCalculateButton: true,
             isCustomPreset: _selectedPreset == null,
@@ -225,9 +248,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
           final resultsDisplay = ResultsDisplay(
             result: _result,
             isMetric: _isMetric,
-            targetHeight: _targetHeightController.text.isEmpty
-                ? null
-                : double.parse(_targetHeightController.text),
+            targetHeight: targetHeight,
           );
 
           Widget content = Column(
@@ -255,11 +276,12 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   padding: contentPadding,
                   child: DiagramDisplay(
                     result: _result,
-                    targetHeight: _targetHeightController.text.isEmpty
-                        ? null
-                        : double.parse(_targetHeightController.text),
+                    targetHeight: targetHeight,
                     isMetric: _isMetric,
-                    presetName: _selectedPreset?.name,  // Pass null for Custom Values
+                    isStructureTarget:
+                        _targetInputType == TargetInputType.structure,
+                    presetName:
+                        _selectedPreset?.name, // Pass null for Custom Values
                   ),
                 ),
               ),
@@ -295,11 +317,12 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       padding: contentPadding,
                       child: DiagramDisplay(
                         result: _result,
-                        targetHeight: _targetHeightController.text.isEmpty
-                            ? null
-                            : double.parse(_targetHeightController.text),
+                        targetHeight: targetHeight,
                         isMetric: _isMetric,
-                        presetName: _selectedPreset?.name,  // Pass null for Custom Values
+                        isStructureTarget:
+                            _targetInputType == TargetInputType.structure,
+                        presetName: _selectedPreset
+                            ?.name, // Pass null for Custom Values
                       ),
                     ),
                   ),

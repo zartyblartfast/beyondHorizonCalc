@@ -3,9 +3,11 @@
 ## Input Fields
 
 ### Required Fields
-- Observer Height (h1) [meters/feet]
+- Observer Eye Elevation (h1) [meters/feet AMSL]
   - Range: 2 to 9,000 meters (or 6.56 to 29,527.56 feet)
   - Must be greater than 0
+  - Enter eye/camera elevation above mean sea level
+  - Ground elevation + eye/camera height above ground
 
 - Distance (L0) [kilometers/miles]
   - Range: 5 to 600 kilometers (or 3.11 to 372.82 miles)
@@ -22,10 +24,22 @@
     - Very High (1.20)
     - Extremely High (1.25)
 
-### Optional Fields
-- Target Height (XZ) [meters/feet]
-  - Range: 0 to 9,000 meters (or 0 to 29,527.56 feet)
-  - Optional field - can be left empty
+### Optional Target Fields
+- Target Measurement Type
+  - Elevation above sea level: for mountains and targets whose published value is already AMSL
+  - Structure height: for buildings, towers, turbines, and similar structures
+- Target Elevation (XZ) [meters/feet AMSL]
+  - Used in elevation mode
+  - Existing mountain presets default to this mode
+- Structure Height [meters/feet]
+  - Used in structure mode
+  - Physical base-to-top height of the structure
+- Ground/Base Elevation [meters/feet AMSL]
+  - Shown only in structure mode
+  - The structure top is calculated as base elevation + structure height
+
+Example: a 100 m building on ground at 100 m AMSL has a base elevation
+of 100 m, a structure height of 100 m, and a top elevation of 200 m AMSL.
 
 ### Units Toggle
 - Metric (meters, kilometers)
@@ -69,3 +83,4 @@
 - All distance measurements can be toggled between kilometers and miles
 - Refraction factor affects the curvature calculations
 - Custom values can be entered when no preset is selected
+- Visible height plus hidden height equals the physical target height

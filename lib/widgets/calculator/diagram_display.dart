@@ -14,6 +14,7 @@ class DiagramDisplay extends StatefulWidget {
   final CalculationResult? result;
   final double? targetHeight;
   final bool isMetric;
+  final bool isStructureTarget;
   final String? presetName;
 
   const DiagramDisplay({
@@ -21,6 +22,7 @@ class DiagramDisplay extends StatefulWidget {
     required this.result,
     this.targetHeight,
     required this.isMetric,
+    this.isStructureTarget = false,
     this.presetName,
   });
 
@@ -48,11 +50,19 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
     if (oldWidget.result != widget.result ||
         oldWidget.targetHeight != widget.targetHeight ||
         oldWidget.isMetric != widget.isMetric ||
+        oldWidget.isStructureTarget != widget.isStructureTarget ||
         oldWidget.presetName != widget.presetName) {
       developer.log('DiagramDisplay - Props changed, calling _loadAndUpdateSvg', name: 'DiagramDisplay');
-      _loadAndUpdateSvg();
-      // Reset scroll position to top
-      _scrollController.jumpTo(0);
+      if (widget.isStructureTarget) {
+        setState(() {
+          _svgContent = null;
+          _mountainSvgContent = null;
+        });
+      } else {
+        _loadAndUpdateSvg();
+      }
+      // Reset scroll position to top when the diagram is currently mounted.
+      if (_scrollController.hasClients) _scrollController.jumpTo(0);
     } else {
       developer.log('DiagramDisplay - Widget updated, but no relevant changes detected', name: 'DiagramDisplay');
     }
@@ -66,21 +76,12 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       return 'assets/svg/BTH_1.svg';
     }
     
-    // Get h2 (XC) from the hiddenHeight (convert from km to m or ft)
-    final double? h2 = widget.result!.hiddenHeight;
-    if (h2 == null) return 'assets/svg/BTH_1.svg';
-
-    // Convert h2 from km to m or ft
-    final double h2InUnits = widget.isMetric ? h2 * 1000 : h2 * 3280.84;
-    
-    // Compare target height with h2
-    if (widget.targetHeight! < h2InUnits) {
+    final hiddenHeight = widget.result!.hiddenHeight ?? 0;
+    final visibleHeight = widget.result!.visibleTargetHeight ?? 0;
+    if (visibleHeight <= 0 && hiddenHeight > 0) {
       return 'assets/svg/BTH_2.svg';
-    } else if ((widget.targetHeight! - h2InUnits).abs() < 0.1) { // Use slightly larger epsilon for m/ft comparison
-      return 'assets/svg/BTH_3.svg';
-    } else {
-      return 'assets/svg/BTH_4.svg';
     }
+    return 'assets/svg/BTH_4.svg';
   }
 
   Future<void> _loadAndUpdateSvg() async {
@@ -191,7 +192,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   void initState() {
     super.initState();
     _testViewModel = TestDiagramViewModel(isMetric: widget.isMetric);
-    _loadAndUpdateSvg();
+    if (!widget.isStructureTarget) _loadAndUpdateSvg();
   }
 
   @override
@@ -202,6 +203,19 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isStructureTarget) {
+      return const Card(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Structure calculations are shown in the results panel. '
+            'The mountain diagrams are available in elevation mode only.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
     final titleStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
       fontWeight: FontWeight.bold,
     );
@@ -268,6 +282,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                     height: height * 0.6, // Show 60% of the total height
                     child: ClipRect(
                       child: Scrollbar(
+                        controller: _scrollController,
                         thumbVisibility: true,  // Always show the scrollbar
                         thickness: 6.0,         // Slightly thinner than default
                         radius: const Radius.circular(10),  // Rounded corners

@@ -161,8 +161,10 @@ class MountainGroupViewModel extends DiagramViewModel {
       debugPrint('  - Target Height (XZ): ${targetHeight ?? 0.0} ${isMetric ? 'm' : 'ft'}');
     }
     
-    // Get hidden height (h2/XC) in kilometers from calculation result
-    final double h2InKm = result?.hiddenHeight ?? 0.0;
+    // The sea-level geometry uses the absolute line-of-sight cutoff, not the
+    // clamped physical portion of a supplied target that is hidden.
+    final double h2InKm =
+        result?.cutoffElevation ?? result?.hiddenHeight ?? 0.0;
     final double h2Viewbox = h2InKm * _viewboxScale;
     
     // Position Distant_Obj_Sea_Level below C_Point_Line by h2/XC distance

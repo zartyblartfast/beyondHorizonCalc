@@ -1,7 +1,7 @@
 {
   "observer_height": {
     "title": "Observer Height (h1)",
-    "content": "<p>The eye level height of the observer above sea level.</p><ul><li>Must be between 2 and 9000 meters (6.6 to 29,527 feet)</li><li>Measured from mean sea level</li><li>Represents the vertical distance from sea level to the observer's eyes</li></ul>",
+    "content": "<p>The observer's eye or camera elevation above mean sea level (AMSL).</p><ul><li>Add local ground elevation and eye/camera height above ground</li><li>Example: 100 m ground elevation + 2 m eye height = 102 m AMSL</li><li>Must be between 2 and 9000 meters (6.6 to 29,527 feet)</li></ul>",
     "content_type": "html"
   },
   "distance": {
@@ -15,8 +15,13 @@
     "content_type": "html"
   },
   "target_height": {
-    "title": "Target Height (XZ)",
-    "content": "<p>The height of the object/structure being observed from top to bottom.</p><ul><li>Optional field</li><li>Must be between 0 and 9000 meters (0 to 29,527 feet)</li><li>Measured from mean sea level</li></ul>",
+    "title": "Target measurement (XZ)",
+    "content": "<p>Choose how the target is measured:</p><ul><li><strong>Elevation above sea level:</strong> enter the summit or target-top elevation AMSL. Use this for mountains and existing presets.</li><li><strong>Structure height:</strong> enter the physical height from base to top. Also provide the ground/base elevation AMSL.</li><li>The target is optional and may be left empty.</li></ul>",
+    "content_type": "html"
+  },
+  "target_base_elevation": {
+    "title": "Ground/base elevation",
+    "content": "<p>The elevation of the structure's base above mean sea level (AMSL).</p><ul><li>Shown only for Structure height mode</li><li>Example: a 100 m building on ground at 100 m AMSL has a base elevation of 100 m and a top elevation of 200 m</li></ul>",
     "content_type": "html"
   },
   "horizon_distance": {
@@ -31,12 +36,12 @@
   },
   "hidden_height": {
     "title": "Hidden Height (h2, XC)",
-    "content": "<p>The portion of the target object/structure hidden by Earth's curvature. Calculated using spherical geometry:</p><pre>XC = (R/cos(BOX) - R) ÷ 1000</pre><p>Where:</p><ul><li>R is Earth's radius × refraction factor</li><li>BOX = 2π × (l2/C)</li><li>l2 = total distance - distance to horizon</li><li>C = Earth's circumference</li></ul><p>The target may be:</p><ul><li>Fully visible (h2 = 0)</li><li>Partially hidden (0 < h2 < target height)</li><li>Completely hidden (h2 ≥ target height)</li></ul>",
+    "content": "<p>The physical portion of the supplied target hidden by Earth's curvature.</p><p>The calculator first finds the line-of-sight cutoff elevation using spherical geometry. It then clamps the hidden portion to the target's base-to-top height.</p><ul><li>Fully visible: hidden height = 0</li><li>Partially hidden: between 0 and the target height</li><li>Completely hidden: equal to the target height</li></ul><p>When no target is supplied, this result is the calculated cutoff elevation above sea level.</p>",
     "content_type": "html"
   },
   "visible_height": {
     "title": "Visible Height (h3)",
-    "content": "<p>The portion of the target that is visible above the horizon. Calculated as:</p><pre>h3 = Target Height - Hidden Height</pre><p>If h3 is:</p><ul><li>Equal to target height: Object fully visible</li><li>Between 0 and target height: Object partially visible</li><li>0 or negative: Object completely hidden</li></ul><p>The total height is always: Visible Height + Hidden Height = Target Height</p>",
+    "content": "<p>The physical portion of the target visible above the horizon.</p><pre>Visible height = physical target height - hidden target height</pre><p>For elevation mode, the target spans sea level to the entered summit elevation. For structure mode, it spans the entered ground/base elevation to the structure top.</p><p>Visible height plus hidden height always equals the physical target height.</p>",
     "content_type": "html"
   },
   "apparent_height": {
