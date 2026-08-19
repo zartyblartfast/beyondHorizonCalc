@@ -6,6 +6,41 @@
   },
   "presets": [
     {
+      "name": "Karagöl Area to Shkhara - World Record",
+      "isHidden": false,
+      "imageDir": "karagol_shkhara",
+      "description": "Guinness World Record photographed terrestrial line of sight from the Karagöl area in Turkey to Shkhara in the Caucasus",
+      "observerHeight": 3035,
+      "distance": 493.07,
+      "refractionFactor": 1.20,
+      "targetHeight": 5193,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Summit above Sağrak Gölü",
+            "region": "Karagöl, Giresun",
+            "country": "Turkey"
+          },
+          "target": {
+            "name": "Shkhara",
+            "region": "Greater Caucasus",
+            "country": "Georgia / Russia"
+          }
+        },
+        "notes": "Current Guinness World Record for the longest photographed terrestrial line of sight. Photographed by Richard Jezik on 15 December 2024 over a distance of 493.07 km (306.37 mi). The observation point was a summit in the Karagöl area at approximately 3,035 m elevation.",
+        "bestViewingConditions": "Exceptional atmospheric clarity and favourable long-distance refraction",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": "Richard Jezik / Guinness World Records"
+      }
+    },
+    {
       "name": "Mount Dankova to Hindu Tagh",
       "isHidden": false,
       "imageDir": "dankova_hindu_tagh",
