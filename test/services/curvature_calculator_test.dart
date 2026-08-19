@@ -34,6 +34,38 @@ void main() {
       expect(result.horizonDistance, closeTo(expectedHorizonDistance, delta));
     });
 
+    test('uses the intervening surface as the curvature datum', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 185,
+        interveningSurfaceElevation: 176,
+        distance: 61.3,
+        refractionFactor: 1.07,
+        isMetric: true,
+        targetHeight: 625,
+        targetBaseElevation: 183,
+      );
+
+      expect(result.horizonDistance, closeTo(11.077, delta));
+      expect(result.hiddenHeight, closeTo(0.178, delta));
+      expect(result.visibleTargetHeight, closeTo(0.264, delta));
+    });
+
+    test('converts an imperial intervening surface elevation', () {
+      final result = CurvatureCalculator.calculate(
+        observerHeight: 185 * 3.28084,
+        interveningSurfaceElevation: 176 * 3.28084,
+        distance: 61.3 * 0.621371,
+        refractionFactor: 1.07,
+        isMetric: false,
+        targetHeight: 625 * 3.28084,
+        targetBaseElevation: 183 * 3.28084,
+      );
+
+      expect(result.horizonDistance, closeTo(11.077, delta));
+      expect(result.hiddenHeight, closeTo(0.178, delta));
+      expect(result.visibleTargetHeight, closeTo(0.264, delta));
+    });
+
     test('calculates hidden height correctly with target', () {
       // Given: observer and target with known parameters
       const double observerHeight = 2.0; // meters

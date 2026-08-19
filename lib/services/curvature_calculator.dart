@@ -6,7 +6,8 @@ class CurvatureCalculator {
 
   /// Calculates earth curvature effects based on input parameters
   ///
-  /// [observerHeight] Height of observer in meters (metric) or feet (imperial)
+  /// [observerHeight] Eye/camera elevation in meters (metric) or feet (imperial)
+  /// [interveningSurfaceElevation] Elevation of the horizon-forming surface
   /// [distance] Distance in kilometers (metric) or miles (imperial)
   /// [refractionFactor] Atmospheric refraction factor (typically 1.07)
   /// [targetHeight] Optional target top elevation in meters (metric) or feet (imperial)
@@ -16,6 +17,7 @@ class CurvatureCalculator {
   /// Returns [CalculationResult] containing all calculated values in meters and kilometers
   static CalculationResult calculate({
     required double observerHeight,
+    double interveningSurfaceElevation = 0,
     required double distance,
     required double refractionFactor,
     required bool isMetric,
@@ -23,8 +25,17 @@ class CurvatureCalculator {
     double targetBaseElevation = 0,
   }) {
     final double effectiveRadius = EARTH_RADIUS_METERS * refractionFactor;
-    final double heightMeters =
+    final double observerElevationMeters =
         isMetric ? observerHeight : observerHeight * 0.3048;
+    final double interveningSurfaceElevationMeters = isMetric
+        ? interveningSurfaceElevation
+        : interveningSurfaceElevation * 0.3048;
+    final double heightMeters = math.max(
+      observerElevationMeters - interveningSurfaceElevationMeters,
+      0,
+    );
+    final double heightInInputUnits =
+        isMetric ? heightMeters : heightMeters / 0.3048;
     final double distanceMeters =
         isMetric ? distance * 1000 : distance * 1609.34;
     final double? targetHeightMeters = targetHeight == null
@@ -74,7 +85,7 @@ class CurvatureCalculator {
         apparentVisibleHeight: apparentVisibleHeight / 1000,
         perspectiveScaledHeight: perspectiveScaledHeight / 1000,
         inputDistance: distance, // Store original input
-        h1: observerHeight, // Store original input
+        h1: heightInInputUnits, // Height above the intervening surface
         dipAngle: dipAngle, // Add dip angle
       );
     } else {
@@ -89,7 +100,8 @@ class CurvatureCalculator {
 
       // Calculate the line-of-sight cutoff elevation at the target.
       final double OC = R / math.cos(BOX_angle);
-      final double cutoffElevationMeters = OC - R;
+      final double cutoffElevationMeters =
+          interveningSurfaceElevationMeters + OC - R;
       final double hiddenHeight = cutoffElevationMeters / 1000;
 
       // Calculate total distance (d0) and visible distance (d2)
@@ -109,7 +121,7 @@ class CurvatureCalculator {
               d0 / 1000, // Convert to km - Check if this definition is correct
           visibleDistance: d2 / 1000, // Convert to km
           inputDistance: distance, // Store original input
-          h1: observerHeight, // Store original input
+          h1: heightInInputUnits, // Height above the intervening surface
           dipAngle: dipAngle, // Add dip angle
         );
       }
@@ -154,7 +166,7 @@ class CurvatureCalculator {
         apparentVisibleHeight: apparentVisibleHeight / 1000,
         perspectiveScaledHeight: perspectiveScaledHeight / 1000,
         inputDistance: distance, // Original input distance
-        h1: observerHeight, // Store original input value
+        h1: heightInInputUnits, // Height above the intervening surface
         dipAngle: dipAngle, // Add dip angle
       );
     }

@@ -4,6 +4,11 @@
     "content": "<p>The observer's eye or camera elevation above mean sea level (AMSL).</p><ul><li>Add local ground elevation and eye/camera height above ground</li><li>Example: 100 m ground elevation + 2 m eye height = 102 m AMSL</li><li>Must be between 2 and 9000 meters (6.6 to 29,527 feet)</li></ul>",
     "content_type": "html"
   },
+  "intervening_surface_elevation": {
+    "title": "Intervening Surface Elevation",
+    "content": "<p>The elevation above mean sea level (AMSL) of the surface that forms the horizon between observer and target.</p><ul><li>Default: 0 m AMSL for sea-level and existing preset calculations</li><li>For a view across Lake Michigan, use approximately 176 m AMSL</li><li>The observer's effective height for the horizon calculation is eye elevation minus this surface elevation</li><li>A single value approximates a broadly level surface; varying terrain requires an elevation profile</li></ul>",
+    "content_type": "html"
+  },
   "distance": {
     "title": "Distance (L0)",
     "content": "<p>The ground level distance between the observer and the object/structure.</p><ul><li>Must be between 5 and 600 kilometers (3.1 to 373 miles)</li><li>Represents the straight-line distance at ground level</li><li>Limited by Earth's curvature and atmospheric conditions</li></ul>",
@@ -26,7 +31,7 @@
   },
   "horizon_distance": {
     "title": "Distance to Horizon (D1)",
-    "content": "<p>The distance from the observer to their visible horizon.</p><ul><li>Calculated using the Pythagorean theorem</li><li>Increases with observer height</li><li>Affected by atmospheric refraction</li><li>Represents maximum unobstructed viewing distance</li></ul>",
+    "content": "<p>The distance from the observer to the horizon formed by the entered intervening surface.</p><ul><li>Uses eye elevation minus intervening surface elevation</li><li>Calculated using the Pythagorean theorem</li><li>Affected by atmospheric refraction</li><li>Represents maximum unobstructed viewing distance over the chosen level surface</li></ul>",
     "content_type": "html"
   },
   "dip_angle": {

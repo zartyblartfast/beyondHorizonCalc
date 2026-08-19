@@ -17,6 +17,8 @@ class CalculatorForm extends StatefulWidget {
 class _CalculatorFormState extends State<CalculatorForm> {
   final _formKey = GlobalKey<FormState>();
   final _observerHeightController = TextEditingController();
+  final _interveningSurfaceElevationController =
+      TextEditingController(text: '0');
   final _distanceController = TextEditingController();
   final _refractionFactorController = TextEditingController(text: '1.07');
   final _targetHeightController = TextEditingController();
@@ -27,7 +29,6 @@ class _CalculatorFormState extends State<CalculatorForm> {
   TargetInputType _targetInputType = TargetInputType.elevation;
   LineOfSightPreset? _selectedPreset;
   CalculationResult? _result;
-  PresetSelector? _presetSelector;
 
   @override
   void initState() {
@@ -59,6 +60,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _refractionFactorController.text =
             _selectedPreset!.refractionFactor.toStringAsFixed(2);
         _targetInputType = _selectedPreset!.targetInputType;
+        _interveningSurfaceElevationController.text = '0.0';
         final targetHeight = _selectedPreset!.targetHeight;
         _targetHeightController.text = targetHeight == null
             ? ''
@@ -70,24 +72,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
                 .toStringAsFixed(1);
       });
 
-      // Create PresetSelector with initial preset
-      _presetSelector = PresetSelector(
-        key: _presetSelectorKey,
-        selectedPreset: _selectedPreset, // Now this has the first preset
-        onPresetChanged: _handlePresetChanged,
-      );
-
       // Calculate initial results
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _handleCalculate();
       });
-    } else {
-      // Create PresetSelector with no selection if no presets available
-      _presetSelector = PresetSelector(
-        key: _presetSelectorKey,
-        selectedPreset: null,
-        onPresetChanged: _handlePresetChanged,
-      );
     }
   }
 
@@ -104,6 +92,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _refractionFactorController.text =
             preset.refractionFactor.toStringAsFixed(2);
         _targetInputType = preset.targetInputType;
+        _interveningSurfaceElevationController.text = '0.0';
         final targetHeight = preset.targetHeight;
         _targetHeightController.text = targetHeight == null
             ? ''
@@ -132,6 +121,12 @@ class _CalculatorFormState extends State<CalculatorForm> {
         final double value = double.parse(_observerHeightController.text);
         final double converted = isMetric ? value * 0.3048 : value * 3.28084;
         _observerHeightController.text = converted.toStringAsFixed(1);
+      }
+      if (_interveningSurfaceElevationController.text.isNotEmpty) {
+        final value = double.parse(_interveningSurfaceElevationController.text);
+        final converted = isMetric ? value * 0.3048 : value * 3.28084;
+        _interveningSurfaceElevationController.text =
+            converted.toStringAsFixed(1);
       }
       if (_distanceController.text.isNotEmpty) {
         final double value = double.parse(_distanceController.text);
@@ -172,6 +167,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
     // Get values from controllers
     final double observerHeight = double.parse(_observerHeightController.text);
+    final double interveningSurfaceElevation =
+        double.parse(_interveningSurfaceElevationController.text);
     final double distance = double.parse(_distanceController.text);
     final double refractionFactor =
         double.parse(_refractionFactorController.text);
@@ -191,6 +188,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
     // Pass values in their original units (meters/feet and km/miles)
     final result = CurvatureCalculator.calculate(
       observerHeight: observerHeight,
+      interveningSurfaceElevation: interveningSurfaceElevation,
       distance: distance,
       refractionFactor: refractionFactor,
       targetHeight: targetTopElevation,
@@ -206,11 +204,20 @@ class _CalculatorFormState extends State<CalculatorForm> {
   @override
   void dispose() {
     _observerHeightController.dispose();
+    _interveningSurfaceElevationController.dispose();
     _distanceController.dispose();
     _refractionFactorController.dispose();
     _targetHeightController.dispose();
     _targetBaseElevationController.dispose();
     super.dispose();
+  }
+
+  Widget _buildPresetSelector() {
+    return PresetSelector(
+      key: _presetSelectorKey,
+      selectedPreset: _selectedPreset,
+      onPresetChanged: _handlePresetChanged,
+    );
   }
 
   @override
@@ -231,6 +238,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
           // Create a single instance of InputFields
           final inputFields = InputFields(
             observerHeightController: _observerHeightController,
+            interveningSurfaceElevationController:
+                _interveningSurfaceElevationController,
             distanceController: _distanceController,
             refractionFactorController: _refractionFactorController,
             targetHeightController: _targetHeightController,
@@ -260,7 +269,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      _presetSelector ?? const SizedBox.shrink(),
+                      _buildPresetSelector(),
                       SizedBox(height: isMobile ? 8 : 16),
                       inputFields,
                       SizedBox(height: isMobile ? 8 : 16),
@@ -300,7 +309,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _presetSelector ?? const SizedBox.shrink(),
+                          _buildPresetSelector(),
                           SizedBox(height: isMobile ? 8 : 16),
                           inputFields,
                           SizedBox(height: isMobile ? 8 : 16),

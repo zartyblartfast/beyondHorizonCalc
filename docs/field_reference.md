@@ -9,6 +9,13 @@
   - Enter eye/camera elevation above mean sea level
   - Ground elevation + eye/camera height above ground
 
+- Intervening Surface Elevation [meters/feet AMSL]
+  - Default: 0 meters/feet AMSL
+  - Elevation of the broadly level surface that forms the horizon
+  - Effective observer height = observer eye elevation - intervening surface elevation
+  - Example: for a 185 m observer eye elevation across Lake Michigan at 176 m AMSL, the effective horizon height is 9 m
+  - Varying terrain cannot be represented by one value and requires an elevation profile
+
 - Distance (L0) [kilometers/miles]
   - Range: 5 to 600 kilometers (or 3.11 to 372.82 miles)
   - Must be greater than 0

@@ -6,6 +6,7 @@ import '../common/info_icon.dart';
 
 class InputFields extends StatelessWidget {
   final TextEditingController observerHeightController;
+  final TextEditingController interveningSurfaceElevationController;
   final TextEditingController distanceController;
   final TextEditingController refractionFactorController;
   final TextEditingController targetHeightController;
@@ -21,6 +22,7 @@ class InputFields extends StatelessWidget {
   const InputFields({
     super.key,
     required this.observerHeightController,
+    required this.interveningSurfaceElevationController,
     required this.distanceController,
     required this.refractionFactorController,
     required this.targetHeightController,
@@ -58,6 +60,10 @@ class InputFields extends StatelessWidget {
                       enabled: isCustomPreset,
                       infoKey: 'observer_height',
                     ),
+                    if (isCustomPreset) ...[
+                      const SizedBox(height: 8),
+                      _buildInterveningSurfaceElevationField(),
+                    ],
                     const SizedBox(height: 8),
                     _buildInputField(
                       controller: distanceController,
@@ -69,8 +75,10 @@ class InputFields extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     _buildRefractionDropdown(),
-                    const SizedBox(height: 8),
-                    _buildTargetInputTypeSelector(),
+                    if (isCustomPreset) ...[
+                      const SizedBox(height: 8),
+                      _buildTargetInputTypeSelector(),
+                    ],
                     const SizedBox(height: 8),
                     _buildTargetHeightField(),
                     if (targetInputType == TargetInputType.structure) ...[
@@ -103,25 +111,44 @@ class InputFields extends StatelessWidget {
                         ),
                       ],
                     ),
+                    if (isCustomPreset) ...[
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInterveningSurfaceElevationField(),
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     Row(
                       children: [
                         Expanded(child: _buildRefractionDropdown()),
                         const SizedBox(width: 16),
-                        Expanded(child: _buildTargetInputTypeSelector()),
+                        Expanded(
+                          child: isCustomPreset
+                              ? _buildTargetInputTypeSelector()
+                              : _buildTargetHeightField(),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(child: _buildTargetHeightField()),
-                        if (targetInputType == TargetInputType.structure) ...[
-                          const SizedBox(width: 16),
-                          Expanded(child: _buildTargetBaseElevationField()),
-                        ] else
-                          const Spacer(),
-                      ],
-                    ),
+                    if (isCustomPreset ||
+                        targetInputType == TargetInputType.structure) ...[
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          if (isCustomPreset)
+                            Expanded(child: _buildTargetHeightField()),
+                          if (targetInputType == TargetInputType.structure) ...[
+                            if (isCustomPreset) const SizedBox(width: 16),
+                            Expanded(child: _buildTargetBaseElevationField()),
+                          ] else
+                            const Spacer(),
+                        ],
+                      ),
+                    ],
                   ],
                   const SizedBox(height: 16),
                   // Units toggle and Calculate button
@@ -209,6 +236,16 @@ class InputFields extends StatelessWidget {
     );
   }
 
+  Widget _buildInterveningSurfaceElevationField() {
+    return _buildInputField(
+      controller: interveningSurfaceElevationController,
+      label: 'Intervening surface elevation',
+      suffix: isMetric ? 'm AMSL' : 'ft AMSL',
+      validator: _validateInterveningSurfaceElevation,
+      infoKey: 'intervening_surface_elevation',
+    );
+  }
+
   Widget _buildTargetHeightField() {
     return _buildInputField(
       controller: targetHeightController,
@@ -236,29 +273,36 @@ class InputFields extends StatelessWidget {
   }
 
   Widget _buildTargetInputTypeSelector() {
-    return DropdownButtonFormField<TargetInputType>(
-      key: const ValueKey('target_input_type'),
-      isExpanded: true,
-      value: targetInputType,
-      decoration: const InputDecoration(
-        labelText: 'Target measurement',
-        border: OutlineInputBorder(),
-      ),
-      items: const [
-        DropdownMenuItem(
-          value: TargetInputType.elevation,
-          child: Text('Elevation above sea level'),
+    return Row(
+      children: [
+        Expanded(
+          child: DropdownButtonFormField<TargetInputType>(
+            key: const ValueKey('target_input_type'),
+            isExpanded: true,
+            value: targetInputType,
+            decoration: const InputDecoration(
+              labelText: 'Target measurement',
+              border: OutlineInputBorder(),
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: TargetInputType.elevation,
+                child: Text('Elevation above sea level'),
+              ),
+              DropdownMenuItem(
+                value: TargetInputType.structure,
+                child: Text('Structure height'),
+              ),
+            ],
+            onChanged: isCustomPreset
+                ? (value) {
+                    if (value != null) onTargetInputTypeChanged(value);
+                  }
+                : null,
+          ),
         ),
-        DropdownMenuItem(
-          value: TargetInputType.structure,
-          child: Text('Structure height'),
-        ),
+        const SizedBox(width: 32),
       ],
-      onChanged: isCustomPreset
-          ? (value) {
-              if (value != null) onTargetInputTypeChanged(value);
-            }
-          : null,
     );
   }
 
@@ -405,6 +449,21 @@ class InputFields extends StatelessWidget {
         : RangeLimits.maxObserverHeight * 3.28084;
     if (height > maxHeight) {
       return 'Height must be less than ${maxHeight.toStringAsFixed(0)}${isMetric ? 'm' : 'ft'}';
+    }
+    return null;
+  }
+
+  String? _validateInterveningSurfaceElevation(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the intervening surface elevation';
+    }
+    final elevation = double.tryParse(value);
+    if (elevation == null) return 'Please enter a valid number';
+    if (elevation < 0) return 'Elevation cannot be negative';
+
+    final observerElevation = double.tryParse(observerHeightController.text);
+    if (observerElevation != null && elevation > observerElevation) {
+      return 'Elevation cannot exceed observer eye elevation';
     }
     return null;
   }

@@ -1,7 +1,29 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:BeyondHorizonCalc/models/line_of_sight_preset.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('includes the Karagöl Area to Shkhara world-record preset', () {
+    final asset = File('assets/info/presets.json');
+    final json = jsonDecode(asset.readAsStringSync()) as Map<String, dynamic>;
+    final presets = json['presets'] as List<dynamic>;
+    final firstVisiblePreset = presets.cast<Map<String, dynamic>>().firstWhere(
+          (preset) => preset['isHidden'] != true,
+        );
+    final preset = presets.cast<Map<String, dynamic>>().singleWhere(
+          (preset) => preset['name'] == 'Karagöl Area to Shkhara - World Record',
+        );
+
+    expect(firstVisiblePreset['name'], 'Karagöl Area to Shkhara - World Record');
+    expect(preset['isHidden'], isFalse);
+    expect(preset['observerHeight'], 3035);
+    expect(preset['distance'], 493.07);
+    expect(preset['refractionFactor'], 1.20);
+    expect(preset['targetHeight'], 5193);
+  });
+
   test('parses a structure target with a base elevation', () {
     final preset = LineOfSightPreset.fromJson({
       'name': 'Hilltop Tower',

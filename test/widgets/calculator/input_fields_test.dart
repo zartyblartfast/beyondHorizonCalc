@@ -4,6 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('mountain preset displays its target elevation value',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Form(
+            child: InputFields(
+              observerHeightController: TextEditingController(text: '7015.0'),
+              interveningSurfaceElevationController:
+                  TextEditingController(text: '0.0'),
+              distanceController: TextEditingController(text: '539.0'),
+              refractionFactorController: TextEditingController(text: '1.07'),
+              targetHeightController: TextEditingController(text: '6070.0'),
+              targetBaseElevationController: TextEditingController(text: '0.0'),
+              targetInputType: TargetInputType.elevation,
+              isMetric: true,
+              isCustomPreset: false,
+              onTargetInputTypeChanged: (_) {},
+              onMetricChanged: (_) {},
+              onCalculate: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('6070.0'), findsOneWidget);
+    expect(find.text('Elevation above sea level'), findsNothing);
+  });
+
   testWidgets('structure mode asks for structure height and base elevation',
       (tester) async {
     final observer = TextEditingController(text: '102');
@@ -19,6 +52,8 @@ void main() {
               body: Form(
                 child: InputFields(
                   observerHeightController: observer,
+                  interveningSurfaceElevationController:
+                      TextEditingController(text: '0'),
                   distanceController: distance,
                   refractionFactorController: refraction,
                   targetHeightController: target,
@@ -41,6 +76,7 @@ void main() {
 
     expect(find.text('Target elevation - optional (XZ)'), findsOneWidget);
     expect(find.text('Ground/base elevation'), findsNothing);
+    expect(find.text('Intervening surface elevation'), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey('target_input_type')));
     await tester.pumpAndSettle();
@@ -62,6 +98,8 @@ void main() {
             key: formKey,
             child: InputFields(
               observerHeightController: TextEditingController(text: '102'),
+              interveningSurfaceElevationController:
+                  TextEditingController(text: '0'),
               distanceController: TextEditingController(text: '50'),
               refractionFactorController: TextEditingController(text: '1.07'),
               targetHeightController: TextEditingController(),

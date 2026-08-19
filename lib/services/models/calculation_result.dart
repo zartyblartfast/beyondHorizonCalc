@@ -9,7 +9,7 @@ class CalculationResult {
   final double? apparentVisibleHeight; // in kilometers
   final double? perspectiveScaledHeight; // in kilometers
   final double? inputDistance; // in kilometers/miles based on isMetric
-  final double? h1; // observer height in meters/feet based on isMetric
+  final double? h1; // observer height above intervening surface, in input units
   final double? dipAngle; // angle in degrees to look down to horizon
 
   const CalculationResult({
