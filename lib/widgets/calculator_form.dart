@@ -6,6 +6,7 @@ import 'calculator/preset_selector.dart';
 import 'calculator/input_fields.dart';
 import 'calculator/results_display.dart';
 import 'calculator/diagram_display.dart';
+import 'calculator/share_result_dialog.dart';
 
 class CalculatorForm extends StatefulWidget {
   const CalculatorForm({super.key});
@@ -201,6 +202,27 @@ class _CalculatorFormState extends State<CalculatorForm> {
     });
   }
 
+  void _showShareResult() {
+    final result = _result;
+    if (result == null) return;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) => ShareResultDialog(
+        scenarioName: _selectedPreset?.name ?? 'My own values',
+        observerHeight: _observerHeightController.text,
+        surfaceElevation: _interveningSurfaceElevationController.text,
+        distance: _distanceController.text,
+        refractionFactor: _refractionFactorController.text,
+        targetHeight: _targetHeightController.text,
+        targetBaseElevation: _targetBaseElevationController.text,
+        targetInputType: _targetInputType,
+        result: result,
+        isMetric: _isMetric,
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _observerHeightController.dispose();
@@ -260,6 +282,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
             result: _result,
             isMetric: _isMetric,
             targetHeight: targetHeight,
+            onShare: _observerHeightController.text.isEmpty
+                ? null
+                : _showShareResult,
           );
 
           Widget content = Column(

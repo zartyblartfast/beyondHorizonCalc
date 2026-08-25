@@ -6,12 +6,14 @@ class ResultsDisplay extends StatelessWidget {
   final CalculationResult? result;
   final bool isMetric;
   final double? targetHeight;
+  final VoidCallback? onShare;
 
   const ResultsDisplay({
     super.key,
     required this.result,
     required this.isMetric,
     this.targetHeight,
+    this.onShare,
   });
 
   String _formatDistance(double? value) {
@@ -22,26 +24,28 @@ class ResultsDisplay extends StatelessWidget {
 
   String _formatHeight(double? value) {
     if (value == null) return 'N/A';
-    final double displayValue = isMetric ? value * 1000 : value * 3280.84; // km to m, or km to ft
+    final double displayValue =
+        isMetric ? value * 1000 : value * 3280.84; // km to m, or km to ft
     return '${displayValue.toStringAsFixed(1)} ${isMetric ? 'm' : 'ft'}';
   }
 
   String _getDiagramAsset() {
     if (result == null) return 'assets/svg/BTH_1.svg';
-    
+
     // If target height is null or 0, show BTH_1
     if (targetHeight == null || targetHeight == 0) {
       return 'assets/svg/BTH_1.svg';
     }
-    
+
     // Get h2 (XC) from the hiddenHeight
     final double? h2 = result!.hiddenHeight;
     if (h2 == null) return 'assets/svg/BTH_1.svg';
-    
+
     // Compare target height with h2
     if (targetHeight! < h2) {
       return 'assets/svg/BTH_2.svg';
-    } else if ((targetHeight! - h2).abs() < 0.000001) { // Use small epsilon for floating point comparison
+    } else if ((targetHeight! - h2).abs() < 0.000001) {
+      // Use small epsilon for floating point comparison
       return 'assets/svg/BTH_3.svg';
     } else {
       return 'assets/svg/BTH_4.svg';
@@ -52,7 +56,7 @@ class ResultsDisplay extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
-        
+
         return Padding(
           padding: EdgeInsets.symmetric(vertical: isMobile ? 2.0 : 4.0),
           child: Row(
@@ -71,7 +75,7 @@ class ResultsDisplay extends StatelessWidget {
                       ),
                     ),
                     if (infoKey != null) ...[
-                      const SizedBox(width: 8),  // Consistent spacing
+                      const SizedBox(width: 8), // Consistent spacing
                       SizedBox(
                         width: 24,
                         child: Center(
@@ -106,13 +110,24 @@ class ResultsDisplay extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
-        
+
         return Card(
           child: Padding(
             padding: EdgeInsets.all(isMobile ? 8.0 : 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                if (onShare != null) ...[
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton.icon(
+                      onPressed: onShare,
+                      icon: const Icon(Icons.ios_share),
+                      label: const Text('Share result'),
+                    ),
+                  ),
+                  const Divider(height: 8),
+                ],
                 _buildResultRow(
                   'Distance to Horizon (D1)',
                   _formatDistance(result!.horizonDistance),

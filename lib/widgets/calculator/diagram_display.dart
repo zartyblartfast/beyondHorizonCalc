@@ -16,6 +16,7 @@ class DiagramDisplay extends StatefulWidget {
   final bool isMetric;
   final bool isStructureTarget;
   final String? presetName;
+  final bool compact;
 
   const DiagramDisplay({
     super.key,
@@ -24,6 +25,7 @@ class DiagramDisplay extends StatefulWidget {
     required this.isMetric,
     this.isStructureTarget = false,
     this.presetName,
+    this.compact = false,
   });
 
   @override
@@ -139,6 +141,15 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         updatedSvg = updatedSvg.replaceFirst('</svg>', '$defs</svg>');
       }
 
+      if (widget.compact) {
+        if (mounted) {
+          setState(() {
+            _svgContent = updatedSvg;
+          });
+        }
+        return;
+      }
+
       // Load and update mountain diagram
       String mountainSvgPath;
       try {
@@ -213,6 +224,19 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
             textAlign: TextAlign.center,
           ),
         ),
+      );
+    }
+
+    if (widget.compact) {
+      return AspectRatio(
+        aspectRatio: 1.75,
+        child: _svgContent == null
+            ? const Center(child: CircularProgressIndicator())
+            : SvgPicture.string(
+                _svgContent!,
+                key: ValueKey(_svgContent.hashCode),
+                fit: BoxFit.contain,
+              ),
       );
     }
 
