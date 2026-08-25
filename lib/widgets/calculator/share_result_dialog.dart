@@ -109,7 +109,7 @@ class ShareResultDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isNarrow = MediaQuery.sizeOf(context).width < 720;
-    final titleBlock = Column(
+    final headingText = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -128,6 +128,34 @@ class ShareResultDialog extends StatelessWidget {
         ),
       ],
     );
+    final globe = SizedBox.square(
+      dimension: isNarrow ? 96 : 116,
+      child: Image.asset(
+        'assets/images/globe_earth.png',
+        key: const ValueKey('share_result_globe'),
+        fit: BoxFit.contain,
+        filterQuality: FilterQuality.high,
+        semanticLabel: 'Earth',
+      ),
+    );
+    final titleBlock = isNarrow
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              headingText,
+              const SizedBox(height: 12),
+              Align(alignment: Alignment.center, child: globe),
+            ],
+          )
+        : SizedBox(
+            height: 220,
+            child: Stack(
+              children: [
+                Align(alignment: Alignment.topLeft, child: headingText),
+                Align(alignment: Alignment.bottomCenter, child: globe),
+              ],
+            ),
+          );
     final diagram = Container(
       key: const ValueKey('share_result_diagram'),
       padding: const EdgeInsets.all(8),

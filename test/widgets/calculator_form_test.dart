@@ -46,5 +46,6 @@ void main() {
     expect(find.text('1.20'), findsOneWidget);
     expect(find.text('Apparent visible height'), findsNothing);
     expect(find.byKey(const ValueKey('share_result_diagram')), findsOneWidget);
+    expect(find.byKey(const ValueKey('share_result_globe')), findsOneWidget);
   });
 }
