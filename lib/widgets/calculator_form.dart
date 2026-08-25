@@ -273,6 +273,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
             onMetricChanged: _handleMetricChanged,
             onTargetInputTypeChanged: _handleTargetInputTypeChanged,
             onCalculate: _handleCalculate,
+            onShare: _observerHeightController.text.isEmpty
+                ? null
+                : _showShareResult,
             showCalculateButton: true,
             isCustomPreset: _selectedPreset == null,
           );
@@ -282,9 +285,6 @@ class _CalculatorFormState extends State<CalculatorForm> {
             result: _result,
             isMetric: _isMetric,
             targetHeight: targetHeight,
-            onShare: _observerHeightController.text.isEmpty
-                ? null
-                : _showShareResult,
           );
 
           Widget content = Column(

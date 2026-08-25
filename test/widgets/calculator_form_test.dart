@@ -36,6 +36,10 @@ void main() {
 
     expect(find.byType(Form), findsOneWidget);
     expect(find.text('Share result'), findsOneWidget);
+    final shareCenter = tester.getCenter(find.text('Share result'));
+    final calculateCenter = tester.getCenter(find.text('Calculate visibility'));
+    expect(shareCenter.dy, closeTo(calculateCenter.dy, 1));
+    expect(shareCenter.dx, lessThan(calculateCenter.dx));
     await tester.tap(find.text('Share result'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

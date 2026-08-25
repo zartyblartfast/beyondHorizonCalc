@@ -16,6 +16,7 @@ class InputFields extends StatelessWidget {
   final ValueChanged<bool> onMetricChanged;
   final ValueChanged<TargetInputType> onTargetInputTypeChanged;
   final VoidCallback onCalculate;
+  final VoidCallback? onShare;
   final bool showCalculateButton;
   final bool isCustomPreset;
 
@@ -32,6 +33,7 @@ class InputFields extends StatelessWidget {
     required this.onMetricChanged,
     required this.onTargetInputTypeChanged,
     required this.onCalculate,
+    this.onShare,
     this.showCalculateButton = false,
     this.isCustomPreset = true,
   });
@@ -121,12 +123,22 @@ class InputFields extends StatelessWidget {
             _buildRefractionDropdown(),
             if (showCalculateButton) ...[
               const SizedBox(height: 24),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: onCalculate,
-                  child: const Text('Calculate visibility'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (onShare != null)
+                    TextButton.icon(
+                      onPressed: onShare,
+                      icon: const Icon(Icons.ios_share),
+                      label: const Text('Share result'),
+                    )
+                  else
+                    const SizedBox.shrink(),
+                  ElevatedButton(
+                    onPressed: onCalculate,
+                    child: const Text('Calculate visibility'),
+                  ),
+                ],
               ),
             ],
           ],

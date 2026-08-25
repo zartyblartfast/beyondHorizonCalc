@@ -6,14 +6,12 @@ class ResultsDisplay extends StatelessWidget {
   final CalculationResult? result;
   final bool isMetric;
   final double? targetHeight;
-  final VoidCallback? onShare;
 
   const ResultsDisplay({
     super.key,
     required this.result,
     required this.isMetric,
     this.targetHeight,
-    this.onShare,
   });
 
   String _formatDistance(double? value) {
@@ -117,17 +115,6 @@ class ResultsDisplay extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (onShare != null) ...[
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton.icon(
-                      onPressed: onShare,
-                      icon: const Icon(Icons.ios_share),
-                      label: const Text('Share result'),
-                    ),
-                  ),
-                  const Divider(height: 8),
-                ],
                 _buildResultRow(
                   'Distance to Horizon (D1)',
                   _formatDistance(result!.horizonDistance),
