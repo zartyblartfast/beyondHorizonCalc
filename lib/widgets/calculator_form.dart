@@ -217,6 +217,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
       key: _presetSelectorKey,
       selectedPreset: _selectedPreset,
       onPresetChanged: _handlePresetChanged,
+      isMetric: _isMetric,
+      onMetricChanged: _handleMetricChanged,
     );
   }
 
