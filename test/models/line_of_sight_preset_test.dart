@@ -24,6 +24,27 @@ void main() {
     expect(preset['targetHeight'], 5193);
   });
 
+  test('includes Finestrelles to Pic Gaspard below Barre des Ecrins', () {
+    final asset = File('assets/info/presets.json');
+    final json = jsonDecode(asset.readAsStringSync()) as Map<String, dynamic>;
+    final presets = (json['presets'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
+    final barreIndex = presets.indexWhere(
+      (preset) => preset['name'] == 'Finestrelles to Barre des Ecrins',
+    );
+    final gaspardIndex = presets.indexWhere(
+      (preset) => preset['name'] == 'Finestrelles to Pic Gaspard',
+    );
+    final preset = presets[gaspardIndex];
+
+    expect(preset['isHidden'], isFalse);
+    expect(preset['observerHeight'], 2828);
+    expect(preset['distance'], 443);
+    expect(preset['refractionFactor'], 1.20);
+    expect(preset['targetHeight'], 3883);
+    expect(gaspardIndex, barreIndex + 1);
+  });
+
   test('parses a structure target with a base elevation', () {
     final preset = LineOfSightPreset.fromJson({
       'name': 'Hilltop Tower',

@@ -496,6 +496,41 @@
       }
     },
     {
+      "name": "Finestrelles to Pic Gaspard",
+      "isHidden": false,
+      "imageDir": "",
+      "description": "View from Finestrelles to Pic Gaspard",
+      "observerHeight": 2828,
+      "distance": 443,
+      "refractionFactor": 1.20,
+      "targetHeight": 3883,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Finestrelles",
+            "region": "Oriental Pyrenees",
+            "country": "France"
+          },
+          "target": {
+            "name": "Pic Gaspard",
+            "region": "Provence-Alpes-Côte d'Azur",
+            "country": "France"
+          }
+        },
+        "notes": "Line of sight between Finestrelles and Pic Gaspard",
+        "bestViewingConditions": "Clear weather with average refraction",
+        "imageURL_1": "",
+        "imageURL_1_source": "",
+        "imageURL_2": "",
+        "imageURL_2_source": "",
+        "imageURL_3": "",
+        "imageURL_3_source": "",
+        "imageURL_4": "",
+        "imageURL_4_source": "",
+        "attribution": ""
+      }
+    },
+    {
       "name": "Champaquí to Cerro El Plata",
       "isHidden": false,
       "imageDir": "champaqui_cerro_el_plata",
