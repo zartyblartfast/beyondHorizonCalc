@@ -68,21 +68,21 @@ class InputFields extends StatelessWidget {
               'Observer and viewing path',
               'Start with where the viewer is and how far away the target is.',
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             _buildResponsivePair(
               isNarrow: isNarrow,
               first: observerField,
               second: distanceField,
             ),
-            const SizedBox(height: 24),
-            const Divider(),
             const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 12),
             _buildSectionHeader(
               context,
               'Horizon-forming surface',
               'Choose the water or broadly level surface between observer and target.',
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             _SurfaceSection(
               observerHeightController: observerHeightController,
               surfaceElevationController: interveningSurfaceElevationController,
@@ -91,19 +91,19 @@ class InputFields extends StatelessWidget {
               onCalculate: onCalculate,
               validator: _validateInterveningSurfaceElevation,
             ),
-            const SizedBox(height: 24),
-            const Divider(),
             const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 12),
             _buildSectionHeader(
               context,
               'Target',
               'Optionally describe the target to show how much remains visible.',
             ),
             if (isCustomPreset) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               _buildTargetInputTypeSelector(),
             ],
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             _buildResponsivePair(
               isNarrow: isNarrow,
               first: _buildTargetHeightField(),
@@ -111,18 +111,18 @@ class InputFields extends StatelessWidget {
                   ? _buildTargetBaseElevationField()
                   : null,
             ),
-            const SizedBox(height: 24),
-            const Divider(),
             const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 12),
             _buildSectionHeader(
               context,
               'Atmosphere',
               'Choose how strongly atmospheric refraction bends the line of sight.',
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             _buildRefractionDropdown(),
             if (showCalculateButton) ...[
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -324,7 +324,7 @@ class InputFields extends StatelessWidget {
           children: [
             Expanded(
               child: SizedBox(
-                height: isMobile ? 60 : 68,
+                height: isMobile ? 60 : 56,
                 child: DropdownButtonFormField<String>(
                   isExpanded: true,
                   value: _getRefractionKey(refractionFactorController.text),
@@ -731,7 +731,7 @@ class _SurfaceSectionState extends State<_SurfaceSection> {
         onTap: widget.isEditable ? onTap : null,
         borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

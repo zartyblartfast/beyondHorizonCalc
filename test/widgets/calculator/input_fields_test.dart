@@ -171,4 +171,96 @@ void main() {
 
     expect(formKey.currentState!.validate(), isTrue);
   });
+
+  testWidgets('custom desktop form keeps section spacing compact',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 1400));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Form(
+            child: InputFields(
+              observerHeightController: TextEditingController(text: '102'),
+              interveningSurfaceElevationController:
+                  TextEditingController(text: '0'),
+              distanceController: TextEditingController(text: '50'),
+              refractionFactorController: TextEditingController(text: '1.07'),
+              targetHeightController: TextEditingController(text: '100'),
+              targetBaseElevationController: TextEditingController(text: '0'),
+              targetInputType: TargetInputType.elevation,
+              isMetric: true,
+              isCustomPreset: true,
+              onTargetInputTypeChanged: (_) {},
+              onMetricChanged: (_) {},
+              onCalculate: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final descriptionRect = tester.getRect(find.text(
+      'Start with where the viewer is and how far away the target is.',
+    ));
+    final observerFieldRect = tester.getRect(find.byType(TextFormField).first);
+
+    expect(
+      observerFieldRect.top - descriptionRect.bottom,
+      lessThanOrEqualTo(12),
+    );
+  });
+
+  testWidgets('custom desktop form uses compact control heights',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 1400));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Form(
+            child: InputFields(
+              observerHeightController: TextEditingController(text: '102'),
+              interveningSurfaceElevationController:
+                  TextEditingController(text: '0'),
+              distanceController: TextEditingController(text: '50'),
+              refractionFactorController: TextEditingController(text: '1.07'),
+              targetHeightController: TextEditingController(text: '100'),
+              targetBaseElevationController: TextEditingController(text: '0'),
+              targetInputType: TargetInputType.elevation,
+              isMetric: true,
+              isCustomPreset: true,
+              onTargetInputTypeChanged: (_) {},
+              onMetricChanged: (_) {},
+              onCalculate: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+
+    expect(
+      tester.getSize(find.byType(DropdownButtonFormField<String>)).height,
+      lessThanOrEqualTo(56),
+    );
+    expect(
+      tester.getSize(find.byType(TextFormField).first).height,
+      lessThanOrEqualTo(48),
+    );
+    expect(
+      tester
+          .getSize(
+            find
+                .ancestor(
+                  of: find.text('Sea level'),
+                  matching: find.byType(Material),
+                )
+                .first,
+          )
+          .height,
+      lessThanOrEqualTo(84),
+    );
+  });
 }
