@@ -46,10 +46,32 @@ class CurvatureCalculator {
 
     final double R = effectiveRadius;
     final double C = 2 * math.pi * R; // Earth's circumference
-    final double d1 = math.sqrt(2 * heightMeters * R);
+    final double horizonAngle = math.acos(R / (R + heightMeters));
+    final double l1 = R * horizonAngle;
+    final double d1 = R * math.tan(horizonAngle);
     final double dipAngle = math.acos(R / (R + heightMeters)) * (180 / math.pi);
 
-    if (d1 >= distanceMeters) {
+    final surfaceDistanceKm = distanceMeters / 1000;
+    final targetBaseRelativeMeters =
+        targetBaseElevationMeters - interveningSurfaceElevationMeters;
+    final targetTopRelativeMeters = targetHeightMeters == null
+        ? null
+        : targetHeightMeters - interveningSurfaceElevationMeters;
+    double directDistance(double targetRelativeMeters) => math.sqrt(
+          math.pow(R + heightMeters, 2) +
+              math.pow(R + targetRelativeMeters, 2) -
+              2 *
+                  (R + heightMeters) *
+                  (R + targetRelativeMeters) *
+                  math.cos(distanceMeters / R),
+        ) /
+        1000;
+    final targetBaseDistance = directDistance(targetBaseRelativeMeters);
+    final targetTopDistance = targetTopRelativeMeters == null
+        ? null
+        : directDistance(targetTopRelativeMeters);
+
+    if (l1 >= distanceMeters) {
       // Object is fully visible
       double visibleTargetHeight = targetHeightMeters == null
           ? 0
@@ -77,14 +99,13 @@ class CurvatureCalculator {
         horizonDistance: d1 / 1000, // Horizon distance is still relevant
         hiddenHeight: 0, // No part is hidden
         cutoffElevation: 0,
-        totalDistance:
-            distanceMeters / 1000, // Total distance is just the input distance
+        totalDistance: targetTopDistance,
         visibleDistance:
             0, // d2 is not applicable here, maybe set to 0 or distanceMeters? Let's use 0 for now.
         visibleTargetHeight: visibleTargetHeight / 1000,
         apparentVisibleHeight: apparentVisibleHeight / 1000,
         perspectiveScaledHeight: perspectiveScaledHeight / 1000,
-        inputDistance: distance, // Store original input
+        inputDistance: surfaceDistanceKm, // Store original input
         h1: heightInInputUnits, // Height above the intervening surface
         dipAngle: dipAngle, // Add dip angle
       );
@@ -92,7 +113,7 @@ class CurvatureCalculator {
       // Object is partially or fully hidden beyond the horizon, proceed with original calculations
 
       // Calculate l2
-      final double l2 = distanceMeters - d1;
+      final double l2 = distanceMeters - l1;
 
       // Calculate BOX angle
       final double BOX_fraction = l2 / C;
@@ -105,11 +126,8 @@ class CurvatureCalculator {
       final double hiddenHeight = cutoffElevationMeters / 1000;
 
       // Calculate total distance (d0) and visible distance (d2)
-      final double d2 = R *
-          math.sin(
-              BOX_angle); // Note: d2 here is distance from horizon point along curve
-      final double d0 = d1 +
-          d2; // This might need re-evaluation. Is d0 always observer-to-target-tangent? Let's keep for now.
+      final double d2 = R * math.tan(BOX_angle);
+      final double acDistance = d1 + d2;
 
       // If no target height, return basic calculations
       if (targetHeightMeters == null) {
@@ -117,10 +135,9 @@ class CurvatureCalculator {
           horizonDistance: d1 / 1000, // Convert to km
           hiddenHeight: hiddenHeight,
           cutoffElevation: hiddenHeight,
-          totalDistance:
-              d0 / 1000, // Convert to km - Check if this definition is correct
+          totalDistance: targetTopDistance,
           visibleDistance: d2 / 1000, // Convert to km
-          inputDistance: distance, // Store original input
+          inputDistance: surfaceDistanceKm, // Store original input
           h1: heightInInputUnits, // Height above the intervening surface
           dipAngle: dipAngle, // Add dip angle
         );
@@ -160,12 +177,12 @@ class CurvatureCalculator {
         horizonDistance: d1 / 1000, // Convert to km
         hiddenHeight: hiddenTargetHeight / 1000,
         cutoffElevation: cutoffElevationMeters / 1000,
-        totalDistance: d0 / 1000, // Convert to km - Check definition
+        totalDistance: targetTopDistance,
         visibleDistance: d2 / 1000, // Convert to km
         visibleTargetHeight: visibleTargetHeight / 1000,
         apparentVisibleHeight: apparentVisibleHeight / 1000,
         perspectiveScaledHeight: perspectiveScaledHeight / 1000,
-        inputDistance: distance, // Original input distance
+        inputDistance: surfaceDistanceKm, // Original input distance
         h1: heightInInputUnits, // Height above the intervening surface
         dipAngle: dipAngle, // Add dip angle
       );

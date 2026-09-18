@@ -1,4 +1,11 @@
 class CalculationResult {
+  /// Distance fields are normalized to kilometres, regardless of UI units.
+  final double? surfaceDistance;
+  final double? observerToTargetBaseDistance;
+  final double? observerToTargetTopDistance;
+  final double? horizonLineDistance;
+  final double? observerToHorizonDistance;
+  final double? horizonToTargetRadialDistance;
   final double? horizonDistance; // in kilometers
   final double? hiddenHeight; // in kilometers
   final double?
@@ -13,6 +20,12 @@ class CalculationResult {
   final double? dipAngle; // angle in degrees to look down to horizon
 
   const CalculationResult({
+    this.surfaceDistance,
+    this.observerToTargetBaseDistance,
+    this.observerToTargetTopDistance,
+    this.horizonLineDistance,
+    this.observerToHorizonDistance,
+    this.horizonToTargetRadialDistance,
     this.horizonDistance = 0,
     this.hiddenHeight = 0,
     this.cutoffElevation = 0,
@@ -29,6 +42,12 @@ class CalculationResult {
   // Convert to Map for backward compatibility with existing code
   Map<String, dynamic> toMap() {
     return {
+      'surfaceDistance': surfaceDistance,
+      'observerToTargetBaseDistance': observerToTargetBaseDistance,
+      'observerToTargetTopDistance': observerToTargetTopDistance,
+      'horizonLineDistance': horizonLineDistance,
+      'observerToHorizonDistance': observerToHorizonDistance,
+      'horizonToTargetRadialDistance': horizonToTargetRadialDistance,
       'horizonDistance': horizonDistance,
       'hiddenHeight': hiddenHeight,
       'cutoffElevation': cutoffElevation,
@@ -46,6 +65,12 @@ class CalculationResult {
   // Create from Map for backward compatibility
   factory CalculationResult.fromMap(Map<String, dynamic> map) {
     return CalculationResult(
+      surfaceDistance: map['surfaceDistance'] as double?,
+      observerToTargetBaseDistance: map['observerToTargetBaseDistance'] as double?,
+      observerToTargetTopDistance: map['observerToTargetTopDistance'] as double?,
+      horizonLineDistance: map['horizonLineDistance'] as double?,
+      observerToHorizonDistance: map['observerToHorizonDistance'] as double?,
+      horizonToTargetRadialDistance: map['horizonToTargetRadialDistance'] as double?,
       horizonDistance: map['horizonDistance'] as double?,
       hiddenHeight: map['hiddenHeight'] as double?,
       cutoffElevation: map['cutoffElevation'] as double?,

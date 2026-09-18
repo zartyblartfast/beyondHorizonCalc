@@ -10,8 +10,8 @@
     "content_type": "html"
   },
   "distance": {
-    "title": "Distance to Target",
-    "content": "<p>The ground level distance between the observer and the object/structure.</p><ul><li>Must be between 5 and 600 kilometers (3.1 to 373 miles)</li><li>Represents the straight-line distance at ground level</li><li>Limited by Earth's curvature and atmospheric conditions</li></ul>",
+    "title": "Surface distance (L0)",
+    "content": "<p>The surface/geodesic distance from the observer to the target base.</p><ul><li>Use the distance returned by a map or latitude/longitude coordinate tool</li><li>Must be between 5 and 600 kilometers (3.1 to 373 miles)</li><li>Direct distances to the target base and top are calculated separately</li></ul>",
     "content_type": "html"
   },
   "refraction": {

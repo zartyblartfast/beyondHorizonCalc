@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import '../../services/models/calculation_result.dart';
 import 'diagram/diagram_label_service.dart';
+import 'diagram/diagram_key.dart';
 import 'diagram/horizon_diagram_view_model.dart';
 import 'diagram/mountain_diagram_view_model.dart';
 import 'diagram/test_diagram_view_model.dart';
@@ -272,6 +273,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
             ),
           ),
         ),
+        const SizedBox(height: 8.0),
+        const DiagramKey(),
         const SizedBox(height: 16.0),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),

@@ -166,8 +166,9 @@ void main() {
         isMetric: true,
       );
 
-      // Then: total distance is the input and no beyond-horizon segment applies
-      expect(result.totalDistance, closeTo(distance, delta));
+      // Then: no target top means D0/A-Z is unavailable; L0 remains the input.
+      expect(result.totalDistance, isNull);
+      expect(result.inputDistance, closeTo(distance, delta));
       expect(result.visibleDistance, equals(0));
       expect(result.hiddenHeight, equals(0));
     });
