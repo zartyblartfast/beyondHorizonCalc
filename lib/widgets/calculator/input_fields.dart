@@ -84,6 +84,7 @@ class InputFields extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _SurfaceSection(
+              key: const ValueKey('horizon_surface_section'),
               observerHeightController: observerHeightController,
               surfaceElevationController: interveningSurfaceElevationController,
               isMetric: isMetric,
@@ -549,6 +550,7 @@ class _SurfaceSection extends StatefulWidget {
   final String? Function(String?) validator;
 
   const _SurfaceSection({
+    super.key,
     required this.observerHeightController,
     required this.surfaceElevationController,
     required this.isMetric,

@@ -25,16 +25,45 @@ class _CalculatorFormState extends State<CalculatorForm> {
   final _targetHeightController = TextEditingController();
   final _targetBaseElevationController = TextEditingController(text: '0');
   final _presetSelectorKey = GlobalKey();
+  // Preserve the surface section and its controllers across responsive layouts.
+  final _inputFieldsKey = GlobalKey();
 
   bool _isMetric = true;
   TargetInputType _targetInputType = TargetInputType.elevation;
   LineOfSightPreset? _selectedPreset;
   CalculationResult? _result;
+  bool _inputsDirty = false;
+  bool _hasCalculated = false;
+  // Keep display metadata with the last successful result while inputs change.
+  bool _resultIsMetric = true;
+  double? _resultTargetHeight;
+  TargetInputType _resultTargetInputType = TargetInputType.elevation;
+  String? _resultPresetName;
 
   @override
   void initState() {
     super.initState();
+    for (final controller in [
+      _observerHeightController,
+      _interveningSurfaceElevationController,
+      _distanceController,
+      _refractionFactorController,
+      _targetHeightController,
+      _targetBaseElevationController,
+    ]) {
+      var previousText = controller.text;
+      controller.addListener(() {
+        if (controller.text == previousText) return;
+        previousText = controller.text;
+        _markInputsDirty();
+      });
+    }
     _initializeForm();
+  }
+
+  void _markInputsDirty() {
+    if (!_hasCalculated || _inputsDirty) return;
+    setState(() => _inputsDirty = true);
   }
 
   Future<void> _initializeForm() async {
@@ -81,6 +110,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handlePresetChanged(LineOfSightPreset? preset) {
+    _markInputsDirty();
     setState(() {
       _selectedPreset = preset;
       if (preset != null) {
@@ -114,35 +144,26 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
   void _handleMetricChanged(bool isMetric) {
     if (isMetric == _isMetric) return;
+    _markInputsDirty();
 
     setState(() {
       _isMetric = isMetric;
-      // Convert values if needed
-      if (_observerHeightController.text.isNotEmpty) {
-        final double value = double.parse(_observerHeightController.text);
-        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
-        _observerHeightController.text = converted.toStringAsFixed(1);
-      }
-      if (_interveningSurfaceElevationController.text.isNotEmpty) {
-        final value = double.parse(_interveningSurfaceElevationController.text);
+      // Leave incomplete text for validation instead of throwing on unit change.
+      for (final controller in [
+        _observerHeightController,
+        _interveningSurfaceElevationController,
+        _targetHeightController,
+        _targetBaseElevationController,
+      ]) {
+        final value = double.tryParse(controller.text);
+        if (value == null) continue;
         final converted = isMetric ? value * 0.3048 : value * 3.28084;
-        _interveningSurfaceElevationController.text =
-            converted.toStringAsFixed(1);
+        controller.text = converted.toStringAsFixed(1);
       }
-      if (_distanceController.text.isNotEmpty) {
-        final double value = double.parse(_distanceController.text);
-        final double converted = isMetric ? value * 1.60934 : value * 0.621371;
+      final distance = double.tryParse(_distanceController.text);
+      if (distance != null) {
+        final converted = isMetric ? distance * 1.60934 : distance * 0.621371;
         _distanceController.text = converted.toStringAsFixed(1);
-      }
-      if (_targetHeightController.text.isNotEmpty) {
-        final double value = double.parse(_targetHeightController.text);
-        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
-        _targetHeightController.text = converted.toStringAsFixed(1);
-      }
-      if (_targetBaseElevationController.text.isNotEmpty) {
-        final double value = double.parse(_targetBaseElevationController.text);
-        final double converted = isMetric ? value * 0.3048 : value * 3.28084;
-        _targetBaseElevationController.text = converted.toStringAsFixed(1);
       }
       // Automatically calculate when units change
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -152,6 +173,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
   }
 
   void _handleTargetInputTypeChanged(TargetInputType inputType) {
+    if (inputType == _targetInputType) return;
+    _markInputsDirty();
     setState(() {
       _targetInputType = inputType;
       if (inputType == TargetInputType.structure &&
@@ -161,9 +184,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
     });
   }
 
-  void _handleCalculate() {
-    if (!_formKey.currentState!.validate()) {
-      return;
+  bool _handleCalculate() {
+    if (!mounted || !(_formKey.currentState?.validate() ?? false)) {
+      return false;
     }
 
     // Get values from controllers
@@ -199,27 +222,37 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
     setState(() {
       _result = result;
+      _resultIsMetric = _isMetric;
+      _resultTargetHeight = enteredTargetHeight;
+      _resultTargetInputType = _targetInputType;
+      _resultPresetName = _selectedPreset?.name;
+      _hasCalculated = true;
+      _inputsDirty = false;
     });
+    return true;
   }
 
   void _showShareResult() {
+    if (!_handleCalculate()) return;
     final result = _result;
     if (result == null) return;
 
+    // Capture inputs now, not when the dialog route later builds.
+    final dialog = ShareResultDialog(
+      scenarioName: _selectedPreset?.name ?? 'My own values',
+      observerHeight: _observerHeightController.text,
+      surfaceElevation: _interveningSurfaceElevationController.text,
+      distance: _distanceController.text,
+      refractionFactor: _refractionFactorController.text,
+      targetHeight: _targetHeightController.text,
+      targetBaseElevation: _targetBaseElevationController.text,
+      targetInputType: _targetInputType,
+      result: result,
+      isMetric: _isMetric,
+    );
     showDialog<void>(
       context: context,
-      builder: (context) => ShareResultDialog(
-        scenarioName: _selectedPreset?.name ?? 'My own values',
-        observerHeight: _observerHeightController.text,
-        surfaceElevation: _interveningSurfaceElevationController.text,
-        distance: _distanceController.text,
-        refractionFactor: _refractionFactorController.text,
-        targetHeight: _targetHeightController.text,
-        targetBaseElevation: _targetBaseElevationController.text,
-        targetInputType: _targetInputType,
-        result: result,
-        isMetric: _isMetric,
-      ),
+      builder: (context) => dialog,
     );
   }
 
@@ -253,7 +286,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
           final isWide =
               constraints.maxWidth > 900; // Breakpoint for wide screens
           final isMobile = constraints.maxWidth < 600; // Mobile breakpoint
-          final targetHeight = double.tryParse(_targetHeightController.text);
+          final targetHeight = _resultTargetHeight;
 
           // Adjust padding based on screen size
           final contentPadding =
@@ -261,6 +294,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
           // Create a single instance of InputFields
           final inputFields = InputFields(
+            key: _inputFieldsKey,
             observerHeightController: _observerHeightController,
             interveningSurfaceElevationController:
                 _interveningSurfaceElevationController,
@@ -281,10 +315,18 @@ class _CalculatorFormState extends State<CalculatorForm> {
           );
 
           // Create a single instance of ResultsDisplay
-          final resultsDisplay = ResultsDisplay(
-            result: _result,
-            isMetric: _isMetric,
-            targetHeight: targetHeight,
+          final resultsDisplay = Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (_inputsDirty)
+                Text('Inputs changed — recalculate',
+                    style: Theme.of(context).textTheme.bodySmall),
+              ResultsDisplay(
+                result: _result,
+                isMetric: _resultIsMetric,
+                targetHeight: targetHeight,
+              ),
+            ],
           );
 
           Widget content = Column(
@@ -313,11 +355,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
                   child: DiagramDisplay(
                     result: _result,
                     targetHeight: targetHeight,
-                    isMetric: _isMetric,
+                    isMetric: _resultIsMetric,
                     isStructureTarget:
-                        _targetInputType == TargetInputType.structure,
-                    presetName:
-                        _selectedPreset?.name, // Pass null for Custom Values
+                        _resultTargetInputType == TargetInputType.structure,
+                    presetName: _resultPresetName,
                   ),
                 ),
               ),
@@ -354,11 +395,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
                       child: DiagramDisplay(
                         result: _result,
                         targetHeight: targetHeight,
-                        isMetric: _isMetric,
+                        isMetric: _resultIsMetric,
                         isStructureTarget:
-                            _targetInputType == TargetInputType.structure,
-                        presetName: _selectedPreset
-                            ?.name, // Pass null for Custom Values
+                            _resultTargetInputType == TargetInputType.structure,
+                        presetName: _resultPresetName,
                       ),
                     ),
                   ),
