@@ -8,6 +8,7 @@ class PresetSelector extends StatefulWidget {
   final ValueChanged<LineOfSightPreset?> onPresetChanged;
   final bool isMetric;
   final ValueChanged<bool> onMetricChanged;
+  final VoidCallback? onEditValues;
 
   const PresetSelector({
     super.key,
@@ -15,6 +16,7 @@ class PresetSelector extends StatefulWidget {
     required this.onPresetChanged,
     required this.isMetric,
     required this.onMetricChanged,
+    this.onEditValues,
   });
 
   @override
@@ -150,7 +152,8 @@ class _PresetSelectorState extends State<PresetSelector> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton.icon(
-                  onPressed: () => widget.onPresetChanged(null),
+                  onPressed:
+                      widget.onEditValues ?? () => widget.onPresetChanged(null),
                   icon: const Icon(Icons.edit_outlined, size: 18),
                   label: const Text('Edit these values'),
                 ),

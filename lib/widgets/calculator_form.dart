@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../services/custom_scenario_store.dart';
+import '../services/custom_scenario_storage.dart';
 import '../services/curvature_calculator.dart';
 import '../services/models/calculation_result.dart';
 import '../models/line_of_sight_preset.dart';
@@ -9,7 +11,9 @@ import 'calculator/diagram_display.dart';
 import 'calculator/share_result_dialog.dart';
 
 class CalculatorForm extends StatefulWidget {
-  const CalculatorForm({super.key});
+  const CalculatorForm({super.key, this.scenarioStore});
+
+  final CustomScenarioStore? scenarioStore;
 
   @override
   State<CalculatorForm> createState() => _CalculatorFormState();
@@ -28,6 +32,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
   // Preserve the surface section and its controllers across responsive layouts.
   final _inputFieldsKey = GlobalKey();
 
+  late final CustomScenarioStore _scenarioStore;
+  Map<String, Object>? _savedCustom;
+  bool _customRestored = false;
+  bool _surfaceAboveSeaLevel = false;
+
   bool _isMetric = true;
   TargetInputType _targetInputType = TargetInputType.elevation;
   LineOfSightPreset? _selectedPreset;
@@ -43,6 +52,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
   @override
   void initState() {
     super.initState();
+    _scenarioStore = widget.scenarioStore ?? browserCustomScenarioStore();
+    _savedCustom = _scenarioStore.load();
     for (final controller in [
       _observerHeightController,
       _interveningSurfaceElevationController,
@@ -69,6 +80,13 @@ class _CalculatorFormState extends State<CalculatorForm> {
   Future<void> _initializeForm() async {
     // Initialize with empty result to avoid null errors
     _result = const CalculationResult();
+
+    if (_savedCustom != null) {
+      _restoreCustom(_savedCustom!);
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _handleCalculate(saveCustom: false));
+      return;
+    }
 
     // Load presets first
     final presets = await LineOfSightPreset.loadPresets();
@@ -109,11 +127,34 @@ class _CalculatorFormState extends State<CalculatorForm> {
     }
   }
 
-  void _handlePresetChanged(LineOfSightPreset? preset) {
+  void _restoreCustom(Map<String, Object> saved) {
+    _selectedPreset = null;
+    _isMetric = saved['isMetric'] as bool;
+    _targetInputType =
+        TargetInputType.values.byName(saved['targetInputType'] as String);
+    _surfaceAboveSeaLevel = saved['surfaceAboveSeaLevel'] as bool;
+    _observerHeightController.text = saved['observerHeight'] as String;
+    _interveningSurfaceElevationController.text =
+        saved['surfaceElevation'] as String;
+    _distanceController.text = saved['distance'] as String;
+    _refractionFactorController.text = saved['refractionFactor'] as String;
+    _targetHeightController.text = saved['targetHeight'] as String;
+    _targetBaseElevationController.text =
+        saved['targetBaseElevation'] as String;
+    _customRestored = true;
+  }
+
+  void _handlePresetChanged(LineOfSightPreset? preset,
+      {bool copyExample = false}) {
     _markInputsDirty();
     setState(() {
       _selectedPreset = preset;
+      _customRestored = false;
+      if (preset == null && !copyExample && _savedCustom != null) {
+        _restoreCustom(_savedCustom!);
+      }
       if (preset != null) {
+        _surfaceAboveSeaLevel = false;
         final observerHeight =
             _isMetric ? preset.observerHeight : preset.observerHeight * 3.28084;
         final distance =
@@ -136,9 +177,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
       }
     });
 
-    // Always calculate, even for Custom Values
+    // Mode changes recalculate for display, but do not replace saved inputs.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleCalculate();
+      _handleCalculate(saveCustom: false);
     });
   }
 
@@ -184,7 +225,7 @@ class _CalculatorFormState extends State<CalculatorForm> {
     });
   }
 
-  bool _handleCalculate() {
+  bool _handleCalculate({bool saveCustom = true}) {
     if (!mounted || !(_formKey.currentState?.validate() ?? false)) {
       return false;
     }
@@ -229,6 +270,23 @@ class _CalculatorFormState extends State<CalculatorForm> {
       _hasCalculated = true;
       _inputsDirty = false;
     });
+    if (saveCustom && _selectedPreset == null) {
+      final snapshot = <String, Object>{
+        'version': 1,
+        'isMetric': _isMetric,
+        'targetInputType': _targetInputType.name,
+        'surfaceAboveSeaLevel': _surfaceAboveSeaLevel,
+        'observerHeight': _observerHeightController.text,
+        'surfaceElevation': _interveningSurfaceElevationController.text,
+        'distance': _distanceController.text,
+        'refractionFactor': _refractionFactorController.text,
+        'targetHeight': _targetHeightController.text,
+        'targetBaseElevation': _targetBaseElevationController.text,
+      };
+      if (_scenarioStore.save(snapshot)) {
+        _savedCustom = snapshot;
+      }
+    }
     return true;
   }
 
@@ -267,13 +325,43 @@ class _CalculatorFormState extends State<CalculatorForm> {
     super.dispose();
   }
 
+  void _clearSavedCustom() {
+    if (_scenarioStore.clear()) {
+      setState(() {
+        _savedCustom = null;
+        _customRestored = false;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Saved values could not be cleared in this browser.'),
+      ));
+    }
+  }
+
   Widget _buildPresetSelector() {
-    return PresetSelector(
-      key: _presetSelectorKey,
-      selectedPreset: _selectedPreset,
-      onPresetChanged: _handlePresetChanged,
-      isMetric: _isMetric,
-      onMetricChanged: _handleMetricChanged,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (_customRestored) ...[
+          Text('Previous custom values restored',
+              style: Theme.of(context).textTheme.bodySmall),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: _clearSavedCustom,
+              child: const Text('Clear saved values'),
+            ),
+          ),
+        ],
+        PresetSelector(
+          key: _presetSelectorKey,
+          selectedPreset: _selectedPreset,
+          onPresetChanged: _handlePresetChanged,
+          onEditValues: () => _handlePresetChanged(null, copyExample: true),
+          isMetric: _isMetric,
+          onMetricChanged: _handleMetricChanged,
+        ),
+      ],
     );
   }
 
@@ -295,6 +383,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
           // Create a single instance of InputFields
           final inputFields = InputFields(
             key: _inputFieldsKey,
+            surfaceAboveSeaLevel: _surfaceAboveSeaLevel,
+            onSurfaceChanged: (above) {
+              _markInputsDirty();
+              setState(() => _surfaceAboveSeaLevel = above);
+            },
             observerHeightController: _observerHeightController,
             interveningSurfaceElevationController:
                 _interveningSurfaceElevationController,

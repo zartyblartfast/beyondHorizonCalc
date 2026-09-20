@@ -19,6 +19,8 @@ class InputFields extends StatelessWidget {
   final VoidCallback? onShare;
   final bool showCalculateButton;
   final bool isCustomPreset;
+  final bool? surfaceAboveSeaLevel;
+  final ValueChanged<bool>? onSurfaceChanged;
 
   const InputFields({
     super.key,
@@ -36,6 +38,8 @@ class InputFields extends StatelessWidget {
     this.onShare,
     this.showCalculateButton = false,
     this.isCustomPreset = true,
+    this.surfaceAboveSeaLevel,
+    this.onSurfaceChanged,
   });
 
   @override
@@ -53,7 +57,7 @@ class InputFields extends StatelessWidget {
         );
         final distanceField = _buildInputField(
           controller: distanceController,
-          label: 'Distance to target',
+          label: 'Surface distance to target',
           suffix: isMetric ? 'km' : 'mi',
           validator: _validateDistance,
           enabled: isCustomPreset,
@@ -85,6 +89,8 @@ class InputFields extends StatelessWidget {
             const SizedBox(height: 12),
             _SurfaceSection(
               key: const ValueKey('horizon_surface_section'),
+              surfaceAboveSeaLevel: surfaceAboveSeaLevel,
+              onSurfaceChanged: onSurfaceChanged,
               observerHeightController: observerHeightController,
               surfaceElevationController: interveningSurfaceElevationController,
               isMetric: isMetric,
@@ -546,6 +552,8 @@ class _SurfaceSection extends StatefulWidget {
   final TextEditingController surfaceElevationController;
   final bool isMetric;
   final bool isEditable;
+  final bool? surfaceAboveSeaLevel;
+  final ValueChanged<bool>? onSurfaceChanged;
   final VoidCallback onCalculate;
   final String? Function(String?) validator;
 
@@ -555,6 +563,8 @@ class _SurfaceSection extends StatefulWidget {
     required this.surfaceElevationController,
     required this.isMetric,
     required this.isEditable,
+    this.surfaceAboveSeaLevel,
+    this.onSurfaceChanged,
     required this.onCalculate,
     required this.validator,
   });
@@ -571,7 +581,7 @@ class _SurfaceSectionState extends State<_SurfaceSection> {
   void initState() {
     super.initState();
     _savedSurfaceElevation = widget.surfaceElevationController.text;
-    widget.surfaceElevationController.text = '0.0';
+    _usesSurfaceAboveSeaLevel = widget.surfaceAboveSeaLevel ?? false;
     widget.observerHeightController.addListener(_refreshDerivedHeight);
     widget.surfaceElevationController.addListener(_refreshDerivedHeight);
   }
@@ -588,6 +598,9 @@ class _SurfaceSectionState extends State<_SurfaceSection> {
       oldWidget.surfaceElevationController
           .removeListener(_refreshDerivedHeight);
       widget.surfaceElevationController.addListener(_refreshDerivedHeight);
+    }
+    if (widget.surfaceAboveSeaLevel != null) {
+      _usesSurfaceAboveSeaLevel = widget.surfaceAboveSeaLevel!;
     }
     if (!widget.isEditable && _usesSurfaceAboveSeaLevel) {
       _savedSurfaceElevation = widget.surfaceElevationController.text;
@@ -622,6 +635,7 @@ class _SurfaceSectionState extends State<_SurfaceSection> {
         _usesSurfaceAboveSeaLevel = false;
       }
     });
+    widget.onSurfaceChanged?.call(aboveSeaLevel);
   }
 
   @override

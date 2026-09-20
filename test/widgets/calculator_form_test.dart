@@ -74,7 +74,7 @@ void main() {
 
   for (final entry in {
     'Observer eye elevation': '100',
-    'Distance to target': '50',
+    'Surface distance to target': '50',
     'Target top elevation (optional)': '200',
     'Base elevation': '20',
     'Horizon surface elevation': '10',
@@ -163,7 +163,7 @@ void main() {
     await tester.pump();
     final oldResult =
         tester.widget<ResultsDisplay>(find.byType(ResultsDisplay)).result;
-    await tester.enterText(inputField('Distance to target'), '.');
+    await tester.enterText(inputField('Surface distance to target'), '.');
     await tester.tap(find.text('Imperial'));
     await tester.pump();
     await tester.pump();
@@ -176,12 +176,12 @@ void main() {
     await tester.tap(find.text('Share result'));
     await tester.pump();
     expect(find.byType(ShareResultDialog), findsNothing);
-    await tester.enterText(inputField('Distance to target'), '50');
+    await tester.enterText(inputField('Surface distance to target'), '50');
     await tester.tap(find.text('Metric'));
     await tester.pump();
     await tester.pump();
     expect(find.text('Inputs changed — recalculate'), findsNothing);
-    await tester.enterText(inputField('Distance to target'), '0');
+    await tester.enterText(inputField('Surface distance to target'), '0');
     await tester.pump();
     expect(find.text('Inputs changed — recalculate'), findsOneWidget);
     await tester.tap(find.text('Example scenario'));
@@ -241,7 +241,7 @@ void main() {
     observer.selection = const TextSelection.collapsed(offset: 1);
     await tester.pump();
     expect(dirty, findsNothing);
-    await tester.enterText(inputField('Distance to target'), '0');
+    await tester.enterText(inputField('Surface distance to target'), '0');
     await tester.pump();
     expect(dirty, findsOneWidget);
     await tester.tap(find.text('Calculate visibility'));
@@ -252,7 +252,7 @@ void main() {
     expect(find.byType(ShareResultDialog), findsNothing);
     expect(find.text('Distance must be greater than 0'), findsOneWidget);
     expect(dirty, findsOneWidget);
-    await tester.enterText(inputField('Distance to target'), '493.1');
+    await tester.enterText(inputField('Surface distance to target'), '493.1');
     await tester.pump();
     expect(dirty, findsOneWidget); // Reverting text is not recalculation.
     await tester.tap(find.text('Calculate visibility'));
@@ -267,7 +267,7 @@ void main() {
     await tester.pump();
     await tester.pump();
     await tester.enterText(inputField('Observer eye elevation'), '100');
-    await tester.enterText(inputField('Distance to target'), '50');
+    await tester.enterText(inputField('Surface distance to target'), '50');
     await tester.tap(find.text('Share result'));
     await tester.pump();
     final dialog =
