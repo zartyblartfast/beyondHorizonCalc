@@ -57,7 +57,8 @@ class CurvatureCalculator {
     final targetTopRelativeMeters = targetHeightMeters == null
         ? null
         : targetHeightMeters - interveningSurfaceElevationMeters;
-    double directDistance(double targetRelativeMeters) => math.sqrt(
+    double directDistance(double targetRelativeMeters) =>
+        math.sqrt(
           math.pow(R + heightMeters, 2) +
               math.pow(R + targetRelativeMeters, 2) -
               2 *
@@ -99,6 +100,7 @@ class CurvatureCalculator {
         horizonDistance: d1 / 1000, // Horizon distance is still relevant
         hiddenHeight: 0, // No part is hidden
         cutoffElevation: 0,
+        targetTopShortfall: targetHeightMeters == null ? null : 0,
         totalDistance: targetTopDistance,
         visibleDistance:
             0, // d2 is not applicable here, maybe set to 0 or distanceMeters? Let's use 0 for now.
@@ -177,6 +179,13 @@ class CurvatureCalculator {
         horizonDistance: d1 / 1000, // Convert to km
         hiddenHeight: hiddenTargetHeight / 1000,
         cutoffElevation: cutoffElevationMeters / 1000,
+        targetTopShortfall:
+            // Ignore <= 1 micrometre of cancellation/unit round-off at the
+            // boundary (cutoff subtracts Earth-sized radii). This is far below
+            // display precision; real sub-decimetre shortfalls remain positive.
+            cutoffElevationMeters - targetHeightMeters > 1e-6
+                ? (cutoffElevationMeters - targetHeightMeters) / 1000
+                : 0,
         totalDistance: targetTopDistance,
         visibleDistance: d2 / 1000, // Convert to km
         visibleTargetHeight: visibleTargetHeight / 1000,

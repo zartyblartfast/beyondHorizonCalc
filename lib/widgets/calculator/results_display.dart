@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/models/calculation_result.dart';
 import '../common/info_icon.dart';
+import 'target_top_shortfall.dart';
 
 class ResultsDisplay extends StatelessWidget {
   final CalculationResult? result;
@@ -136,6 +137,9 @@ class ResultsDisplay extends StatelessWidget {
                     _formatHeight(result!.visibleTargetHeight!),
                     infoKey: 'visible_height',
                   ),
+                  if (formatTargetTopShortfall(result!, isMetric)
+                      case final value?)
+                    _buildResultRow(targetTopShortfallLabel, value),
                   _buildResultRow(
                     'Apparent Visible Height (CD)',
                     _formatHeight(result!.apparentVisibleHeight!),

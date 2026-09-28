@@ -14,12 +14,16 @@ class DiagramKey extends StatelessWidget {
           _item(textTheme, 'A', 'Observer eye'),
           _item(textTheme, 'X', 'Target base on the reference surface'),
           _item(textTheme, 'Z', 'Target top'),
-          _item(textTheme, 'C', 'Horizon-line intersection on the target radial'),
+          _item(
+              textTheme, 'C', 'Horizon-line intersection on the target radial'),
           const Divider(),
-          _item(textTheme, 'L0', 'Surface/geodesic distance from observer to X'),
+          _item(
+              textTheme, 'L0', 'Surface/geodesic distance from observer to X'),
           _item(textTheme, 'A-X', 'Direct distance to target base'),
           _item(textTheme, 'A-C', 'Horizon-line distance; D1 + D2'),
           _item(textTheme, 'D0 / A-Z', 'Direct distance to target top'),
+          _item(textTheme, 'C-Z',
+              'Target-top shortfall to the horizon line (only when the top is below it)'),
         ],
       ),
     );
@@ -31,7 +35,11 @@ class DiagramKey extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 72, child: Text(symbol, style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold))),
+          SizedBox(
+              width: 72,
+              child: Text(symbol,
+                  style:
+                      theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold))),
           Expanded(child: Text(definition)),
         ],
       ),

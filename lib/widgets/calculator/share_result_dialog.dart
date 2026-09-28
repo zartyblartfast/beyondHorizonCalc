@@ -8,6 +8,7 @@ import '../../models/line_of_sight_preset.dart';
 import '../../services/models/calculation_result.dart';
 import '../../services/share_image_export.dart';
 import 'diagram_display.dart';
+import 'target_top_shortfall.dart';
 
 class ShareResultDialog extends StatefulWidget {
   final String scenarioName;
@@ -138,6 +139,9 @@ class _ShareResultDialogState extends State<ShareResultDialog> {
         label: 'Visible height',
         value: _formatHeight(result.visibleTargetHeight),
       ));
+      if (formatTargetTopShortfall(result, isMetric) case final value?) {
+        rows.add((label: targetTopShortfallLabel, value: value));
+      }
     }
 
     return rows;
@@ -364,15 +368,16 @@ class _ShareResultDialogState extends State<ShareResultDialog> {
             const Divider(height: 1),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 12,
+                runSpacing: 8,
                 children: [
                   OutlinedButton.icon(
                     onPressed: _exporting ? null : _downloadPng,
                     icon: const Icon(Icons.download),
                     label: const Text('Download PNG'),
                   ),
-                  const SizedBox(width: 12),
                   FilledButton.icon(
                     onPressed: _exporting ? null : _copyPng,
                     icon: _exporting

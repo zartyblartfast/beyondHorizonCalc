@@ -10,6 +10,10 @@ class CalculationResult {
   final double? hiddenHeight; // in kilometers
   final double?
       cutoffElevation; // line-of-sight cutoff above sea level, in kilometers
+  /// Radial shortfall from target top to horizon line, in km; null without a top.
+  /// Zero before the horizon, at/above the line, or within the calculator's
+  /// 1-micrometre boundary round-off tolerance. Legacy maps leave it null.
+  final double? targetTopShortfall;
   final double? totalDistance; // in kilometers
   final double? visibleDistance; // in kilometers
   final double? visibleTargetHeight; // in kilometers
@@ -29,6 +33,7 @@ class CalculationResult {
     this.horizonDistance = 0,
     this.hiddenHeight = 0,
     this.cutoffElevation = 0,
+    this.targetTopShortfall,
     this.totalDistance = 0,
     this.visibleDistance = 0,
     this.visibleTargetHeight = 0,
@@ -51,6 +56,7 @@ class CalculationResult {
       'horizonDistance': horizonDistance,
       'hiddenHeight': hiddenHeight,
       'cutoffElevation': cutoffElevation,
+      'targetTopShortfall': targetTopShortfall,
       'totalDistance': totalDistance,
       'visibleDistance': visibleDistance,
       'visibleTargetHeight': visibleTargetHeight,
@@ -66,14 +72,18 @@ class CalculationResult {
   factory CalculationResult.fromMap(Map<String, dynamic> map) {
     return CalculationResult(
       surfaceDistance: map['surfaceDistance'] as double?,
-      observerToTargetBaseDistance: map['observerToTargetBaseDistance'] as double?,
-      observerToTargetTopDistance: map['observerToTargetTopDistance'] as double?,
+      observerToTargetBaseDistance:
+          map['observerToTargetBaseDistance'] as double?,
+      observerToTargetTopDistance:
+          map['observerToTargetTopDistance'] as double?,
       horizonLineDistance: map['horizonLineDistance'] as double?,
       observerToHorizonDistance: map['observerToHorizonDistance'] as double?,
-      horizonToTargetRadialDistance: map['horizonToTargetRadialDistance'] as double?,
+      horizonToTargetRadialDistance:
+          map['horizonToTargetRadialDistance'] as double?,
       horizonDistance: map['horizonDistance'] as double?,
       hiddenHeight: map['hiddenHeight'] as double?,
       cutoffElevation: map['cutoffElevation'] as double?,
+      targetTopShortfall: map['targetTopShortfall'] as double?,
       totalDistance: map['totalDistance'] as double?,
       visibleDistance: map['visibleDistance'] as double?,
       visibleTargetHeight: map['visibleTargetHeight'] as double?,
