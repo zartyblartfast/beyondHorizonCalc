@@ -479,4 +479,6 @@
      d="m -230.58951,476.78239 -5,10 h 10 z"
      id="2e_3_C_Bottom_arrowhead"
      style="fill:#000000;fill-opacity:1;stroke:none" />
+  <!-- Populated by MountainGroupViewModel on the same sea-level datum. -->
+  <g id="Target_Horizon_Measurements"></g>
 </svg>

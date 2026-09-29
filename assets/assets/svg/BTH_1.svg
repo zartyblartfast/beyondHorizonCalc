@@ -170,13 +170,15 @@
      id="text16"
      x="1261.75"
      y="469.33334">d1</text><path
-     d="m 1139,399 c 0,-64.562 36.29,-116.9 81.05,-116.9 h 1006.9 c 44.76,0 81.05,-52.338 81.05,-116.9 0,64.562 36.29,116.9 81.05,116.9 h 1006.9 c 44.76,0 81.05,52.338 81.05,116.9"
+     d="M 1167.5,260 L 3480.1,260"
      stroke="#00b050"
      stroke-width="10.3125"
      stroke-miterlimit="8"
      fill="none"
      fill-rule="evenodd"
-     id="path16" /><text
+     id="path16" inkscape:label="D0 A-C bracket" />
+  <line id="d0-extension-A" x1="1167.5" y1="519.50036" x2="1167.5" y2="260" stroke="#00b050" stroke-width="6" />
+  <line id="d0-extension-C" x1="3480.1" y1="519.5" x2="3480.1" y2="260" stroke="#00b050" stroke-width="6" /><text
      fill="#ff0000"
      font-family="Calibri, Calibri_MSFontService, sans-serif"
      font-weight="700"
