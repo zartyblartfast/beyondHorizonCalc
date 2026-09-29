@@ -39,10 +39,12 @@ dependencies:
   url_launcher: ^6.2.2  # For opening links
   url_launcher_web: ^2.2.2  # For web support
   web: ^1.1.0  # For copying and downloading generated PNG images on web
+  xml: ^6.5.0  # Targeted near-schematic updates and SVG regression geometry
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   mockito: ^5.4.4
   build_runner: ^2.4.8  # Required for mockito code generation
   # The "flutter_lints" package below contains a set of recommended lints to

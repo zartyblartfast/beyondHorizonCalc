@@ -1,4 +1,29 @@
+enum HorizonPosition { before, at, beyond }
+
 class CalculationResult {
+  /// Round-off tolerance only; distances passed to classification are metres.
+  static const horizonBoundaryToleranceMeters = 1e-6;
+
+  static HorizonPosition classifyHorizon(
+      double surfaceMeters, double horizonMeters) {
+    final delta = surfaceMeters - horizonMeters;
+    if (delta.abs() <= horizonBoundaryToleranceMeters)
+      return HorizonPosition.at;
+    return delta < 0 ? HorizonPosition.before : HorizonPosition.beyond;
+  }
+
+  /// Null on legacy maps; never infer this from a hidden-height sentinel.
+  final HorizonPosition? horizonPosition;
+
+  /// Datum-relative presentation metadata in km; null for legacy maps.
+  /// The observer value is unclamped so unsupported endpoints remain detectable.
+  final double? observerAboveSurfaceKm;
+  final double? targetBaseAboveSurfaceKm;
+  final double? targetTopAboveSurfaceKm;
+
+  /// Radial surface-to-tangent intersection XC, NOT a near visibility cutoff.
+  final double? tangentRadialHeightKm;
+
   /// Distance fields are normalized to kilometres, regardless of UI units.
   final double? surfaceDistance;
   final double? observerToTargetBaseDistance;
@@ -24,6 +49,11 @@ class CalculationResult {
   final double? dipAngle; // angle in degrees to look down to horizon
 
   const CalculationResult({
+    this.horizonPosition,
+    this.observerAboveSurfaceKm,
+    this.targetBaseAboveSurfaceKm,
+    this.targetTopAboveSurfaceKm,
+    this.tangentRadialHeightKm,
     this.surfaceDistance,
     this.observerToTargetBaseDistance,
     this.observerToTargetTopDistance,
@@ -47,6 +77,11 @@ class CalculationResult {
   // Convert to Map for backward compatibility with existing code
   Map<String, dynamic> toMap() {
     return {
+      'horizonPosition': horizonPosition?.name,
+      'observerAboveSurfaceKm': observerAboveSurfaceKm,
+      'targetBaseAboveSurfaceKm': targetBaseAboveSurfaceKm,
+      'targetTopAboveSurfaceKm': targetTopAboveSurfaceKm,
+      'tangentRadialHeightKm': tangentRadialHeightKm,
       'surfaceDistance': surfaceDistance,
       'observerToTargetBaseDistance': observerToTargetBaseDistance,
       'observerToTargetTopDistance': observerToTargetTopDistance,
@@ -71,6 +106,16 @@ class CalculationResult {
   // Create from Map for backward compatibility
   factory CalculationResult.fromMap(Map<String, dynamic> map) {
     return CalculationResult(
+      horizonPosition: switch (map['horizonPosition']) {
+        'before' => HorizonPosition.before,
+        'at' => HorizonPosition.at,
+        'beyond' => HorizonPosition.beyond,
+        _ => null,
+      },
+      observerAboveSurfaceKm: map['observerAboveSurfaceKm'] as double?,
+      targetBaseAboveSurfaceKm: map['targetBaseAboveSurfaceKm'] as double?,
+      targetTopAboveSurfaceKm: map['targetTopAboveSurfaceKm'] as double?,
+      tangentRadialHeightKm: map['tangentRadialHeightKm'] as double?,
       surfaceDistance: map['surfaceDistance'] as double?,
       observerToTargetBaseDistance:
           map['observerToTargetBaseDistance'] as double?,

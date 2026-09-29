@@ -9,6 +9,7 @@ import '../../services/models/calculation_result.dart';
 import '../../services/share_image_export.dart';
 import 'diagram_display.dart';
 import 'target_top_shortfall.dart';
+import 'horizon_presentation.dart';
 
 class ShareResultDialog extends StatefulWidget {
   final String scenarioName;
@@ -124,6 +125,16 @@ class _ShareResultDialogState extends State<ShareResultDialog> {
   List<({String label, String value})> get _resultRows {
     final rows = <({String label, String value})>[
       (
+        label: 'Horizon-line distance (D0 / AC)',
+        value: _formatDistance(result.horizonLineDistance)
+      ),
+      (
+        label: 'Direct geometric distance (AZ)',
+        value: _formatDistance(targetHeight.isEmpty
+            ? null
+            : result.observerToTargetTopDistance ?? result.totalDistance)
+      ),
+      (
         label: 'Distance to horizon',
         value: _formatDistance(result.horizonDistance),
       ),
@@ -131,8 +142,16 @@ class _ShareResultDialogState extends State<ShareResultDialog> {
         label: 'Horizon dip angle',
         value: '${result.dipAngle?.toStringAsFixed(2) ?? 'N/A'}°',
       ),
-      (label: 'Hidden height', value: _formatHeight(result.hiddenHeight)),
     ];
+    if (HorizonPresentation.isNear(result)) {
+      rows.add((
+        label: 'Curvature-only status',
+        value: HorizonPresentation.status(result)
+      ));
+      return rows;
+    }
+    rows.add(
+        (label: 'Hidden height', value: _formatHeight(result.hiddenHeight)));
 
     if (targetHeight.isNotEmpty) {
       rows.add((

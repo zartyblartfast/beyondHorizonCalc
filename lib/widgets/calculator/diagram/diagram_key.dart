@@ -14,16 +14,23 @@ class DiagramKey extends StatelessWidget {
           _item(textTheme, 'A', 'Observer eye'),
           _item(textTheme, 'X', 'Target base on the reference surface'),
           _item(textTheme, 'Z', 'Target top'),
-          _item(
-              textTheme, 'C', 'Horizon-line intersection on the target radial'),
+          _item(textTheme, 'C',
+              'Tangent meets target radial. Before B, C is not a visibility cutoff.'),
           const Divider(),
           _item(
               textTheme, 'L0', 'Surface/geodesic distance from observer to X'),
           _item(textTheme, 'A-X', 'Direct distance to target base'),
-          _item(textTheme, 'A-C', 'Horizon-line distance; D1 + D2'),
-          _item(textTheme, 'D0 / A-Z', 'Direct distance to target top'),
+          _item(
+              textTheme, 'B', 'Tangent contact on the horizon-forming surface'),
+          _item(textTheme, 'D0 / A-C',
+              'Horizon-tangent distance: D1 + D2 beyond; D1 - D2 before; D1 at the horizon'),
+          _item(textTheme, 'D1 / A-B', 'Observer to tangent contact'),
+          _item(textTheme, 'D2 / B-C',
+              'Positive tangent distance between B and C; zero when C = B'),
+          _item(textTheme, 'A-Z',
+              'Direct distance to target top (geometric; may be obstructed by Earth)'),
           _item(textTheme, 'C-Z',
-              'Target-top shortfall to the horizon line (only when the top is below it)'),
+              'Target-top shortfall to the horizon line (only beyond the horizon when the top is below it)'),
         ],
       ),
     );

@@ -83,7 +83,8 @@ class SvgElementUpdater {
       }
       
       attributes.forEach((key, value) {
-        final attributePattern = RegExp('$key="[^"]*"');
+        // Match an entire attribute name: d must never match the end of id.
+        final attributePattern = RegExp('(?<=\\s)${RegExp.escape(key)}="[^"]*"');
         if (element.contains(attributePattern)) {
           element = element.replaceAll(attributePattern, '$key="$value"');
         } else {

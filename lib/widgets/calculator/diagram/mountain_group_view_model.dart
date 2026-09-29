@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../../../services/models/calculation_result.dart';
+import '../target_top_shortfall.dart';
 import 'diagram_view_model.dart';
 import 'svg_element_updater.dart';
 import 'label_group_handler.dart';
@@ -100,14 +101,12 @@ class MountainGroupViewModel extends DiagramViewModel {
         // print('Visible Height: $visibleHeight, Units: $heightInUnits');
       }
 
-      // Add Hidden Height (h2) label
-      final hiddenHeight = currentResult.hiddenHeight;
-      if (hiddenHeight != null) {
-        final prefix = _getConfigString(['labels', 'points', '5_2_Hidden_Height_Height', 'prefix']) ?? 'h2: ';
-        // Convert from km to current units (meters or feet)
-        final heightInUnits = convertFromKm(hiddenHeight);
-        labels['5_2_Hidden_Height_Height'] = '$prefix${formatHeight(heightInUnits)}';
-        // print('Hidden Height: $hiddenHeight, Units: $heightInUnits');
+      // XC spans sea level X to the horizon line C, not the capped hidden
+      // portion of the target. Use the same absolute datum as the arrow.
+      final cutoff = currentResult.cutoffElevation ?? currentResult.hiddenHeight;
+      if (cutoff != null) {
+        labels['5_2_Hidden_Height_Height'] =
+            'XC: ${formatHeight(convertFromKm(cutoff))}';
       }
     }
 
@@ -539,7 +538,51 @@ class MountainGroupViewModel extends DiagramViewModel {
       debugPrint('  - Bottom elements at: ${zHeightPositions['endY']}');
     }
 
-    return updatedSvg;
+    return _updateHorizonMeasurement(updatedSvg, observerLevel, mountainPeakY);
+  }
+
+  /// Keep the numerical CZ outside short gaps without stretching its endpoints.
+  String _updateHorizonMeasurement(String svg, double cY, double zY) {
+    const x = 145.0;
+    final value = result == null || targetHeight == null
+        ? null
+        : formatTargetTopShortfall(result!, isMetric);
+    final content = StringBuffer(
+      '<text id="C" x="270" y="${cY - 10}" '
+      'style="font-weight:bold;font-size:12.0877px;font-family:Calibri;fill:#ff0000;text-anchor:middle">C</text>',
+    );
+    if (value != null) {
+      final gap = zY - cY;
+      final external = gap < 50;
+      final labelY = external ? zY + 35 : (cY + zY) / 2 + 4;
+      // The shared formatter emits a less-than sign for tiny positive values.
+      final text = value.replaceAll('<', '&lt;');
+      content.write(
+        '<path id="CZ_Arrow" d="M $x,$cY V $zY" '
+        'style="fill:none;stroke:#000000;stroke-width:1.5"/>',
+      );
+      final head = (gap / 3).clamp(0.0, 8.0);
+      content.write(
+        '<path id="CZ_Arrowheads" '
+        'd="M $x,$cY l -4,$head h 8 z M $x,$zY l -4,-$head h 8 z" '
+        'style="fill:#000000;stroke:none"/>',
+      );
+      if (external) {
+        content.write(
+          '<path id="CZ_Leader" d="M $x,${(cY + zY) / 2} '
+          'L 105,${zY + 17} V ${labelY - 10}" '
+          'style="fill:none;stroke:#552200;stroke-width:1"/>',
+        );
+      }
+      content.write(
+        '<rect x="95" y="${labelY - 12}" width="100" height="16" fill="white"/>'
+        '<text id="CZ_Label" x="$x" y="$labelY" '
+        'style="font-weight:bold;font-size:12.0877px;font-family:Calibri;fill:#552200;text-anchor:middle">'
+        'CZ: $text</text>',
+      );
+    }
+    return svg.replaceFirst('<g id="Target_Horizon_Measurements"></g>',
+        '<g id="Target_Horizon_Measurements">$content</g>');
   }
 
   /// Validates Z-height configuration and calculations

@@ -5,6 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('D0 labels canonical AC, never legacy AZ', () {
+    final model = HorizonDiagramViewModel(
+      result: const CalculationResult(horizonLineDistance: 42,
+          observerToHorizonDistance: 12, horizonToTargetRadialDistance: 30,
+          surfaceDistance: 41, totalDistance: 43),
+      isMetric: true);
+    final labels = model.getLabelValues();
+    expect(labels['LoS_Distance_d0'], '42.0 km');
+    expect(labels['d1'], '12.0 km');
+    expect(labels['d2'], '30.0 km');
+    expect(labels['L0'], '41.0 km');
+    expect(HorizonDiagramViewModel(result: const CalculationResult(totalDistance: 43),
+        isMetric: true).getLabelValues()['LoS_Distance_d0'], 'N/A');
+  });
   test('classifies a fully hidden target from the visible portion', () {
     final viewModel = HorizonDiagramViewModel(
       result: const CalculationResult(

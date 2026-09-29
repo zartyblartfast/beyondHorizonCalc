@@ -4,7 +4,7 @@ import 'package:BeyondHorizonCalc/services/curvature_calculator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('reports D0 as direct observer-to-target-top distance above the horizon surface', () {
+  test('reports canonical AZ and legacy totalDistance as direct observer-to-target-top distance', () {
     const observerElevation = 16.5;
     const surfaceElevation = 0.0;
     const surfaceDistanceKm = 51.4;
@@ -32,5 +32,6 @@ void main() {
     );
 
     expect(result.totalDistance, closeTo(expectedTopDistance, 0.0000001));
+    expect(result.observerToTargetTopDistance, result.totalDistance);
   });
 }

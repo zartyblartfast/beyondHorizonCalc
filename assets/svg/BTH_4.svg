@@ -161,12 +161,12 @@
      font-weight="700"
      font-size="110px"
      id="text9-4"
-     x="3443.8625"
+     x="3300"
      y="317.75189"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:110px;font-family:Calibri, Calibri_MSFontService, sans-serif;-inkscape-font-specification:'Calibri, Calibri_MSFontService, sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000"><tspan
        sodipodi:role="line"
        id="tspan32"
-       x="3443.8625"
+       x="3300"
        y="317.75189">D</tspan></text><text
      fill="#ff0000"
      font-family="Calibri, Calibri_MSFontService, sans-serif"
@@ -307,13 +307,15 @@
        id="tspan2"
        x="3379.5173"
        y="447.34097">h4</tspan></text><path
-     d="m 1172.4262,224.33894 c 0,-29.92467 38.7856,-54.18349 86.6237,-54.18349 H 2335.194 c 47.8381,0 86.6237,-24.25881 86.6237,-54.18348 0,29.92467 38.7857,54.18348 86.6238,54.18348 h 1076.144 c 47.8382,0 86.6238,24.25882 86.6238,54.18349"
+     d="M 1167.5,180 L 3480.1,180"
      stroke="#00b050"
      stroke-width="7.25826"
      stroke-miterlimit="8"
      fill="none"
      fill-rule="evenodd"
-     id="path16" /><text
+     id="path16" inkscape:label="D0 A-C bracket" />
+  <line id="d0-extension-A" x1="1167.5" y1="519.50036" x2="1167.5" y2="180" stroke="#00b050" stroke-width="6" />
+  <line id="d0-extension-C" x1="3480.1" y1="519.5" x2="3480.1" y2="180" stroke="#00b050" stroke-width="6" /><text
      font-family="Calibri, Calibri_MSFontService, sans-serif"
      font-weight="700"
      font-size="110px"

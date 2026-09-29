@@ -52,6 +52,12 @@ class CurvatureCalculator {
     final double dipAngle = math.acos(R / (R + heightMeters)) * (180 / math.pi);
 
     final surfaceDistanceKm = distanceMeters / 1000;
+    final horizonPosition =
+        CalculationResult.classifyHorizon(distanceMeters, l1);
+    final signedBc = horizonPosition == HorizonPosition.at
+        ? 0.0
+        : R * math.tan(distanceMeters / R - horizonAngle);
+    final tangentDistanceKm = (d1 + signedBc) / 1000;
     final targetBaseRelativeMeters =
         targetBaseElevationMeters - interveningSurfaceElevationMeters;
     final targetTopRelativeMeters = targetHeightMeters == null
@@ -97,10 +103,30 @@ class CurvatureCalculator {
       }
 
       return CalculationResult(
+        horizonPosition: horizonPosition,
+        observerAboveSurfaceKm:
+            (observerElevationMeters - interveningSurfaceElevationMeters) /
+                1000,
+        targetBaseAboveSurfaceKm: targetBaseRelativeMeters / 1000,
+        targetTopAboveSurfaceKm: targetTopRelativeMeters == null
+            ? null
+            : targetTopRelativeMeters / 1000,
+        tangentRadialHeightKm: R *
+            (1 /
+                    math.cos(horizonPosition == HorizonPosition.at
+                        ? 0
+                        : distanceMeters / R - horizonAngle) -
+                1) /
+            1000,
+        surfaceDistance: surfaceDistanceKm,
+        horizonLineDistance: tangentDistanceKm,
+        observerToHorizonDistance: d1 / 1000,
+        horizonToTargetRadialDistance: signedBc.abs() / 1000,
         horizonDistance: d1 / 1000, // Horizon distance is still relevant
         hiddenHeight: 0, // No part is hidden
         cutoffElevation: 0,
         targetTopShortfall: targetHeightMeters == null ? null : 0,
+        observerToTargetTopDistance: targetTopDistance,
         totalDistance: targetTopDistance,
         visibleDistance:
             0, // d2 is not applicable here, maybe set to 0 or distanceMeters? Let's use 0 for now.
@@ -134,9 +160,29 @@ class CurvatureCalculator {
       // If no target height, return basic calculations
       if (targetHeightMeters == null) {
         return CalculationResult(
+          horizonPosition: horizonPosition,
+          observerAboveSurfaceKm:
+              (observerElevationMeters - interveningSurfaceElevationMeters) /
+                  1000,
+          targetBaseAboveSurfaceKm: targetBaseRelativeMeters / 1000,
+          targetTopAboveSurfaceKm: targetTopRelativeMeters == null
+              ? null
+              : targetTopRelativeMeters / 1000,
+          tangentRadialHeightKm: R *
+              (1 /
+                      math.cos(horizonPosition == HorizonPosition.at
+                          ? 0
+                          : distanceMeters / R - horizonAngle) -
+                  1) /
+              1000,
+          surfaceDistance: surfaceDistanceKm,
+          horizonLineDistance: tangentDistanceKm,
+          observerToHorizonDistance: d1 / 1000,
+          horizonToTargetRadialDistance: signedBc.abs() / 1000,
           horizonDistance: d1 / 1000, // Convert to km
           hiddenHeight: hiddenHeight,
           cutoffElevation: hiddenHeight,
+          observerToTargetTopDistance: targetTopDistance,
           totalDistance: targetTopDistance,
           visibleDistance: d2 / 1000, // Convert to km
           inputDistance: surfaceDistanceKm, // Store original input
@@ -176,6 +222,25 @@ class CurvatureCalculator {
       }
 
       return CalculationResult(
+        horizonPosition: horizonPosition,
+        observerAboveSurfaceKm:
+            (observerElevationMeters - interveningSurfaceElevationMeters) /
+                1000,
+        targetBaseAboveSurfaceKm: targetBaseRelativeMeters / 1000,
+        targetTopAboveSurfaceKm: targetTopRelativeMeters == null
+            ? null
+            : targetTopRelativeMeters / 1000,
+        tangentRadialHeightKm: R *
+            (1 /
+                    math.cos(horizonPosition == HorizonPosition.at
+                        ? 0
+                        : distanceMeters / R - horizonAngle) -
+                1) /
+            1000,
+        surfaceDistance: surfaceDistanceKm,
+        horizonLineDistance: tangentDistanceKm,
+        observerToHorizonDistance: d1 / 1000,
+        horizonToTargetRadialDistance: signedBc.abs() / 1000,
         horizonDistance: d1 / 1000, // Convert to km
         hiddenHeight: hiddenTargetHeight / 1000,
         cutoffElevation: cutoffElevationMeters / 1000,
@@ -186,6 +251,7 @@ class CurvatureCalculator {
             cutoffElevationMeters - targetHeightMeters > 1e-6
                 ? (cutoffElevationMeters - targetHeightMeters) / 1000
                 : 0,
+        observerToTargetTopDistance: targetTopDistance,
         totalDistance: targetTopDistance,
         visibleDistance: d2 / 1000, // Convert to km
         visibleTargetHeight: visibleTargetHeight / 1000,

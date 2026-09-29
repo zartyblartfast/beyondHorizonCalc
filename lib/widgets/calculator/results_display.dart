@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/models/calculation_result.dart';
 import '../common/info_icon.dart';
 import 'target_top_shortfall.dart';
+import 'horizon_presentation.dart';
 
 class ResultsDisplay extends StatelessWidget {
   final CalculationResult? result;
@@ -117,6 +118,17 @@ class ResultsDisplay extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _buildResultRow(
+                  'Horizon-line distance (D0 / AC)',
+                  _formatDistance(result!.horizonLineDistance),
+                ),
+                _buildResultRow(
+                  'Direct geometric distance to target top (AZ)',
+                  _formatDistance(targetHeight == null
+                      ? null
+                      : result!.observerToTargetTopDistance ??
+                          result!.totalDistance),
+                ),
+                _buildResultRow(
                   'Distance to Horizon (D1)',
                   _formatDistance(result!.horizonDistance),
                   infoKey: 'horizon_distance',
@@ -126,30 +138,41 @@ class ResultsDisplay extends StatelessWidget {
                   '${result!.dipAngle?.toStringAsFixed(2) ?? 'N/A'}°',
                   infoKey: 'dip_angle',
                 ),
-                _buildResultRow(
-                  'Hidden Height (h2, XC)',
-                  _formatHeight(result!.hiddenHeight),
-                  infoKey: 'hidden_height',
-                ),
-                if (targetHeight != null) ...[
+                if (HorizonPresentation.isNear(result!))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(HorizonPresentation.status(result!)),
+                  )
+                else ...[
                   _buildResultRow(
-                    'Visible Height (h3)',
-                    _formatHeight(result!.visibleTargetHeight!),
-                    infoKey: 'visible_height',
+                    targetHeight == null
+                        ? 'Horizon cutoff elevation (XC)'
+                        : 'Hidden target height',
+                    targetHeight == null && result!.hiddenHeight != null
+                        ? '${_formatHeight(result!.hiddenHeight)} AMSL'
+                        : _formatHeight(result!.hiddenHeight),
+                    infoKey: 'hidden_height',
                   ),
-                  if (formatTargetTopShortfall(result!, isMetric)
-                      case final value?)
-                    _buildResultRow(targetTopShortfallLabel, value),
-                  _buildResultRow(
-                    'Apparent Visible Height (CD)',
-                    _formatHeight(result!.apparentVisibleHeight!),
-                    infoKey: 'apparent_height',
-                  ),
-                  _buildResultRow(
-                    'Perspective Scaled Apparent Visible Height',
-                    _formatHeight(result!.perspectiveScaledHeight!),
-                    infoKey: 'perspective_scaled_height',
-                  ),
+                  if (targetHeight != null) ...[
+                    _buildResultRow(
+                      'Visible Height (h3)',
+                      _formatHeight(result!.visibleTargetHeight!),
+                      infoKey: 'visible_height',
+                    ),
+                    if (formatTargetTopShortfall(result!, isMetric)
+                        case final value?)
+                      _buildResultRow(targetTopShortfallLabel, value),
+                    _buildResultRow(
+                      'Apparent Visible Height (CD)',
+                      _formatHeight(result!.apparentVisibleHeight!),
+                      infoKey: 'apparent_height',
+                    ),
+                    _buildResultRow(
+                      'Perspective Scaled Apparent Visible Height',
+                      _formatHeight(result!.perspectiveScaledHeight!),
+                      infoKey: 'perspective_scaled_height',
+                    ),
+                  ],
                 ],
               ],
             ),

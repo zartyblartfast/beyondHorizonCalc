@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import '../../services/models/calculation_result.dart';
+import 'diagram/near_horizon_schematic.dart';
+import 'horizon_presentation.dart';
 import 'diagram/diagram_label_service.dart';
 import 'diagram/diagram_key.dart';
 import 'diagram/horizon_diagram_view_model.dart';
@@ -44,18 +46,28 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   @override
   void didUpdateWidget(DiagramDisplay oldWidget) {
     super.didUpdateWidget(oldWidget);
-    developer.log('DiagramDisplay - didUpdateWidget called', name: 'DiagramDisplay');
-    developer.log('Old preset: ${oldWidget.presetName}, New preset: ${widget.presetName}', name: 'DiagramDisplay');
-    developer.log('Old result: ${oldWidget.result}, New result: ${widget.result}', name: 'DiagramDisplay');
-    developer.log('Old target height: ${oldWidget.targetHeight}, New target height: ${widget.targetHeight}', name: 'DiagramDisplay');
-    developer.log('Old isMetric: ${oldWidget.isMetric}, New isMetric: ${widget.isMetric}', name: 'DiagramDisplay');
+    developer.log('DiagramDisplay - didUpdateWidget called',
+        name: 'DiagramDisplay');
+    developer.log(
+        'Old preset: ${oldWidget.presetName}, New preset: ${widget.presetName}',
+        name: 'DiagramDisplay');
+    developer.log(
+        'Old result: ${oldWidget.result}, New result: ${widget.result}',
+        name: 'DiagramDisplay');
+    developer.log(
+        'Old target height: ${oldWidget.targetHeight}, New target height: ${widget.targetHeight}',
+        name: 'DiagramDisplay');
+    developer.log(
+        'Old isMetric: ${oldWidget.isMetric}, New isMetric: ${widget.isMetric}',
+        name: 'DiagramDisplay');
 
     if (oldWidget.result != widget.result ||
         oldWidget.targetHeight != widget.targetHeight ||
         oldWidget.isMetric != widget.isMetric ||
         oldWidget.isStructureTarget != widget.isStructureTarget ||
         oldWidget.presetName != widget.presetName) {
-      developer.log('DiagramDisplay - Props changed, calling _loadAndUpdateSvg', name: 'DiagramDisplay');
+      developer.log('DiagramDisplay - Props changed, calling _loadAndUpdateSvg',
+          name: 'DiagramDisplay');
       if (widget.isStructureTarget) {
         setState(() {
           _svgContent = null;
@@ -67,18 +79,22 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       // Reset scroll position to top when the diagram is currently mounted.
       if (_scrollController.hasClients) _scrollController.jumpTo(0);
     } else {
-      developer.log('DiagramDisplay - Widget updated, but no relevant changes detected', name: 'DiagramDisplay');
+      developer.log(
+          'DiagramDisplay - Widget updated, but no relevant changes detected',
+          name: 'DiagramDisplay');
     }
   }
 
   String _getDiagramAsset() {
     if (widget.result == null) return 'assets/svg/BTH_1.svg';
-    
+    if (HorizonPresentation.isNear(widget.result!))
+      return 'assets/svg/BTH_before_horizon.svg';
+
     // If target height is null or 0, show BTH_1
     if (widget.targetHeight == null || widget.targetHeight == 0) {
       return 'assets/svg/BTH_1.svg';
     }
-    
+
     final hiddenHeight = widget.result!.hiddenHeight ?? 0;
     final visibleHeight = widget.result!.visibleTargetHeight ?? 0;
     if (visibleHeight <= 0 && hiddenHeight > 0) {
@@ -90,24 +106,34 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   Future<void> _loadAndUpdateSvg() async {
     try {
       developer.log('_loadAndUpdateSvg started', name: 'DiagramDisplay');
-      developer.log('Current preset: ${widget.presetName}', name: 'DiagramDisplay');
-      developer.log('Observer height: ${widget.result?.h1}', name: 'DiagramDisplay');
-      developer.log('Target height: ${widget.targetHeight}', name: 'DiagramDisplay');
+      developer.log('Current preset: ${widget.presetName}',
+          name: 'DiagramDisplay');
+      developer.log('Observer height: ${widget.result?.h1}',
+          name: 'DiagramDisplay');
+      developer.log('Target height: ${widget.targetHeight}',
+          name: 'DiagramDisplay');
       developer.log('Is metric: ${widget.isMetric}', name: 'DiagramDisplay');
 
       Map<String, dynamic> diagramSpec;
       try {
         // Load diagram spec configuration
-        final String specJson = await rootBundle.loadString('assets/info/diagram_spec.json');
-        developer.log('Raw diagram spec JSON: $specJson', name: 'DiagramDisplay');
+        final String specJson =
+            await rootBundle.loadString('assets/info/diagram_spec.json');
+        developer.log('Raw diagram spec JSON: $specJson',
+            name: 'DiagramDisplay');
         diagramSpec = json.decode(specJson) as Map<String, dynamic>;
-        developer.log('Parsed diagram spec: $diagramSpec', name: 'DiagramDisplay');
-        developer.log('ViewBox height from spec: ${diagramSpec['metadata']?['svgSpec']?['viewBox']?['height']}', name: 'DiagramDisplay');
+        developer.log('Parsed diagram spec: $diagramSpec',
+            name: 'DiagramDisplay');
+        developer.log(
+            'ViewBox height from spec: ${diagramSpec['metadata']?['svgSpec']?['viewBox']?['height']}',
+            name: 'DiagramDisplay');
         if (diagramSpec.isEmpty) {
-          developer.log('Warning: Diagram spec is empty', name: 'DiagramDisplay');
+          developer.log('Warning: Diagram spec is empty',
+              name: 'DiagramDisplay');
         }
       } catch (e, stackTrace) {
-        developer.log('Error loading diagram spec: $e', name: 'DiagramDisplay', error: e);
+        developer.log('Error loading diagram spec: $e',
+            name: 'DiagramDisplay', error: e);
         developer.log('Stack trace: $stackTrace', name: 'DiagramDisplay');
         // Provide empty config, view model will use defaults
         diagramSpec = {};
@@ -121,9 +147,10 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       developer.log('Original SVG loaded', name: 'DiagramDisplay');
 
       // Extract defs section to preserve markers
-      final defsMatch = RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true).firstMatch(rawSvg);
+      final defsMatch =
+          RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true).firstMatch(rawSvg);
       final defs = defsMatch?.group(1) ?? '';
-      
+
       // Create view model and update labels for original diagram
       final viewModel = HorizonDiagramViewModel(
         result: widget.result,
@@ -131,9 +158,14 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         isMetric: widget.isMetric,
         presetName: widget.presetName,
       );
-      
+
       // Update SVG with new labels
       var updatedSvg = _labelService.updateLabels(rawSvg, viewModel);
+      if ((widget.result != null &&
+          HorizonPresentation.isNear(widget.result!))) {
+        updatedSvg = NearHorizonSchematic.update(
+            rawSvg, widget.result!, widget.isMetric);
+      }
 
       developer.log('Original SVG updated with labels', name: 'DiagramDisplay');
 
@@ -142,7 +174,9 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         updatedSvg = updatedSvg.replaceFirst('</svg>', '$defs</svg>');
       }
 
-      if (widget.compact) {
+      if (widget.compact ||
+          (widget.result != null &&
+              HorizonPresentation.isNear(widget.result!))) {
         if (mounted) {
           setState(() {
             _svgContent = updatedSvg;
@@ -154,20 +188,25 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       // Load and update mountain diagram
       String mountainSvgPath;
       try {
-        mountainSvgPath = 'assets/svg/${diagramSpec['metadata']?['svgSpec']?['files']?['mountainDiagram'] ?? 'BTH_viewBox_diagram2.svg'}';
-        developer.log('Mountain diagram path from spec: $mountainSvgPath', name: 'DiagramDisplay');
+        mountainSvgPath =
+            'assets/svg/${diagramSpec['metadata']?['svgSpec']?['files']?['mountainDiagram'] ?? 'BTH_viewBox_diagram2.svg'}';
+        developer.log('Mountain diagram path from spec: $mountainSvgPath',
+            name: 'DiagramDisplay');
       } catch (e) {
-        developer.log('Error getting mountain diagram path: $e', name: 'DiagramDisplay');
+        developer.log('Error getting mountain diagram path: $e',
+            name: 'DiagramDisplay');
         mountainSvgPath = 'assets/svg/BTH_viewBox_diagram2.svg';
       }
-      
-      final String rawMountainSvg = await rootBundle.loadString(mountainSvgPath);
+
+      final String rawMountainSvg =
+          await rootBundle.loadString(mountainSvgPath);
       developer.log('Mountain SVG loaded', name: 'DiagramDisplay');
 
       // Extract defs section from mountain SVG
-      final mountainDefsMatch = RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true).firstMatch(rawMountainSvg);
+      final mountainDefsMatch = RegExp(r'(<defs[^>]*>.*?</defs>)', dotAll: true)
+          .firstMatch(rawMountainSvg);
       final mountainDefs = mountainDefsMatch?.group(1) ?? '';
-      
+
       // Create mountain view model and update labels
       _mountainViewModel = MountainDiagramViewModel(
         result: widget.result,
@@ -176,27 +215,33 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         presetName: widget.presetName,
         diagramSpec: diagramSpec,
       );
-      
-      // Update mountain SVG with new labels and dynamic elements
-      var updatedMountainSvg = _labelService.updateLabels(rawMountainSvg, _mountainViewModel!);
-      updatedMountainSvg = _mountainViewModel!.updateDynamicElements(updatedMountainSvg);
 
-      developer.log('Mountain SVG updated with labels and dynamic elements', name: 'DiagramDisplay');
+      // Update mountain SVG with new labels and dynamic elements
+      var updatedMountainSvg =
+          _labelService.updateLabels(rawMountainSvg, _mountainViewModel!);
+      updatedMountainSvg =
+          _mountainViewModel!.updateDynamicElements(updatedMountainSvg);
+
+      developer.log('Mountain SVG updated with labels and dynamic elements',
+          name: 'DiagramDisplay');
 
       // Ensure defs section is preserved in mountain SVG
       if (!updatedMountainSvg.contains('<defs') && mountainDefs.isNotEmpty) {
-        updatedMountainSvg = updatedMountainSvg.replaceFirst('</svg>', '$mountainDefs</svg>');
+        updatedMountainSvg =
+            updatedMountainSvg.replaceFirst('</svg>', '$mountainDefs</svg>');
       }
-      
+
       if (mounted) {
         setState(() {
           _svgContent = updatedSvg;
           _mountainSvgContent = updatedMountainSvg;
         });
-        developer.log('State updated with new SVG content', name: 'DiagramDisplay');
+        developer.log('State updated with new SVG content',
+            name: 'DiagramDisplay');
       }
     } catch (e) {
-      developer.log('Error updating SVG labels: $e', name: 'DiagramDisplay', error: e);
+      developer.log('Error updating SVG labels: $e',
+          name: 'DiagramDisplay', error: e);
     }
   }
 
@@ -228,6 +273,27 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
       );
     }
 
+    if (widget.result != null &&
+        (HorizonPresentation.isNear(widget.result!) ||
+            (widget.result!.observerAboveSurfaceKm != null &&
+                widget.result!.observerAboveSurfaceKm! < 0))) {
+      final limitation = HorizonPresentation.limitation(widget.result!);
+      if (limitation != null)
+        return Card(
+            child: Padding(
+                padding: const EdgeInsets.all(16), child: Text(limitation)));
+    }
+    // The fixed distant-target diagram cannot depict a coincident observer/contact.
+    if (widget.result != null && widget.result!.h1 == 0) {
+      return const Card(
+          child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('Observer is on the horizon-forming surface: A = B. '
+            'D1 = 0; D0 = D2. Cross-section and vertical illustration withheld '
+            'because the distinct-observer schematic is not applicable.'),
+      ));
+    }
+
     if (widget.compact) {
       return AspectRatio(
         aspectRatio: 1.75,
@@ -242,8 +308,8 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
     }
 
     final titleStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
-      fontWeight: FontWeight.bold,
-    );
+          fontWeight: FontWeight.bold,
+        );
 
     return Column(
       children: [
@@ -276,50 +342,59 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         const SizedBox(height: 8.0),
         const DiagramKey(),
         const SizedBox(height: 16.0),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text(
-            'To Scale, Vertical Perspective: Distant Object Visibility Over Earth\'s Curvature',
-            textAlign: TextAlign.center,
-            style: titleStyle,
+        if ((widget.result != null &&
+            HorizonPresentation.isNear(widget.result!)))
+          const Text(
+              'Vertical illustration is not applicable to this tangent topology; use the schematic above.')
+        else ...[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              'To Scale, Vertical Perspective: Distant Object Visibility Over Earth\'s Curvature',
+              textAlign: TextAlign.center,
+              style: titleStyle,
+            ),
           ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final spec = _mountainViewModel?.diagramSpec['metadata']?['svgSpec'];
-                  final workingArea = spec?['viewBox']?['scaling']?['workingArea'];
+          Align(
+            alignment: Alignment.center,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  final spec =
+                      _mountainViewModel?.diagramSpec['metadata']?['svgSpec'];
+                  final workingArea =
+                      spec?['viewBox']?['scaling']?['workingArea'];
                   final workingWidth = workingArea?['width'] ?? 400;
                   final workingHeight = workingArea?['height'] ?? 1000;
-                  final displayScale = spec?['viewBox']?['scaling']?['displayScale'] ?? 0.6;
-                  
+                  final displayScale =
+                      spec?['viewBox']?['scaling']?['displayScale'] ?? 0.6;
+
                   final scaledWidth = constraints.maxWidth * displayScale;
                   final height = (scaledWidth * workingHeight) / workingWidth;
-                  
+
                   print('Diagram scaling: width=$scaledWidth, height=$height');
-                  print('Working area: width=$workingWidth, height=$workingHeight');
+                  print(
+                      'Working area: width=$workingWidth, height=$workingHeight');
                   print('Constraints: ${constraints.toString()}');
-                  
+
                   return SizedBox(
                     width: scaledWidth,
                     height: height * 0.6, // Show 60% of the total height
                     child: ClipRect(
                       child: Scrollbar(
                         controller: _scrollController,
-                        thumbVisibility: true,  // Always show the scrollbar
-                        thickness: 6.0,         // Slightly thinner than default
-                        radius: const Radius.circular(10),  // Rounded corners
+                        thumbVisibility: true, // Always show the scrollbar
+                        thickness: 6.0, // Slightly thinner than default
+                        radius: const Radius.circular(10), // Rounded corners
                         child: SingleChildScrollView(
                           controller: _scrollController,
                           child: SizedBox(
                             width: scaledWidth,
                             height: height,
                             child: _mountainSvgContent == null
-                                ? const Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator())
                                 : DiagramWithInfo(
                                     svgWidget: SvgPicture.string(
                                       _mountainSvgContent!,
@@ -333,11 +408,11 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
                       ),
                     ),
                   );
-                }
+                }),
               ),
             ),
           ),
-        ),
+        ],
       ],
     );
   }

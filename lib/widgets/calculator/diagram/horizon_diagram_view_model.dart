@@ -23,12 +23,16 @@ class HorizonDiagramViewModel extends DiagramViewModel {
       'HiddenHeight': 'Hidden Height = ${_getHiddenHeightText()}',
       'VisibleHeight': 'Visible Height = ${_getVisibleHeightText()}',
       'h1': formatHeight(result?.h1),  
-      'h2': formatHeight(h2InUnits),  
+      // h2 = XC is the geometric cutoff, not the capped hidden target span.
+      'h2': formatHeight(result?.cutoffElevation != null
+          ? convertFromKm(result!.cutoffElevation!)
+          : null),
       'h3': formatHeight(result?.visibleTargetHeight != null ? convertFromKm(result!.visibleTargetHeight!) : null),  // Convert from km to current units
-      'LoS_Distance_d0': formatDistance(result?.totalDistance),  // Total line of sight distance
-      'd1': formatDistance(result?.horizonDistance),  // Distance to horizon
-      'd2': formatDistance(result?.visibleDistance),  // Distance beyond horizon
-      'L0': formatDistance(result?.inputDistance),  // Original input distance
+      'LoS_Distance_d0': result?.horizonLineDistance == null
+          ? 'N/A' : formatDistance(result!.horizonLineDistance), // AC
+      'd1': formatDistance(result?.observerToHorizonDistance), // AB
+      'd2': formatDistance(result?.horizonToTargetRadialDistance), // positive BC
+      'L0': formatDistance(result?.surfaceDistance), // Surface arc
       'radius': getRadiusText(),  
     };
   }

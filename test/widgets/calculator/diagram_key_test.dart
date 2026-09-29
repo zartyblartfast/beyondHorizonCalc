@@ -15,11 +15,15 @@ void main() {
     await tester.tap(find.text('Diagram key: points and distances'));
     await tester.pumpAndSettle();
 
-    expect(find.text('C-Z'), findsOneWidget);
-    expect(
-        find.text(
-            'Target-top shortfall to the horizon line (only when the top is below it)'),
+    expect(find.textContaining('Before B, C is not a visibility cutoff'),
         findsOneWidget);
+    expect(find.text('D0 / A-C'), findsOneWidget);
+    expect(find.text('A-Z'), findsOneWidget);
+    expect(find.text('D1 / A-B'), findsOneWidget);
+    expect(find.text('D2 / B-C'), findsOneWidget);
+    expect(find.textContaining('D1 - D2 before'), findsOneWidget);
+    expect(find.textContaining('beyond the horizon'), findsOneWidget);
+    expect(find.text('C-Z'), findsOneWidget);
     expect(find.text('Observer eye'), findsOneWidget);
     expect(find.textContaining('Surface/geodesic distance'), findsOneWidget);
     expect(

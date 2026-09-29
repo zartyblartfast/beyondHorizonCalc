@@ -4,6 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('separates horizon AC from geometric AZ and missing top', (tester) async {
+    for (final top in <double?>[100, null]) {
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: ResultsDisplay(
+        result: const CalculationResult(horizonLineDistance: 42, totalDistance: 43,
+            observerToTargetTopDistance: 44), isMetric: true, targetHeight: top))));
+      expect(find.text('Horizon-line distance (D0 / AC)'), findsOneWidget);
+      expect(find.text('42.00 km'), findsOneWidget);
+      expect(find.text('Direct geometric distance to target top (AZ)'), findsOneWidget);
+      expect(find.text(top == null ? 'N/A' : '44.00 km'), findsOneWidget);
+    }
+  });
   group('ResultsDisplay', () {
     const testResult = CalculationResult(
       horizonDistance: 10,
@@ -83,7 +94,7 @@ void main() {
         ),
       );
 
-      expect(find.text('N/A'), findsNWidgets(2));
+      expect(find.text('N/A'), findsNWidgets(4));
       expect(find.text('N/A°'), findsOneWidget);
     });
   });
