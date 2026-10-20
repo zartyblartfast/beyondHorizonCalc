@@ -39,7 +39,7 @@ void main() {
   for (final width in [390.0, 1400.0]) {
     testWidgets('renders page results and expanded key $width', (tester) async {
       tester.view.devicePixelRatio = 1;
-      tester.view.physicalSize = Size(width, 1600);
+      tester.view.physicalSize = Size(width, 2000);
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
       final key = GlobalKey();
@@ -66,6 +66,8 @@ void main() {
                   ]),
                 ))),
       ));
+      await tester.tap(find.text('Detailed measurements'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Diagram key: points and distances'));
       await tester.pumpAndSettle();
       expect(find.text('C-Z'), findsOneWidget);
@@ -130,8 +132,7 @@ void main() {
               () => Future<void>.delayed(const Duration(milliseconds: 50)));
           await tester.pump(const Duration(milliseconds: 100));
         }
-        expect(
-            find.text('Target top below horizon line (CZ)'), findsOneWidget);
+        expect(find.text('Target top below horizon line (CZ)'), findsOneWidget);
         expect(find.byType(CircularProgressIndicator), findsNothing);
         expect(find.text('beyondhorizoncalc.com'), findsOneWidget);
         expect(tester.takeException(), isNull);

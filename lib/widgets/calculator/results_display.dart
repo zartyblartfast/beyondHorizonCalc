@@ -29,29 +29,6 @@ class ResultsDisplay extends StatelessWidget {
     return '${displayValue.toStringAsFixed(1)} ${isMetric ? 'm' : 'ft'}';
   }
 
-  String _getDiagramAsset() {
-    if (result == null) return 'assets/svg/BTH_1.svg';
-
-    // If target height is null or 0, show BTH_1
-    if (targetHeight == null || targetHeight == 0) {
-      return 'assets/svg/BTH_1.svg';
-    }
-
-    // Get h2 (XC) from the hiddenHeight
-    final double? h2 = result!.hiddenHeight;
-    if (h2 == null) return 'assets/svg/BTH_1.svg';
-
-    // Compare target height with h2
-    if (targetHeight! < h2) {
-      return 'assets/svg/BTH_2.svg';
-    } else if ((targetHeight! - h2).abs() < 0.000001) {
-      // Use small epsilon for floating point comparison
-      return 'assets/svg/BTH_3.svg';
-    } else {
-      return 'assets/svg/BTH_4.svg';
-    }
-  }
-
   Widget _buildResultRow(String label, String value, {String? infoKey}) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -117,63 +94,67 @@ class ResultsDisplay extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildResultRow(
-                  'Horizon-line distance (D0 / AC)',
-                  _formatDistance(result!.horizonLineDistance),
-                ),
-                _buildResultRow(
-                  'Direct geometric distance to target top (AZ)',
-                  _formatDistance(targetHeight == null
-                      ? null
-                      : result!.observerToTargetTopDistance ??
-                          result!.totalDistance),
-                ),
-                _buildResultRow(
-                  'Distance to Horizon (D1)',
-                  _formatDistance(result!.horizonDistance),
-                  infoKey: 'horizon_distance',
-                ),
-                _buildResultRow(
-                  'Horizon Dip Angle',
-                  '${result!.dipAngle?.toStringAsFixed(2) ?? 'N/A'}°',
-                  infoKey: 'dip_angle',
-                ),
+                if (!HorizonPresentation.isNear(result!) &&
+                    targetHeight != null &&
+                    result!.visibleTargetHeight != null)
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Text(
+                          result!.visibleTargetHeight! <= 0
+                              ? 'Target hidden'
+                              : (result!.hiddenHeight ?? 0) > 0
+                                  ? 'Target partially visible'
+                                  : 'Target visible',
+                          style: Theme.of(context).textTheme.titleLarge)),
                 if (HorizonPresentation.isNear(result!))
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(HorizonPresentation.status(result!)),
-                  )
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(HorizonPresentation.status(result!)))
                 else ...[
+                  if (targetHeight != null)
+                    _buildResultRow('Visible Height (h3)',
+                        _formatHeight(result!.visibleTargetHeight),
+                        infoKey: 'visible_height'),
                   _buildResultRow(
-                    targetHeight == null
-                        ? 'Horizon cutoff elevation (XC)'
-                        : 'Hidden target height',
-                    targetHeight == null && result!.hiddenHeight != null
-                        ? '${_formatHeight(result!.hiddenHeight)} AMSL'
-                        : _formatHeight(result!.hiddenHeight),
-                    infoKey: 'hidden_height',
-                  ),
-                  if (targetHeight != null) ...[
-                    _buildResultRow(
-                      'Visible Height (h3)',
-                      _formatHeight(result!.visibleTargetHeight!),
-                      infoKey: 'visible_height',
-                    ),
-                    if (formatTargetTopShortfall(result!, isMetric)
-                        case final value?)
-                      _buildResultRow(targetTopShortfallLabel, value),
-                    _buildResultRow(
-                      'Apparent Visible Height (CD)',
-                      _formatHeight(result!.apparentVisibleHeight!),
-                      infoKey: 'apparent_height',
-                    ),
-                    _buildResultRow(
-                      'Perspective Scaled Apparent Visible Height',
-                      _formatHeight(result!.perspectiveScaledHeight!),
-                      infoKey: 'perspective_scaled_height',
-                    ),
-                  ],
+                      targetHeight == null
+                          ? 'Horizon cutoff elevation (XC)'
+                          : 'Hidden target height',
+                      targetHeight == null && result!.hiddenHeight != null
+                          ? '${_formatHeight(result!.hiddenHeight)} AMSL'
+                          : _formatHeight(result!.hiddenHeight),
+                      infoKey: 'hidden_height'),
                 ],
+                _buildResultRow('Distance to Horizon (D1)',
+                    _formatDistance(result!.horizonDistance),
+                    infoKey: 'horizon_distance'),
+                _buildResultRow('Horizon Dip Angle',
+                    '${result!.dipAngle?.toStringAsFixed(2) ?? 'N/A'}°',
+                    infoKey: 'dip_angle'),
+                ExpansionTile(
+                    title: const Text('Detailed measurements'),
+                    children: [
+                      _buildResultRow('Horizon-line distance (D0 / AC)',
+                          _formatDistance(result!.horizonLineDistance)),
+                      _buildResultRow(
+                          'Direct geometric distance to target top (AZ)',
+                          _formatDistance(targetHeight == null
+                              ? null
+                              : result!.observerToTargetTopDistance ??
+                                  result!.totalDistance)),
+                      if (targetHeight != null &&
+                          !HorizonPresentation.isNear(result!)) ...[
+                        if (formatTargetTopShortfall(result!, isMetric)
+                            case final value?)
+                          _buildResultRow(targetTopShortfallLabel, value),
+                        _buildResultRow('Apparent Visible Height (CD)',
+                            _formatHeight(result!.apparentVisibleHeight),
+                            infoKey: 'apparent_height'),
+                        _buildResultRow(
+                            'Perspective Scaled Apparent Visible Height',
+                            _formatHeight(result!.perspectiveScaledHeight),
+                            infoKey: 'perspective_scaled_height'),
+                      ],
+                    ]),
               ],
             ),
           ),

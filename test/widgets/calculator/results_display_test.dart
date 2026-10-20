@@ -4,14 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('separates horizon AC from geometric AZ and missing top', (tester) async {
+  testWidgets('separates horizon AC from geometric AZ and missing top',
+      (tester) async {
     for (final top in <double?>[100, null]) {
-      await tester.pumpWidget(MaterialApp(home: Scaffold(body: ResultsDisplay(
-        result: const CalculationResult(horizonLineDistance: 42, totalDistance: 43,
-            observerToTargetTopDistance: 44), isMetric: true, targetHeight: top))));
+      await tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+              body: ResultsDisplay(
+                  result: const CalculationResult(
+                      horizonLineDistance: 42,
+                      totalDistance: 43,
+                      observerToTargetTopDistance: 44),
+                  isMetric: true,
+                  targetHeight: top))));
+      if (find.text('Detailed measurements').evaluate().isNotEmpty &&
+          find.text('Horizon-line distance (D0 / AC)').evaluate().isEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
       expect(find.text('Horizon-line distance (D0 / AC)'), findsOneWidget);
       expect(find.text('42.00 km'), findsOneWidget);
-      expect(find.text('Direct geometric distance to target top (AZ)'), findsOneWidget);
+      expect(find.text('Direct geometric distance to target top (AZ)'),
+          findsOneWidget);
       expect(find.text(top == null ? 'N/A' : '44.00 km'), findsOneWidget);
     }
   });
@@ -33,6 +46,11 @@ void main() {
           ),
         ),
       );
+      if (find.text('Detailed measurements').evaluate().isNotEmpty &&
+          find.text('Horizon-line distance (D0 / AC)').evaluate().isEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
 
       expect(find.byType(Card), findsNothing);
     });
@@ -49,6 +67,11 @@ void main() {
           ),
         ),
       );
+      if (find.text('Detailed measurements').evaluate().isNotEmpty &&
+          find.text('Horizon-line distance (D0 / AC)').evaluate().isEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
 
       expect(find.text('10.00 km'), findsOneWidget);
       expect(find.text('20.0 m'), findsOneWidget);
@@ -70,6 +93,11 @@ void main() {
           ),
         ),
       );
+      if (find.text('Detailed measurements').evaluate().isNotEmpty &&
+          find.text('Horizon-line distance (D0 / AC)').evaluate().isEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
 
       expect(find.text('6.21 mi'), findsOneWidget);
       expect(find.text('65.6 ft'), findsOneWidget);
@@ -93,6 +121,11 @@ void main() {
           ),
         ),
       );
+      if (find.text('Detailed measurements').evaluate().isNotEmpty &&
+          find.text('Horizon-line distance (D0 / AC)').evaluate().isEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
 
       expect(find.text('N/A'), findsNWidgets(4));
       expect(find.text('N/A°'), findsOneWidget);

@@ -34,9 +34,19 @@ Future<void> pumpCalculatorWithPresets(WidgetTester tester) async {
   fail('The default example scenario did not finish loading');
 }
 
-Finder inputField(String label) => find.byWidgetPredicate(
-      (widget) => widget is TextField && widget.decoration?.labelText == label,
-    );
+Finder inputField(String label) => find
+        .byWidgetPredicate(
+          (widget) =>
+              widget is TextField && widget.decoration?.labelText == label,
+        )
+        .evaluate()
+        .isNotEmpty
+    ? find.byWidgetPredicate(
+        (widget) =>
+            widget is TextField && widget.decoration?.labelText == label,
+      )
+    : find.descendant(
+        of: find.byKey(ValueKey(label)), matching: find.byType(TextField));
 
 void main() {
   testWidgets('Narrow rebuild safely tracks surface controller changes',
@@ -45,7 +55,7 @@ void main() {
     await tester.tap(find.text('Edit these values'));
     await tester.pump();
     await tester.pump();
-    await tester.tap(find.text('Surface above sea level'));
+    await tester.tap(find.text('Change for an elevated lake'));
     await tester.pump();
     await tester.enterText(inputField('Horizon surface elevation'), '10');
     await tester.tap(find.text('Calculate visibility'));
@@ -85,11 +95,11 @@ void main() {
       await tester.pump();
       await tester.pump();
       if (entry.key == 'Base elevation') {
-        await tester.tap(find.text('Structure height + base elevation'));
+        await tester.tap(find.text('Use base elevation + height instead'));
         await tester.pump();
       }
       if (entry.key == 'Horizon surface elevation') {
-        await tester.tap(find.text('Surface above sea level'));
+        await tester.tap(find.text('Change for an elevated lake'));
         await tester.pump();
       }
       await tester.tap(find.text('Calculate visibility'));
@@ -104,12 +114,15 @@ void main() {
     });
   }
 
-  testWidgets('Refraction changes also mark example results dirty',
+  testWidgets('Refraction changes mark copied custom results dirty',
       (tester) async {
     await pumpCalculatorWithPresets(tester);
     await tester.pump();
     final oldResult =
         tester.widget<ResultsDisplay>(find.byType(ResultsDisplay)).result;
+    await tester.tap(find.text('Edit these values'));
+    await tester.pump();
+    await tester.pump();
     await tester.tap(find.text('Very High (1.20)').last);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
@@ -117,8 +130,12 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('Inputs changed — recalculate'), findsOneWidget);
-    expect(tester.widget<ResultsDisplay>(find.byType(ResultsDisplay)).result,
-        same(oldResult));
+    expect(
+        tester
+            .widget<ResultsDisplay>(find.byType(ResultsDisplay))
+            .result!
+            .horizonDistance,
+        oldResult!.horizonDistance);
     await tester.tap(find.text('Share result'));
     await tester.pump();
     final dialog =
@@ -133,20 +150,22 @@ void main() {
     await tester.tap(find.text('Edit these values'));
     await tester.pump();
     await tester.pump();
-    await tester.tap(find.text('Surface above sea level'));
+    await tester.tap(find.text('Change for an elevated lake'));
     await tester.pump();
 
     await tester.enterText(inputField('Horizon surface elevation'), '10');
     await tester.tap(find.text('Calculate visibility'));
     await tester.pump();
-    await tester.tap(find.text('Sea level'));
+    await tester.tap(find.text('Reset to sea level'));
     await tester.pump();
     expect(find.text('Inputs changed — recalculate'), findsOneWidget);
     await tester.tap(find.text('Calculate visibility'));
     await tester.pump();
-    await tester.tap(find.text('Surface above sea level'));
+    await tester.tap(find.text('Change for an elevated lake'));
     await tester.pump();
-    expect(find.text('Inputs changed — recalculate'), findsOneWidget);
+    expect(find.text('Inputs changed — recalculate'), findsNothing);
+    await tester.enterText(inputField('Horizon surface elevation'), '10');
+    await tester.pump();
     await tester.tap(find.text('Share result'));
     await tester.pump();
     final dialog =
@@ -204,7 +223,7 @@ void main() {
     await tester.pump();
     final oldDiagram =
         tester.widget<DiagramDisplay>(find.byType(DiagramDisplay));
-    await tester.tap(find.text('Structure height + base elevation'));
+    await tester.tap(find.text('Use base elevation + height instead'));
     await tester.pump();
     expect(find.text('Inputs changed — recalculate'), findsOneWidget);
     expect(
@@ -212,7 +231,7 @@ void main() {
             .widget<DiagramDisplay>(find.byType(DiagramDisplay))
             .isStructureTarget,
         oldDiagram.isStructureTarget);
-    await tester.enterText(inputField('Structure height (optional)'), '100');
+    await tester.enterText(inputField('Height above base (optional)'), '100');
     await tester.enterText(inputField('Base elevation'), '200');
     await tester.pump();
     expect(
@@ -287,7 +306,7 @@ void main() {
     final shareCenter = tester.getCenter(find.text('Share result'));
     final calculateCenter = tester.getCenter(find.text('Calculate visibility'));
     expect(shareCenter.dy, closeTo(calculateCenter.dy, 1));
-    expect(shareCenter.dx, lessThan(calculateCenter.dx));
+    expect(shareCenter.dx, greaterThan(calculateCenter.dx));
     await tester.tap(find.text('Share result'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
@@ -299,7 +318,10 @@ void main() {
     expect(find.text('Karagöl Area to Shkhara - World Record'), findsWidgets);
     expect(find.text('3035.0 m AMSL'), findsOneWidget);
     expect(find.text('493.1 km'), findsOneWidget);
-    expect(find.text('1.20'), findsOneWidget);
+    expect(
+        find.descendant(
+            of: find.byType(ShareResultDialog), matching: find.text('1.20')),
+        findsOneWidget);
     expect(find.text('Apparent visible height'), findsNothing);
     expect(find.byKey(const ValueKey('share_result_diagram')), findsOneWidget);
     expect(find.byKey(const ValueKey('share_result_globe')), findsOneWidget);

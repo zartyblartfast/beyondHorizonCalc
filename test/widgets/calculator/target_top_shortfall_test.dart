@@ -48,6 +48,10 @@ void main() {
         share(result, true, top: scenario.top?.toString() ?? '')
       ]) {
         await tester.pumpWidget(MaterialApp(home: Scaffold(body: widget)));
+        if (find.text('Detailed measurements').evaluate().isNotEmpty) {
+          await tester.tap(find.text('Detailed measurements'));
+          await tester.pump(const Duration(milliseconds: 300));
+        }
         await tester.pump();
         expect(
             find.text(label), scenario.shown ? findsOneWidget : findsNothing);
@@ -61,6 +65,10 @@ void main() {
       const result = CalculationResult(targetTopShortfall: 0.000001);
       for (final widget in [page(result, metric), share(result, metric)]) {
         await tester.pumpWidget(MaterialApp(home: Scaffold(body: widget)));
+        if (find.text('Detailed measurements').evaluate().isNotEmpty) {
+          await tester.tap(find.text('Detailed measurements'));
+          await tester.pump(const Duration(milliseconds: 300));
+        }
         await tester.pump();
         expect(find.text(label), findsOneWidget);
         expect(find.text(metric ? '< 0.1 m' : '< 0.1 ft'), findsOneWidget);
@@ -73,6 +81,10 @@ void main() {
       final result = CalculationResult(targetTopShortfall: shortfall);
       for (final widget in [page(result, true), share(result, true)]) {
         await tester.pumpWidget(MaterialApp(home: Scaffold(body: widget)));
+        if (find.text('Detailed measurements').evaluate().isNotEmpty) {
+          await tester.tap(find.text('Detailed measurements'));
+          await tester.pump(const Duration(milliseconds: 300));
+        }
         await tester.pump();
         expect(find.text(label), findsNothing);
       }
@@ -86,6 +98,10 @@ void main() {
       share(result, true, top: '')
     ]) {
       await tester.pumpWidget(MaterialApp(home: Scaffold(body: widget)));
+      if (find.text('Detailed measurements').evaluate().isNotEmpty) {
+        await tester.tap(find.text('Detailed measurements'));
+        await tester.pump(const Duration(milliseconds: 300));
+      }
       await tester.pump();
       expect(find.text(label), findsNothing);
     }
@@ -106,6 +122,10 @@ void main() {
               home: Scaffold(
                   body:
                       isShare ? share(result, metric) : page(result, metric))));
+          if (find.text('Detailed measurements').evaluate().isNotEmpty) {
+            await tester.tap(find.text('Detailed measurements'));
+            await tester.pump(const Duration(milliseconds: 300));
+          }
           for (var i = 0; i < 10; i++) {
             await tester.runAsync(
                 () => Future<void>.delayed(const Duration(milliseconds: 50)));

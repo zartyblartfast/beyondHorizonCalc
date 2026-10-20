@@ -13,6 +13,7 @@ class LineOfSightPreset {
   final double? targetHeight;
   final TargetInputType targetInputType;
   final double targetBaseElevation;
+  final double interveningSurfaceElevation;
 
   const LineOfSightPreset({
     required this.name,
@@ -24,6 +25,7 @@ class LineOfSightPreset {
     this.targetHeight,
     this.targetInputType = TargetInputType.elevation,
     this.targetBaseElevation = 0,
+    this.interveningSurfaceElevation = 0,
   });
 
   factory LineOfSightPreset.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,8 @@ class LineOfSightPreset {
       distance: json['distance'].toDouble(),
       refractionFactor: json['refractionFactor'].toDouble(),
       targetHeight: json['targetHeight']?.toDouble(),
+      interveningSurfaceElevation:
+          (json['interveningSurfaceElevation'] as num?)?.toDouble() ?? 0,
       targetInputType: json['targetInputType'] == 'structure'
           ? TargetInputType.structure
           : TargetInputType.elevation,
@@ -53,6 +57,8 @@ class LineOfSightPreset {
         'refractionFactor': refractionFactor,
         if (targetHeight != null) 'targetHeight': targetHeight,
         'targetInputType': targetInputType.name,
+        if (interveningSurfaceElevation != 0)
+          'interveningSurfaceElevation': interveningSurfaceElevation,
         if (targetInputType == TargetInputType.structure)
           'targetBaseElevation': targetBaseElevation,
       };
@@ -69,7 +75,8 @@ class LineOfSightPreset {
           refractionFactor == other.refractionFactor &&
           targetHeight == other.targetHeight &&
           targetInputType == other.targetInputType &&
-          targetBaseElevation == other.targetBaseElevation;
+          targetBaseElevation == other.targetBaseElevation &&
+          interveningSurfaceElevation == other.interveningSurfaceElevation;
 
   @override
   int get hashCode => Object.hash(
@@ -82,6 +89,7 @@ class LineOfSightPreset {
         targetHeight,
         targetInputType,
         targetBaseElevation,
+        interveningSurfaceElevation,
       );
 
   static Future<List<LineOfSightPreset>> loadPresets(

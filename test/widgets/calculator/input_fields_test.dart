@@ -34,15 +34,15 @@ void main() {
       ),
     );
 
-    expect(find.text('Observer and viewing path'), findsOneWidget);
-    expect(find.text('Horizon-forming surface'), findsOneWidget);
-    expect(find.text('Target'), findsOneWidget);
-    expect(find.text('Atmosphere'), findsOneWidget);
+    expect(find.text('Observer and viewing path'), findsNothing);
+    expect(find.text('Horizon-forming surface'), findsNothing);
+    expect(find.text('Target'), findsNothing);
+    expect(find.text('Atmosphere'), findsNothing);
     expect(find.text('Observer eye elevation'), findsOneWidget);
     expect(find.text('Observer eye elevation (h1)'), findsNothing);
     expect(find.text('Horizon surface elevation'), findsNothing);
 
-    await tester.tap(find.text('Surface above sea level'));
+    await tester.tap(find.text('Edit'));
     await tester.pump();
 
     expect(find.text('Horizon surface elevation'), findsOneWidget);
@@ -126,15 +126,15 @@ void main() {
       find.byKey(const ValueKey('target_measurement_selector')),
       findsOneWidget,
     );
-    expect(find.text('Top elevation'), findsOneWidget);
-    expect(find.text('Structure height + base elevation'), findsOneWidget);
+    expect(find.text('Top elevation'), findsNothing);
+    expect(find.text('Use base elevation + height instead'), findsOneWidget);
     expect(find.text('Target top elevation (optional)'), findsOneWidget);
     expect(find.text('Base elevation'), findsNothing);
 
-    await tester.tap(find.text('Structure height + base elevation'));
+    await tester.tap(find.text('Use base elevation + height instead'));
     await tester.pump();
 
-    expect(find.text('Structure height (optional)'), findsOneWidget);
+    expect(find.text('Height above base (optional)'), findsOneWidget);
     expect(find.text('Base elevation'), findsOneWidget);
   });
 
@@ -201,15 +201,10 @@ void main() {
       ),
     );
 
-    final descriptionRect = tester.getRect(find.text(
-      'Start with where the viewer is and how far away the target is.',
-    ));
     final observerFieldRect = tester.getRect(find.byType(TextFormField).first);
-
-    expect(
-      observerFieldRect.top - descriptionRect.bottom,
-      lessThanOrEqualTo(12),
-    );
+    final distanceFieldRect = tester.getRect(find.byType(TextFormField).at(1));
+    expect(distanceFieldRect.top - observerFieldRect.bottom,
+        lessThanOrEqualTo(12));
   });
 
   testWidgets('custom desktop form uses compact control heights',
@@ -249,18 +244,6 @@ void main() {
       tester.getSize(find.byType(TextFormField).first).height,
       lessThanOrEqualTo(48),
     );
-    expect(
-      tester
-          .getSize(
-            find
-                .ancestor(
-                  of: find.text('Sea level'),
-                  matching: find.byType(Material),
-                )
-                .first,
-          )
-          .height,
-      lessThanOrEqualTo(84),
-    );
+    expect(find.text('Intervening surface: sea level'), findsOneWidget);
   });
 }

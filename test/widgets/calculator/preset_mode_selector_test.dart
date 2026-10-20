@@ -50,11 +50,10 @@ void main() {
     await tester.pump();
 
     expect(tester.widget<EditableText>(observerEditableText).readOnly, isFalse);
-    expect(tester.widget<TextFormField>(observerField).controller!.text,
-        presetValue);
+    expect(tester.widget<TextFormField>(observerField).controller!.text, '');
     expect(find.byKey(const ValueKey('preset_dropdown')), findsNothing);
 
-    await tester.tap(find.text('Surface above sea level'));
+    await tester.tap(find.text('Change for an elevated lake'));
     await tester.pump();
     expect(find.text('Horizon surface elevation'), findsOneWidget);
 

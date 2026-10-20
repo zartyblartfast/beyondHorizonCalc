@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../../core/constants/range_limits.dart';
 import '../../models/line_of_sight_preset.dart';
 import '../common/info_icon.dart';
+import 'input_help_dialog.dart';
 
 class InputFields extends StatelessWidget {
   final TextEditingController observerHeightController;
@@ -43,51 +44,40 @@ class InputFields extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isNarrow = constraints.maxWidth < 600;
-        final observerField = _buildInputField(
-          controller: observerHeightController,
-          label: 'Observer eye elevation',
-          suffix: isMetric ? 'm AMSL' : 'ft AMSL',
-          validator: _validateObserverHeight,
-          enabled: isCustomPreset,
-          infoKey: 'observer_height',
-        );
-        final distanceField = _buildInputField(
-          controller: distanceController,
-          label: 'Surface distance to target',
-          suffix: isMetric ? 'km' : 'mi',
-          validator: _validateDistance,
-          enabled: isCustomPreset,
-          infoKey: 'distance',
-        );
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildSectionHeader(
-              context,
-              'Observer and viewing path',
-              'Start with where the viewer is and how far away the target is.',
-            ),
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildInputField(
+              controller: observerHeightController,
+              label: 'Observer eye elevation',
+              suffix: isMetric ? 'm AMSL' : 'ft AMSL',
+              validator: _validateObserverHeight,
+              enabled: isCustomPreset,
+              infoKey: 'observer_height'),
+          const SizedBox(height: 12),
+          _buildInputField(
+              controller: distanceController,
+              label: 'Surface distance to target',
+              suffix: isMetric ? 'km' : 'mi',
+              validator: _validateDistance,
+              enabled: isCustomPreset,
+              infoKey: 'distance'),
+          const SizedBox(height: 12),
+          if (targetInputType == TargetInputType.structure) ...[
+            _buildTargetBaseElevationField(),
             const SizedBox(height: 12),
-            _buildResponsivePair(
-              isNarrow: isNarrow,
-              first: observerField,
-              second: distanceField,
-            ),
-            const SizedBox(height: 16),
-            const Divider(),
-            const SizedBox(height: 12),
-            _buildSectionHeader(
-              context,
-              'Horizon-forming surface',
-              'Choose the water or broadly level surface between observer and target.',
-            ),
-            const SizedBox(height: 12),
-            _SurfaceSection(
+          ],
+          _buildTargetHeightField(),
+          if (isCustomPreset)
+            Row(children: [
+              Expanded(child: _buildTargetInputTypeSelector()),
+              const InputHelpButton(target: true)
+            ]),
+          const SizedBox(height: 12),
+          _buildRefractionDropdown(),
+          const SizedBox(height: 12),
+          const Divider(),
+          _SurfaceSection(
               key: const ValueKey('horizon_surface_section'),
               surfaceAboveSeaLevel: surfaceAboveSeaLevel,
               onSurfaceChanged: onSurfaceChanged,
@@ -96,111 +86,26 @@ class InputFields extends StatelessWidget {
               isMetric: isMetric,
               isEditable: isCustomPreset,
               onCalculate: onCalculate,
-              validator: _validateInterveningSurfaceElevation,
-            ),
+              validator: _validateInterveningSurfaceElevation),
+          if (showCalculateButton) ...[
             const SizedBox(height: 16),
-            const Divider(),
-            const SizedBox(height: 12),
-            _buildSectionHeader(
-              context,
-              'Target',
-              'Optionally describe the target to show how much remains visible.',
-            ),
-            if (isCustomPreset) ...[
-              const SizedBox(height: 12),
-              _buildTargetInputTypeSelector(),
-            ],
-            const SizedBox(height: 12),
-            _buildResponsivePair(
-              isNarrow: isNarrow,
-              first: _buildTargetHeightField(),
-              second: targetInputType == TargetInputType.structure
-                  ? _buildTargetBaseElevationField()
-                  : null,
-            ),
-            const SizedBox(height: 16),
-            const Divider(),
-            const SizedBox(height: 12),
-            _buildSectionHeader(
-              context,
-              'Atmosphere',
-              'Choose how strongly atmospheric refraction bends the line of sight.',
-            ),
-            const SizedBox(height: 12),
-            _buildRefractionDropdown(),
-            if (showCalculateButton) ...[
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 12,
+                runSpacing: 8,
                 children: [
+                  ElevatedButton(
+                      onPressed: onCalculate,
+                      child: const Text('Calculate visibility')),
                   if (onShare != null)
                     TextButton.icon(
-                      onPressed: onShare,
-                      icon: const Icon(Icons.ios_share),
-                      label: const Text('Share result'),
-                    )
-                  else
-                    const SizedBox.shrink(),
-                  ElevatedButton(
-                    onPressed: onCalculate,
-                    child: const Text('Calculate visibility'),
-                  ),
-                ],
-              ),
-            ],
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildSectionHeader(
-    BuildContext context,
-    String title,
-    String description,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-        const SizedBox(height: 4),
-        Text(description, style: Theme.of(context).textTheme.bodySmall),
-      ],
-    );
-  }
-
-  Widget _buildResponsivePair({
-    required bool isNarrow,
-    required Widget first,
-    Widget? second,
-  }) {
-    if (isNarrow) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          first,
-          if (second != null) ...[
-            const SizedBox(height: 12),
-            second,
+                        onPressed: onShare,
+                        icon: const Icon(Icons.ios_share),
+                        label: const Text('Share result')),
+                ]),
           ],
         ],
       );
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(child: first),
-        const SizedBox(width: 16),
-        Expanded(child: second ?? const SizedBox.shrink()),
-      ],
-    );
-  }
 
   Widget _buildInputField({
     required TextEditingController controller,
@@ -212,13 +117,16 @@ class InputFields extends StatelessWidget {
   }) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 600;
+        final isMobile = MediaQuery.sizeOf(context).width < 900;
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            if (!isMobile)
+              SizedBox(width: constraints.maxWidth * 0.45, child: Text(label)),
             Expanded(
               child: TextFormField(
+                key: ValueKey(label),
                 controller: controller,
                 enabled: true,
                 readOnly: !enabled,
@@ -226,13 +134,13 @@ class InputFields extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
-                  labelText: label,
+                  labelText: isMobile ? label : null,
                   suffixText: suffix,
                   border: const OutlineInputBorder(),
                   contentPadding: isMobile
                       ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
                       : const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 16),
+                          horizontal: 12, vertical: 12),
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
@@ -265,7 +173,7 @@ class InputFields extends StatelessWidget {
       controller: targetHeightController,
       label: targetInputType == TargetInputType.elevation
           ? 'Target top elevation (optional)'
-          : 'Structure height (optional)',
+          : 'Height above base (optional)',
       suffix: targetInputType == TargetInputType.elevation
           ? (isMetric ? 'm AMSL' : 'ft AMSL')
           : (isMetric ? 'm' : 'ft'),
@@ -286,63 +194,52 @@ class InputFields extends StatelessWidget {
     );
   }
 
-  Widget _buildTargetInputTypeSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Target measurement',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 6),
-        SegmentedButton<TargetInputType>(
+  Widget _buildTargetInputTypeSelector() => Align(
+        alignment: Alignment.centerLeft,
+        child: TextButton(
           key: const ValueKey('target_measurement_selector'),
-          showSelectedIcon: false,
-          expandedInsets: EdgeInsets.zero,
-          segments: const [
-            ButtonSegment(
-              value: TargetInputType.elevation,
-              label: Text('Top elevation', textAlign: TextAlign.center),
-            ),
-            ButtonSegment(
-              value: TargetInputType.structure,
-              label: Text(
-                'Structure height + base elevation',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-          selected: {targetInputType},
-          onSelectionChanged: isCustomPreset
-              ? (values) => onTargetInputTypeChanged(values.first)
-              : null,
+          onPressed: () => onTargetInputTypeChanged(
+              targetInputType == TargetInputType.elevation
+                  ? TargetInputType.structure
+                  : TargetInputType.elevation),
+          child: Text(targetInputType == TargetInputType.elevation
+              ? 'Use base elevation + height instead'
+              : 'Use top elevation instead'),
         ),
-      ],
-    );
-  }
+      );
 
   Widget _buildRefractionDropdown() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 600;
+        final isMobile = MediaQuery.sizeOf(context).width < 900;
 
+        if (!isCustomPreset) {
+          return Row(children: [
+            const Expanded(child: Text('Refraction')),
+            Text(refractionFactorController.text)
+          ]);
+        }
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            if (!isMobile)
+              SizedBox(
+                  width: constraints.maxWidth * 0.45,
+                  child: const Text('Refraction')),
             Expanded(
               child: SizedBox(
-                height: isMobile ? 60 : 56,
+                height: 56,
                 child: DropdownButtonFormField<String>(
                   isExpanded: true,
                   value: _getRefractionKey(refractionFactorController.text),
                   decoration: InputDecoration(
-                    labelText: 'Refraction',
+                    labelText: isMobile ? 'Refraction' : null,
                     border: const OutlineInputBorder(),
                     contentPadding: isMobile
                         ? const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 12)
                         : const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 16),
+                            horizontal: 12, vertical: 12),
                   ),
                   items: const [
                     DropdownMenuItem(value: 'none', child: Text('None (1.00)')),
@@ -574,211 +471,89 @@ class _SurfaceSection extends StatefulWidget {
 }
 
 class _SurfaceSectionState extends State<_SurfaceSection> {
-  bool _usesSurfaceAboveSeaLevel = false;
-  late String _savedSurfaceElevation;
-
+  bool _editorOpen = false;
   @override
   void initState() {
     super.initState();
-    _savedSurfaceElevation = widget.surfaceElevationController.text;
-    _usesSurfaceAboveSeaLevel = widget.surfaceAboveSeaLevel ?? false;
-    widget.observerHeightController.addListener(_refreshDerivedHeight);
-    widget.surfaceElevationController.addListener(_refreshDerivedHeight);
+    widget.observerHeightController.addListener(_refresh);
+    widget.surfaceElevationController.addListener(_refresh);
+  }
+
+  void _refresh() {
+    if (mounted) setState(() {});
   }
 
   @override
   void didUpdateWidget(_SurfaceSection oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.observerHeightController != widget.observerHeightController) {
-      oldWidget.observerHeightController.removeListener(_refreshDerivedHeight);
-      widget.observerHeightController.addListener(_refreshDerivedHeight);
-    }
-    if (oldWidget.surfaceElevationController !=
-        widget.surfaceElevationController) {
-      oldWidget.surfaceElevationController
-          .removeListener(_refreshDerivedHeight);
-      widget.surfaceElevationController.addListener(_refreshDerivedHeight);
-    }
-    if (widget.surfaceAboveSeaLevel != null) {
-      _usesSurfaceAboveSeaLevel = widget.surfaceAboveSeaLevel!;
-    }
-    if (!widget.isEditable && _usesSurfaceAboveSeaLevel) {
-      _savedSurfaceElevation = widget.surfaceElevationController.text;
-      widget.surfaceElevationController.text = '0.0';
-      _usesSurfaceAboveSeaLevel = false;
+    if (oldWidget.isEditable != widget.isEditable ||
+        (oldWidget.surfaceAboveSeaLevel == true &&
+            widget.surfaceAboveSeaLevel == false)) {
+      _editorOpen = false;
     }
   }
 
   @override
   void dispose() {
-    widget.observerHeightController.removeListener(_refreshDerivedHeight);
-    widget.surfaceElevationController.removeListener(_refreshDerivedHeight);
+    widget.observerHeightController.removeListener(_refresh);
+    widget.surfaceElevationController.removeListener(_refresh);
     super.dispose();
-  }
-
-  void _refreshDerivedHeight() {
-    if (mounted) setState(() {});
-  }
-
-  void _selectSurface(bool aboveSeaLevel) {
-    if (!widget.isEditable || aboveSeaLevel == _usesSurfaceAboveSeaLevel) {
-      return;
-    }
-
-    setState(() {
-      if (aboveSeaLevel) {
-        widget.surfaceElevationController.text = _savedSurfaceElevation;
-        _usesSurfaceAboveSeaLevel = true;
-      } else {
-        _savedSurfaceElevation = widget.surfaceElevationController.text;
-        widget.surfaceElevationController.text = '0.0';
-        _usesSurfaceAboveSeaLevel = false;
-      }
-    });
-    widget.onSurfaceChanged?.call(aboveSeaLevel);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isNarrow = constraints.maxWidth < 600;
-        final options = [
-          _surfaceOption(
-            context,
-            selected: !_usesSurfaceAboveSeaLevel,
-            title: 'Sea level',
-            description:
-                'Use 0 ${widget.isMetric ? 'm' : 'ft'} AMSL for the usual sea-level calculation.',
-            onTap: () => _selectSurface(false),
-          ),
-          _surfaceOption(
-            context,
-            selected: _usesSurfaceAboveSeaLevel,
-            title: 'Surface above sea level',
-            description:
-                'Use the elevation of a lake or other broadly level surface.',
-            onTap: () => _selectSurface(true),
-          ),
-        ];
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isNarrow)
-              Column(
-                children: [
-                  options.first,
-                  const SizedBox(height: 12),
-                  options.last,
-                ],
-              )
-            else
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(child: options.first),
-                  const SizedBox(width: 12),
-                  Expanded(child: options.last),
-                ],
-              ),
-            if (_usesSurfaceAboveSeaLevel) ...[
-              const SizedBox(height: 16),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: widget.surfaceElevationController,
-                      enabled: widget.isEditable,
-                      decoration: InputDecoration(
-                        labelText: 'Horizon surface elevation',
-                        suffixText: widget.isMetric ? 'm AMSL' : 'ft AMSL',
-                        border: const OutlineInputBorder(),
-                      ),
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d*\.?\d*'),
-                        ),
-                      ],
-                      validator: widget.validator,
-                      onFieldSubmitted: (_) => widget.onCalculate(),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  const InfoIcon(
-                    infoKey: 'intervening_surface_elevation',
-                    size: 20,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _derivedHeightSummary(context),
-            ],
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _surfaceOption(
-    BuildContext context, {
-    required bool selected,
-    required String title,
-    required String description,
-    required VoidCallback onTap,
-  }) {
-    final colors = Theme.of(context).colorScheme;
-    return Material(
-      color: selected
-          ? colors.primaryContainer.withValues(alpha: 0.35)
-          : colors.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: selected ? colors.primary : colors.outlineVariant,
-          width: selected ? 2 : 1,
+    final active =
+        (double.tryParse(widget.surfaceElevationController.text) ?? 0) != 0;
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
+        Text(active
+            ? 'Intervening surface: ${widget.surfaceElevationController.text} ${widget.isMetric ? 'm' : 'ft'} AMSL'
+            : 'Intervening surface: sea level'),
+        if (widget.isEditable)
+          TextButton(
+              onPressed: () => setState(() => _editorOpen = !_editorOpen),
+              child: Text(_editorOpen
+                  ? 'Close surface settings'
+                  : active
+                      ? 'Edit'
+                      : 'Change for an elevated lake')),
+        const InputHelpButton(target: false),
+        if (active && widget.isEditable)
+          TextButton(
+              onPressed: () {
+                widget.surfaceElevationController.text = '0';
+                widget.onSurfaceChanged?.call(false);
+                setState(() => _editorOpen = false);
+              },
+              child: const Text('Reset to sea level')),
+      ]),
+      if (!_editorOpen)
+        FormField<String>(
+          validator: (_) =>
+              widget.validator(widget.surfaceElevationController.text),
+          builder: (state) => state.hasError
+              ? Text(state.errorText!,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error))
+              : const SizedBox.shrink(),
         ),
-      ),
-      child: InkWell(
-        onTap: widget.isEditable ? onTap : null,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Radio<bool>(
-                value: true,
-                groupValue: selected,
-                onChanged: widget.isEditable ? (_) => onTap() : null,
-                visualDensity: VisualDensity.compact,
-              ),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
+      if (_editorOpen && widget.isEditable) ...[
+        TextFormField(
+            controller: widget.surfaceElevationController,
+            decoration: InputDecoration(
+                labelText: 'Horizon surface elevation',
+                suffixText: widget.isMetric ? 'm AMSL' : 'ft AMSL',
+                border: const OutlineInputBorder()),
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))
             ],
-          ),
-        ),
-      ),
-    );
+            validator: widget.validator,
+            onChanged: (_) => widget.onSurfaceChanged?.call(true),
+            onFieldSubmitted: (_) => widget.onCalculate()),
+        const SizedBox(height: 8),
+        _derivedHeightSummary(context),
+      ],
+    ]);
   }
 
   Widget _derivedHeightSummary(BuildContext context) {

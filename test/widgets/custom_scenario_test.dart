@@ -67,15 +67,13 @@ void main() {
         ..['targetBaseElevation'] = '';
       final memory = MemoryStorage()..value = jsonEncode(saved);
       await mount(tester, memory);
-      expect(inputField('Horizon surface elevation'),
-          above ? findsOneWidget : findsNothing);
+      expect(inputField('Horizon surface elevation'), findsNothing);
       expect(inputs(tester).targetHeightController.text, '');
       expect(inputs(tester).targetBaseElevationController.text, '');
       await tester.binding.setSurfaceSize(const Size(590, 5000));
       await tester.pump();
       await tester.pump();
-      expect(inputField('Horizon surface elevation'),
-          above ? findsOneWidget : findsNothing);
+      expect(inputField('Horizon surface elevation'), findsNothing);
       expect(inputs(tester).interveningSurfaceElevationController.text, '0');
       expect(tester.takeException(), isNull);
     });
@@ -262,7 +260,8 @@ void main() {
     expect(fields.targetHeightController.text, '100');
     expect(fields.targetBaseElevationController.text, '50');
     expect(fields.interveningSurfaceElevationController.text, '20');
-    expect(inputField('Horizon surface elevation'), findsOneWidget);
+    expect(inputField('Horizon surface elevation'), findsNothing);
+    expect(find.text('Intervening surface: 20 ft AMSL'), findsOneWidget);
     expect(find.text('Previous custom values restored'), findsOneWidget);
     final result = tester.widget<ResultsDisplay>(find.byType(ResultsDisplay));
     expect(result.isMetric, isFalse);

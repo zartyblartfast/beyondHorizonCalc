@@ -8,7 +8,7 @@ import 'diagram/diagram_label_service.dart';
 import 'diagram/diagram_key.dart';
 import 'diagram/horizon_diagram_view_model.dart';
 import 'diagram/mountain_diagram_view_model.dart';
-import 'diagram/test_diagram_view_model.dart';
+
 import 'diagram/diagram_with_info.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:developer' as developer;
@@ -39,7 +39,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   final DiagramLabelService _labelService = DiagramLabelService();
   String? _svgContent;
   String? _mountainSvgContent;
-  TestDiagramViewModel? _testViewModel;
+
   MountainDiagramViewModel? _mountainViewModel;
   final ScrollController _scrollController = ScrollController();
 
@@ -248,7 +248,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
   @override
   void initState() {
     super.initState();
-    _testViewModel = TestDiagramViewModel(isMetric: widget.isMetric);
+
     if (!widget.isStructureTarget) _loadAndUpdateSvg();
   }
 
@@ -316,7 +316,7 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
-            'Not to Scale, Cross-Section: Distant Object Visibility Over Earth\'s Curvature',
+            'Earth-curvature cross-section · not to scale',
             textAlign: TextAlign.center,
             style: titleStyle,
           ),
@@ -324,18 +324,21 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: AspectRatio(
-              aspectRatio: 1.75,
-              child: _svgContent == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : DiagramWithInfo(
-                      svgWidget: SvgPicture.string(
-                        _svgContent!,
-                        key: ValueKey(_svgContent.hashCode),
-                        fit: BoxFit.contain,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 630, maxHeight: 360),
+              child: AspectRatio(
+                aspectRatio: 1.75,
+                child: _svgContent == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : DiagramWithInfo(
+                        svgWidget: SvgPicture.string(
+                          _svgContent!,
+                          key: ValueKey(_svgContent.hashCode),
+                          fit: BoxFit.contain,
+                        ),
+                        infoKey: 'horizon_diagram',
                       ),
-                      infoKey: 'horizon_diagram',
-                    ),
+              ),
             ),
           ),
         ),
@@ -346,73 +349,85 @@ class _DiagramDisplayState extends State<DiagramDisplay> {
             HorizonPresentation.isNear(widget.result!)))
           const Text(
               'Vertical illustration is not applicable to this tangent topology; use the schematic above.')
-        else ...[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              'To Scale, Vertical Perspective: Distant Object Visibility Over Earth\'s Curvature',
-              textAlign: TextAlign.center,
-              style: titleStyle,
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  final spec =
-                      _mountainViewModel?.diagramSpec['metadata']?['svgSpec'];
-                  final workingArea =
-                      spec?['viewBox']?['scaling']?['workingArea'];
-                  final workingWidth = workingArea?['width'] ?? 400;
-                  final workingHeight = workingArea?['height'] ?? 1000;
-                  final displayScale =
-                      spec?['viewBox']?['scaling']?['displayScale'] ?? 0.6;
+        else
+          ExpansionTile(
+              title: const Text('Vertical perspective diagram'),
+              children: [
+                const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                        'Target against the observer’s line of sight, with vertical proportions to scale.')),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    'To Scale, Vertical Perspective: Distant Object Visibility Over Earth\'s Curvature',
+                    textAlign: TextAlign.center,
+                    style: titleStyle,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        final spec = _mountainViewModel?.diagramSpec['metadata']
+                            ?['svgSpec'];
+                        final workingArea =
+                            spec?['viewBox']?['scaling']?['workingArea'];
+                        final workingWidth = workingArea?['width'] ?? 400;
+                        final workingHeight = workingArea?['height'] ?? 1000;
+                        final displayScale = spec?['viewBox']?['scaling']
+                                ?['displayScale'] ??
+                            0.6;
 
-                  final scaledWidth = constraints.maxWidth * displayScale;
-                  final height = (scaledWidth * workingHeight) / workingWidth;
+                        final scaledWidth = constraints.maxWidth * displayScale;
+                        final height =
+                            (scaledWidth * workingHeight) / workingWidth;
 
-                  print('Diagram scaling: width=$scaledWidth, height=$height');
-                  print(
-                      'Working area: width=$workingWidth, height=$workingHeight');
-                  print('Constraints: ${constraints.toString()}');
+                        print(
+                            'Diagram scaling: width=$scaledWidth, height=$height');
+                        print(
+                            'Working area: width=$workingWidth, height=$workingHeight');
+                        print('Constraints: ${constraints.toString()}');
 
-                  return SizedBox(
-                    width: scaledWidth,
-                    height: height * 0.6, // Show 60% of the total height
-                    child: ClipRect(
-                      child: Scrollbar(
-                        controller: _scrollController,
-                        thumbVisibility: true, // Always show the scrollbar
-                        thickness: 6.0, // Slightly thinner than default
-                        radius: const Radius.circular(10), // Rounded corners
-                        child: SingleChildScrollView(
-                          controller: _scrollController,
-                          child: SizedBox(
-                            width: scaledWidth,
-                            height: height,
-                            child: _mountainSvgContent == null
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : DiagramWithInfo(
-                                    svgWidget: SvgPicture.string(
-                                      _mountainSvgContent!,
-                                      fit: BoxFit.fill,
-                                      alignment: Alignment.topCenter,
-                                    ),
-                                    infoKey: 'mountain_diagram',
-                                  ),
+                        return SizedBox(
+                          width: scaledWidth,
+                          height: height * 0.6, // Show 60% of the total height
+                          child: ClipRect(
+                            child: Scrollbar(
+                              controller: _scrollController,
+                              thumbVisibility:
+                                  true, // Always show the scrollbar
+                              thickness: 6.0, // Slightly thinner than default
+                              radius:
+                                  const Radius.circular(10), // Rounded corners
+                              child: SingleChildScrollView(
+                                controller: _scrollController,
+                                child: SizedBox(
+                                  width: scaledWidth,
+                                  height: height,
+                                  child: _mountainSvgContent == null
+                                      ? const Center(
+                                          child: CircularProgressIndicator())
+                                      : DiagramWithInfo(
+                                          svgWidget: SvgPicture.string(
+                                            _mountainSvgContent!,
+                                            fit: BoxFit.fill,
+                                            alignment: Alignment.topCenter,
+                                          ),
+                                          infoKey: 'mountain_diagram',
+                                        ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
-                  );
-                }),
-              ),
-            ),
-          ),
-        ],
+                  ),
+                ),
+              ]),
       ],
     );
   }

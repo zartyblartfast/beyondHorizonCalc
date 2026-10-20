@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../services/custom_scenario_store.dart';
 import '../services/custom_scenario_storage.dart';
 import '../services/curvature_calculator.dart';
@@ -30,11 +31,14 @@ class _CalculatorFormState extends State<CalculatorForm> {
   final _targetBaseElevationController = TextEditingController(text: '0');
   final _presetSelectorKey = GlobalKey();
   // Preserve the surface section and its controllers across responsive layouts.
-  final _inputFieldsKey = GlobalKey();
+  var _inputFieldsKey = GlobalKey();
 
   late final CustomScenarioStore _scenarioStore;
   Map<String, Object>? _savedCustom;
   bool _customRestored = false;
+  String _otherTargetHeight = '';
+  String _customDraftOtherTarget = '';
+  Map<String, Object>? _customDraft;
   bool _surfaceAboveSeaLevel = false;
 
   bool _isMetric = true;
@@ -108,7 +112,12 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _refractionFactorController.text =
             _selectedPreset!.refractionFactor.toStringAsFixed(2);
         _targetInputType = _selectedPreset!.targetInputType;
-        _interveningSurfaceElevationController.text = '0.0';
+        _interveningSurfaceElevationController.text = (_isMetric
+                ? _selectedPreset!.interveningSurfaceElevation
+                : _selectedPreset!.interveningSurfaceElevation * 3.28084)
+            .toStringAsFixed(1);
+        _surfaceAboveSeaLevel =
+            _selectedPreset!.interveningSurfaceElevation != 0;
         final targetHeight = _selectedPreset!.targetHeight;
         _targetHeightController.text = targetHeight == null
             ? ''
@@ -146,12 +155,27 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
   void _handlePresetChanged(LineOfSightPreset? preset,
       {bool copyExample = false}) {
+    if (_selectedPreset == null && preset != null) {
+      _customDraft = _snapshot();
+      _customDraftOtherTarget = _otherTargetHeight;
+    }
     _markInputsDirty();
     setState(() {
+      _otherTargetHeight = '';
       _selectedPreset = preset;
       _customRestored = false;
-      if (preset == null && !copyExample && _savedCustom != null) {
-        _restoreCustom(_savedCustom!);
+      if (preset == null && !copyExample) {
+        final own = _customDraft ?? _savedCustom;
+        if (own != null) {
+          _restoreCustom(own);
+          if (identical(own, _customDraft)) {
+            _otherTargetHeight = _customDraftOtherTarget;
+          }
+          _customRestored =
+              _savedCustom != null && mapEquals(own, _savedCustom);
+        } else {
+          _resetWorkingValues();
+        }
       }
       if (preset != null) {
         _surfaceAboveSeaLevel = false;
@@ -164,7 +188,12 @@ class _CalculatorFormState extends State<CalculatorForm> {
         _refractionFactorController.text =
             preset.refractionFactor.toStringAsFixed(2);
         _targetInputType = preset.targetInputType;
-        _interveningSurfaceElevationController.text = '0.0';
+        _interveningSurfaceElevationController.text = (_isMetric
+                ? _selectedPreset!.interveningSurfaceElevation
+                : _selectedPreset!.interveningSurfaceElevation * 3.28084)
+            .toStringAsFixed(1);
+        _surfaceAboveSeaLevel =
+            _selectedPreset!.interveningSurfaceElevation != 0;
         final targetHeight = preset.targetHeight;
         _targetHeightController.text = targetHeight == null
             ? ''
@@ -179,7 +208,10 @@ class _CalculatorFormState extends State<CalculatorForm> {
 
     // Mode changes recalculate for display, but do not replace saved inputs.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleCalculate(saveCustom: false);
+      if (_observerHeightController.text.isNotEmpty &&
+          _distanceController.text.isNotEmpty) {
+        _handleCalculate(saveCustom: false);
+      }
     });
   }
 
@@ -206,6 +238,11 @@ class _CalculatorFormState extends State<CalculatorForm> {
         final converted = isMetric ? distance * 1.60934 : distance * 0.621371;
         _distanceController.text = converted.toStringAsFixed(1);
       }
+      final other = double.tryParse(_otherTargetHeight);
+      if (other != null) {
+        _otherTargetHeight =
+            (isMetric ? other * 0.3048 : other * 3.28084).toStringAsFixed(1);
+      }
       // Automatically calculate when units change
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _handleCalculate();
@@ -217,6 +254,9 @@ class _CalculatorFormState extends State<CalculatorForm> {
     if (inputType == _targetInputType) return;
     _markInputsDirty();
     setState(() {
+      final previous = _targetHeightController.text;
+      _targetHeightController.text = _otherTargetHeight;
+      _otherTargetHeight = previous;
       _targetInputType = inputType;
       if (inputType == TargetInputType.structure &&
           _targetBaseElevationController.text.isEmpty) {
@@ -325,6 +365,36 @@ class _CalculatorFormState extends State<CalculatorForm> {
     super.dispose();
   }
 
+  Map<String, Object> _snapshot() => {
+        'version': 1,
+        'isMetric': _isMetric,
+        'targetInputType': _targetInputType.name,
+        'surfaceAboveSeaLevel': _surfaceAboveSeaLevel,
+        'observerHeight': _observerHeightController.text,
+        'surfaceElevation': _interveningSurfaceElevationController.text,
+        'distance': _distanceController.text,
+        'refractionFactor': _refractionFactorController.text,
+        'targetHeight': _targetHeightController.text,
+        'targetBaseElevation': _targetBaseElevationController.text,
+      };
+
+  void _resetWorkingValues() {
+    _inputFieldsKey = GlobalKey();
+    _observerHeightController.clear();
+    _distanceController.clear();
+    _targetHeightController.clear();
+    _targetBaseElevationController.text = '0';
+    _interveningSurfaceElevationController.text = '0';
+    _refractionFactorController.text = '1.07';
+    _targetInputType = TargetInputType.elevation;
+    _otherTargetHeight = '';
+    _surfaceAboveSeaLevel = false;
+    _customRestored = false;
+    _result = null;
+    _hasCalculated = false;
+    _inputsDirty = false;
+  }
+
   void _clearSavedCustom() {
     if (_scenarioStore.clear()) {
       setState(() {
@@ -353,6 +423,16 @@ class _CalculatorFormState extends State<CalculatorForm> {
             ),
           ),
         ],
+        if (_selectedPreset == null)
+          Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () => setState(() {
+                  _customDraft = null;
+                  _resetWorkingValues();
+                }),
+                child: const Text('Start fresh'),
+              )),
         PresetSelector(
           key: _presetSelectorKey,
           selectedPreset: _selectedPreset,
@@ -422,83 +502,43 @@ class _CalculatorFormState extends State<CalculatorForm> {
             ],
           );
 
-          Widget content = Column(
-            children: [
-              // Left side - Calculator inputs and results
-              Card(
-                child: SingleChildScrollView(
+          final inputsPanel = Card(
+              child: Padding(
                   padding: contentPadding,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _buildPresetSelector(),
-                      SizedBox(height: isMobile ? 8 : 16),
-                      inputFields,
-                      SizedBox(height: isMobile ? 8 : 16),
-                      resultsDisplay,
-                    ],
-                  ),
-                ),
-              ),
-              if (!isWide) SizedBox(height: isMobile ? 8 : 16),
-              // Right side - Diagram
-              Card(
-                child: Padding(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildPresetSelector(),
+                        const SizedBox(height: 16),
+                        inputFields,
+                      ])));
+          final answerPanel = Card(
+              child: Padding(
                   padding: contentPadding,
-                  child: DiagramDisplay(
-                    result: _result,
-                    targetHeight: targetHeight,
-                    isMetric: _resultIsMetric,
-                    isStructureTarget:
-                        _resultTargetInputType == TargetInputType.structure,
-                    presetName: _resultPresetName,
-                  ),
-                ),
-              ),
-            ],
-          );
-
-          if (isWide) {
-            // For wide screens, use a Row layout with the same widget instances
-            content = Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Card(
-                    child: SingleChildScrollView(
-                      padding: contentPadding,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _buildPresetSelector(),
-                          SizedBox(height: isMobile ? 8 : 16),
-                          inputFields,
-                          SizedBox(height: isMobile ? 8 : 16),
-                          resultsDisplay,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: contentPadding,
-                      child: DiagramDisplay(
-                        result: _result,
-                        targetHeight: targetHeight,
-                        isMetric: _resultIsMetric,
-                        isStructureTarget:
-                            _resultTargetInputType == TargetInputType.structure,
-                        presetName: _resultPresetName,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        resultsDisplay,
+                        if (_result != null)
+                          DiagramDisplay(
+                              result: _result,
+                              targetHeight: targetHeight,
+                              isMetric: _resultIsMetric,
+                              isStructureTarget: _resultTargetInputType ==
+                                  TargetInputType.structure,
+                              presetName: _resultPresetName),
+                      ])));
+          final content = isWide
+              ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Expanded(child: inputsPanel),
+                  const SizedBox(width: 16),
+                  Expanded(child: answerPanel)
+                ])
+              : Column(children: [
+                  inputsPanel,
+                  const SizedBox(height: 8),
+                  answerPanel
+                ]);
 
           return content;
         },
