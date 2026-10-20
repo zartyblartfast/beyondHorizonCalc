@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/calculator_form.dart';
+import 'widgets/guide_link.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -318,6 +319,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                ),
+                const Positioned(
+                  top: 0,
+                  right: 56,
+                  child: SafeArea(child: GuideLink()),
                 ),
                 // App bar actions (menu button)
                 Positioned(

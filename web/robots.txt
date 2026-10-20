@@ -6,3 +6,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://beyondhorizoncalc.com/sitemap.xml
