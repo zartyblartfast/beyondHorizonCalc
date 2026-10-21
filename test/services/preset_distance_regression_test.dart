@@ -101,7 +101,12 @@ List<Map<String, dynamic>> capturePresets() {
 
 void main() {
   test('every preset preserves protected baseline fields and exact inputs', () {
-    final actual = capturePresets();
+    final captured = capturePresets();
+    // The approved Elbrus addition is tested separately; keep the immutable
+    // original baseline and verify every legacy record/output in original order.
+    final actual = captured
+        .where((p) => p['name'] != 'Karagöl Dağı to Mount Elbrus')
+        .toList();
     final output = Platform.environment['BHC_BASELINE_CAPTURE_OUTPUT'];
     if (output != null) {
       expect(
@@ -111,16 +116,18 @@ void main() {
           isFalse,
           reason: 'Capture may not overwrite the immutable expected fixture');
       File(output).writeAsStringSync(
-          const JsonEncoder.withIndent('  ').convert(actual));
+          const JsonEncoder.withIndent('  ').convert(captured));
     }
     final expected = jsonDecode(
         File('test/fixtures/horizon_distance/preset_baseline.json')
             .readAsStringSync()) as List;
+    expect(captured.length, expected.length + 1);
+    expect(captured[1]['name'], 'Karagöl Dağı to Mount Elbrus');
     expect(actual.length, expected.length);
     expect(actual.map((e) => e['sourceIndex']).toSet().length, actual.length);
     for (var i = 0; i < actual.length; i++) {
+      expect(actual[i]['sourceIndex'], i == 0 ? 0 : i + 1);
       for (final key in [
-        'sourceIndex',
         'name',
         'isHidden',
         'sourceRecord',

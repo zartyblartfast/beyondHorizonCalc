@@ -41,6 +41,42 @@
       }
     },
     {
+      "name": "Karagöl Dağı to Mount Elbrus",
+      "isHidden": false,
+      "imageDir": "",
+      "description": "Richard Jezik's 20 May 2025 observation from Karagöl Dağı to Mount Elbrus across the Black Sea",
+      "observerHeight": 3107,
+      "distance": 474.1,
+      "refractionFactor": 1.07,
+      "targetHeight": 5642,
+      "details": {
+        "location": {
+          "observer": {
+            "name": "Karagöl Dağı summit",
+            "region": "Karagöl, Giresun",
+            "country": "Turkey"
+          },
+          "target": {
+            "name": "Mount Elbrus",
+            "region": "Greater Caucasus",
+            "country": "Russia"
+          }
+        },
+        "notes": "Photographed by Richard Jezik on 20 May 2025 from Karagöl Dağı (3,107 m AMSL) toward Mount Elbrus (5,642 m AMSL). This preset uses a 474.1 km surface distance and sea-level horizon datum. The 1.07 effective Earth radius multiplier is a model assumption, not measured atmospheric conditions. This is distinct from the December 2024 Shkhara observation from the summit above Sağrak Gölü (3,035 m) to Shkhara (5,193 m), represented by the separate 493.07 km preset with factor 1.20. TRAC reports the Elbrus distance rounded to 474 km; 474.1 km is the supplied scenario distance.",
+        "sourceURL": "https://trac.org.tr/tr/blog/haberler/3107m-karagol-daginda-rekor-denemesi-yapildi-745",
+        "bestViewingConditions": "Clear air and an unobstructed terrain path; refraction varies with conditions",
+        "imageURL_1": null,
+        "imageURL_1_source": null,
+        "imageURL_2": null,
+        "imageURL_2_source": null,
+        "imageURL_3": null,
+        "imageURL_3_source": null,
+        "imageURL_4": null,
+        "imageURL_4_source": null,
+        "attribution": "Richard Jezik / TRAC Ordu"
+      }
+    },
+    {
       "name": "Mount Dankova to Hindu Tagh",
       "isHidden": false,
       "imageDir": "dankova_hindu_tagh",
