@@ -3,6 +3,9 @@ import 'dart:typed_data';
 import 'share_image_export_stub.dart'
     if (dart.library.js_interop) 'share_image_export_web.dart' as platform;
 
+void downloadCsv(String text, String filename) =>
+    platform.downloadCsv(text, filename);
+
 Future<void> copyPngToClipboard(Uint8List bytes) =>
     platform.copyPngToClipboard(bytes);
 

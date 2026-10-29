@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../services/scenario_comparison.dart';
+import 'calculator/comparison_dialog.dart';
 import 'package:flutter/foundation.dart';
 import '../services/custom_scenario_store.dart';
 import '../services/custom_scenario_storage.dart';
@@ -330,6 +332,29 @@ class _CalculatorFormState extends State<CalculatorForm> {
     return true;
   }
 
+  void _showComparison() {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    // Snapshot current edits, not an earlier result. Never write to controllers
+    // or save/recalculate the main scenario from the comparison window.
+    final entered = double.tryParse(_targetHeightController.text);
+    final base =
+        entered != null && _targetInputType == TargetInputType.structure
+            ? double.parse(_targetBaseElevationController.text)
+            : 0.0;
+    final inputs = ComparisonInputs(
+      observerElevation: double.parse(_observerHeightController.text),
+      surfaceElevation:
+          double.parse(_interveningSurfaceElevationController.text),
+      distance: double.parse(_distanceController.text),
+      refractionFactor: double.parse(_refractionFactorController.text),
+      isMetric: _isMetric,
+      targetBase: base,
+      targetTop: entered == null ? null : base + entered,
+    );
+    showDialog<void>(
+        context: context, builder: (_) => ComparisonDialog(inputs: inputs));
+  }
+
   void _showShareResult() {
     if (!_handleCalculate()) return;
     final result = _result;
@@ -483,6 +508,8 @@ class _CalculatorFormState extends State<CalculatorForm> {
             onShare: _observerHeightController.text.isEmpty
                 ? null
                 : _showShareResult,
+            onCompare:
+                _observerHeightController.text.isEmpty ? null : _showComparison,
             showCalculateButton: true,
             isCustomPreset: _selectedPreset == null,
           );

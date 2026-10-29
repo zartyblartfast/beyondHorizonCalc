@@ -17,8 +17,18 @@ Future<void> copyPngToClipboard(Uint8List bytes) async {
       .toDart;
 }
 
-void downloadPng(Uint8List bytes, String filename) {
-  final url = web.URL.createObjectURL(_pngBlob(bytes));
+void downloadCsv(String text, String filename) {
+  _downloadBlob(
+      web.Blob(<web.BlobPart>['\uFEFF$text'.toJS].toJS,
+          web.BlobPropertyBag(type: 'text/csv;charset=utf-8')),
+      filename);
+}
+
+void downloadPng(Uint8List bytes, String filename) =>
+    _downloadBlob(_pngBlob(bytes), filename);
+
+void _downloadBlob(web.Blob blob, String filename) {
+  final url = web.URL.createObjectURL(blob);
   final anchor = web.HTMLAnchorElement()
     ..href = url
     ..download = filename;

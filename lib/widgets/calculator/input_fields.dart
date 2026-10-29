@@ -18,6 +18,7 @@ class InputFields extends StatelessWidget {
   final ValueChanged<TargetInputType> onTargetInputTypeChanged;
   final VoidCallback onCalculate;
   final VoidCallback? onShare;
+  final VoidCallback? onCompare;
   final bool showCalculateButton;
   final bool isCustomPreset;
   final bool? surfaceAboveSeaLevel;
@@ -37,6 +38,7 @@ class InputFields extends StatelessWidget {
     required this.onTargetInputTypeChanged,
     required this.onCalculate,
     this.onShare,
+    this.onCompare,
     this.showCalculateButton = false,
     this.isCustomPreset = true,
     this.surfaceAboveSeaLevel,
@@ -102,6 +104,11 @@ class InputFields extends StatelessWidget {
                         onPressed: onShare,
                         icon: const Icon(Icons.ios_share),
                         label: const Text('Share result')),
+                  if (onCompare != null)
+                    OutlinedButton.icon(
+                        onPressed: onCompare,
+                        icon: const Icon(Icons.table_chart_outlined),
+                        label: const Text('Compare scenarios')),
                 ]),
           ],
         ],
