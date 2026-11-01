@@ -59,8 +59,12 @@ class ScenarioComparison {
         'Horizon-forming surface: ${inputs.surfaceElevation} ${inputs.heightUnit} AMSL',
         'Refraction factor: ${inputs.refractionFactor}',
       ];
+  // Near-target calculations assume the full target is above the surface.
+  // Beyond the horizon, the engine already clips the span at the cutoff;
+  // a sea-level reference base below an elevated surface remains valid.
   bool _unsupported(ComparisonRow row) =>
       inputs.targetTop != null &&
+      row.result.horizonPosition != HorizonPosition.beyond &&
       ((row.result.targetBaseAboveSurfaceKm ?? 0) < 0 ||
           (row.result.targetTopAboveSurfaceKm ?? 0) < 0);
   String status(ComparisonRow row) {

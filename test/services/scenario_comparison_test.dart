@@ -137,6 +137,85 @@ void main() {
     expect(
         table.cells(table.rows.first).where((c) => c == 'N/A'), hasLength(2));
   });
+  test('crossing the horizon preserves near-target protection per row', () {
+    const radius = 6371000 * 1.2;
+    final horizon = radius * math.acos(radius / (radius + 64)) / 1000;
+    const inputs = ComparisonInputs(
+        observerElevation: 1350,
+        surfaceElevation: 1286,
+        distance: 80.5,
+        refractionFactor: 1.2,
+        isMetric: true,
+        targetTop: 1523);
+    final table = ScenarioComparison.generate(
+        inputs: inputs,
+        variable: ComparisonVariable.distance,
+        start: horizon - 1,
+        end: horizon + 1,
+        increment: 1);
+    expect(table.rows, hasLength(3));
+    for (final row in table.rows.take(2)) {
+      expect(table.status(row), 'Unsupported below-surface target');
+      expect(table.cells(row).where((c) => c == 'N/A'), hasLength(2));
+    }
+    expect(table.status(table.rows.last), 'Partially visible');
+    expect(table.cells(table.rows.last), isNot(contains('N/A')));
+  });
+  for (final metric in [true, false]) {
+    for (final variable in ComparisonVariable.values) {
+      test(
+          'elevated surface supports beyond-horizon ${variable.name}, metric=$metric',
+          () {
+        final heightScale = metric ? 1.0 : 1 / 0.3048;
+        final distanceScale = metric ? 1.0 : 1 / 1.60934;
+        final inputs = ComparisonInputs(
+            observerElevation: 1350 * heightScale,
+            surfaceElevation: 1286 * heightScale,
+            distance: 80.5 * distanceScale,
+            refractionFactor: 1.2,
+            isMetric: metric,
+            targetTop: 1523 * heightScale);
+        final elevation = variable == ComparisonVariable.elevation;
+        final table = ScenarioComparison.generate(
+            inputs: inputs,
+            variable: variable,
+            start: elevation ? 1350 * heightScale : 80.5 * distanceScale,
+            end: elevation ? 1400 * heightScale : 100.5 * distanceScale,
+            increment: elevation ? 10 * heightScale : 10 * distanceScale);
+        expect(table.rows, hasLength(elevation ? 6 : 3));
+        expect(table.status(table.rows.first), 'Partially visible');
+        expect(table.rows.first.result.visibleTargetHeight! * 1000,
+            closeTo(78.57, 0.005));
+        for (final row in table.rows) {
+          final expected = CurvatureCalculator.calculate(
+              observerHeight: elevation ? row.value : inputs.observerElevation,
+              interveningSurfaceElevation: inputs.surfaceElevation,
+              distance: elevation ? inputs.distance : row.value,
+              refractionFactor: inputs.refractionFactor,
+              isMetric: metric,
+              targetHeight: inputs.targetTop);
+          expect(row.result.toMap(), expected.toMap());
+          final cells = table.cells(row, rounded: true);
+          expect(cells, isNot(contains('N/A')));
+          expect(
+              cells,
+              contains(inputs
+                  .heightFromKm(expected.hiddenHeight!)
+                  .toStringAsFixed(2)));
+          expect(
+              cells,
+              contains(inputs
+                  .heightFromKm(expected.visibleTargetHeight!)
+                  .toStringAsFixed(2)));
+          expect(table.toCsv(),
+              contains(table.cells(row).map((c) => '"$c"').join(',')));
+        }
+        if (!elevation) expect(table.status(table.rows.last), 'Fully hidden');
+        expect(
+            table.toCsv(), isNot(contains('Unsupported below-surface target')));
+      });
+    }
+  }
   test('elevation rows reuse engine and surface horizon with fixed inputs', () {
     const inputs = ComparisonInputs(
         observerElevation: 110,
