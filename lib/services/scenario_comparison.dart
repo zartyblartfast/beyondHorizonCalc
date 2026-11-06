@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../core/constants/range_limits.dart';
 import 'curvature_calculator.dart';
 import 'models/calculation_result.dart';
 
@@ -155,8 +156,11 @@ class ScenarioComparison {
     if (increment <= 0) {
       throw const FormatException('Increment must be greater than zero.');
     }
-    final maxEye = inputs.isMetric ? 9000.0 : 9000 * 3.28084;
-    final maxDistance = inputs.isMetric ? 600.0 : 600 * 0.621371;
+    final heightScale = inputs.isMetric ? 1.0 : 3.28084;
+    final maxEye = RangeLimits.maxObserverHeight * heightScale;
+    final maxTarget = RangeLimits.maxTargetHeight * heightScale;
+    final maxDistance = RangeLimits.maxDistance *
+        (inputs.isMetric ? 1.0 : 0.621371);
     void validateEye(double v) {
       if (v <= 0 || v > maxEye || v < inputs.surfaceElevation) {
         throw FormatException(
@@ -177,10 +181,10 @@ class ScenarioComparison {
         inputs.refractionFactor < 1 ||
         inputs.refractionFactor > 2 ||
         inputs.targetBase < 0 ||
-        inputs.targetBase > maxEye ||
+        inputs.targetBase > maxTarget ||
         (inputs.targetTop != null &&
             (inputs.targetTop! < inputs.targetBase ||
-                inputs.targetTop! - inputs.targetBase > maxEye))) {
+                inputs.targetTop! - inputs.targetBase > maxTarget))) {
       throw const FormatException(
           'Current calculator settings are outside the supported domain.');
     }

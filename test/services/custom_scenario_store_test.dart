@@ -31,7 +31,7 @@ void main() {
       jsonEncode(scenario()..['distance'] = 'Infinity'),
       jsonEncode(scenario()..['distance'] = '0'),
       jsonEncode(scenario()..['surfaceElevation'] = '301'),
-      jsonEncode(scenario()..['observerHeight'] = '999999'),
+      jsonEncode(scenario()..['observerHeight'] = '3280841'),
       jsonEncode(scenario()..['refractionFactor'] = '0'),
       jsonEncode(scenario()..['surfaceAboveSeaLevel'] = false),
       jsonEncode(scenario()..['result'] = 123),

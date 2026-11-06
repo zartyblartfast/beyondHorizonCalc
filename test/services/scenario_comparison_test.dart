@@ -38,7 +38,7 @@ void main() {
       [1, double.infinity, 1],
       [1, 3, double.infinity],
       [0, 10, 1],
-      [1, 601, 1],
+      [4000, 4001, 1],
       [1, 10, 0.0001],
     ]) {
       expect(
