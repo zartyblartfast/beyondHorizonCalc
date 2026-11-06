@@ -7892,22 +7892,21 @@ return A.aHc(a/1000,a4,m,b4,a7/1000,e,i,k,Math.abs(j)/1000,l,b2/1000,e,c,a0/1000
 a8Y:function a8Y(a,b,c){this.a=a
 this.b=b
 this.c=c},
-aM2(a){var s,r,q,p,o,n,m,l,k="isMetric",j="surfaceAboveSeaLevel",i="targetInputType",h="observerHeight",g="surfaceElevation",f="targetHeight"
-if(a.a!==10||!J.d(a.i(0,"version"),1)||!A.qK(a.i(0,k))||!A.qK(a.i(0,j))||!B.b.p(A.a(["elevation","structure"],t.s),a.i(0,i)))return!1
+aM2(a){var s,r,q,p,o,n,m,l="isMetric",k="surfaceAboveSeaLevel",j="targetInputType",i="observerHeight",h="surfaceElevation",g="targetHeight"
+if(a.a!==10||!J.d(a.i(0,"version"),1)||!A.qK(a.i(0,l))||!A.qK(a.i(0,k))||!B.b.p(A.a(["elevation","structure"],t.s),a.i(0,j)))return!1
 for(s=0;s<6;++s)if(typeof a.i(0,B.Qv[s])!="string")return!1
 r=new A.a94(a)
-q=A.hM(a.i(0,k))
+q=A.hM(a.i(0,l))
 p=q?1:3.28084
 o=q?1:0.621371
 n=new A.a93(r)
-m=9000*p
-l=!0
-if(n.$3$positive(h,m,!0))if(n.$3$positive("distance",600*o,!0)){l=r.$1(h)
-l.toString
-l=!n.$2(g,l)||!n.$3$positive("refractionFactor",1.25,!0)}if(l)return!1
-if(J.d(a.i(0,j),!1)&&!J.d(r.$1(g),0))return!1
-if(!J.d(a.i(0,f),"")&&!n.$2(f,m))return!1
-if(J.d(a.i(0,i),"structure")&&!J.d(a.i(0,f),"")&&!n.$2("targetBaseElevation",m))return!1
+m=!0
+if(n.$3$positive(i,1e6*p,!0))if(n.$3$positive("distance",4000*o,!0)){m=r.$1(i)
+m.toString
+m=!n.$2(h,m)||!n.$3$positive("refractionFactor",1.25,!0)}if(m)return!1
+if(J.d(a.i(0,k),!1)&&!J.d(r.$1(h),0))return!1
+if(!J.d(a.i(0,g),"")&&!n.$2(g,9000*p))return!1
+if(J.d(a.i(0,j),"structure")&&!J.d(a.i(0,g),"")&&!n.$2("targetBaseElevation",9000*p))return!1
 return!0},
 a92:function a92(a,b,c){this.a=a
 this.b=b
@@ -8148,24 +8147,25 @@ if(a5)a3.push(a4)
 if(!B.b.eo(a3,new A.anS()))throw A.c(B.Lx)
 if(a7<=0)throw A.c(B.Ly)
 a3=a8.r
-s=a3?9000:29527.56
-r=a3?600:372.8226
-q=new A.anU(s,a8)
-p=new A.anT(r,a8)
-q.$1(b)
-p.$1(a0)
-o=!0
-if(!(a<0))if(!(a1<1))if(!(a1>2))if(!(a2<0))if(!(a2>s))if(a5)a5=a4<a2||a4-a2>s
+s=a3?1:3.28084
+r=9000*s
+q=a3?1:0.621371
+p=new A.anU(1e6*s,a8)
+o=new A.anT(4000*q,a8)
+p.$1(b)
+o.$1(a0)
+q=!0
+if(!(a<0))if(!(a1<1))if(!(a1>2))if(!(a2<0))if(!(a2>r))if(a5)a5=a4<a2||a4-a2>r
 else a5=!1
-else a5=o
-else a5=o
-else a5=o
-else a5=o
-else a5=o
+else a5=q
+else a5=q
+else a5=q
+else a5=q
+else a5=q
 if(a5)throw A.c(B.LA)
-for(a5=[a9,a6],o=b0===B.bP,n=0;n<2;++n){m=a5[n]
-if(o)q.$1(m)
-else p.$1(m)}l=Math.abs(a6-a9)/a7
+for(a5=[a9,a6],q=b0===B.bP,n=0;n<2;++n){m=a5[n]
+if(q)p.$1(m)
+else o.$1(m)}l=Math.abs(a6-a9)/a7
 if(!isFinite(l)||l>=1000)throw A.c(B.LB)
 k=B.d.k6(l+1e-12*Math.max(1,l))+1
 if(k<=1000)a5=a9!==a6&&a9+a7===a9
@@ -8173,7 +8173,7 @@ else a5=!0
 if(a5)throw A.c(B.Lw)
 j=A.a([],t.xB)
 for(i=6371e3*a1,a5=b0===B.oq,h=a6<a9,g=0;g<k;++g){f=a9+(h?-1:1)*g*a7
-e=o?f:b
+e=q?f:b
 d=A.aHl(a5?f:a0,a,a3,e,a1,a2,a4)
 c=a3?1:0.3048
 j.push(new A.By(f,d,i*Math.acos(i/(i+(e-a)*c))/1000))}return new A.anP(a8,b0,a9,a6,a7,A.DR(j,t.pQ))},
@@ -47192,8 +47192,8 @@ s=A.bL(a)
 if(s==null)return"Please enter a valid number"
 if(s<=0)return"Height must be greater than 0"
 r=this.y
-q=r?9000:29527.56
-if(s>q){p=B.d.Y(q,0)
+q=r?1e6:3280840
+if(s>q){p=B.f.Y(q,0)
 r=r?"m":"ft"
 return"Height must be less than "+p+r}return null},
 aoS(a){var s,r
@@ -47210,7 +47210,7 @@ s=A.bL(a)
 if(s==null)return"Please enter a valid number"
 if(s<=0)return"Distance must be greater than 0"
 r=this.y
-q=r?600:372.8226
+q=r?4000:2485.484
 if(s>q){p=B.d.Y(q,0)
 r=r?"km":"mi"
 return"Distance must be less than "+p+r}return null},
